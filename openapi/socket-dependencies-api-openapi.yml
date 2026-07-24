@@ -1,0 +1,770 @@
+openapi: 3.0.0
+info:
+  description: Specification of the Socket API endpoints
+  title: API Endpoints alerts dependencies API
+  version: '0'
+servers:
+- url: https://api.socket.dev/v0
+tags:
+- name: dependencies
+paths:
+  /dependencies/search:
+    post:
+      tags:
+      - dependencies
+      summary: Search dependencies
+      operationId: searchDependencies
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: false
+              properties:
+                limit:
+                  type: integer
+                  description: ''
+                  default: 50
+                  minimum: 1
+                  maximum: 100
+                offset:
+                  type: integer
+                  description: ''
+                  default: 0
+                  minimum: 0
+                purls:
+                  type: array
+                  items:
+                    type: string
+                    description: PURLs to filter results with
+                    default: ''
+                  description: ''
+              required:
+              - limit
+              - offset
+        required: false
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      description: 'Search for any dependency that is being used in your organization.
+
+
+        This endpoint consumes 1 unit of your quota.
+
+
+        This endpoint requires the following org token scopes:
+
+        - No Scopes Required, but authentication is required'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: false
+                description: ''
+                properties:
+                  end:
+                    type: boolean
+                    default: false
+                    description: ''
+                  limit:
+                    type: integer
+                    description: ''
+                    default: 1000
+                  offset:
+                    type: integer
+                    description: ''
+                    default: 0
+                  purlFilters:
+                    type: object
+                    additionalProperties: false
+                    description: ''
+                    properties:
+                      valid:
+                        type: array
+                        items:
+                          type: string
+                          description: Successfully parsed PURLs
+                          default: ''
+                        description: ''
+                      invalid:
+                        type: array
+                        items:
+                          type: string
+                          description: PURLs that could not be parsed
+                          default: ''
+                        description: ''
+                    required:
+                    - invalid
+                    - valid
+                  rows:
+                    type: array
+                    items:
+                      type: object
+                      additionalProperties: false
+                      properties:
+                        branch:
+                          type: string
+                          description: ''
+                          default: ''
+                        direct:
+                          type: boolean
+                          default: false
+                          description: ''
+                        id:
+                          type: string
+                          description: ''
+                          default: ''
+                        name:
+                          type: string
+                          description: ''
+                          default: ''
+                        repository:
+                          type: string
+                          description: ''
+                          default: ''
+                        type:
+                          type: string
+                          description: ''
+                          default: ''
+                        namespace:
+                          type: string
+                          description: ''
+                          default: ''
+                        version:
+                          type: string
+                          description: ''
+                          default: ''
+                        release:
+                          type: string
+                          description: ''
+                          default: ''
+                        workspace:
+                          type: string
+                          description: ''
+                          default: ''
+                      required:
+                      - branch
+                      - direct
+                      - id
+                      - name
+                      - repository
+                      - type
+                    description: ''
+                required:
+                - end
+                - limit
+                - offset
+                - purlFilters
+                - rows
+          description: Search dependencies response
+        '400':
+          $ref: '#/components/responses/SocketBadRequest'
+        '401':
+          $ref: '#/components/responses/SocketUnauthorized'
+        '403':
+          $ref: '#/components/responses/SocketForbidden'
+        '404':
+          $ref: '#/components/responses/SocketNotFoundResponse'
+        '429':
+          $ref: '#/components/responses/SocketTooManyRequestsResponse'
+      x-readme: {}
+  /orgs/{org_slug}/historical/dependencies/trend:
+    get:
+      tags:
+      - dependencies
+      summary: Trend of historical dependencies (Beta)
+      operationId: historicalDependenciesTrend
+      parameters:
+      - name: org_slug
+        in: path
+        required: true
+        description: The slug of the organization
+        schema:
+          type: string
+      - name: date
+        in: query
+        required: false
+        description: The UTC date in YYYY-MM-DD format for which to fetch dependencies
+        schema:
+          type: string
+          default: CURRENT_DATE
+      - name: range
+        in: query
+        required: false
+        description: The number of days of data to fetch as an offset from input date
+        schema:
+          type: string
+          default: -7d
+      - name: repoFullName
+        in: query
+        required: false
+        description: Comma-separated list of repo full names that should be included
+        schema:
+          type: string
+      - name: repoSlug
+        in: query
+        required: false
+        description: Comma-separated list of repo slugs that should be included
+        schema:
+          type: string
+      - name: repoLabels
+        in: query
+        required: false
+        description: Comma-separated list of repo labels that should be included
+        schema:
+          type: string
+      - name: artifactType
+        in: query
+        required: false
+        description: Comma-separated list of artifact types (e.g. "npm", "pypi", "gem", "maven", "golang", etc.) that should be included
+        schema:
+          type: string
+      - name: dependencyDirect
+        in: query
+        required: false
+        description: Direct/transitive dependency filter flag
+        schema:
+          type: boolean
+          default: false
+      - name: dependencyDev
+        in: query
+        required: false
+        description: Development/production dependency filter flag
+        schema:
+          type: boolean
+          default: false
+      - name: dependencyDead
+        in: query
+        required: false
+        description: Dead/reachable dependency filter flag
+        schema:
+          type: boolean
+          default: false
+      security:
+      - bearerAuth:
+        - historical:dependencies-trend
+      - basicAuth:
+        - historical:dependencies-trend
+      description: 'Trend analytics of historical dependencies.
+
+
+        This endpoint consumes 10 units of your quota.
+
+
+        This endpoint requires the following org token scopes:
+
+        - historical:dependencies-trend'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: false
+                description: ''
+                properties:
+                  meta:
+                    type: object
+                    additionalProperties: false
+                    description: ''
+                    properties:
+                      organizationId:
+                        type: string
+                        description: ''
+                        default: ''
+                      startDateInclusive:
+                        type: string
+                        description: ''
+                        default: ''
+                      endDateInclusive:
+                        type: string
+                        description: ''
+                        default: ''
+                      interval:
+                        type: string
+                        description: ''
+                        default: ''
+                      aggregation:
+                        type: object
+                        additionalProperties: false
+                        description: ''
+                        properties:
+                          fields:
+                            type: array
+                            items:
+                              type: string
+                              description: ''
+                              default: ''
+                            description: ''
+                          groups:
+                            type: array
+                            items:
+                              type: array
+                              items:
+                                type: string
+                                description: ''
+                                default: ''
+                              description: ''
+                            description: ''
+                        required:
+                        - fields
+                        - groups
+                      filters:
+                        type: object
+                        additionalProperties: false
+                        properties:
+                          repoFullName:
+                            type: array
+                            items:
+                              type: string
+                              description: ''
+                              default: ''
+                            description: Comma-separated list of repo full names that should be included
+                          repoSlug:
+                            type: array
+                            items:
+                              type: string
+                              description: ''
+                              default: ''
+                            description: Comma-separated list of repo slugs that should be included
+                          repoLabels:
+                            type: array
+                            items:
+                              type: string
+                              description: ''
+                              default: ''
+                            description: Comma-separated list of repo labels that should be included
+                          artifactType:
+                            type: array
+                            items:
+                              type: string
+                              description: ''
+                              default: ''
+                            description: Comma-separated list of artifact types (e.g. "npm", "pypi", "gem", "maven", "golang", etc.) that should be included
+                          dependencyDirect:
+                            type: array
+                            items:
+                              type: boolean
+                              default: false
+                              description: ''
+                            description: Direct/transitive dependency filter flag
+                          dependencyDev:
+                            type: array
+                            items:
+                              type: boolean
+                              default: false
+                              description: ''
+                            description: Development/production dependency filter flag
+                          dependencyDead:
+                            type: array
+                            items:
+                              type: boolean
+                              default: false
+                              description: ''
+                            description: Dead/reachable dependency filter flag
+                        description: ''
+                    required:
+                    - aggregation
+                    - endDateInclusive
+                    - filters
+                    - interval
+                    - organizationId
+                    - startDateInclusive
+                  items:
+                    type: array
+                    items:
+                      type: object
+                      additionalProperties: false
+                      description: ''
+                      properties:
+                        date:
+                          type: string
+                          description: ''
+                          default: ''
+                        startOfDayTimestamp:
+                          type: number
+                          description: ''
+                          default: 0
+                        dataPoints:
+                          type: array
+                          items:
+                            type: object
+                            additionalProperties: false
+                            description: ''
+                            properties:
+                              aggregationGroup:
+                                type: array
+                                items:
+                                  type: string
+                                  description: ''
+                                  default: ''
+                                description: ''
+                              count:
+                                type: integer
+                                description: ''
+                                default: 0
+                              countDelta:
+                                type: integer
+                                description: ''
+                                default: 0
+                              countDirect:
+                                type: integer
+                                description: ''
+                                default: 0
+                              countDirectDelta:
+                                type: integer
+                                description: ''
+                                default: 0
+                              countIndirect:
+                                type: integer
+                                description: ''
+                                default: 0
+                              countIndirectDelta:
+                                type: integer
+                                description: ''
+                                default: 0
+                              countsBySeverity:
+                                type: object
+                                additionalProperties: false
+                                description: ''
+                                properties:
+                                  low:
+                                    type: object
+                                    additionalProperties: false
+                                    description: ''
+                                    properties:
+                                      count:
+                                        type: integer
+                                        description: ''
+                                        default: 0
+                                      countDelta:
+                                        type: integer
+                                        description: ''
+                                        default: 0
+                                      countDirect:
+                                        type: integer
+                                        description: ''
+                                        default: 0
+                                      countDirectDelta:
+                                        type: integer
+                                        description: ''
+                                        default: 0
+                                      countIndirect:
+                                        type: integer
+                                        description: ''
+                                        default: 0
+                                      countIndirectDelta:
+                                        type: integer
+                                        description: ''
+                                        default: 0
+                                    required:
+                                    - count
+                                    - countDelta
+                                    - countDirect
+                                    - countDirectDelta
+                                    - countIndirect
+                                    - countIndirectDelta
+                                  medium:
+                                    type: object
+                                    additionalProperties: false
+                                    description: ''
+                                    properties:
+                                      count:
+                                        type: integer
+                                        description: ''
+                                        default: 0
+                                      countDelta:
+                                        type: integer
+                                        description: ''
+                                        default: 0
+                                      countDirect:
+                                        type: integer
+                                        description: ''
+                                        default: 0
+                                      countDirectDelta:
+                                        type: integer
+                                        description: ''
+                                        default: 0
+                                      countIndirect:
+                                        type: integer
+                                        description: ''
+                                        default: 0
+                                      countIndirectDelta:
+                                        type: integer
+                                        description: ''
+                                        default: 0
+                                    required:
+                                    - count
+                                    - countDelta
+                                    - countDirect
+                                    - countDirectDelta
+                                    - countIndirect
+                                    - countIndirectDelta
+                                  high:
+                                    type: object
+                                    additionalProperties: false
+                                    description: ''
+                                    properties:
+                                      count:
+                                        type: integer
+                                        description: ''
+                                        default: 0
+                                      countDelta:
+                                        type: integer
+                                        description: ''
+                                        default: 0
+                                      countDirect:
+                                        type: integer
+                                        description: ''
+                                        default: 0
+                                      countDirectDelta:
+                                        type: integer
+                                        description: ''
+                                        default: 0
+                                      countIndirect:
+                                        type: integer
+                                        description: ''
+                                        default: 0
+                                      countIndirectDelta:
+                                        type: integer
+                                        description: ''
+                                        default: 0
+                                    required:
+                                    - count
+                                    - countDelta
+                                    - countDirect
+                                    - countDirectDelta
+                                    - countIndirect
+                                    - countIndirectDelta
+                                  critical:
+                                    type: object
+                                    additionalProperties: false
+                                    description: ''
+                                    properties:
+                                      count:
+                                        type: integer
+                                        description: ''
+                                        default: 0
+                                      countDelta:
+                                        type: integer
+                                        description: ''
+                                        default: 0
+                                      countDirect:
+                                        type: integer
+                                        description: ''
+                                        default: 0
+                                      countDirectDelta:
+                                        type: integer
+                                        description: ''
+                                        default: 0
+                                      countIndirect:
+                                        type: integer
+                                        description: ''
+                                        default: 0
+                                      countIndirectDelta:
+                                        type: integer
+                                        description: ''
+                                        default: 0
+                                    required:
+                                    - count
+                                    - countDelta
+                                    - countDirect
+                                    - countDirectDelta
+                                    - countIndirect
+                                    - countIndirectDelta
+                                required:
+                                - critical
+                                - high
+                                - low
+                                - medium
+                            required:
+                            - aggregationGroup
+                            - count
+                            - countDelta
+                            - countDirect
+                            - countDirectDelta
+                            - countIndirect
+                            - countIndirectDelta
+                            - countsBySeverity
+                          description: ''
+                      required:
+                      - dataPoints
+                      - date
+                      - startOfDayTimestamp
+                    description: ''
+                required:
+                - items
+                - meta
+          description: The trend data
+        '400':
+          $ref: '#/components/responses/SocketBadRequest'
+        '401':
+          $ref: '#/components/responses/SocketUnauthorized'
+        '403':
+          $ref: '#/components/responses/SocketForbidden'
+        '404':
+          $ref: '#/components/responses/SocketNotFoundResponse'
+        '429':
+          $ref: '#/components/responses/SocketTooManyRequestsResponse'
+      x-readme: {}
+components:
+  responses:
+    SocketForbidden:
+      content:
+        application/json:
+          schema:
+            type: object
+            additionalProperties: false
+            description: ''
+            properties:
+              error:
+                type: object
+                additionalProperties: false
+                description: ''
+                properties:
+                  message:
+                    type: string
+                    description: ''
+                    default: ''
+                  details:
+                    type: object
+                    description: ''
+                    default: null
+                    nullable: true
+                required:
+                - details
+                - message
+            required:
+            - error
+      description: Insufficient max_quota for API method
+    SocketBadRequest:
+      content:
+        application/json:
+          schema:
+            type: object
+            additionalProperties: false
+            description: ''
+            properties:
+              error:
+                type: object
+                additionalProperties: false
+                description: ''
+                properties:
+                  message:
+                    type: string
+                    description: ''
+                    default: ''
+                  details:
+                    type: object
+                    description: ''
+                    default: null
+                    nullable: true
+                required:
+                - details
+                - message
+            required:
+            - error
+      description: Bad request
+    SocketNotFoundResponse:
+      content:
+        application/json:
+          schema:
+            type: object
+            additionalProperties: false
+            description: ''
+            properties:
+              error:
+                type: object
+                additionalProperties: false
+                description: ''
+                properties:
+                  message:
+                    type: string
+                    description: ''
+                    default: ''
+                  details:
+                    type: object
+                    description: ''
+                    default: null
+                    nullable: true
+                required:
+                - details
+                - message
+            required:
+            - error
+      description: Resource not found
+    SocketTooManyRequestsResponse:
+      description: Insufficient quota for API route
+      headers:
+        Retry-After:
+          description: 'Retry contacting the endpoint *at least* after seconds.
+
+            See https://tools.ietf.org/html/rfc7231#section-7.1.3'
+          schema:
+            format: int32
+            type: integer
+      content:
+        application/json:
+          schema:
+            type: object
+            additionalProperties: false
+            description: ''
+            properties:
+              error:
+                type: object
+                additionalProperties: false
+                description: ''
+                properties:
+                  message:
+                    type: string
+                    description: ''
+                    default: ''
+                  details:
+                    type: object
+                    description: ''
+                    default: null
+                    nullable: true
+                required:
+                - details
+                - message
+            required:
+            - error
+    SocketUnauthorized:
+      content:
+        application/json:
+          schema:
+            type: object
+            additionalProperties: false
+            description: ''
+            properties:
+              error:
+                type: object
+                additionalProperties: false
+                description: ''
+                properties:
+                  message:
+                    type: string
+                    description: ''
+                    default: ''
+                  details:
+                    type: object
+                    description: ''
+                    default: null
+                    nullable: true
+                required:
+                - details
+                - message
+            required:
+            - error
+      description: Unauthorized
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: Organization Tokens can be passed as a Bearer token
+    basicAuth:
+      type: http
+      scheme: basic
+      description: Organization Tokens can be passed as the user field in basic auth

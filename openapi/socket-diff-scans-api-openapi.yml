@@ -1,0 +1,3066 @@
+openapi: 3.0.0
+info:
+  description: Specification of the Socket API endpoints
+  title: API Endpoints alerts diff-scans API
+  version: '0'
+servers:
+- url: https://api.socket.dev/v0
+tags:
+- name: diff-scans
+paths:
+  /orgs/{org_slug}/diff-scans:
+    get:
+      tags:
+      - diff-scans
+      summary: List diff scans
+      operationId: listOrgDiffScans
+      parameters:
+      - name: org_slug
+        in: path
+        required: true
+        description: The slug of the organization
+        schema:
+          type: string
+      - name: sort
+        in: query
+        required: false
+        description: Specify sort field.
+        schema:
+          type: string
+          enum:
+          - created_at
+          - updated_at
+          default: created_at
+      - name: direction
+        in: query
+        required: false
+        description: Specify sort direction.
+        schema:
+          type: string
+          enum:
+          - asc
+          - desc
+          default: desc
+      - name: per_page
+        in: query
+        required: false
+        description: Specify the maximum number of results to return per page.
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 100
+          default: 20
+      - name: cursor
+        in: query
+        required: false
+        description: Cursor for pagination. Use the next_cursor or prev_cursor from previous responses.
+        schema:
+          type: string
+      - name: repository_id
+        in: query
+        required: false
+        description: Filter by repository ID.
+        schema:
+          type: string
+      - name: before_full_scan_id
+        in: query
+        required: false
+        description: Filter by before full scan ID.
+        schema:
+          type: string
+      - name: after_full_scan_id
+        in: query
+        required: false
+        description: Filter by after full scan ID.
+        schema:
+          type: string
+      security:
+      - bearerAuth:
+        - diff-scans:list
+      - basicAuth:
+        - diff-scans:list
+      description: 'Returns a paginated list of all diff scans in an organization.
+
+
+        This endpoint consumes 1 unit of your quota.
+
+
+        This endpoint requires the following org token scopes:
+
+        - diff-scans:list'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: false
+                description: ''
+                properties:
+                  results:
+                    type: array
+                    items:
+                      type: object
+                      additionalProperties: false
+                      description: ''
+                      properties:
+                        id:
+                          type: string
+                          description: ''
+                          default: ''
+                        organization_id:
+                          type: string
+                          description: ''
+                          default: ''
+                        repository_id:
+                          type: string
+                          description: ''
+                          default: ''
+                        created_at:
+                          type: string
+                          description: ''
+                          default: ''
+                        updated_at:
+                          type: string
+                          description: ''
+                          default: ''
+                        before_full_scan_id:
+                          type: string
+                          description: ''
+                          default: ''
+                        after_full_scan_id:
+                          type: string
+                          description: ''
+                          default: ''
+                        description:
+                          type: string
+                          description: ''
+                          default: ''
+                          nullable: true
+                        external_href:
+                          type: string
+                          description: ''
+                          default: ''
+                          nullable: true
+                        merge:
+                          type: boolean
+                          default: false
+                          description: ''
+                        html_url:
+                          type: string
+                          description: ''
+                          default: ''
+                          nullable: true
+                        api_url:
+                          type: string
+                          description: ''
+                          default: ''
+                          nullable: true
+                      required:
+                      - after_full_scan_id
+                      - api_url
+                      - before_full_scan_id
+                      - created_at
+                      - description
+                      - external_href
+                      - html_url
+                      - id
+                      - merge
+                      - organization_id
+                      - repository_id
+                      - updated_at
+                    description: ''
+                  next_page_href:
+                    type: string
+                    description: ''
+                    default: ''
+                    nullable: true
+                  next_cursor:
+                    type: string
+                    description: ''
+                    default: ''
+                    nullable: true
+                required:
+                - next_cursor
+                - next_page_href
+                - results
+          description: Lists diff scans for the specified organization.
+        '400':
+          $ref: '#/components/responses/SocketBadRequest'
+        '401':
+          $ref: '#/components/responses/SocketUnauthorized'
+        '403':
+          $ref: '#/components/responses/SocketForbidden'
+        '404':
+          $ref: '#/components/responses/SocketNotFoundResponse'
+        '429':
+          $ref: '#/components/responses/SocketTooManyRequestsResponse'
+      x-readme: {}
+  /orgs/{org_slug}/diff-scans/{diff_scan_id}:
+    get:
+      tags:
+      - diff-scans
+      summary: Get diff scan
+      operationId: getDiffScanById
+      parameters:
+      - name: org_slug
+        in: path
+        required: true
+        description: The slug of the organization
+        schema:
+          type: string
+      - name: diff_scan_id
+        in: path
+        required: true
+        description: The ID of the diff scan
+        schema:
+          type: string
+          format: uuid
+      - name: omit_license_details
+        in: query
+        required: false
+        description: Omit license details in the response. This can reduce the size of the response significantly, but will not include license information for the artifacts.
+        schema:
+          type: boolean
+          default: false
+      - name: omit_unchanged
+        in: query
+        required: false
+        description: Omit unchanged artifacts from the response. When set to true, the unchanged field will be set to null.
+        schema:
+          type: boolean
+          default: false
+      - name: cached
+        in: query
+        required: false
+        description: 'Return cached immutable scan results. When enabled and results are cached, returns the pre-computed scan. When results are not yet cached, returns 202 Accepted and enqueues a background job. Note: When cached=true, the omit_license_details parameter is ignored as cached results always includes license details.'
+        schema:
+          type: boolean
+          default: false
+      security:
+      - bearerAuth:
+        - diff-scans:list
+      - basicAuth:
+        - diff-scans:list
+      description: 'Get the difference between two full scans from an existing diff scan resource.
+
+
+        This endpoint consumes 1 unit of your quota.
+
+
+        This endpoint requires the following org token scopes:
+
+        - diff-scans:list'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: false
+                description: ''
+                properties:
+                  diff_scan:
+                    type: object
+                    additionalProperties: false
+                    description: ''
+                    properties:
+                      id:
+                        type: string
+                        description: The ID of the diff scan.
+                        default: ''
+                      organization_id:
+                        type: string
+                        description: The ID of the organization that owns the diff scan.
+                        default: ''
+                      repository_id:
+                        type: string
+                        description: The ID of the repository the diff scan was run against.
+                        default: ''
+                      created_at:
+                        type: string
+                        description: ISO 8601 timestamp of when the diff scan was created.
+                        default: ''
+                      updated_at:
+                        type: string
+                        description: ISO 8601 timestamp of when the diff scan was last updated.
+                        default: ''
+                      before_full_scan:
+                        type: object
+                        additionalProperties: false
+                        description: ''
+                        properties:
+                          id:
+                            type: string
+                            description: ''
+                            default: ''
+                          created_at:
+                            type: string
+                            description: ''
+                            default: ''
+                          updated_at:
+                            type: string
+                            description: ''
+                            default: ''
+                          organization_id:
+                            type: string
+                            description: ''
+                            default: ''
+                          organization_slug:
+                            type: string
+                            description: ''
+                            default: ''
+                          repository_id:
+                            type: string
+                            description: ''
+                            default: ''
+                          repository_slug:
+                            type: string
+                            description: ''
+                            default: ''
+                          branch:
+                            type: string
+                            description: ''
+                            default: ''
+                            nullable: true
+                          commit_message:
+                            type: string
+                            description: ''
+                            default: ''
+                            nullable: true
+                          commit_hash:
+                            type: string
+                            description: ''
+                            default: ''
+                            nullable: true
+                          pull_request:
+                            type: integer
+                            description: ''
+                            default: 0
+                            nullable: true
+                          committers:
+                            type: array
+                            items:
+                              type: string
+                              description: ''
+                              default: ''
+                            description: ''
+                          html_url:
+                            type: string
+                            description: ''
+                            default: ''
+                            nullable: true
+                          api_url:
+                            type: string
+                            description: ''
+                            default: ''
+                            nullable: true
+                        required:
+                        - api_url
+                        - branch
+                        - commit_hash
+                        - commit_message
+                        - committers
+                        - created_at
+                        - html_url
+                        - id
+                        - organization_id
+                        - organization_slug
+                        - pull_request
+                        - repository_id
+                        - repository_slug
+                        - updated_at
+                      after_full_scan:
+                        type: object
+                        additionalProperties: false
+                        description: ''
+                        properties:
+                          id:
+                            type: string
+                            description: ''
+                            default: ''
+                          created_at:
+                            type: string
+                            description: ''
+                            default: ''
+                          updated_at:
+                            type: string
+                            description: ''
+                            default: ''
+                          organization_id:
+                            type: string
+                            description: ''
+                            default: ''
+                          organization_slug:
+                            type: string
+                            description: ''
+                            default: ''
+                          repository_id:
+                            type: string
+                            description: ''
+                            default: ''
+                          repository_slug:
+                            type: string
+                            description: ''
+                            default: ''
+                          branch:
+                            type: string
+                            description: ''
+                            default: ''
+                            nullable: true
+                          commit_message:
+                            type: string
+                            description: ''
+                            default: ''
+                            nullable: true
+                          commit_hash:
+                            type: string
+                            description: ''
+                            default: ''
+                            nullable: true
+                          pull_request:
+                            type: integer
+                            description: ''
+                            default: 0
+                            nullable: true
+                          committers:
+                            type: array
+                            items:
+                              type: string
+                              description: ''
+                              default: ''
+                            description: ''
+                          html_url:
+                            type: string
+                            description: ''
+                            default: ''
+                            nullable: true
+                          api_url:
+                            type: string
+                            description: ''
+                            default: ''
+                            nullable: true
+                        required:
+                        - api_url
+                        - branch
+                        - commit_hash
+                        - commit_message
+                        - committers
+                        - created_at
+                        - html_url
+                        - id
+                        - organization_id
+                        - organization_slug
+                        - pull_request
+                        - repository_id
+                        - repository_slug
+                        - updated_at
+                      description:
+                        type: string
+                        description: Human readable description of the diff scan, e.g. the pull request title.
+                        default: ''
+                        nullable: true
+                      external_href:
+                        type: string
+                        description: Link to the external resource the diff scan was created for, e.g. the pull request URL.
+                        default: ''
+                        nullable: true
+                      merge:
+                        type: boolean
+                        default: false
+                        description: True when the diff scan was created for a merge event rather than an open pull request.
+                      html_url:
+                        type: string
+                        description: Link to the diff scan report in the Socket dashboard.
+                        default: ''
+                        nullable: true
+                      api_url:
+                        type: string
+                        description: Link to the diff scan resource in the Socket API.
+                        default: ''
+                        nullable: true
+                      incomplete:
+                        type: boolean
+                        default: false
+                        description: True when either side of the diff was truncated at the plan's dependency limit. A truncated diff is imbalanced and can report changes for artifacts the change never touched, so treat the artifact lists as unreliable when this is set.
+                      artifacts:
+                        type: object
+                        additionalProperties: false
+                        description: Artifacts in the diff grouped by how they changed between the before and after scans.
+                        properties:
+                          added:
+                            type: array
+                            items:
+                              $ref: '#/components/schemas/SocketDiffArtifact'
+                            description: Artifacts present in the after scan but not the before scan.
+                          removed:
+                            type: array
+                            items:
+                              $ref: '#/components/schemas/SocketDiffArtifact'
+                            description: Artifacts present in the before scan but not the after scan.
+                          unchanged:
+                            type: array
+                            items:
+                              $ref: '#/components/schemas/SocketDiffArtifact'
+                            description: Artifacts present in both scans with no changes. Null when omitted via the omit_unchanged query parameter.
+                            nullable: true
+                          replaced:
+                            type: array
+                            items:
+                              $ref: '#/components/schemas/SocketDiffArtifact'
+                            description: Artifacts replaced between the scans, e.g. the same package supplied by a different source.
+                          updated:
+                            type: array
+                            items:
+                              $ref: '#/components/schemas/SocketDiffArtifact'
+                            description: Artifacts whose version changed between the scans.
+                        required:
+                        - added
+                        - removed
+                        - replaced
+                        - unchanged
+                        - updated
+                    required:
+                    - after_full_scan
+                    - api_url
+                    - artifacts
+                    - before_full_scan
+                    - created_at
+                    - description
+                    - external_href
+                    - html_url
+                    - id
+                    - incomplete
+                    - merge
+                    - organization_id
+                    - repository_id
+                    - updated_at
+                required:
+                - diff_scan
+          description: The difference between the two Full Scans in the diff scan.
+        '202':
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: false
+                description: ''
+                properties:
+                  status:
+                    type: string
+                    description: ''
+                    default: processing
+                  id:
+                    type: string
+                    description: ''
+                    default: ''
+                required:
+                - id
+                - status
+          description: Scan is being processed. Poll again later to retrieve results.
+        '400':
+          $ref: '#/components/responses/SocketBadRequest'
+        '401':
+          $ref: '#/components/responses/SocketUnauthorized'
+        '403':
+          $ref: '#/components/responses/SocketForbidden'
+        '404':
+          $ref: '#/components/responses/SocketNotFoundResponse'
+        '429':
+          $ref: '#/components/responses/SocketTooManyRequestsResponse'
+      x-readme: {}
+    delete:
+      tags:
+      - diff-scans
+      summary: Delete diff scan
+      operationId: deleteOrgDiffScan
+      parameters:
+      - name: org_slug
+        in: path
+        required: true
+        description: The slug of the organization
+        schema:
+          type: string
+      - name: diff_scan_id
+        in: path
+        required: true
+        description: The ID of the diff scan
+        schema:
+          type: string
+          format: uuid
+      security:
+      - bearerAuth:
+        - diff-scans:delete
+      - basicAuth:
+        - diff-scans:delete
+      description: 'Delete an existing diff scan.
+
+
+        This endpoint consumes 1 unit of your quota.
+
+
+        This endpoint requires the following org token scopes:
+
+        - diff-scans:delete'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: false
+                description: ''
+                properties:
+                  status:
+                    type: string
+                    description: ''
+                    default: ok
+                required:
+                - status
+          description: Success
+        '400':
+          $ref: '#/components/responses/SocketBadRequest'
+        '401':
+          $ref: '#/components/responses/SocketUnauthorized'
+        '403':
+          $ref: '#/components/responses/SocketForbidden'
+        '404':
+          $ref: '#/components/responses/SocketNotFoundResponse'
+        '429':
+          $ref: '#/components/responses/SocketTooManyRequestsResponse'
+      x-readme: {}
+  /orgs/{org_slug}/diff-scans/{diff_scan_id}/gfm:
+    get:
+      tags:
+      - diff-scans
+      summary: SCM Comment for Diff Scan
+      operationId: GetDiffScanGfm
+      parameters:
+      - name: org_slug
+        in: path
+        required: true
+        description: The slug of the organization
+        schema:
+          type: string
+      - name: diff_scan_id
+        in: path
+        required: true
+        description: The ID of the diff scan
+        schema:
+          type: string
+          format: uuid
+      - name: github_installation_id
+        in: query
+        required: false
+        description: The ID of the GitHub installation. This will be used to get the GitHub installation settings. If not provided, the default GitHub installation settings will be used.
+        schema:
+          type: string
+      security:
+      - bearerAuth:
+        - diff-scans:list
+      - basicAuth:
+        - diff-scans:list
+      description: 'Get the dependency overview and dependency alert comments in GitHub flavored markdown for an existing diff scan.
+
+
+        This endpoint consumes 1 unit of your quota.
+
+
+        This endpoint requires the following org token scopes:
+
+        - diff-scans:list'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: false
+                description: ''
+                properties:
+                  diff_scan:
+                    type: object
+                    additionalProperties: false
+                    description: ''
+                    properties:
+                      id:
+                        type: string
+                        description: The ID of the diff scan.
+                        default: ''
+                      organization_id:
+                        type: string
+                        description: The ID of the organization that owns the diff scan.
+                        default: ''
+                      repository_id:
+                        type: string
+                        description: The ID of the repository the diff scan was run against.
+                        default: ''
+                      created_at:
+                        type: string
+                        description: ISO 8601 timestamp of when the diff scan was created.
+                        default: ''
+                      updated_at:
+                        type: string
+                        description: ISO 8601 timestamp of when the diff scan was last updated.
+                        default: ''
+                      before_full_scan:
+                        type: object
+                        additionalProperties: false
+                        description: ''
+                        properties:
+                          id:
+                            type: string
+                            description: ''
+                            default: ''
+                          created_at:
+                            type: string
+                            description: ''
+                            default: ''
+                          updated_at:
+                            type: string
+                            description: ''
+                            default: ''
+                          organization_id:
+                            type: string
+                            description: ''
+                            default: ''
+                          organization_slug:
+                            type: string
+                            description: ''
+                            default: ''
+                          repository_id:
+                            type: string
+                            description: ''
+                            default: ''
+                          repository_slug:
+                            type: string
+                            description: ''
+                            default: ''
+                          branch:
+                            type: string
+                            description: ''
+                            default: ''
+                            nullable: true
+                          commit_message:
+                            type: string
+                            description: ''
+                            default: ''
+                            nullable: true
+                          commit_hash:
+                            type: string
+                            description: ''
+                            default: ''
+                            nullable: true
+                          pull_request:
+                            type: integer
+                            description: ''
+                            default: 0
+                            nullable: true
+                          committers:
+                            type: array
+                            items:
+                              type: string
+                              description: ''
+                              default: ''
+                            description: ''
+                          html_url:
+                            type: string
+                            description: ''
+                            default: ''
+                            nullable: true
+                          api_url:
+                            type: string
+                            description: ''
+                            default: ''
+                            nullable: true
+                        required:
+                        - api_url
+                        - branch
+                        - commit_hash
+                        - commit_message
+                        - committers
+                        - created_at
+                        - html_url
+                        - id
+                        - organization_id
+                        - organization_slug
+                        - pull_request
+                        - repository_id
+                        - repository_slug
+                        - updated_at
+                      after_full_scan:
+                        type: object
+                        additionalProperties: false
+                        description: ''
+                        properties:
+                          id:
+                            type: string
+                            description: ''
+                            default: ''
+                          created_at:
+                            type: string
+                            description: ''
+                            default: ''
+                          updated_at:
+                            type: string
+                            description: ''
+                            default: ''
+                          organization_id:
+                            type: string
+                            description: ''
+                            default: ''
+                          organization_slug:
+                            type: string
+                            description: ''
+                            default: ''
+                          repository_id:
+                            type: string
+                            description: ''
+                            default: ''
+                          repository_slug:
+                            type: string
+                            description: ''
+                            default: ''
+                          branch:
+                            type: string
+                            description: ''
+                            default: ''
+                            nullable: true
+                          commit_message:
+                            type: string
+                            description: ''
+                            default: ''
+                            nullable: true
+                          commit_hash:
+                            type: string
+                            description: ''
+                            default: ''
+                            nullable: true
+                          pull_request:
+                            type: integer
+                            description: ''
+                            default: 0
+                            nullable: true
+                          committers:
+                            type: array
+                            items:
+                              type: string
+                              description: ''
+                              default: ''
+                            description: ''
+                          html_url:
+                            type: string
+                            description: ''
+                            default: ''
+                            nullable: true
+                          api_url:
+                            type: string
+                            description: ''
+                            default: ''
+                            nullable: true
+                        required:
+                        - api_url
+                        - branch
+                        - commit_hash
+                        - commit_message
+                        - committers
+                        - created_at
+                        - html_url
+                        - id
+                        - organization_id
+                        - organization_slug
+                        - pull_request
+                        - repository_id
+                        - repository_slug
+                        - updated_at
+                      description:
+                        type: string
+                        description: Human readable description of the diff scan, e.g. the pull request title.
+                        default: ''
+                        nullable: true
+                      external_href:
+                        type: string
+                        description: Link to the external resource the diff scan was created for, e.g. the pull request URL.
+                        default: ''
+                        nullable: true
+                      merge:
+                        type: boolean
+                        default: false
+                        description: True when the diff scan was created for a merge event rather than an open pull request.
+                      html_url:
+                        type: string
+                        description: Link to the diff scan report in the Socket dashboard.
+                        default: ''
+                        nullable: true
+                      api_url:
+                        type: string
+                        description: Link to the diff scan resource in the Socket API.
+                        default: ''
+                        nullable: true
+                      incomplete:
+                        type: boolean
+                        default: false
+                        description: True when either side of the diff was truncated at the plan's dependency limit. When set, the gfm comments contain a limit-exceeded notice instead of a report rendered from the imbalanced diff.
+                      gfm:
+                        type: object
+                        additionalProperties: false
+                        description: Pull request comments rendered in GitHub flavored markdown.
+                        properties:
+                          overview:
+                            type: string
+                            description: Dependency overview comment in GitHub flavored markdown. Empty when there is nothing to show; consumers should not post a comment in that case.
+                            default: ''
+                          alerts:
+                            type: string
+                            description: Dependency alert comment in GitHub flavored markdown. Contains a dependency-limit-exceeded notice instead of a report when incomplete is true.
+                            default: ''
+                        required:
+                        - alerts
+                        - overview
+                    required:
+                    - after_full_scan
+                    - api_url
+                    - before_full_scan
+                    - created_at
+                    - description
+                    - external_href
+                    - gfm
+                    - html_url
+                    - id
+                    - incomplete
+                    - merge
+                    - organization_id
+                    - repository_id
+                    - updated_at
+                required:
+                - diff_scan
+          description: Metadata about the full scans and the dependency overview and dependency alert comment. Can be used in a pull request context.
+        '400':
+          $ref: '#/components/responses/SocketBadRequest'
+        '401':
+          $ref: '#/components/responses/SocketUnauthorized'
+        '403':
+          $ref: '#/components/responses/SocketForbidden'
+        '404':
+          $ref: '#/components/responses/SocketNotFoundResponse'
+        '429':
+          $ref: '#/components/responses/SocketTooManyRequestsResponse'
+      x-readme: {}
+  /orgs/{org_slug}/diff-scans/from-repo/{repo_slug}:
+    post:
+      tags:
+      - diff-scans
+      summary: Create diff scan from repository HEAD full-scan
+      operationId: createOrgRepoDiff
+      parameters:
+      - name: org_slug
+        in: path
+        required: true
+        description: The slug of the organization
+        schema:
+          type: string
+      - name: repo_slug
+        in: path
+        required: true
+        description: The slug of the repository
+        schema:
+          type: string
+      - name: description
+        in: query
+        required: false
+        description: A description of the diff scan. This will be used in the diff report and can be used to provide context for the changes made.
+        schema:
+          type: string
+      - name: external_href
+        in: query
+        required: false
+        description: An external URL to associate with the diff scan. This can be a link to a pull request, issue, or any other relevant resource.
+        schema:
+          type: string
+      - name: branch
+        in: query
+        required: false
+        description: 'The branch name to associate the new full-scan with. Branch names must follow Git branch name rules: be 1–255 characters long; cannot be exactly @;  cannot begin or end with /, ., or .lock; cannot contain "//", "..", or "@{"; and cannot include control characters, spaces, or any of ~^:?*[.'
+        schema:
+          type: string
+      - name: commit_message
+        in: query
+        required: false
+        description: The commit message to associate the new full-scan with.
+        schema:
+          type: string
+      - name: commit_hash
+        in: query
+        required: false
+        description: The commit hash to associate the full-scan with.
+        schema:
+          type: string
+      - name: pull_request
+        in: query
+        required: false
+        description: The pull request number to associate the new full-scan with.
+        schema:
+          type: integer
+          minimum: 1
+      - name: committers
+        in: query
+        required: false
+        description: The committers to associate the new full-scan with. Set query more than once to set multiple committers.
+        schema:
+          type: string
+      - name: integration_type
+        in: query
+        required: false
+        description: The integration type to associate the new full-scan with. Defaults to "api" if omitted.
+        schema:
+          type: string
+          enum:
+          - api
+          - github
+          - gitlab
+          - bitbucket
+          - azure
+          - web
+      - name: integration_org_slug
+        in: query
+        required: false
+        description: The integration org slug to associate the new full-scan with. If omitted, the Socket org name will be used. This is used to generate links and badges.
+        schema:
+          type: string
+      - name: merge
+        in: query
+        required: false
+        description: Set to true when running a diff between a merged commit and its parent commit in the same branch. Set to false when running diffs in an open PR between unmerged commits.
+        schema:
+          type: boolean
+          default: false
+      - name: workspace
+        in: query
+        required: false
+        description: The workspace of the repository.
+        schema:
+          type: string
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              additionalProperties:
+                type: string
+                default:
+                  type: Buffer
+                  data: []
+                format: binary
+                description: ''
+              properties: {}
+              description: ''
+        required: false
+      security:
+      - bearerAuth:
+        - repo:list
+        - diff-scans:create
+        - full-scans:create
+      - basicAuth:
+        - repo:list
+        - diff-scans:create
+        - full-scans:create
+      description: "Create a diff scan between the repository's current HEAD full scan and a new full scan from uploaded manifest files.\nReturns metadata about the diff scan. Once the diff scan is created, fetch the diff scan from\nthe [api_url](/reference/getDiffScanById) URL to get the contents of the diff.\n\nThe maximum number of files you can upload at a time is 10000 and each file can be no bigger than 268 MB.\n\nThis endpoint consumes 1 unit of your quota.\n\nThis endpoint requires the following org token scopes:\n      - repo:list\n- diff-scans:create\n- full-scans:create"
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: false
+                description: ''
+                properties:
+                  diff_scan:
+                    type: object
+                    additionalProperties: false
+                    description: ''
+                    properties:
+                      id:
+                        type: string
+                        description: The ID of the diff scan.
+                        default: ''
+                      organization_id:
+                        type: string
+                        description: The ID of the organization that owns the diff scan.
+                        default: ''
+                      repository_id:
+                        type: string
+                        description: The ID of the repository the diff scan was run against.
+                        default: ''
+                      created_at:
+                        type: string
+                        description: ISO 8601 timestamp of when the diff scan was created.
+                        default: ''
+                      updated_at:
+                        type: string
+                        description: ISO 8601 timestamp of when the diff scan was last updated.
+                        default: ''
+                      before_full_scan:
+                        type: object
+                        additionalProperties: false
+                        description: ''
+                        properties:
+                          id:
+                            type: string
+                            description: ''
+                            default: ''
+                          created_at:
+                            type: string
+                            description: ''
+                            default: ''
+                          updated_at:
+                            type: string
+                            description: ''
+                            default: ''
+                          organization_id:
+                            type: string
+                            description: ''
+                            default: ''
+                          organization_slug:
+                            type: string
+                            description: ''
+                            default: ''
+                          repository_id:
+                            type: string
+                            description: ''
+                            default: ''
+                          repository_slug:
+                            type: string
+                            description: ''
+                            default: ''
+                          branch:
+                            type: string
+                            description: ''
+                            default: ''
+                            nullable: true
+                          commit_message:
+                            type: string
+                            description: ''
+                            default: ''
+                            nullable: true
+                          commit_hash:
+                            type: string
+                            description: ''
+                            default: ''
+                            nullable: true
+                          pull_request:
+                            type: integer
+                            description: ''
+                            default: 0
+                            nullable: true
+                          committers:
+                            type: array
+                            items:
+                              type: string
+                              description: ''
+                              default: ''
+                            description: ''
+                          html_url:
+                            type: string
+                            description: ''
+                            default: ''
+                            nullable: true
+                          api_url:
+                            type: string
+                            description: ''
+                            default: ''
+                            nullable: true
+                        required:
+                        - api_url
+                        - branch
+                        - commit_hash
+                        - commit_message
+                        - committers
+                        - created_at
+                        - html_url
+                        - id
+                        - organization_id
+                        - organization_slug
+                        - pull_request
+                        - repository_id
+                        - repository_slug
+                        - updated_at
+                      after_full_scan:
+                        type: object
+                        additionalProperties: false
+                        description: ''
+                        properties:
+                          id:
+                            type: string
+                            description: ''
+                            default: ''
+                          created_at:
+                            type: string
+                            description: ''
+                            default: ''
+                          updated_at:
+                            type: string
+                            description: ''
+                            default: ''
+                          organization_id:
+                            type: string
+                            description: ''
+                            default: ''
+                          organization_slug:
+                            type: string
+                            description: ''
+                            default: ''
+                          repository_id:
+                            type: string
+                            description: ''
+                            default: ''
+                          repository_slug:
+                            type: string
+                            description: ''
+                            default: ''
+                          branch:
+                            type: string
+                            description: ''
+                            default: ''
+                            nullable: true
+                          commit_message:
+                            type: string
+                            description: ''
+                            default: ''
+                            nullable: true
+                          commit_hash:
+                            type: string
+                            description: ''
+                            default: ''
+                            nullable: true
+                          pull_request:
+                            type: integer
+                            description: ''
+                            default: 0
+                            nullable: true
+                          committers:
+                            type: array
+                            items:
+                              type: string
+                              description: ''
+                              default: ''
+                            description: ''
+                          html_url:
+                            type: string
+                            description: ''
+                            default: ''
+                            nullable: true
+                          api_url:
+                            type: string
+                            description: ''
+                            default: ''
+                            nullable: true
+                        required:
+                        - api_url
+                        - branch
+                        - commit_hash
+                        - commit_message
+                        - committers
+                        - created_at
+                        - html_url
+                        - id
+                        - organization_id
+                        - organization_slug
+                        - pull_request
+                        - repository_id
+                        - repository_slug
+                        - updated_at
+                      description:
+                        type: string
+                        description: Human readable description of the diff scan, e.g. the pull request title.
+                        default: ''
+                        nullable: true
+                      external_href:
+                        type: string
+                        description: Link to the external resource the diff scan was created for, e.g. the pull request URL.
+                        default: ''
+                        nullable: true
+                      merge:
+                        type: boolean
+                        default: false
+                        description: True when the diff scan was created for a merge event rather than an open pull request.
+                      html_url:
+                        type: string
+                        description: Link to the diff scan report in the Socket dashboard.
+                        default: ''
+                        nullable: true
+                      api_url:
+                        type: string
+                        description: Link to the diff scan resource in the Socket API.
+                        default: ''
+                        nullable: true
+                    required:
+                    - after_full_scan
+                    - api_url
+                    - before_full_scan
+                    - created_at
+                    - description
+                    - external_href
+                    - html_url
+                    - id
+                    - merge
+                    - organization_id
+                    - repository_id
+                    - updated_at
+                  unmatchedAfterFiles:
+                    type: array
+                    items:
+                      type: string
+                      description: ''
+                      default: ''
+                    description: ''
+                required:
+                - diff_scan
+                - unmatchedAfterFiles
+          description: The details of the new full scan and diff scan between the two scans.
+        '400':
+          $ref: '#/components/responses/SocketBadRequest'
+        '401':
+          $ref: '#/components/responses/SocketUnauthorized'
+        '403':
+          $ref: '#/components/responses/SocketForbidden'
+        '404':
+          $ref: '#/components/responses/SocketNotFoundResponse'
+        '409':
+          $ref: '#/components/responses/SocketConflict'
+        '429':
+          $ref: '#/components/responses/SocketTooManyRequestsResponse'
+      x-readme: {}
+  /orgs/{org_slug}/diff-scans/from-ids:
+    post:
+      tags:
+      - diff-scans
+      summary: Create diff scan from full scan IDs
+      operationId: createOrgDiffScanFromIds
+      parameters:
+      - name: org_slug
+        in: path
+        required: true
+        description: The slug of the organization
+        schema:
+          type: string
+      - name: before
+        in: query
+        required: true
+        description: The ID of the before/base full scan (older)
+        schema:
+          type: string
+      - name: after
+        in: query
+        required: true
+        description: The ID of the after/head full scan (newer)
+        schema:
+          type: string
+      - name: description
+        in: query
+        required: false
+        description: A description of the diff scan. This will be used in the diff report and can be used to provide context for the changes made.
+        schema:
+          type: string
+      - name: external_href
+        in: query
+        required: false
+        description: An external URL to associate with the diff scan. This can be a link to a pull request, issue, or any other relevant resource.
+        schema:
+          type: string
+      - name: merge
+        in: query
+        required: false
+        description: Set to true when running a diff between a merged commit and its parent commit in the same branch. Set to false when running diffs in an open PR between unmerged commits.
+        schema:
+          type: boolean
+          default: false
+      - name: on_duplicate
+        in: query
+        required: false
+        description: Set to "redirect" to receive a 302 redirect to the existing diff scan instead of a 409 error when a duplicate is detected.
+        schema:
+          type: string
+      security:
+      - bearerAuth:
+        - diff-scans:create
+        - full-scans:list
+      - basicAuth:
+        - diff-scans:create
+        - full-scans:list
+      description: "Create a diff scan from two existing full scan IDs. The full scans must be in the same repository.\nReturns metadata about the diff scan. Once the diff scan is created, fetch the diff scan from\nthe [api_url](/reference/getDiffScanById) URL to get the contents of the diff.\n\nThis endpoint consumes 1 unit of your quota.\n\nThis endpoint requires the following org token scopes:\n      - diff-scans:create\n- full-scans:list"
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: false
+                description: ''
+                properties:
+                  diff_scan:
+                    type: object
+                    additionalProperties: false
+                    description: ''
+                    properties:
+                      id:
+                        type: string
+                        description: The ID of the diff scan.
+                        default: ''
+                      organization_id:
+                        type: string
+                        description: The ID of the organization that owns the diff scan.
+                        default: ''
+                      repository_id:
+                        type: string
+                        description: The ID of the repository the diff scan was run against.
+                        default: ''
+                      created_at:
+                        type: string
+                        description: ISO 8601 timestamp of when the diff scan was created.
+                        default: ''
+                      updated_at:
+                        type: string
+                        description: ISO 8601 timestamp of when the diff scan was last updated.
+                        default: ''
+                      before_full_scan:
+                        type: object
+                        additionalProperties: false
+                        description: ''
+                        properties:
+                          id:
+                            type: string
+                            description: ''
+                            default: ''
+                          created_at:
+                            type: string
+                            description: ''
+                            default: ''
+                          updated_at:
+                            type: string
+                            description: ''
+                            default: ''
+                          organization_id:
+                            type: string
+                            description: ''
+                            default: ''
+                          organization_slug:
+                            type: string
+                            description: ''
+                            default: ''
+                          repository_id:
+                            type: string
+                            description: ''
+                            default: ''
+                          repository_slug:
+                            type: string
+                            description: ''
+                            default: ''
+                          branch:
+                            type: string
+                            description: ''
+                            default: ''
+                            nullable: true
+                          commit_message:
+                            type: string
+                            description: ''
+                            default: ''
+                            nullable: true
+                          commit_hash:
+                            type: string
+                            description: ''
+                            default: ''
+                            nullable: true
+                          pull_request:
+                            type: integer
+                            description: ''
+                            default: 0
+                            nullable: true
+                          committers:
+                            type: array
+                            items:
+                              type: string
+                              description: ''
+                              default: ''
+                            description: ''
+                          html_url:
+                            type: string
+                            description: ''
+                            default: ''
+                            nullable: true
+                          api_url:
+                            type: string
+                            description: ''
+                            default: ''
+                            nullable: true
+                        required:
+                        - api_url
+                        - branch
+                        - commit_hash
+                        - commit_message
+                        - committers
+                        - created_at
+                        - html_url
+                        - id
+                        - organization_id
+                        - organization_slug
+                        - pull_request
+                        - repository_id
+                        - repository_slug
+                        - updated_at
+                      after_full_scan:
+                        type: object
+                        additionalProperties: false
+                        description: ''
+                        properties:
+                          id:
+                            type: string
+                            description: ''
+                            default: ''
+                          created_at:
+                            type: string
+                            description: ''
+                            default: ''
+                          updated_at:
+                            type: string
+                            description: ''
+                            default: ''
+                          organization_id:
+                            type: string
+                            description: ''
+                            default: ''
+                          organization_slug:
+                            type: string
+                            description: ''
+                            default: ''
+                          repository_id:
+                            type: string
+                            description: ''
+                            default: ''
+                          repository_slug:
+                            type: string
+                            description: ''
+                            default: ''
+                          branch:
+                            type: string
+                            description: ''
+                            default: ''
+                            nullable: true
+                          commit_message:
+                            type: string
+                            description: ''
+                            default: ''
+                            nullable: true
+                          commit_hash:
+                            type: string
+                            description: ''
+                            default: ''
+                            nullable: true
+                          pull_request:
+                            type: integer
+                            description: ''
+                            default: 0
+                            nullable: true
+                          committers:
+                            type: array
+                            items:
+                              type: string
+                              description: ''
+                              default: ''
+                            description: ''
+                          html_url:
+                            type: string
+                            description: ''
+                            default: ''
+                            nullable: true
+                          api_url:
+                            type: string
+                            description: ''
+                            default: ''
+                            nullable: true
+                        required:
+                        - api_url
+                        - branch
+                        - commit_hash
+                        - commit_message
+                        - committers
+                        - created_at
+                        - html_url
+                        - id
+                        - organization_id
+                        - organization_slug
+                        - pull_request
+                        - repository_id
+                        - repository_slug
+                        - updated_at
+                      description:
+                        type: string
+                        description: Human readable description of the diff scan, e.g. the pull request title.
+                        default: ''
+                        nullable: true
+                      external_href:
+                        type: string
+                        description: Link to the external resource the diff scan was created for, e.g. the pull request URL.
+                        default: ''
+                        nullable: true
+                      merge:
+                        type: boolean
+                        default: false
+                        description: True when the diff scan was created for a merge event rather than an open pull request.
+                      html_url:
+                        type: string
+                        description: Link to the diff scan report in the Socket dashboard.
+                        default: ''
+                        nullable: true
+                      api_url:
+                        type: string
+                        description: Link to the diff scan resource in the Socket API.
+                        default: ''
+                        nullable: true
+                    required:
+                    - after_full_scan
+                    - api_url
+                    - before_full_scan
+                    - created_at
+                    - description
+                    - external_href
+                    - html_url
+                    - id
+                    - merge
+                    - organization_id
+                    - repository_id
+                    - updated_at
+                required:
+                - diff_scan
+          description: The details of the created diff scan.
+        '302':
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: false
+                description: ''
+                properties:
+                  diff_scan:
+                    type: object
+                    additionalProperties: false
+                    description: ''
+                    properties:
+                      id:
+                        type: string
+                        description: The ID of the diff scan.
+                        default: ''
+                      organization_id:
+                        type: string
+                        description: The ID of the organization that owns the diff scan.
+                        default: ''
+                      repository_id:
+                        type: string
+                        description: The ID of the repository the diff scan was run against.
+                        default: ''
+                      created_at:
+                        type: string
+                        description: ISO 8601 timestamp of when the diff scan was created.
+                        default: ''
+                      updated_at:
+                        type: string
+                        description: ISO 8601 timestamp of when the diff scan was last updated.
+                        default: ''
+                      before_full_scan:
+                        type: object
+                        additionalProperties: false
+                        description: ''
+                        properties:
+                          id:
+                            type: string
+                            description: ''
+                            default: ''
+                          created_at:
+                            type: string
+                            description: ''
+                            default: ''
+                          updated_at:
+                            type: string
+                            description: ''
+                            default: ''
+                          organization_id:
+                            type: string
+                            description: ''
+                            default: ''
+                          organization_slug:
+                            type: string
+                            description: ''
+                            default: ''
+                          repository_id:
+                            type: string
+                            description: ''
+                            default: ''
+                          repository_slug:
+                            type: string
+                            description: ''
+                            default: ''
+                          branch:
+                            type: string
+                            description: ''
+                            default: ''
+                            nullable: true
+                          commit_message:
+                            type: string
+                            description: ''
+                            default: ''
+                            nullable: true
+                          commit_hash:
+                            type: string
+                            description: ''
+                            default: ''
+                            nullable: true
+                          pull_request:
+                            type: integer
+                            description: ''
+                            default: 0
+                            nullable: true
+                          committers:
+                            type: array
+                            items:
+                              type: string
+                              description: ''
+                              default: ''
+                            description: ''
+                          html_url:
+                            type: string
+                            description: ''
+                            default: ''
+                            nullable: true
+                          api_url:
+                            type: string
+                            description: ''
+                            default: ''
+                            nullable: true
+                        required:
+                        - api_url
+                        - branch
+                        - commit_hash
+                        - commit_message
+                        - committers
+                        - created_at
+                        - html_url
+                        - id
+                        - organization_id
+                        - organization_slug
+                        - pull_request
+                        - repository_id
+                        - repository_slug
+                        - updated_at
+                      after_full_scan:
+                        type: object
+                        additionalProperties: false
+                        description: ''
+                        properties:
+                          id:
+                            type: string
+                            description: ''
+                            default: ''
+                          created_at:
+                            type: string
+                            description: ''
+                            default: ''
+                          updated_at:
+                            type: string
+                            description: ''
+                            default: ''
+                          organization_id:
+                            type: string
+                            description: ''
+                            default: ''
+                          organization_slug:
+                            type: string
+                            description: ''
+                            default: ''
+                          repository_id:
+                            type: string
+                            description: ''
+                            default: ''
+                          repository_slug:
+                            type: string
+                            description: ''
+                            default: ''
+                          branch:
+                            type: string
+                            description: ''
+                            default: ''
+                            nullable: true
+                          commit_message:
+                            type: string
+                            description: ''
+                            default: ''
+                            nullable: true
+                          commit_hash:
+                            type: string
+                            description: ''
+                            default: ''
+                            nullable: true
+                          pull_request:
+                            type: integer
+                            description: ''
+                            default: 0
+                            nullable: true
+                          committers:
+                            type: array
+                            items:
+                              type: string
+                              description: ''
+                              default: ''
+                            description: ''
+                          html_url:
+                            type: string
+                            description: ''
+                            default: ''
+                            nullable: true
+                          api_url:
+                            type: string
+                            description: ''
+                            default: ''
+                            nullable: true
+                        required:
+                        - api_url
+                        - branch
+                        - commit_hash
+                        - commit_message
+                        - committers
+                        - created_at
+                        - html_url
+                        - id
+                        - organization_id
+                        - organization_slug
+                        - pull_request
+                        - repository_id
+                        - repository_slug
+                        - updated_at
+                      description:
+                        type: string
+                        description: Human readable description of the diff scan, e.g. the pull request title.
+                        default: ''
+                        nullable: true
+                      external_href:
+                        type: string
+                        description: Link to the external resource the diff scan was created for, e.g. the pull request URL.
+                        default: ''
+                        nullable: true
+                      merge:
+                        type: boolean
+                        default: false
+                        description: True when the diff scan was created for a merge event rather than an open pull request.
+                      html_url:
+                        type: string
+                        description: Link to the diff scan report in the Socket dashboard.
+                        default: ''
+                        nullable: true
+                      api_url:
+                        type: string
+                        description: Link to the diff scan resource in the Socket API.
+                        default: ''
+                        nullable: true
+                    required:
+                    - after_full_scan
+                    - api_url
+                    - before_full_scan
+                    - created_at
+                    - description
+                    - external_href
+                    - html_url
+                    - id
+                    - merge
+                    - organization_id
+                    - repository_id
+                    - updated_at
+                required:
+                - diff_scan
+          description: Redirects to the existing diff scan when on_duplicate=redirect is set and a duplicate is detected.
+        '400':
+          $ref: '#/components/responses/SocketBadRequest'
+        '401':
+          $ref: '#/components/responses/SocketUnauthorized'
+        '403':
+          $ref: '#/components/responses/SocketForbidden'
+        '404':
+          $ref: '#/components/responses/SocketNotFoundResponse'
+        '409':
+          $ref: '#/components/responses/SocketConflict'
+        '429':
+          $ref: '#/components/responses/SocketTooManyRequestsResponse'
+      x-readme: {}
+  /orgs/{org_slug}/supported-files:
+    get:
+      tags:
+      - diff-scans
+      summary: Get supported file types
+      operationId: getSupportedFiles
+      parameters:
+      - name: org_slug
+        in: path
+        required: true
+        description: The slug of the organization
+        schema:
+          type: string
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      description: 'Get a list of supported files for full scan generation.
+
+        Files are categorized first by environment (e.g. NPM or PyPI), then by name.
+
+
+        Files whose names match the patterns returned by this endpoint can be uploaded for report generation.
+
+        Examples of supported filenames include `package.json`, `package-lock.json`, and `yarn.lock`.
+
+
+        This endpoint consumes 1 unit of your quota.
+
+
+        This endpoint requires the following org token scopes:
+
+        - No Scopes Required, but authentication is required'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: object
+                  additionalProperties:
+                    type: object
+                    additionalProperties: false
+                    description: ''
+                    properties:
+                      pattern:
+                        type: string
+                        description: ''
+                        default: ''
+                    required:
+                    - pattern
+                  properties: {}
+                  description: ''
+                properties: {}
+                description: ''
+          description: Glob patterns used to match supported files
+        '400':
+          $ref: '#/components/responses/SocketBadRequest'
+        '404':
+          $ref: '#/components/responses/SocketNotFoundResponse'
+        '429':
+          $ref: '#/components/responses/SocketTooManyRequestsResponse'
+      x-readme: {}
+  /alert-types:
+    post:
+      tags:
+      - diff-scans
+      summary: Alert Types Metadata
+      operationId: alertTypes
+      parameters:
+      - name: language
+        in: query
+        required: false
+        description: Language for alert metadata
+        schema:
+          type: string
+          enum:
+          - ach-UG
+          - de-DE
+          - en-US
+          - es-ES
+          - fr-FR
+          - it-IT
+          default: en-US
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: string
+                description: ''
+                default: ''
+              description: ''
+        required: false
+      security: []
+      description: 'For an array of alert type identifiers, returns metadata for each alert type. Optionally, specify a language via the ''language'' query parameter.
+
+
+        This endpoint consumes 1 unit of your quota.
+
+
+        This endpoint requires the following org token scopes:'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  additionalProperties: false
+                  description: ''
+                  properties:
+                    type:
+                      type: string
+                      description: ''
+                      default: ''
+                    title:
+                      type: string
+                      description: ''
+                      default: ''
+                    description:
+                      type: string
+                      description: ''
+                      default: ''
+                    suggestion:
+                      type: string
+                      description: ''
+                      default: ''
+                    emoji:
+                      type: string
+                      description: ''
+                      default: ''
+                    nextStepTitle:
+                      type: string
+                      description: ''
+                      default: ''
+                    props:
+                      type: object
+                      additionalProperties:
+                        type: string
+                        description: ''
+                        default: ''
+                      properties: {}
+                      description: ''
+                      nullable: true
+                  required:
+                  - description
+                  - emoji
+                  - nextStepTitle
+                  - props
+                  - suggestion
+                  - title
+                  - type
+                description: ''
+          description: Metadata for the requested alert types
+        '400':
+          $ref: '#/components/responses/SocketBadRequest'
+      x-readme: {}
+components:
+  schemas:
+    SAttrib1_N:
+      type: array
+      items:
+        type: object
+        additionalProperties: false
+        description: ''
+        properties:
+          attribText:
+            type: string
+            description: Full text of the license attribution or copyright notice found in the package
+            default: ''
+          attribData:
+            type: array
+            items:
+              type: object
+              additionalProperties: false
+              description: ''
+              properties:
+                purl:
+                  type: string
+                  description: Package URL this attribution applies to
+                  default: ''
+                foundInFilepath:
+                  type: string
+                  description: File path where this attribution was found
+                  default: ''
+                spdxExpr:
+                  type: string
+                  description: SPDX license expression parsed from the attribution text
+                  default: ''
+                foundAuthors:
+                  type: array
+                  items:
+                    type: string
+                    description: ''
+                    default: ''
+                  description: Authors mentioned in this attribution
+              required:
+              - foundAuthors
+              - foundInFilepath
+              - purl
+              - spdxExpr
+            description: ''
+        required:
+        - attribData
+        - attribText
+      description: ''
+    SocketArtifactLink:
+      type: object
+      additionalProperties: false
+      properties:
+        direct:
+          type: boolean
+          default: false
+          description: Indicates if this is a direct dependency (not transitive)
+        dev:
+          type: boolean
+          default: false
+          description: Indicates if this is a development-only dependency not used in production
+        dead:
+          type: boolean
+          default: false
+          description: Indicates if this package is deprecated, abandoned, or no longer maintained
+        manifestFiles:
+          type: array
+          items:
+            $ref: '#/components/schemas/SocketManifestReference'
+          description: ''
+        topLevelAncestors:
+          type: array
+          items:
+            $ref: '#/components/schemas/SocketId'
+          description: IDs of the root-level packages in the dependency tree that depend on this package
+        dependencies:
+          type: array
+          items:
+            $ref: '#/components/schemas/SocketId'
+          description: IDs of packages that this package directly depends on
+        alertPriorities:
+          type: object
+          additionalProperties:
+            type: object
+            additionalProperties: false
+            properties:
+              result:
+                type: integer
+                description: Computed priority score for this alert
+                default: 0
+              components:
+                type: object
+                additionalProperties: false
+                description: ''
+                properties:
+                  isFixable:
+                    type: object
+                    additionalProperties: false
+                    description: ''
+                    properties:
+                      result:
+                        type: number
+                        description: Contribution of fixability to the priority score
+                        default: 0
+                      value:
+                        type: boolean
+                        default: false
+                        description: Whether a fix is available for this alert
+                    required:
+                    - result
+                    - value
+                  isReachable:
+                    type: object
+                    additionalProperties: false
+                    description: ''
+                    properties:
+                      result:
+                        type: number
+                        description: Contribution of reachability to the priority score
+                        default: 0
+                      value:
+                        type: boolean
+                        default: false
+                        description: Whether the vulnerable code is reachable
+                      specificValue:
+                        type: string
+                        description: Specific reachability type value such as 'unreachable', 'maybe_reachable', or 'reachable'
+                        default: ''
+                    required:
+                    - result
+                    - specificValue
+                    - value
+                  severity:
+                    type: object
+                    additionalProperties: false
+                    description: ''
+                    properties:
+                      result:
+                        type: number
+                        description: Contribution of severity to the priority score
+                        default: 0
+                      value:
+                        type: integer
+                        description: Numeric severity level
+                        default: 0
+                    required:
+                    - result
+                    - value
+                required:
+                - isFixable
+                - isReachable
+                - severity
+              formula:
+                type: string
+                description: Formula used to calculate the priority score
+                default: ''
+            required:
+            - result
+          properties: {}
+          description: Computed priority scores for each alert type based on severity, reachability, and fixability factors
+        artifact:
+          allOf:
+          - $ref: '#/components/schemas/SocketPURL'
+          - type: object
+            additionalProperties: false
+            properties:
+              id:
+                $ref: '#/components/schemas/SocketId'
+            required:
+            - id
+        alertKeysToReachabilityTypes:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: string
+              description: ''
+              default: ''
+            description: ''
+          properties: {}
+          description: 'Deprecated: mapping of alert keys to arrays of reachability types found across different manifest files or code locations. This field is derived from alertKeysToReachabilitySummaries for backward compatibility; use that property instead.'
+        alertKeysToReachabilitySummaries:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: object
+              additionalProperties: false
+              description: ''
+              properties:
+                type:
+                  type: string
+                  description: ''
+                  default: ''
+              required:
+              - type
+            description: ''
+          properties: {}
+          description: Mapping of alert keys to arrays of reachability summaries. Each summary contains a reachability type indicating the result of reachability analysis for the corresponding vulnerability alert.
+      description: ''
+    ClassStackItem:
+      type: object
+      additionalProperties: false
+      properties:
+        purl:
+          type: string
+          description: Package URL (PURL) of the dependency containing this class
+          default: ''
+        class:
+          type: string
+          description: Name of the class in the dependency
+          default: ''
+        confidence:
+          type: number
+          description: Confidence score from 0.0 to 1.0 indicating how certain the reachability analysis is about this result
+          default: 0
+      description: ''
+    SocketPURL_Type:
+      type: string
+      enum:
+      - alpm
+      - apk
+      - bitbucket
+      - cocoapods
+      - cargo
+      - chrome
+      - clawhub
+      - composer
+      - conan
+      - conda
+      - cran
+      - deb
+      - docker
+      - gem
+      - generic
+      - github
+      - golang
+      - hackage
+      - hex
+      - huggingface
+      - maven
+      - mlflow
+      - npm
+      - nuget
+      - qpkg
+      - oci
+      - pub
+      - pypi
+      - rpm
+      - socket
+      - swid
+      - swift
+      - vscode
+      - unknown
+      description: Package ecosystem type identifier based on the PURL specification
+      default: unknown
+    ReachabilityType:
+      type: string
+      enum:
+      - missing_support
+      - undeterminable_reachability
+      - pending
+      - unreachable
+      - unknown
+      - direct_dependency
+      - error
+      - maybe_reachable
+      - reachable
+      description: Status of reachability analysis for vulnerable code paths
+      default: unknown
+    SocketDiffArtifactType:
+      type: string
+      enum:
+      - added
+      - removed
+      - updated
+      - replaced
+      - unchanged
+      description: Type of change detected for this artifact in the diff
+      default: unchanged
+    ReachabilityResult:
+      type: object
+      additionalProperties: false
+      description: ''
+      properties:
+        type:
+          type: string
+          enum:
+          - precomputed
+          - full-scan
+          description: Type of reachability analysis performed
+          default: precomputed
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/ReachabilityResultItem'
+          description: Reachability analysis results for each vulnerability
+      required:
+      - results
+      - type
+    Qualifiers: {}
+    SourceLocation:
+      type: object
+      additionalProperties: false
+      description: ''
+      properties:
+        start:
+          type: object
+          additionalProperties: false
+          description: ''
+          properties:
+            line:
+              type: integer
+              description: Line number in the source file
+              default: 0
+            column:
+              type: integer
+              description: Column number in the source file
+              default: 0
+            byteOffset:
+              type: integer
+              description: Absolute byte position from the beginning of the file, used for precise location tracking
+              default: 0
+          required:
+          - byteOffset
+          - column
+          - line
+        end:
+          type: object
+          additionalProperties: false
+          properties:
+            line:
+              type: integer
+              description: Line number in the source file
+              default: 0
+            column:
+              type: integer
+              description: Column number in the source file
+              default: 0
+            byteOffset:
+              type: integer
+              description: Absolute byte position from the beginning of the file, used for precise location tracking
+              default: 0
+          description: ''
+        filename:
+          type: string
+          description: Path to the source file
+          default: ''
+        fileHash:
+          type: string
+          description: Hash of the source file for integrity verification
+          default: ''
+      required:
+      - end
+      - fileHash
+      - filename
+      - start
+    SocketIssueSeverity:
+      type: string
+      enum:
+      - low
+      - middle
+      - high
+      - critical
+      description: ''
+      default: low
+    ReachabilityResultItem:
+      type: object
+      additionalProperties: false
+      properties:
+        type:
+          $ref: '#/components/schemas/ReachabilityType'
+        truncated:
+          type: boolean
+          default: false
+          description: Indicates if the reachability analysis was stopped early due to depth or complexity limits
+        error:
+          type: string
+          description: Error message if reachability analysis failed
+          default: ''
+        matches:
+          anyOf:
+          - type: object
+            additionalProperties: false
+            properties:
+              type:
+                type: string
+                enum:
+                - function-level
+              value:
+                type: array
+                items:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/CallStackItem'
+                  description: ''
+                description: ''
+          - type: object
+            additionalProperties: false
+            properties:
+              type:
+                type: string
+                enum:
+                - class-level
+              value:
+                type: array
+                items:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/ClassStackItem'
+                  description: ''
+                description: ''
+        workspacePath:
+          type: string
+          description: Path to the workspace root for multi-workspace projects
+          default: ''
+        subprojectPath:
+          type: string
+          description: Path to the subproject within the workspace
+          default: ''
+      required:
+      - type
+    SocketPatch:
+      type: object
+      additionalProperties: false
+      properties:
+        uuid:
+          type: string
+          description: Unique identifier for this patch
+          default: ''
+        tier:
+          type: string
+          enum:
+          - free
+          - paid
+          description: Access tier required for this patch (free or paid)
+          default: free
+        deprecated:
+          type: boolean
+          default: false
+          description: Indicates if this patch is deprecated and should not be used
+      required:
+      - tier
+      - uuid
+    Capabilities:
+      type: object
+      additionalProperties: false
+      description: ''
+      properties:
+        env:
+          type: boolean
+          default: false
+          description: Package can read or modify environment variables
+        eval:
+          type: boolean
+          default: false
+          description: Package uses dynamic code evaluation (eval, Function constructor, etc.)
+        fs:
+          type: boolean
+          default: false
+          description: Package can read or write to the file system
+        net:
+          type: boolean
+          default: false
+          description: Package can make network requests or create servers
+        shell:
+          type: boolean
+          default: false
+          description: Package can execute shell commands or spawn processes
+        unsafe:
+          type: boolean
+          default: false
+          description: Package uses unsafe or dangerous operations that could compromise security
+        url:
+          type: boolean
+          default: false
+          description: Package contains remote URL(s) in the source code
+      required:
+      - env
+      - eval
+      - fs
+      - net
+      - shell
+      - unsafe
+      - url
+    SocketAlert:
+      type: object
+      additionalProperties: false
+      properties:
+        key:
+          type: string
+          description: Unique identifier for this alert instance, used for deduplication and tracking across scans
+          default: ''
+        type:
+          type: string
+          description: Alert type identifier referencing the alert type definition
+          default: ''
+        severity:
+          $ref: '#/components/schemas/SocketIssueSeverity'
+        category:
+          $ref: '#/components/schemas/SocketCategory'
+        file:
+          type: string
+          description: File path where this alert was detected
+          default: ''
+        start:
+          type: integer
+          description: Starting position of the alert in the file
+          default: 0
+        end:
+          type: integer
+          description: Ending position of the alert in the file
+          default: 0
+        props:
+          type: object
+          description: Additional alert-specific properties and metadata that vary by alert type. For vulnerability alerts this includes the `cveId` and `ghsaId` identifiers, either of which may be an empty string when GitHub has not assigned that identifier to the advisory.
+          default: null
+        action:
+          type: string
+          description: Action to take for this alert (e.g., error, warn, ignore)
+          default: ''
+        actionSource:
+          type: object
+          additionalProperties: false
+          description: ''
+          properties:
+            type:
+              type: string
+              description: Type of action source (e.g., policy, override)
+              default: ''
+            candidates:
+              type: array
+              items:
+                type: object
+                additionalProperties: false
+                description: ''
+                properties:
+                  type:
+                    type: string
+                    description: Type of action candidate
+                    default: ''
+                  action:
+                    type: string
+                    description: Proposed action for this candidate
+                    default: ''
+                  actionPolicyIndex:
+                    type: integer
+                    description: Index of the policy rule for this candidate
+                    default: 0
+                  repoLabelId:
+                    type: string
+                    description: Repository label ID associated with this candidate
+                    default: ''
+                required:
+                - action
+                - actionPolicyIndex
+                - repoLabelId
+                - type
+              description: ''
+          required:
+          - candidates
+          - type
+        actionPolicyIndex:
+          type: integer
+          description: Index of the policy rule that triggered this action, for traceability to security policies
+          default: 0
+        fix:
+          type: object
+          additionalProperties: false
+          properties:
+            type:
+              type: string
+              description: Type of fix available (e.g., upgrade, remove, cve)
+              default: ''
+            description:
+              type: string
+              description: Human-readable description of how to fix this issue
+              default: ''
+            patch:
+              type: array
+              items:
+                type: object
+                additionalProperties: false
+                properties:
+                  uuid:
+                    type: string
+                    description: Unique identifier for this patch
+                    default: ''
+                  tier:
+                    type: string
+                    enum:
+                    - free
+                    - paid
+                    description: Access tier required for this patch (free or paid)
+                    default: free
+                  deprecated:
+                    type: boolean
+                    default: false
+                    description: Indicates if this patch is deprecated and should not be used
+                required:
+                - tier
+                - uuid
+              description: Patches available to fix this specific alert
+          required:
+          - description
+          - type
+        patch:
+          $ref: '#/components/schemas/SocketPatch'
+        reachability:
+          type: object
+          additionalProperties: false
+          properties:
+            head:
+              $ref: '#/components/schemas/ReachabilityResult'
+            base:
+              $ref: '#/components/schemas/ReachabilityResult'
+          description: ''
+        subType:
+          type: string
+          description: Generic alert sub-type
+          default: ''
+      required:
+      - key
+      - type
+    SocketId:
+      type: string
+      description: ''
+      default: ''
+    SocketDiffArtifact:
+      allOf:
+      - $ref: '#/components/schemas/SocketPURL'
+      - type: object
+        additionalProperties: false
+        properties:
+          diffType:
+            $ref: '#/components/schemas/SocketDiffArtifactType'
+          id:
+            $ref: '#/components/schemas/SocketId'
+          author:
+            type: array
+            items:
+              type: string
+              description: ''
+              default: ''
+            description: List of package authors or maintainers
+          base:
+            type: array
+            items:
+              $ref: '#/components/schemas/SocketArtifactLink'
+            description: Artifact links from the base/before state
+          capabilities:
+            $ref: '#/components/schemas/Capabilities'
+          head:
+            type: array
+            items:
+              $ref: '#/components/schemas/SocketArtifactLink'
+            description: Artifact links from the head/after state
+          qualifiers:
+            $ref: '#/components/schemas/Qualifiers'
+          size:
+            type: number
+            description: Total size of the package artifact in bytes
+            default: 0
+          license:
+            type: string
+            description: ''
+            default: ''
+          licenseDetails:
+            $ref: '#/components/schemas/LicenseDetails'
+          licenseAttrib:
+            $ref: '#/components/schemas/SAttrib1_N'
+          score:
+            $ref: '#/components/schemas/SocketScore'
+          alerts:
+            type: array
+            items:
+              $ref: '#/components/schemas/SocketAlert'
+            description: ''
+        required:
+        - diffType
+    CallStackItem:
+      type: object
+      additionalProperties: false
+      properties:
+        purl:
+          type: string
+          description: Package URL (PURL) of the dependency containing this code
+          default: ''
+        sourceLocation:
+          $ref: '#/components/schemas/SourceLocation'
+        confidence:
+          type: number
+          description: Confidence score from 0.0 to 1.0 indicating how certain the reachability analysis is about this result
+          default: 0
+      description: ''
+    SocketPURL:
+      type: object
+      additionalProperties: false
+      properties:
+        type:
+          $ref: '#/components/schemas/SocketPURL_Type'
+        namespace:
+          type: string
+          description: Package namespace or scope, such as npm organizations (@angular), Maven groupIds, or Docker image owners
+          default: ''
+        name:
+          type: string
+          description: Package name within its ecosystem
+          default: ''
+        version:
+          type: string
+          description: Package version string
+          default: ''
+        subpath:
+          type: string
+          description: Path within the package to a specific file or directory, used to reference nested components
+          default: ''
+        release:
+          type: string
+          description: Package-specific release identifier, such as PyPI's artifact ID or the specific build/release version
+          default: ''
+      required:
+      - type
+    SocketScore:
+      type: object
+      additionalProperties: false
+      description: ''
+      properties:
+        license:
+          type: number
+          description: Score from 0.0 to 1.0 evaluating license permissiveness and compatibility
+          default: 0
+        maintenance:
+          type: number
+          description: Score from 0.0 to 1.0 evaluating project maintenance health and activity
+          default: 0
+        overall:
+          type: number
+          description: Combined score from 0.0 to 1.0 representing overall package health and safety
+          default: 0
+        quality:
+          type: number
+          description: Score from 0.0 to 1.0 evaluating code quality, testing, and documentation
+          default: 0
+        supplyChain:
+          type: number
+          description: Score from 0.0 to 1.0 evaluating supply chain security and provenance
+          default: 0
+        vulnerability:
+          type: number
+          description: Score from 0.0 to 1.0 based on known vulnerabilities and their severity
+          default: 0
+      required:
+      - license
+      - maintenance
+      - overall
+      - quality
+      - supplyChain
+      - vulnerability
+    SocketCategory:
+      type: string
+      enum:
+      - supplyChainRisk
+      - quality
+      - maintenance
+      - vulnerability
+      - license
+      - other
+      description: ''
+      default: other
+    SocketManifestReference:
+      type: object
+      additionalProperties: false
+      properties:
+        file:
+          type: string
+          description: Path to the manifest file (e.g., package.json, pom.xml)
+          default: ''
+        start:
+          type: integer
+          description: Starting line or position in the manifest file
+          default: 0
+        end:
+          type: integer
+          description: Ending line or position in the manifest file
+          default: 0
+      required:
+      - file
+    LicenseDetails:
+      type: array
+      items:
+        type: object
+        additionalProperties: false
+        description: ''
+        properties:
+          spdxDisj:
+            type: string
+            description: SPDX license expression in disjunctive normal form (e.g., '(MIT OR Apache-2.0)')
+            default: ''
+          authors:
+            type: array
+            items:
+              type: string
+              description: ''
+              default: ''
+            description: List of authors found in the license text
+          errorData:
+            type: string
+            description: Error details if license parsing failed
+            default: ''
+          provenance:
+            type: string
+            description: Source where this license information was detected (e.g., 'package.json', 'LICENSE file', 'README')
+            default: ''
+          filepath:
+            type: string
+            description: Path to the file containing this license information
+            default: ''
+          match_strength:
+            type: number
+            description: Confidence score from 0.0 to 1.0 indicating how well the detected license matches the source text
+            default: 0
+        required:
+        - authors
+        - errorData
+        - filepath
+        - match_strength
+        - provenance
+        - spdxDisj
+      description: ''
+  responses:
+    SocketForbidden:
+      content:
+        application/json:
+          schema:
+            type: object
+            additionalProperties: false
+            description: ''
+            properties:
+              error:
+                type: object
+                additionalProperties: false
+                description: ''
+                properties:
+                  message:
+                    type: string
+                    description: ''
+                    default: ''
+                  details:
+                    type: object
+                    description: ''
+                    default: null
+                    nullable: true
+                required:
+                - details
+                - message
+            required:
+            - error
+      description: Insufficient max_quota for API method
+    SocketUnauthorized:
+      content:
+        application/json:
+          schema:
+            type: object
+            additionalProperties: false
+            description: ''
+            properties:
+              error:
+                type: object
+                additionalProperties: false
+                description: ''
+                properties:
+                  message:
+                    type: string
+                    description: ''
+                    default: ''
+                  details:
+                    type: object
+                    description: ''
+                    default: null
+                    nullable: true
+                required:
+                - details
+                - message
+            required:
+            - error
+      description: Unauthorized
+    SocketTooManyRequestsResponse:
+      description: Insufficient quota for API route
+      headers:
+        Retry-After:
+          description: 'Retry contacting the endpoint *at least* after seconds.
+
+            See https://tools.ietf.org/html/rfc7231#section-7.1.3'
+          schema:
+            format: int32
+            type: integer
+      content:
+        application/json:
+          schema:
+            type: object
+            additionalProperties: false
+            description: ''
+            properties:
+              error:
+                type: object
+                additionalProperties: false
+                description: ''
+                properties:
+                  message:
+                    type: string
+                    description: ''
+                    default: ''
+                  details:
+                    type: object
+                    description: ''
+                    default: null
+                    nullable: true
+                required:
+                - details
+                - message
+            required:
+            - error
+    SocketConflict:
+      content:
+        application/json:
+          schema:
+            type: object
+            additionalProperties: false
+            description: ''
+            properties:
+              error:
+                type: object
+                additionalProperties: false
+                description: ''
+                properties:
+                  message:
+                    type: string
+                    description: ''
+                    default: ''
+                  details:
+                    type: object
+                    description: ''
+                    default: null
+                    nullable: true
+                required:
+                - details
+                - message
+            required:
+            - error
+      description: Resource already exists
+    SocketBadRequest:
+      content:
+        application/json:
+          schema:
+            type: object
+            additionalProperties: false
+            description: ''
+            properties:
+              error:
+                type: object
+                additionalProperties: false
+                description: ''
+                properties:
+                  message:
+                    type: string
+                    description: ''
+                    default: ''
+                  details:
+                    type: object
+                    description: ''
+                    default: null
+                    nullable: true
+                required:
+                - details
+                - message
+            required:
+            - error
+      description: Bad request
+    SocketNotFoundResponse:
+      content:
+        application/json:
+          schema:
+            type: object
+            additionalProperties: false
+            description: ''
+            properties:
+              error:
+                type: object
+                additionalProperties: false
+                description: ''
+                properties:
+                  message:
+                    type: string
+                    description: ''
+                    default: ''
+                  details:
+                    type: object
+                    description: ''
+                    default: null
+                    nullable: true
+                required:
+                - details
+                - message
+            required:
+            - error
+      description: Resource not found
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: Organization Tokens can be passed as a Bearer token
+    basicAuth:
+      type: http
+      scheme: basic
+      description: Organization Tokens can be passed as the user field in basic auth

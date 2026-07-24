@@ -1,0 +1,1242 @@
+openapi: 3.0.0
+info:
+  description: Specification of the Socket API endpoints
+  title: API Endpoints alerts api-tokens API
+  version: '0'
+servers:
+- url: https://api.socket.dev/v0
+tags:
+- name: api-tokens
+paths:
+  /orgs/{org_slug}/api-tokens:
+    post:
+      tags:
+      - api-tokens
+      summary: Create API Token
+      operationId: postAPIToken
+      parameters:
+      - name: org_slug
+        in: path
+        required: true
+        description: The slug of the organization
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: false
+              properties:
+                max_quota:
+                  type: integer
+                  description: Maximum number of API calls allowed per month
+                  default: 1000
+                scopes:
+                  type: array
+                  items:
+                    type: string
+                    enum:
+                    - alerts
+                    - alerts:list
+                    - alerts:trend
+                    - alert-resolution
+                    - alert-resolution:list
+                    - alert-resolution:create
+                    - alert-resolution:read
+                    - alert-resolution:delete
+                    - threat-campaigns
+                    - threat-campaigns:list
+                    - api-tokens
+                    - api-tokens:create
+                    - api-tokens:update
+                    - api-tokens:revoke
+                    - api-tokens:rotate
+                    - api-tokens:list
+                    - audit-log
+                    - audit-log:list
+                    - dependencies
+                    - dependencies:list
+                    - dependencies:trend
+                    - fixes
+                    - fixes:list
+                    - full-scans
+                    - full-scans:list
+                    - full-scans:create
+                    - full-scans:delete
+                    - diff-scans
+                    - diff-scans:list
+                    - diff-scans:create
+                    - diff-scans:delete
+                    - entitlements
+                    - entitlements:list
+                    - historical
+                    - historical:snapshots-list
+                    - historical:snapshots-start
+                    - historical:alerts-list
+                    - historical:alerts-trend
+                    - historical:dependencies-list
+                    - historical:dependencies-trend
+                    - integration
+                    - integration:list
+                    - integration:create
+                    - integration:update
+                    - integration:delete
+                    - access-policy
+                    - access-policy:read
+                    - access-policy:attach
+                    - access-policy:update
+                    - license-policy
+                    - license-policy:update
+                    - license-policy:read
+                    - packages
+                    - packages:list
+                    - access-policy-definition
+                    - access-policy-definition:attach
+                    - access-policy-definition:read
+                    - access-policy-definition:update
+                    - report
+                    - report:list
+                    - report:read
+                    - report:write
+                    - repo
+                    - repo:list
+                    - repo:create
+                    - repo:update
+                    - repo:delete
+                    - repo-label
+                    - repo-label:list
+                    - repo-label:create
+                    - repo-label:update
+                    - repo-label:delete
+                    - security-policy
+                    - security-policy:update
+                    - security-policy:read
+                    - socket-basics
+                    - socket-basics:read
+                    - telemetry-policy
+                    - telemetry-policy:update
+                    - telemetry-events
+                    - telemetry-events:list
+                    - threat-feed
+                    - threat-feed:list
+                    - triage
+                    - triage:alerts-list
+                    - triage:alerts-update
+                    - uploaded-artifacts
+                    - uploaded-artifacts:create
+                    - uploaded-artifacts:list
+                    - webhooks
+                    - webhooks:create
+                    - webhooks:list
+                    - webhooks:update
+                    - webhooks:delete
+                    - openid
+                    - profile
+                    - email
+                    - '*'
+                    description: The scope of permissions for this API Token
+                    default: repo:list
+                  description: List of scopes granted to the API Token
+                visibility:
+                  type: string
+                  enum:
+                  - admin
+                  - organization
+                  description: 'The visibility of the API Token. Warning: this field is deprecated and will be removed in the future.'
+                  default: organization
+                committer:
+                  type: object
+                  additionalProperties: false
+                  properties:
+                    email:
+                      type: string
+                      description: Email address of the committer
+                      default: ''
+                    provider:
+                      type: string
+                      enum:
+                      - api
+                      - azure
+                      - bitbucket
+                      - github
+                      - gitlab
+                      description: The source control provider for the committer
+                      default: api
+                    providerLoginName:
+                      type: string
+                      description: Login name on the provider platform
+                      default: ''
+                    providerUserId:
+                      type: string
+                      description: User ID on the provider platform
+                      default: ''
+                  description: Committer information to associate with the API Token
+                name:
+                  type: string
+                  description: Name for the API Token
+                  default: api token
+                resources:
+                  type: array
+                  items:
+                    type: object
+                    additionalProperties: false
+                    properties:
+                      organizationSlug:
+                        type: string
+                        description: Slug of the organization to grant access to
+                        default: ''
+                      repositorySlug:
+                        type: string
+                        description: Slug of the repository to grant access to
+                        default: ''
+                      workspace:
+                        type: string
+                        description: Workspace slug containing the specified repo
+                        default: ''
+                    required:
+                    - organizationSlug
+                    - repositorySlug
+                  description: List of resources this API Token can access. Tokens with resource grants can only access a subset of routes that support this feature.
+              required:
+              - committer
+              - max_quota
+              - scopes
+              - visibility
+        description: The settings to create the api token with.
+        required: false
+      security:
+      - bearerAuth:
+        - api-tokens:create
+      - basicAuth:
+        - api-tokens:create
+      description: 'Create an API Token. The API Token created must use a subset of permissions the API token creating them.
+
+
+        This endpoint consumes 10 units of your quota.
+
+
+        This endpoint requires the following org token scopes:
+
+        - api-tokens:create'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: false
+                description: ''
+                properties:
+                  created_by:
+                    type: string
+                    description: ID of the Socket user who created the API Token
+                    default: ''
+                    format: uuid
+                    nullable: true
+                  group_uuid:
+                    type: string
+                    description: The stable group UUID that remains constant across token rotations
+                    default: ''
+                    format: uuid
+                  token:
+                    type: string
+                    description: ''
+                    default: ''
+                  hash:
+                    type: string
+                    description: ''
+                    default: ''
+                required:
+                - created_by
+                - group_uuid
+                - hash
+                - token
+          description: The newly created api token with its stable UUID and hash.
+        '401':
+          $ref: '#/components/responses/SocketUnauthorized'
+        '403':
+          $ref: '#/components/responses/SocketForbidden'
+        '404':
+          $ref: '#/components/responses/SocketNotFoundResponse'
+        '429':
+          $ref: '#/components/responses/SocketTooManyRequestsResponse'
+      x-readme: {}
+    get:
+      tags:
+      - api-tokens
+      summary: List API Tokens
+      operationId: getAPITokens
+      parameters:
+      - name: org_slug
+        in: path
+        required: true
+        description: The slug of the organization
+        schema:
+          type: string
+      - name: sort
+        in: query
+        required: false
+        description: Specify Sort order.
+        schema:
+          type: string
+          enum:
+          - created_at
+          default: created_at
+      - name: direction
+        in: query
+        required: false
+        description: Specify sort direction.
+        schema:
+          type: string
+          enum:
+          - asc
+          - desc
+          default: desc
+      - name: per_page
+        in: query
+        required: false
+        description: Specify the maximum number of results to return per page.
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 100
+          default: 30
+      - name: page
+        in: query
+        required: false
+        description: The token specifying which page to return.
+        schema:
+          type: integer
+          minimum: 1
+          default: 1
+      - name: token_values
+        in: query
+        required: false
+        description: Whether to include token values in response. Use "omit" to exclude tokens entirely.
+        schema:
+          type: string
+          enum:
+          - include
+          - omit
+          default: omit
+      security:
+      - bearerAuth:
+        - api-tokens:list
+      - basicAuth:
+        - api-tokens:list
+      description: 'List all API Tokens.
+
+
+        This endpoint consumes 10 units of your quota.
+
+
+        This endpoint requires the following org token scopes:
+
+        - api-tokens:list'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: false
+                description: ''
+                properties:
+                  tokens:
+                    type: array
+                    items:
+                      type: object
+                      additionalProperties: false
+                      description: API Token response schema
+                      properties:
+                        committers:
+                          type: array
+                          items:
+                            type: object
+                            additionalProperties: false
+                            properties:
+                              email:
+                                type: string
+                                description: Email address of the committer
+                                default: ''
+                              provider:
+                                type: string
+                                enum:
+                                - api
+                                - azure
+                                - bitbucket
+                                - github
+                                - gitlab
+                                description: The source control provider for the committer
+                                default: api
+                              providerLoginName:
+                                type: string
+                                description: Login name on the provider platform
+                                default: ''
+                              providerUserId:
+                                type: string
+                                description: User ID on the provider platform
+                                default: ''
+                            description: Committer information associated with the API Token
+                          description: List of committers associated with this API Token
+                        created_by:
+                          type: string
+                          description: ID of the Socket user who created the API Token
+                          default: ''
+                          format: uuid
+                          nullable: true
+                        created_at:
+                          type: string
+                          description: Timestamp when the API Token was created
+                          default: ''
+                          format: date
+                        group_uuid:
+                          type: string
+                          description: The stable group UUID that remains constant across token rotations
+                          default: ''
+                          format: uuid
+                        hash:
+                          type: string
+                          description: SRI-format hash of the token (e.g., sha512-base64hash). Null for tokens created before hash column was added.
+                          default: ''
+                          nullable: true
+                        id:
+                          type: string
+                          description: The ID of the API Token
+                          default: ''
+                        last_used_at:
+                          type: string
+                          description: Timestamp when the API Token was last used
+                          default: ''
+                          format: date
+                        max_quota:
+                          type: integer
+                          description: Maximum number of API calls allowed per month
+                          default: 1000
+                        name:
+                          type: string
+                          description: Name for the API Token
+                          default: api token
+                          nullable: true
+                        scopes:
+                          type: array
+                          items:
+                            type: string
+                            enum:
+                            - alerts
+                            - alerts:list
+                            - alerts:trend
+                            - alert-resolution
+                            - alert-resolution:list
+                            - alert-resolution:create
+                            - alert-resolution:read
+                            - alert-resolution:delete
+                            - threat-campaigns
+                            - threat-campaigns:list
+                            - api-tokens
+                            - api-tokens:create
+                            - api-tokens:update
+                            - api-tokens:revoke
+                            - api-tokens:rotate
+                            - api-tokens:list
+                            - audit-log
+                            - audit-log:list
+                            - dependencies
+                            - dependencies:list
+                            - dependencies:trend
+                            - fixes
+                            - fixes:list
+                            - full-scans
+                            - full-scans:list
+                            - full-scans:create
+                            - full-scans:delete
+                            - diff-scans
+                            - diff-scans:list
+                            - diff-scans:create
+                            - diff-scans:delete
+                            - entitlements
+                            - entitlements:list
+                            - historical
+                            - historical:snapshots-list
+                            - historical:snapshots-start
+                            - historical:alerts-list
+                            - historical:alerts-trend
+                            - historical:dependencies-list
+                            - historical:dependencies-trend
+                            - integration
+                            - integration:list
+                            - integration:create
+                            - integration:update
+                            - integration:delete
+                            - access-policy
+                            - access-policy:read
+                            - access-policy:attach
+                            - access-policy:update
+                            - license-policy
+                            - license-policy:update
+                            - license-policy:read
+                            - packages
+                            - packages:list
+                            - access-policy-definition
+                            - access-policy-definition:attach
+                            - access-policy-definition:read
+                            - access-policy-definition:update
+                            - report
+                            - report:list
+                            - report:read
+                            - report:write
+                            - repo
+                            - repo:list
+                            - repo:create
+                            - repo:update
+                            - repo:delete
+                            - repo-label
+                            - repo-label:list
+                            - repo-label:create
+                            - repo-label:update
+                            - repo-label:delete
+                            - security-policy
+                            - security-policy:update
+                            - security-policy:read
+                            - socket-basics
+                            - socket-basics:read
+                            - telemetry-policy
+                            - telemetry-policy:update
+                            - telemetry-events
+                            - telemetry-events:list
+                            - threat-feed
+                            - threat-feed:list
+                            - triage
+                            - triage:alerts-list
+                            - triage:alerts-update
+                            - uploaded-artifacts
+                            - uploaded-artifacts:create
+                            - uploaded-artifacts:list
+                            - webhooks
+                            - webhooks:create
+                            - webhooks:list
+                            - webhooks:update
+                            - webhooks:delete
+                            - openid
+                            - profile
+                            - email
+                            - '*'
+                            description: The scope of permissions for this API Token
+                            default: repo:list
+                          description: List of scopes granted to the API Token
+                        token:
+                          type: string
+                          description: The token of the API Token (redacted or omitted)
+                          default: ''
+                          nullable: true
+                        visibility:
+                          type: string
+                          enum:
+                          - admin
+                          - organization
+                          description: 'The visibility of the API Token. Warning: this field is deprecated and will be removed in the future.'
+                          default: organization
+                      required:
+                      - committers
+                      - created_at
+                      - created_by
+                      - group_uuid
+                      - hash
+                      - id
+                      - last_used_at
+                      - max_quota
+                      - name
+                      - scopes
+                      - token
+                      - visibility
+                    description: ''
+                  nextPage:
+                    type: integer
+                    description: ''
+                    default: 0
+                    nullable: true
+                required:
+                - nextPage
+                - tokens
+          description: The paginated array of API tokens for the organization, and related metadata.
+        '401':
+          $ref: '#/components/responses/SocketUnauthorized'
+        '403':
+          $ref: '#/components/responses/SocketForbidden'
+        '404':
+          $ref: '#/components/responses/SocketNotFoundResponse'
+        '429':
+          $ref: '#/components/responses/SocketTooManyRequestsResponse'
+      x-readme: {}
+  /orgs/{org_slug}/api-tokens/update:
+    post:
+      tags:
+      - api-tokens
+      summary: Update API Token
+      operationId: postAPITokenUpdate
+      parameters:
+      - name: org_slug
+        in: path
+        required: true
+        description: The slug of the organization
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: false
+              properties:
+                max_quota:
+                  type: integer
+                  description: Maximum number of API calls allowed per hour
+                  default: 1000
+                scopes:
+                  type: array
+                  items:
+                    type: string
+                    enum:
+                    - alerts
+                    - alerts:list
+                    - alerts:trend
+                    - alert-resolution
+                    - alert-resolution:list
+                    - alert-resolution:create
+                    - alert-resolution:read
+                    - alert-resolution:delete
+                    - threat-campaigns
+                    - threat-campaigns:list
+                    - api-tokens
+                    - api-tokens:create
+                    - api-tokens:update
+                    - api-tokens:revoke
+                    - api-tokens:rotate
+                    - api-tokens:list
+                    - audit-log
+                    - audit-log:list
+                    - dependencies
+                    - dependencies:list
+                    - dependencies:trend
+                    - fixes
+                    - fixes:list
+                    - full-scans
+                    - full-scans:list
+                    - full-scans:create
+                    - full-scans:delete
+                    - diff-scans
+                    - diff-scans:list
+                    - diff-scans:create
+                    - diff-scans:delete
+                    - entitlements
+                    - entitlements:list
+                    - historical
+                    - historical:snapshots-list
+                    - historical:snapshots-start
+                    - historical:alerts-list
+                    - historical:alerts-trend
+                    - historical:dependencies-list
+                    - historical:dependencies-trend
+                    - integration
+                    - integration:list
+                    - integration:create
+                    - integration:update
+                    - integration:delete
+                    - access-policy
+                    - access-policy:read
+                    - access-policy:attach
+                    - access-policy:update
+                    - license-policy
+                    - license-policy:update
+                    - license-policy:read
+                    - packages
+                    - packages:list
+                    - access-policy-definition
+                    - access-policy-definition:attach
+                    - access-policy-definition:read
+                    - access-policy-definition:update
+                    - report
+                    - report:list
+                    - report:read
+                    - report:write
+                    - repo
+                    - repo:list
+                    - repo:create
+                    - repo:update
+                    - repo:delete
+                    - repo-label
+                    - repo-label:list
+                    - repo-label:create
+                    - repo-label:update
+                    - repo-label:delete
+                    - security-policy
+                    - security-policy:update
+                    - security-policy:read
+                    - socket-basics
+                    - socket-basics:read
+                    - telemetry-policy
+                    - telemetry-policy:update
+                    - telemetry-events
+                    - telemetry-events:list
+                    - threat-feed
+                    - threat-feed:list
+                    - triage
+                    - triage:alerts-list
+                    - triage:alerts-update
+                    - uploaded-artifacts
+                    - uploaded-artifacts:create
+                    - uploaded-artifacts:list
+                    - webhooks
+                    - webhooks:create
+                    - webhooks:list
+                    - webhooks:update
+                    - webhooks:delete
+                    - openid
+                    - profile
+                    - email
+                    - '*'
+                    description: The scope of permissions for this API Token
+                    default: repo:list
+                  description: List of scopes granted to the API Token
+                visibility:
+                  type: string
+                  enum:
+                  - admin
+                  - organization
+                  description: 'The visibility of the API Token. Warning: this field is deprecated and will be removed in the future.'
+                  default: organization
+                committer:
+                  type: object
+                  additionalProperties: false
+                  properties:
+                    email:
+                      type: string
+                      description: Email address of the committer
+                      default: ''
+                    provider:
+                      type: string
+                      enum:
+                      - api
+                      - azure
+                      - bitbucket
+                      - github
+                      - gitlab
+                      description: The source control provider for the committer
+                      default: api
+                    providerLoginName:
+                      type: string
+                      description: Login name on the provider platform
+                      default: ''
+                    providerUserId:
+                      type: string
+                      description: User ID on the provider platform
+                      default: ''
+                  description: Committer information to associate with the API Token
+                name:
+                  type: string
+                  description: Name for the API Token
+                  default: api token
+                uuid:
+                  type: string
+                  description: The stable group UUID to update (provide uuid, id, token, or hash. May provide uuid+hash together for validation)
+                  default: ''
+                  format: uuid
+                id:
+                  type: string
+                  description: The API token ID to update (provide uuid, id, token, or hash)
+                  default: ''
+                token:
+                  type: string
+                  description: The API token to update (provide uuid, id, token, or hash)
+                  default: ''
+                hash:
+                  type: string
+                  description: The API token hash to update (provide uuid, id, token, or hash)
+                  default: ''
+              required:
+              - committer
+              - max_quota
+              - scopes
+              - visibility
+        description: The token and properties to update on the token.
+        required: false
+      security:
+      - bearerAuth:
+        - api-tokens:create
+      - basicAuth:
+        - api-tokens:create
+      description: 'Update an API Token. The API Token created must use a subset of permissions the API token creating them.
+
+
+        This endpoint consumes 10 units of your quota.
+
+
+        This endpoint requires the following org token scopes:
+
+        - api-tokens:create'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: false
+                description: ''
+                properties:
+                  hash:
+                    type: string
+                    description: SRI-format hash of the API token (e.g., sha512-base64hash)
+                    default: ''
+                required:
+                - hash
+          description: The updated token.
+        '401':
+          $ref: '#/components/responses/SocketUnauthorized'
+        '403':
+          $ref: '#/components/responses/SocketForbidden'
+        '404':
+          $ref: '#/components/responses/SocketNotFoundResponse'
+        '429':
+          $ref: '#/components/responses/SocketTooManyRequestsResponse'
+      x-readme: {}
+  /orgs/{org_slug}/api-tokens/rotate:
+    post:
+      tags:
+      - api-tokens
+      summary: Rotate API Token
+      operationId: postAPITokensRotate
+      parameters:
+      - name: org_slug
+        in: path
+        required: true
+        description: The slug of the organization
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: false
+              properties:
+                uuid:
+                  type: string
+                  description: The stable group UUID of the API token to rotate
+                  default: ''
+                  format: uuid
+                id:
+                  type: string
+                  description: The API token ID to rotate
+                  default: ''
+                token:
+                  type: string
+                  description: ''
+                  default: ''
+                hash:
+                  type: string
+                  description: ''
+                  default: ''
+              description: The API Token identifier to rotate. Provide uuid (recommended), id, token, or hash. May provide uuid+hash together for validation.
+        description: The API Token identifier to rotate. Provide uuid (recommended), id, token, or hash. May provide uuid+hash together for validation.
+        required: false
+      security:
+      - bearerAuth:
+        - api-tokens:rotate
+      - basicAuth:
+        - api-tokens:rotate
+      description: 'Rotate an API Token
+
+
+        This endpoint consumes 10 units of your quota.
+
+
+        This endpoint requires the following org token scopes:
+
+        - api-tokens:rotate'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: false
+                description: ''
+                properties:
+                  id:
+                    type: string
+                    description: The database ID of the new API token
+                    default: ''
+                  group_uuid:
+                    type: string
+                    description: The stable group UUID (unchanged after rotation)
+                    default: ''
+                    format: uuid
+                  created_by:
+                    type: string
+                    description: ID of the Socket user who created the API Token
+                    default: ''
+                    format: uuid
+                    nullable: true
+                  token:
+                    type: string
+                    description: ''
+                    default: ''
+                  hash:
+                    type: string
+                    description: ''
+                    default: ''
+                required:
+                - created_by
+                - group_uuid
+                - hash
+                - id
+                - token
+          description: The replacement API Token with its stable UUID, new token value, and hash
+        '401':
+          $ref: '#/components/responses/SocketUnauthorized'
+        '403':
+          $ref: '#/components/responses/SocketForbidden'
+        '404':
+          $ref: '#/components/responses/SocketNotFoundResponse'
+        '429':
+          $ref: '#/components/responses/SocketTooManyRequestsResponse'
+      x-readme: {}
+  /orgs/{org_slug}/api-tokens/revoke:
+    post:
+      tags:
+      - api-tokens
+      summary: Revoke API Token
+      operationId: postAPITokensRevoke
+      parameters:
+      - name: org_slug
+        in: path
+        required: true
+        description: The slug of the organization
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: false
+              properties:
+                uuid:
+                  type: string
+                  description: The stable group UUID of the API token to revoke
+                  default: ''
+                  format: uuid
+                id:
+                  type: string
+                  description: The API token ID to revoke
+                  default: ''
+                token:
+                  type: string
+                  description: ''
+                  default: ''
+                hash:
+                  type: string
+                  description: ''
+                  default: ''
+              description: The API token identifier to revoke. Provide uuid (recommended), id, token, or hash. May provide uuid+hash together for validation.
+        description: The API token identifier to revoke. Provide uuid (recommended), id, token, or hash. May provide uuid+hash together for validation.
+        required: false
+      security:
+      - bearerAuth:
+        - api-tokens:revoke
+      - basicAuth:
+        - api-tokens:revoke
+      description: 'Revoke an API Token
+
+
+        This endpoint consumes 10 units of your quota.
+
+
+        This endpoint requires the following org token scopes:
+
+        - api-tokens:revoke'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: false
+                description: ''
+                properties:
+                  status:
+                    type: string
+                    description: The status of the token
+                    default: revoked
+                required:
+                - status
+          description: Response body
+        '401':
+          $ref: '#/components/responses/SocketUnauthorized'
+        '403':
+          $ref: '#/components/responses/SocketForbidden'
+        '404':
+          $ref: '#/components/responses/SocketNotFoundResponse'
+        '429':
+          $ref: '#/components/responses/SocketTooManyRequestsResponse'
+      x-readme: {}
+  /quota:
+    get:
+      tags:
+      - api-tokens
+      summary: Get quota
+      operationId: getQuota
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      description: 'Get your current API quota. You can use this endpoint to prevent doing requests that might spend all your quota.
+
+
+        This endpoint consumes 0 units of your quota.
+
+
+        This endpoint requires the following org token scopes:
+
+        - No Scopes Required, but authentication is required'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: false
+                description: ''
+                properties:
+                  quota:
+                    type: integer
+                    description: ''
+                    default: 0
+                    minimum: 0
+                  maxQuota:
+                    type: integer
+                    description: ''
+                    default: 0
+                    minimum: 0
+                  nextWindowRefresh:
+                    type: string
+                    description: ''
+                    default: ''
+                    nullable: true
+                required:
+                - maxQuota
+                - nextWindowRefresh
+                - quota
+          description: Quota information
+        '401':
+          $ref: '#/components/responses/SocketUnauthorized'
+        '404':
+          $ref: '#/components/responses/SocketNotFoundResponse'
+        '429':
+          $ref: '#/components/responses/SocketTooManyRequestsResponse'
+      x-readme: {}
+  /organizations:
+    get:
+      tags:
+      - api-tokens
+      summary: List organizations
+      operationId: getOrganizations
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+      description: 'Get information on the current organizations associated with the API token.
+
+
+        This endpoint consumes 1 unit of your quota.
+
+
+        This endpoint requires the following org token scopes:
+
+        - No Scopes Required, but authentication is required'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: false
+                description: ''
+                properties:
+                  organizations:
+                    type: object
+                    additionalProperties:
+                      type: object
+                      additionalProperties: false
+                      description: ''
+                      properties:
+                        id:
+                          type: string
+                          description: ''
+                          default: ''
+                        name:
+                          type: string
+                          description: ''
+                          default: ''
+                          nullable: true
+                        image:
+                          type: string
+                          description: ''
+                          default: ''
+                          nullable: true
+                        plan:
+                          type: string
+                          description: ''
+                          default: ''
+                        slug:
+                          type: string
+                          description: ''
+                          default: ''
+                      required:
+                      - id
+                      - image
+                      - name
+                      - plan
+                      - slug
+                    properties: {}
+                    description: ''
+                required:
+                - organizations
+          description: Organizations information
+        '401':
+          $ref: '#/components/responses/SocketUnauthorized'
+        '404':
+          $ref: '#/components/responses/SocketNotFoundResponse'
+        '429':
+          $ref: '#/components/responses/SocketTooManyRequestsResponse'
+      x-readme: {}
+components:
+  responses:
+    SocketForbidden:
+      content:
+        application/json:
+          schema:
+            type: object
+            additionalProperties: false
+            description: ''
+            properties:
+              error:
+                type: object
+                additionalProperties: false
+                description: ''
+                properties:
+                  message:
+                    type: string
+                    description: ''
+                    default: ''
+                  details:
+                    type: object
+                    description: ''
+                    default: null
+                    nullable: true
+                required:
+                - details
+                - message
+            required:
+            - error
+      description: Insufficient max_quota for API method
+    SocketNotFoundResponse:
+      content:
+        application/json:
+          schema:
+            type: object
+            additionalProperties: false
+            description: ''
+            properties:
+              error:
+                type: object
+                additionalProperties: false
+                description: ''
+                properties:
+                  message:
+                    type: string
+                    description: ''
+                    default: ''
+                  details:
+                    type: object
+                    description: ''
+                    default: null
+                    nullable: true
+                required:
+                - details
+                - message
+            required:
+            - error
+      description: Resource not found
+    SocketTooManyRequestsResponse:
+      description: Insufficient quota for API route
+      headers:
+        Retry-After:
+          description: 'Retry contacting the endpoint *at least* after seconds.
+
+            See https://tools.ietf.org/html/rfc7231#section-7.1.3'
+          schema:
+            format: int32
+            type: integer
+      content:
+        application/json:
+          schema:
+            type: object
+            additionalProperties: false
+            description: ''
+            properties:
+              error:
+                type: object
+                additionalProperties: false
+                description: ''
+                properties:
+                  message:
+                    type: string
+                    description: ''
+                    default: ''
+                  details:
+                    type: object
+                    description: ''
+                    default: null
+                    nullable: true
+                required:
+                - details
+                - message
+            required:
+            - error
+    SocketUnauthorized:
+      content:
+        application/json:
+          schema:
+            type: object
+            additionalProperties: false
+            description: ''
+            properties:
+              error:
+                type: object
+                additionalProperties: false
+                description: ''
+                properties:
+                  message:
+                    type: string
+                    description: ''
+                    default: ''
+                  details:
+                    type: object
+                    description: ''
+                    default: null
+                    nullable: true
+                required:
+                - details
+                - message
+            required:
+            - error
+      description: Unauthorized
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: Organization Tokens can be passed as a Bearer token
+    basicAuth:
+      type: http
+      scheme: basic
+      description: Organization Tokens can be passed as the user field in basic auth

@@ -1,0 +1,23 @@
+generated: '2026-07-21'
+method: searched
+source: https://docs.socket.dev/reference/api-lifecycle-and-deprecation-process
+description: >-
+  Socket REST API lifecycle: URI-path versioning at v0, a published API lifecycle and
+  deprecation process, and operations tagged deprecated in the OpenAPI that are progressively
+  sunset (returning 410 Gone once removed).
+versioning:
+  scheme: uri-path
+  current: v0
+  base_url: https://api.socket.dev/v0
+deprecation:
+  policy: true
+  policy_url: https://docs.socket.dev/reference/api-lifecycle-and-deprecation-process
+  process: >-
+    Socket announces deprecations and offers migration tooling and notification channels to
+    move customers to successor endpoints before removal. Removed endpoints return 410 Gone.
+  deprecated_operations_count: 17
+  deprecated_operations_examples:
+  - openapi/socket-openapi-original.json#batchPackageFetch  # deprecated 2026-01-05, use batchPackageFetchByOrg
+  - openapi/socket-openapi-original.json#getThreatFeedItems # use getOrgThreatFeedItems
+sla:
+  note: No public numeric uptime SLA identified; enterprise plans include support commitments.

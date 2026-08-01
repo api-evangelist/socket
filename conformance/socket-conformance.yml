@@ -1,0 +1,52 @@
+generated: '2026-07-21'
+method: derived
+source: openapi/socket-openapi-original.json
+docs:
+- https://docs.socket.dev/docs/scim
+- https://docs.socket.dev/docs/single-sign-on
+description: >-
+  Industry / cross-cutting standards the Socket platform conforms to or supports, derived from
+  the OpenAPI (SBOM export operations, PURL identifiers, bearer auth, cursor pagination) and
+  the docs (SCIM, SSO). Absence of a claim means not evidenced, not necessarily unsupported.
+standards:
+- id: purl
+  name: Package URL (purl) spec
+  conforms: true
+  evidence: API identifies packages by purl strings (pkg:npm/express@4.19.2); dedicated PURL
+    endpoints (POST /v0/purl, /v0/orgs/{org}/purl) and docs reference.
+- id: cyclonedx
+  name: CycloneDX SBOM
+  conforms: true
+  evidence: exportCDX operation exports Socket SBOMs as CycloneDX; batch PURL is CycloneDX
+    report compatible.
+- id: spdx
+  name: SPDX SBOM
+  conforms: true
+  evidence: exportSPDX operation exports Socket SBOMs as SPDX.
+- id: openvex
+  name: OpenVEX v0.2.0
+  conforms: true
+  evidence: exportOpenVEX operation emits OpenVEX v0.2.0 vulnerability-exploitability documents.
+- id: scim2
+  name: SCIM 2.0
+  conforms: true
+  evidence: Docs document SCIM (System for Cross-domain Identity Management) for automated
+    user provisioning (Enterprise).
+- id: saml-sso
+  name: SAML / SSO
+  conforms: true
+  evidence: Docs document Single Sign-On with 20+ identity providers (Enterprise).
+- id: oauth2
+  name: OAuth 2.0 (API authorization)
+  conforms: false
+  evidence: REST API uses organization API tokens (Bearer/Basic) with token scopes rather
+    than OAuth2 authorization flows.
+- id: rfc9457-problem-details
+  name: RFC 9457 Problem Details
+  conforms: false
+  evidence: Errors use a custom {error:{message,details}} JSON envelope, not
+    application/problem+json.
+- id: cursor-pagination
+  name: Cursor-based pagination
+  conforms: true
+  evidence: List endpoints paginate via opaque endCursor / startAfterCursor.

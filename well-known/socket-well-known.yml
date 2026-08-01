@@ -1,0 +1,14 @@
+generated: '2026-07-21'
+method: searched
+host: https://socket.dev
+description: >-
+  Well-known discovery documents on the Socket hosts. socket.dev publishes an RFC 9116
+  security.txt (verified 200 and saved verbatim). OIDC / OAuth authorization-server discovery
+  documents are not expected: the Socket API authenticates with organization API tokens rather
+  than OAuth/OIDC. Only the verified document is asserted below.
+documents:
+- path: /.well-known/security.txt
+  status: 200
+  file: socket-security.txt
+  host: https://socket.dev
+  standard: RFC 9116

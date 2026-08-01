@@ -1,0 +1,43 @@
+generated: '2026-07-21'
+method: searched
+source: https://docs.socket.dev/docs/socket-cli-faq
+docs: https://docs.socket.dev/docs/socket-cli
+repo: https://github.com/SocketDev/socket-cli
+description: >-
+  The Socket CLI is a first-party command-line tool that scans dependencies, looks up package
+  scores, applies fixes, and wraps npm/npx to block malicious installs. It authenticates with
+  a Socket API token and drives the same platform surface as the REST API.
+install:
+- method: npm
+  command: npm install -g @socketsecurity/cli
+  package: packages/socket-packages.yml
+config_file: socket.json
+commands:
+- name: scan
+  description: Scans-related commands; create and manage Socket scans (incl. `scan github`).
+- name: package
+  description: Get score and other details on software packages.
+- name: organization
+  description: List organizations associated with the API key used.
+- name: repository
+  description: Repository-related commands.
+- name: threat-feed
+  description: Look up the Socket threat feed.
+- name: fix
+  description: Update dependencies with fixable Socket alerts.
+- name: optimize
+  description: Optimize dependencies with @socketregistry overrides.
+- name: wrapper
+  description: Enable or disable the Socket npm/npx wrapper.
+- name: raw-npm
+  description: Run npm without the Socket wrapper.
+- name: raw-npx
+  description: Run npx without the Socket wrapper.
+- name: ci
+  description: Run Socket in a CI pipeline.
+- name: audit-log
+  description: View the organization audit log.
+key_flows:
+- Wrap npm/npx so risky installs are blocked before they run (safe-npm).
+- Scan a repository or manifest and fail CI on policy violations (socket ci).
+- Auto-apply available dependency fixes (socket fix).

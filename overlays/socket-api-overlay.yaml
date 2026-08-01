@@ -1,0 +1,27 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for Socket API
+  version: 1.0.0
+extends: openapi/socket-openapi-original.json
+actions:
+- target: $.info
+  update:
+    x-apievangelist-enriched: '2026-07-21'
+    x-apievangelist-provider: socket
+    x-apievangelist-auth: Organization API token (HTTP Bearer or Basic) with fine-grained
+      token scopes; see scopes/socket-scopes.yml.
+    x-apievangelist-rate-limit: Per-organization quota units per request; GET /v0/quota
+      reports remaining quota; exhaustion returns 429.
+    x-apievangelist-pagination: Cursor-based via endCursor / startAfterCursor; iterate until
+      endCursor is null (empty items page does not signal the end).
+    x-apievangelist-error-envelope: '{ error: { message, details } }'
+    x-apievangelist-artifacts:
+    - conventions/socket-conventions.yml
+    - errors/socket-problem-types.yml
+    - scopes/socket-scopes.yml
+    - lifecycle/socket-lifecycle.yml
+    - data-model/socket-data-model.yml
+- target: $.servers
+  update:
+  - url: https://api.socket.dev/v0
+    description: Socket API v0 production server.

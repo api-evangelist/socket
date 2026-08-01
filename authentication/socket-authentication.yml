@@ -1,0 +1,30 @@
+generated: '2026-07-21'
+method: searched
+source: openapi/socket-openapi-original.json
+docs: https://docs.socket.dev/reference/authentication
+description: >-
+  Socket authenticates REST API requests with an organization API token. The OpenAPI declares
+  two HTTP schemes: bearer and basic. The same token is used either as an Authorization Bearer
+  credential or as the Basic-auth username (with an empty password). Tokens carry fine-grained
+  scopes (see scopes/socket-scopes.yml) and are metered by quota.
+summary:
+  types: [http]
+  http_schemes: [bearer, basic]
+  api_key_in: []
+  oauth2_flows: []
+  token_scopes: true
+schemes:
+- name: bearerAuth
+  type: http
+  scheme: bearer
+  description: 'Authorization: Bearer <ORG_API_TOKEN>'
+  sources: [openapi/socket-openapi-original.json]
+- name: basicAuth
+  type: http
+  scheme: basic
+  description: HTTP Basic with the API token as the username and an empty password.
+  sources: [openapi/socket-openapi-original.json]
+token_management:
+  docs: https://docs.socket.dev/reference/creating-and-managing-api-tokens
+  operations: [postAPIToken, getAPITokens, postAPITokenUpdate, postAPITokensRotate, postAPITokensRevoke]
+  scopes_artifact: scopes/socket-scopes.yml

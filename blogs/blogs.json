@@ -1,0 +1,21 @@
+{
+  "repo": "socket",
+  "feeds": [
+    {
+      "source": "https://socket.dev/api/blog/feed.atom",
+      "feed_url": "https://socket.dev/api/blog/feed.atom",
+      "title": "",
+      "saved": 0,
+      "method": "feed"
+    },
+    {
+      "source": "https://socket.dev/security/disclosure",
+      "feed_url": "https://socket.dev/api/blog/feed.atom",
+      "title": "",
+      "saved": 0,
+      "method": "discovered"
+    }
+  ],
+  "post_count": 10,
+  "fetched": "2026-08-01T15:49:00Z"
+}

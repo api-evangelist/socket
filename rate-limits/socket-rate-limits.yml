@@ -1,0 +1,23 @@
+generated: '2026-07-21'
+method: searched
+source: https://docs.socket.dev/reference/quota
+description: >-
+  Socket meters the REST API with a per-organization quota expressed in units. Each endpoint
+  consumes a documented number of units per call; when the quota is exhausted the API returns
+  429. Remaining quota is reported by the /v0/quota endpoint.
+style: quota-units
+signal_endpoint: GET /v0/quota
+status_on_exhaustion: 429
+docs: https://docs.socket.dev/reference/quota
+unit_costs:
+- units: 1
+  applies_to: Most reads and single-resource mutations (scans list/get/delete, repos, labels,
+    policies read, package npm score/issues, SBOM exports).
+- units: 10
+  applies_to: Historical and analytics endpoints (historical alerts/dependencies/snapshots,
+    fetch-fixes).
+- units: 100
+  applies_to: Batch PURL fetch (/purl and /orgs/{org}/purl) and license-policy evaluation.
+plans:
+  note: Quota allotment and snapshot frequency scale with the plan (free plans get daily
+    snapshots; paid plans multiple per day). Threat Feed requires an Enterprise add-on.

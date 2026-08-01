@@ -1,0 +1,118 @@
+generated: '2026-07-21'
+method: derived
+source: openapi/socket-openapi-original.json
+description: >-
+  Entity-relationship graph for the Socket API, derived from the OpenAPI path structure and
+  id-reference parameters (org_slug, repo_slug, full_scan_id, diff_scan_id, label_id,
+  webhook_id, uuid) and the SBOM/alert domain model.
+entities:
+- name: Organization
+  id: org_slug
+  description: Top-level tenant; almost every resource is scoped under /v0/orgs/{org_slug}.
+- name: Repository
+  id: repo_slug
+  description: A tracked code repository that collects full scans and diff scans.
+- name: RepositoryLabel
+  id: label_id
+  description: Groups repositories and applies security/license policy via a label setting.
+- name: FullScan
+  id: full_scan_id
+  description: A complete SBOM produced from uploaded manifest files or archives.
+- name: DiffScan
+  id: diff_scan_id
+  description: The difference between two full scans (or repo HEAD vs new upload).
+- name: Artifact
+  id: purl
+  description: A package/component (identified by purl) resolved inside a scan's SBOM.
+- name: Alert
+  id: alert_id
+  description: A security or license issue raised on an artifact within a scan.
+- name: AlertResolution
+  id: uuid
+  description: A saved resolution that hides matching alerts until re-triggered.
+- name: TriageAction
+  id: uuid
+  description: A triage decision applied to organization alerts.
+- name: Webhook
+  id: webhook_id
+  description: An org webhook delivering integration/scan events.
+- name: APIToken
+  id: token
+  description: A scoped organization API token used to authenticate REST calls.
+- name: SecurityPolicy
+  description: Per-org configuration of enabled alerts and actions.
+- name: LicensePolicy
+  description: Per-org allow/warn/deny license configuration.
+- name: ThreatFeedItem
+  description: A malware/supply-chain threat entry (Enterprise Threat Feed).
+- name: HistoricalSnapshot
+  description: A periodic point-in-time snapshot of org repos, alerts, dependencies, users.
+relationships:
+- from: Organization
+  to: Repository
+  type: has_many
+  via: org_slug
+- from: Organization
+  to: FullScan
+  type: has_many
+  via: org_slug
+- from: Organization
+  to: DiffScan
+  type: has_many
+  via: org_slug
+- from: Organization
+  to: Webhook
+  type: has_many
+  via: org_slug
+- from: Organization
+  to: APIToken
+  type: has_many
+  via: org_slug
+- from: Organization
+  to: RepositoryLabel
+  type: has_many
+  via: org_slug
+- from: Organization
+  to: AlertResolution
+  type: has_many
+  via: org_slug
+- from: Organization
+  to: SecurityPolicy
+  type: has_one
+  via: org_slug
+- from: Organization
+  to: LicensePolicy
+  type: has_one
+  via: org_slug
+- from: Repository
+  to: FullScan
+  type: has_many
+  via: repo_slug
+- from: Repository
+  to: RepositoryLabel
+  type: has_many
+  via: associate/disassociate
+- from: RepositoryLabel
+  to: LabelSetting
+  type: has_one
+  via: label_id
+- from: FullScan
+  to: Artifact
+  type: has_many
+  via: sbom
+- from: FullScan
+  to: Alert
+  type: has_many
+  via: full_scan_id
+- from: DiffScan
+  to: FullScan
+  type: belongs_to
+  via: before/after full_scan_id
+- from: Alert
+  to: Artifact
+  type: belongs_to
+  via: purl
+- from: Alert
+  to: AlertResolution
+  type: has_many
+  via: alert_type/artifact anchor

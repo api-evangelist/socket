@@ -1,7 +1,26 @@
 aid: socket
 name: Socket
-description: Socket is a company surfaced as a portfolio company of a16z and added to the API Evangelist
-  network as a stub for enrichment. This profile is a lead awaiting the enrichment pipeline.
+description: Socket is a developer-first software supply chain security platform that protects
+  applications from supply chain attacks by deeply inspecting open source dependencies across
+  npm, PyPI, Maven, Go, NuGet, RubyGems, Cargo and more. Socket detects malware, hidden code,
+  typosquats, install scripts, protestware, and risky capabilities in packages, scores their
+  quality and risk, and enforces security and license policies across repositories through a
+  REST API, CLI, GitHub App, MCP server, and static reachability analysis. Founded by Feross
+  Aboukhadijeh and backed by a16z, Socket is used by engineering teams at organizations
+  including Vercel, Replit, and Brave.
+accessModel:
+  pricing: unknown
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Self-serve signup
+  confidence: medium
+  source:
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://socket.dev/favicon.ico
 url: https://raw.githubusercontent.com/api-evangelist/socket/refs/heads/main/apis.yml
 x-type: company
 x-source: vc-portfolio
@@ -9,14 +28,380 @@ x-backed-by:
 - a16z
 x-tier: stub
 x-tier-reason: portfolio-lead
+x-enrichment:
+  date: '2026-07-21'
+  status: enriched
+  artifacts_added: 26
+  pass: local-v1
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-17'
+modified: '2026-07-21'
 tags:
 - Company
-apis: []
+- Security
+- Software Supply Chain Security
+- Dependency Scanning
+- Software Composition Analysis
+- Vulnerability Management
+- Open Source Security
+- DevSecOps
+- SBOM
+- Package Analysis
+apis:
+- aid: socket:socket-alerts-api
+  name: Socket alerts API
+  description: The alerts API from Socket — 6 operation(s) for alerts.
+  humanURL: https://docs.socket.dev
+  baseURL: https://api.socket.dev/v0
+  tags:
+  - alerts
+  properties:
+  - type: OpenAPI
+    url: openapi/socket-alerts-api-openapi.yml
+  - type: Documentation
+    url: https://docs.socket.dev/docs/getting-started
+  - type: APIReference
+    url: https://docs.socket.dev/reference/authentication
+- aid: socket:socket-api-tokens-api
+  name: Socket api-tokens API
+  description: The api-tokens API from Socket — 6 operation(s) for api-tokens.
+  humanURL: https://docs.socket.dev
+  baseURL: https://api.socket.dev/v0
+  tags:
+  - api-tokens
+  properties:
+  - type: OpenAPI
+    url: openapi/socket-api-tokens-api-openapi.yml
+  - type: Documentation
+    url: https://docs.socket.dev/docs/getting-started
+  - type: APIReference
+    url: https://docs.socket.dev/reference/authentication
+- aid: socket:socket-audit-log-api
+  name: Socket audit-log API
+  description: The audit-log API from Socket — 1 operation(s) for audit-log.
+  humanURL: https://docs.socket.dev
+  baseURL: https://api.socket.dev/v0
+  tags:
+  - audit-log
+  properties:
+  - type: OpenAPI
+    url: openapi/socket-audit-log-api-openapi.yml
+  - type: Documentation
+    url: https://docs.socket.dev/docs/getting-started
+  - type: APIReference
+    url: https://docs.socket.dev/reference/authentication
+- aid: socket:socket-dependencies-api
+  name: Socket dependencies API
+  description: The dependencies API from Socket — 2 operation(s) for dependencies.
+  humanURL: https://docs.socket.dev
+  baseURL: https://api.socket.dev/v0
+  tags:
+  - dependencies
+  properties:
+  - type: OpenAPI
+    url: openapi/socket-dependencies-api-openapi.yml
+  - type: Documentation
+    url: https://docs.socket.dev/docs/getting-started
+  - type: APIReference
+    url: https://docs.socket.dev/reference/authentication
+- aid: socket:socket-deprecated-api
+  name: Socket deprecated API
+  description: The deprecated API from Socket — 17 operation(s) for deprecated.
+  humanURL: https://docs.socket.dev
+  baseURL: https://api.socket.dev/v0
+  tags:
+  - deprecated
+  properties:
+  - type: OpenAPI
+    url: openapi/socket-deprecated-api-openapi.yml
+  - type: Documentation
+    url: https://docs.socket.dev/docs/getting-started
+  - type: APIReference
+    url: https://docs.socket.dev/reference/authentication
+- aid: socket:socket-diff-scans-api
+  name: Socket diff-scans API
+  description: The diff-scans API from Socket — 7 operation(s) for diff-scans.
+  humanURL: https://docs.socket.dev
+  baseURL: https://api.socket.dev/v0
+  tags:
+  - diff-scans
+  properties:
+  - type: OpenAPI
+    url: openapi/socket-diff-scans-api-openapi.yml
+  - type: Documentation
+    url: https://docs.socket.dev/docs/getting-started
+  - type: APIReference
+    url: https://docs.socket.dev/reference/authentication
+- aid: socket:socket-fixes-api
+  name: Socket fixes API
+  description: The fixes API from Socket — 1 operation(s) for fixes.
+  humanURL: https://docs.socket.dev
+  baseURL: https://api.socket.dev/v0
+  tags:
+  - fixes
+  properties:
+  - type: OpenAPI
+    url: openapi/socket-fixes-api-openapi.yml
+  - type: Documentation
+    url: https://docs.socket.dev/docs/getting-started
+  - type: APIReference
+    url: https://docs.socket.dev/reference/authentication
+- aid: socket:socket-full-scans-api
+  name: Socket full-scans API
+  description: The full-scans API from Socket — 13 operation(s) for full-scans.
+  humanURL: https://docs.socket.dev
+  baseURL: https://api.socket.dev/v0
+  tags:
+  - full-scans
+  properties:
+  - type: OpenAPI
+    url: openapi/socket-full-scans-api-openapi.yml
+  - type: Documentation
+    url: https://docs.socket.dev/docs/getting-started
+  - type: APIReference
+    url: https://docs.socket.dev/reference/authentication
+- aid: socket:socket-license-policy-api
+  name: Socket license-policy API
+  description: The license-policy API from Socket — 4 operation(s) for license-policy.
+  humanURL: https://docs.socket.dev
+  baseURL: https://api.socket.dev/v0
+  tags:
+  - license-policy
+  properties:
+  - type: OpenAPI
+    url: openapi/socket-license-policy-api-openapi.yml
+  - type: Documentation
+    url: https://docs.socket.dev/docs/getting-started
+  - type: APIReference
+    url: https://docs.socket.dev/reference/authentication
+- aid: socket:socket-metadata-api
+  name: Socket metadata API
+  description: The metadata API from Socket — 5 operation(s) for metadata.
+  humanURL: https://docs.socket.dev
+  baseURL: https://api.socket.dev/v0
+  tags:
+  - metadata
+  properties:
+  - type: OpenAPI
+    url: openapi/socket-metadata-api-openapi.yml
+  - type: Documentation
+    url: https://docs.socket.dev/docs/getting-started
+  - type: APIReference
+    url: https://docs.socket.dev/reference/authentication
+- aid: socket:socket-org-settings-api
+  name: Socket org-settings API
+  description: The org-settings API from Socket — 2 operation(s) for org-settings.
+  humanURL: https://docs.socket.dev
+  baseURL: https://api.socket.dev/v0
+  tags:
+  - org-settings
+  properties:
+  - type: OpenAPI
+    url: openapi/socket-org-settings-api-openapi.yml
+  - type: Documentation
+    url: https://docs.socket.dev/docs/getting-started
+  - type: APIReference
+    url: https://docs.socket.dev/reference/authentication
+- aid: socket:socket-org-snapshots-api
+  name: Socket org-snapshots API
+  description: The org-snapshots API from Socket — 1 operation(s) for org-snapshots.
+  humanURL: https://docs.socket.dev
+  baseURL: https://api.socket.dev/v0
+  tags:
+  - org-snapshots
+  properties:
+  - type: OpenAPI
+    url: openapi/socket-org-snapshots-api-openapi.yml
+  - type: Documentation
+    url: https://docs.socket.dev/docs/getting-started
+  - type: APIReference
+    url: https://docs.socket.dev/reference/authentication
+- aid: socket:socket-packages-api
+  name: Socket packages API
+  description: The packages API from Socket — 2 operation(s) for packages.
+  humanURL: https://docs.socket.dev
+  baseURL: https://api.socket.dev/v0
+  tags:
+  - packages
+  properties:
+  - type: OpenAPI
+    url: openapi/socket-packages-api-openapi.yml
+  - type: Documentation
+    url: https://docs.socket.dev/docs/getting-started
+  - type: APIReference
+    url: https://docs.socket.dev/reference/authentication
+- aid: socket:socket-repo-labels-api
+  name: Socket repo-labels API
+  description: The repo-labels API from Socket — 5 operation(s) for repo-labels.
+  humanURL: https://docs.socket.dev
+  baseURL: https://api.socket.dev/v0
+  tags:
+  - repo-labels
+  properties:
+  - type: OpenAPI
+    url: openapi/socket-repo-labels-api-openapi.yml
+  - type: Documentation
+    url: https://docs.socket.dev/docs/getting-started
+  - type: APIReference
+    url: https://docs.socket.dev/reference/authentication
+- aid: socket:socket-repos-api
+  name: Socket repos API
+  description: The repos API from Socket — 2 operation(s) for repos.
+  humanURL: https://docs.socket.dev
+  baseURL: https://api.socket.dev/v0
+  tags:
+  - repos
+  properties:
+  - type: OpenAPI
+    url: openapi/socket-repos-api-openapi.yml
+  - type: Documentation
+    url: https://docs.socket.dev/docs/getting-started
+  - type: APIReference
+    url: https://docs.socket.dev/reference/authentication
+- aid: socket:socket-security-policy-api
+  name: Socket security-policy API
+  description: The security-policy API from Socket — 1 operation(s) for security-policy.
+  humanURL: https://docs.socket.dev
+  baseURL: https://api.socket.dev/v0
+  tags:
+  - security-policy
+  properties:
+  - type: OpenAPI
+    url: openapi/socket-security-policy-api-openapi.yml
+  - type: Documentation
+    url: https://docs.socket.dev/docs/getting-started
+  - type: APIReference
+    url: https://docs.socket.dev/reference/authentication
+- aid: socket:socket-telemetry-api
+  name: Socket telemetry API
+  description: The telemetry API from Socket — 1 operation(s) for telemetry.
+  humanURL: https://docs.socket.dev
+  baseURL: https://api.socket.dev/v0
+  tags:
+  - telemetry
+  properties:
+  - type: OpenAPI
+    url: openapi/socket-telemetry-api-openapi.yml
+  - type: Documentation
+    url: https://docs.socket.dev/docs/getting-started
+  - type: APIReference
+    url: https://docs.socket.dev/reference/authentication
+- aid: socket:socket-threat-feed-api
+  name: Socket threat-feed API
+  description: The threat-feed API from Socket — 1 operation(s) for threat-feed.
+  humanURL: https://docs.socket.dev
+  baseURL: https://api.socket.dev/v0
+  tags:
+  - threat-feed
+  properties:
+  - type: OpenAPI
+    url: openapi/socket-threat-feed-api-openapi.yml
+  - type: Documentation
+    url: https://docs.socket.dev/docs/getting-started
+  - type: APIReference
+    url: https://docs.socket.dev/reference/authentication
+- aid: socket:socket-triage-api
+  name: Socket triage API
+  description: The triage API from Socket — 2 operation(s) for triage.
+  humanURL: https://docs.socket.dev
+  baseURL: https://api.socket.dev/v0
+  tags:
+  - triage
+  properties:
+  - type: OpenAPI
+    url: openapi/socket-triage-api-openapi.yml
+  - type: Documentation
+    url: https://docs.socket.dev/docs/getting-started
+  - type: APIReference
+    url: https://docs.socket.dev/reference/authentication
+- aid: socket:socket-webhooks-api
+  name: Socket webhooks API
+  description: The webhooks API from Socket — 2 operation(s) for webhooks.
+  humanURL: https://docs.socket.dev
+  baseURL: https://api.socket.dev/v0
+  tags:
+  - webhooks
+  properties:
+  - type: OpenAPI
+    url: openapi/socket-webhooks-api-openapi.yml
+  - type: Documentation
+    url: https://docs.socket.dev/docs/getting-started
+  - type: APIReference
+    url: https://docs.socket.dev/reference/authentication
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
+common:
+- type: VulnerabilityDisclosure
+  url: security/socket-vulnerability-disclosure.yml
+- type: DomainSecurity
+  url: security/socket-domain-security.yml
+- type: AgenticAccess
+  url: agentic-access/socket-agentic-access.yml
+- type: Website
+  url: https://socket.dev
+- type: DeveloperPortal
+  url: https://docs.socket.dev
+- type: Documentation
+  url: https://docs.socket.dev/docs/getting-started
+- type: GettingStarted
+  url: https://docs.socket.dev/docs/getting-started
+- type: APIReference
+  url: https://docs.socket.dev/reference/authentication
+- type: Support
+  url: https://docs.socket.dev/docs/contact-support
+- type: GitHubOrganization
+  url: https://github.com/SocketDev
+- type: LLMsTxt
+  url: llms/socket-llms.txt
+- type: Authentication
+  url: authentication/socket-authentication.yml
+- type: OAuthScopes
+  url: scopes/socket-scopes.yml
+- type: Conventions
+  url: conventions/socket-conventions.yml
+- type: RateLimits
+  url: rate-limits/socket-rate-limits.yml
+- type: ErrorCatalog
+  url: errors/socket-problem-types.yml
+- type: DataModel
+  url: data-model/socket-data-model.yml
+- type: Conformance
+  url: conformance/socket-conformance.yml
+- type: Lifecycle
+  url: lifecycle/socket-lifecycle.yml
+- type: Deprecation
+  url: https://docs.socket.dev/reference/api-lifecycle-and-deprecation-process
+- type: StatusPage
+  url: https://status.socket.dev
+- type: ChangeLog
+  url: changelog/socket-changelog.yml
+- type: CLI
+  url: cli/socket-cli.yml
+- type: Packages
+  url: packages/socket-packages.yml
+- type: SDKs
+  url: packages/socket-packages.yml
+- type: MCPServer
+  url: https://mcp.socket.dev/
+  name: Socket MCP Server
+  description: Socket's official MCP server exposes the depscore tool so AI assistants can query
+    dependency scores from the Socket API; hosted at https://mcp.socket.dev/ or run locally.
+- type: Webhooks
+  url: asyncapi/socket-webhooks.yml
+- type: AgentSkill
+  url: skills/_index.yml
+- type: SecurityTxt
+  url: well-known/socket-security.txt
+- type: WellKnown
+  url: well-known/socket-well-known.yml
+- type: Security
+  url: https://socket.dev/security/disclosure
+- type: Blog
+  url: https://socket.dev/blog
+- type: Pricing
+  url: https://socket.dev/pricing
+- type: Login
+  url: https://socket.dev/login

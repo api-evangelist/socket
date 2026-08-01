@@ -1,0 +1,33 @@
+generated: '2026-07-21'
+method: searched
+source: https://docs.socket.dev/docs/socket-javascript-sdk
+description: >-
+  First-party Socket client libraries and tools. The JavaScript SDK and the Socket CLI are
+  published under the @socketsecurity npm scope; a Python SDK is documented as well. Source
+  lives in the SocketDev GitHub organization.
+packages:
+- language: javascript
+  registry: npm
+  name: "@socketsecurity/sdk"
+  url: https://www.npmjs.com/package/@socketsecurity/sdk
+  install: npm install @socketsecurity/sdk
+  repo: https://github.com/SocketDev/socket-sdk-js
+  docs: https://docs.socket.dev/docs/socket-javascript-sdk
+  official: true
+- language: javascript
+  registry: npm
+  name: "@socketsecurity/cli"
+  url: https://www.npmjs.com/package/@socketsecurity/cli
+  install: npm install -g @socketsecurity/cli
+  repo: https://github.com/SocketDev/socket-cli
+  docs: https://docs.socket.dev/docs/socket-cli
+  official: true
+  kind: cli
+- language: python
+  registry: pypi
+  name: socketdev
+  url: https://pypi.org/project/socketdev/
+  install: pip install socketdev
+  repo: https://github.com/SocketDev/socket-python-sdk
+  docs: https://docs.socket.dev/docs/socket-python-sdk
+  official: true

@@ -1,0 +1,6 @@
+Expires: 2030-01-31T17:00:00.000Z
+Contact: mailto:security@socket.dev
+Preferred-Languages: en
+Canonical: https://socket.dev/.well-known/security.txt
+Policy: https://socket.dev/security/disclosure
+Hiring: https://socket.dev/careers

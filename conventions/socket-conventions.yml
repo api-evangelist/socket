@@ -1,0 +1,65 @@
+generated: '2026-07-21'
+method: searched
+source: https://docs.socket.dev/reference/quota
+docs:
+- https://docs.socket.dev/reference/authentication
+- https://docs.socket.dev/reference/quota
+- https://docs.socket.dev/reference/socket-package-urls-purl
+description: Cross-cutting request/response conventions for the Socket REST API, derived from
+  the OpenAPI and the docs reference (authentication, quota, PURL, historical/pagination).
+authentication:
+  style: org-api-token
+  transport: HTTP Authorization header
+  schemes:
+  - Bearer (Authorization: Bearer <token>)
+  - Basic (token as username, empty password)
+  token_scopes: true
+  scopes_ref: scopes/socket-scopes.yml
+  docs: https://docs.socket.dev/reference/authentication
+idempotency:
+  supported: false
+  notes: Socket does not document an Idempotency-Key header for its write operations; mutations
+    (create full scan, create diff scan, triage) are not advertised as idempotent-by-key.
+pagination:
+  style: cursor
+  request_params:
+  - startAfterCursor
+  - per_page
+  response_fields:
+  - items
+  - nextPage
+  - endCursor
+  rule: >-
+    Keep requesting pages, passing the previous response's `endCursor` as `startAfterCursor`,
+    until `endCursor` is null. Do NOT stop when `items` is empty — an empty page can be
+    returned while more results remain; `endCursor == null` is the only reliable end signal.
+  docs: https://docs.socket.dev/reference/historical-data-endpoints
+rate_limiting:
+  style: quota-units
+  mechanism: >-
+    Each endpoint consumes a documented number of quota units per call (most reads cost 1;
+    batch PURL and license-policy cost 100; historical/analytics endpoints cost 10). Quota is
+    metered per organization and surfaced via the /v0/quota endpoint; exhaustion returns 429.
+  signal_endpoint: GET /v0/quota
+  status_on_exhaustion: 429
+  docs: https://docs.socket.dev/reference/quota
+  artifact: rate-limits/socket-rate-limits.yml
+versioning:
+  scheme: uri-path
+  current: v0
+  base_url: https://api.socket.dev/v0
+  deprecation: lifecycle/socket-lifecycle.yml
+identifiers:
+  package_url:
+    scheme: purl
+    example: pkg:npm/express@4.19.2
+    docs: https://docs.socket.dev/reference/socket-package-urls-purl
+  org: org_slug path parameter
+error_envelope:
+  shape: '{ error: { message: string, details?: object } }'
+  problem_types: errors/socket-problem-types.yml
+content_types:
+- application/json
+- text/csv (report exports)
+- application/pdf (report exports)
+- application/vnd.cyclonedx+json / SPDX / OpenVEX (SBOM exports)

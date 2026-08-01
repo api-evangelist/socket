@@ -1,0 +1,37 @@
+generated: '2026-07-21'
+method: searched
+source: https://docs.socket.dev/docs/webhooks
+spec_type: Webhooks
+description: >-
+  Socket delivers organization events (dependency alerts, scan results, and integration
+  events) to configured HTTP webhook endpoints. No published AsyncAPI document was found; this
+  captures the documented webhook surface and its management operations in the REST API.
+docs: https://docs.socket.dev/docs/webhooks
+delivery:
+  transport: HTTP POST to a subscriber-configured URL
+  scope: per organization
+  event_domains:
+  - Dependency / package alerts surfaced by scans
+  - Integration events (getIntegrationEvents: /v0/orgs/{org_slug}/settings/integrations/{integration_id}/events)
+management_operations:
+- operationId: getOrgWebhooksList
+  method: GET
+  path: /v0/orgs/{org_slug}/webhooks
+- operationId: createOrgWebhook
+  method: POST
+  path: /v0/orgs/{org_slug}/webhooks
+- operationId: getOrgWebhook
+  method: GET
+  path: /v0/orgs/{org_slug}/webhooks/{webhook_id}
+- operationId: updateOrgWebhook
+  method: PUT
+  path: /v0/orgs/{org_slug}/webhooks/{webhook_id}
+- operationId: deleteOrgWebhook
+  method: DELETE
+  path: /v0/orgs/{org_slug}/webhooks/{webhook_id}
+- operationId: getIntegrationEvents
+  method: GET
+  path: /v0/orgs/{org_slug}/settings/integrations/{integration_id}/events
+related_channels:
+- Slack alerts (docs/slack-alerts)
+- Jira / Linear ticketing from alerts

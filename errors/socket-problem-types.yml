@@ -1,0 +1,54 @@
+generated: '2026-07-21'
+method: derived
+source: openapi/socket-openapi-original.json
+docs: https://docs.socket.dev/reference/authentication
+description: >-
+  Socket API error responses. The Socket REST API returns a JSON error envelope of the shape
+  {"error": {"message": string, "details": object}} on 4xx/5xx responses (not RFC 9457
+  application/problem+json). These problem types are derived from the standard response codes
+  declared across all 96 operations in the OpenAPI, enriched with the documented meaning.
+format: json-envelope
+envelope:
+  field: error
+  shape: '{ error: { message: string, details?: object } }'
+problems:
+- status: 400
+  title: Bad Request
+  meaning: The request was malformed or a parameter/body failed validation (e.g. a PURL batch
+    exceeding the 1024 limit, or an unsupported file type).
+  remediation: Correct the request payload or query parameters and retry.
+- status: 401
+  title: Unauthorized
+  meaning: Missing or invalid API token. Socket authenticates with an organization API token
+    supplied as HTTP Bearer (or Basic username with empty password).
+  remediation: 'Supply a valid `Authorization: Bearer <token>` header. See the authentication
+    reference.'
+- status: 403
+  title: Forbidden
+  meaning: The API token is valid but lacks the required token scope for the operation
+    (e.g. `full-scans:create`, `alerts:list`) or the org plan does not include the feature.
+  remediation: Grant the token the required scope, or upgrade the plan / add-on.
+- status: 404
+  title: Not Found
+  meaning: The referenced resource (org slug, full scan, diff scan, repo, label, webhook,
+    alert resolution) does not exist or is not visible to the token.
+  remediation: Verify the identifier and that the token's organization owns the resource.
+- status: 409
+  title: Conflict
+  meaning: The request conflicts with the current state of the resource (e.g. duplicate
+    creation or a concurrent modification).
+  remediation: Re-fetch the resource state and retry the mutation.
+- status: 410
+  title: Gone
+  meaning: The endpoint or resource has been permanently removed. Several v0 endpoints are
+    deprecated and eventually sunset per the API lifecycle policy.
+  remediation: Migrate to the successor endpoint documented in the API lifecycle page.
+- status: 429
+  title: Too Many Requests
+  meaning: The organization quota has been exhausted. Each endpoint consumes a documented
+    number of quota units per call; heavy endpoints (batch PURL, license policy) cost 100.
+  remediation: Slow request rate, check the /v0/quota endpoint, or upgrade the plan.
+- status: 500
+  title: Internal Server Error
+  meaning: An unexpected server-side error occurred.
+  remediation: Retry with backoff; contact Socket support if it persists.

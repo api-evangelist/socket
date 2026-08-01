@@ -1,0 +1,83 @@
+generated: '2026-07-21'
+method: searched
+source: https://docs.socket.dev/docs/api-keys
+docs: https://docs.socket.dev/reference/creating-and-managing-api-tokens
+description: >-
+  Socket authorizes REST API calls with organization API tokens that carry fine-grained
+  token scopes (not OAuth2, but a documented permission model). Each endpoint declares the
+  scopes it requires; a token missing a scope returns 403. Scopes below are harvested from the
+  per-endpoint "requires the following org token scopes" notes in the Socket API reference.
+schemes:
+- name: orgApiToken
+  type: api-token-scopes
+  source: https://docs.socket.dev/docs/api-keys
+  transport: Authorization Bearer / Basic
+scopes:
+- scope: packages:list
+  description: Batch package/PURL metadata and alert lookups; license policy evaluation.
+- scope: full-scans:create
+  description: Create full scans and archive scans; rescan an existing full scan.
+- scope: full-scans:list
+  description: List, stream, download, and export (CSV/PDF) full scans and metadata.
+- scope: full-scans:delete
+  description: Delete a full scan.
+- scope: diff-scans:create
+  description: Create diff scans from repo HEAD or from two full scan IDs.
+- scope: diff-scans:list
+  description: List and read diff scans and their GitHub-flavored-markdown comments.
+- scope: diff-scans:delete
+  description: Delete a diff scan.
+- scope: alerts:list
+  description: List latest/historical alerts and the full scans associated with an alert.
+- scope: alert-resolution:list
+  description: List active alert resolutions for an organization.
+- scope: alert-resolution:read
+  description: Read a single alert resolution by UUID.
+- scope: alert-resolution:delete
+  description: Delete an alert resolution.
+- scope: triage:alerts-list
+  description: List alert triage actions for an organization.
+- scope: triage:alerts-update
+  description: Create, update, and delete alert triage actions.
+- scope: repo:list
+  description: List and read repositories.
+- scope: repo:create
+  description: Create repositories.
+- scope: repo:update
+  description: Update repository details.
+- scope: repo:delete
+  description: Delete a repository and its scans.
+- scope: repo-label:list
+  description: List and read repository labels and label settings.
+- scope: repo-label:create
+  description: Create repository labels.
+- scope: repo-label:update
+  description: Associate/disassociate labels and update label names and settings.
+- scope: repo-label:delete
+  description: Delete a repository label and its associations.
+- scope: report:read
+  description: Export SBOMs (CycloneDX, SPDX, OpenVEX) for a scan.
+- scope: fixes:list
+  description: Fetch available fixes for vulnerabilities in a repo, scan, or manifest.
+- scope: security-policy:read
+  description: Read an organization's security policy.
+- scope: security-policy:update
+  description: Update an organization's security policy.
+- scope: license-policy:read
+  description: Read an organization's license policy.
+- scope: license-policy:update
+  description: Update an organization's license policy.
+- scope: historical:alerts-list
+  description: List historical alerts (Beta).
+- scope: historical:alerts-trend
+  description: Trend analytics of historical alerts (Beta).
+- scope: historical:dependencies-trend
+  description: Trend analytics of historical dependencies (Beta).
+- scope: historical:snapshots-list
+  description: List historical data snapshots (Beta).
+- scope: historical:snapshots-start
+  description: Start an on-demand historical snapshot job (Beta).
+- scope: threat-feed:list
+  description: Read the Socket threat feed (Enterprise plan with Threat Feed add-on).
+- scope: socket-basics:read
+  description: Read the Socket Basics CI/CD scanning configuration.

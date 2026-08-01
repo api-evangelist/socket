@@ -1,0 +1,39 @@
+generated: '2026-07-21'
+method: searched
+source: https://socket.dev/changelog
+description: >-
+  Socket publishes a dated product changelog (no semantic versioning; entries are date-stamped
+  continuous updates). The REST API itself is versioned at v0 with a separate lifecycle and
+  deprecation process. Recent entries captured below (recent window only).
+scheme: dated-continuous
+current_api_version: v0
+url: https://socket.dev/changelog
+entries:
+- date: '2026-07-10'
+  highlight: Correctly scans crates.io package versions that are yanked but remain pinned in a
+    project's Cargo.lock.
+  type: fix
+- date: '2026-07-09'
+  highlight: Repository-scoped API tokens can now retrieve the data needed for reachability
+    scans (fixes prior 403 errors).
+  type: fix
+- date: '2026-07-06'
+  highlight: Packagist pages show full commit history for force-pushed tags with current
+    associations highlighted.
+  type: improvement
+- date: '2026-07-03'
+  highlight: Full scan metadata responses now align with the documented API contract fields.
+  type: fix
+- date: '2026-07-03'
+  highlight: Private packages display N/A scores instead of numeric values in reports.
+  type: fix
+- date: '2026-07-02'
+  highlight: Pull request pages no longer break after workspace renaming operations.
+  type: fix
+- date: '2026-06-30'
+  highlight: Organizations can enable AI-generated reachability specifications alongside
+    human-verified ones.
+  type: addition
+- date: '2026-06-29'
+  highlight: Organization switcher redesigned with a searchable multi-org view.
+  type: improvement

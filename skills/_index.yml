@@ -1,0 +1,22 @@
+generated: '2026-07-21'
+method: generated
+source: openapi/socket-openapi-original.json
+description: Packaged Agent Skills for the Socket API, each grounded in real operationIds from
+  the OpenAPI and the conventions/errors/scopes artifacts.
+skills:
+- file: socket-scan-project-for-supply-chain-risk.md
+  name: Scan a project for supply chain risk
+  api: openapi/socket-openapi-original.json
+  operations: [getSupportedFiles, CreateOrgFullScan, getOrgFullScan, getOrgFullScanMetadata, alertsList]
+- file: socket-check-package-risk-score.md
+  name: Check a package's risk score before adding it
+  api: openapi/socket-openapi-original.json
+  operations: [batchPackageFetchByOrg, getScoreByNPMPackage, getIssuesByNPMPackage]
+- file: socket-diff-scan-a-pull-request.md
+  name: Diff-scan a pull request
+  api: openapi/socket-openapi-original.json
+  operations: [createOrgRepoDiff, getDiffScanById, GetDiffScanGfm, createOrgDiffScanFromIds]
+- file: socket-export-sbom-and-fetch-fixes.md
+  name: Export an SBOM and fetch fixes
+  api: openapi/socket-openapi-original.json
+  operations: [exportCDX, exportSPDX, exportOpenVEX, fetch-fixes]

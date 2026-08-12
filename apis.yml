@@ -334,6 +334,8 @@ maintainers:
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: Overlay
+  url: overlays/socket-api-overlay.yaml
 - type: VulnerabilityDisclosure
   url: security/socket-vulnerability-disclosure.yml
 - type: DomainSecurity

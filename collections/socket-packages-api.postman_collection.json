@@ -1,0 +1,1542 @@
+{
+  "item": [
+    {
+      "id": "aa374220-41d5-4d94-a29c-f6f4b1b97d76",
+      "name": "packages",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "76cd6a77-7842-4bfa-bb8f-76b132889cce",
+          "name": "Get Packages by PURL",
+          "request": {
+            "name": "Get Packages by PURL",
+            "description": {
+              "content": "**This endpoint is deprecated.** Deprecated since 2026-01-05.\n\nBatch retrieval of package metadata and alerts by PURL strings. Compatible with CycloneDX reports.\n\nPackage URLs (PURLs) are an ecosystem agnostic way to identify packages.\nCycloneDX SBOMs use the purl format to identify components.\nThis endpoint supports fetching metadata and alerts for multiple packages at once by passing an array of purl strings, or by passing an entire CycloneDX report.\n\n**Note:** This endpoint has a batch size limit (default: 1024 PURLs per request). Requests exceeding this limit will return a 400 Bad Request error.\n\nMore information on purl and CycloneDX:\n\n- [`purl` Spec](https://github.com/package-url/purl-spec)\n- [CycloneDX Spec](https://cyclonedx.org/specification/overview/#components)\n\nThis endpoint returns the latest available alert data for artifacts in the batch (stale while revalidate).\nActively running analysis will be returned when available on subsequent runs.\n\nWhen `alerts=true`, Socket may synthesize two alert types to make partial\nresults actionable:\n\n- `pendingScan`: the package is known but analysis has not completed yet\n- `notFound`: Socket could not resolve the package/version metadata\n\nWhen `purlErrors=true`, unresolved `notFound` inputs keep the legacy\n`purlError` stream shape instead of emitting synthetic `notFound`\nartifacts.\n\nUse `poll=false` (default) to fail open and return the current known state\nquickly. Use `poll=true` to fail closed and wait up to `timeoutSec` for\npending analysis before returning.\n\n## Examples:\n\n### Looking up an npm package:\n\n```json\n{\n  \"components\": [\n    {\n      \"purl\": \"pkg:npm/express@4.19.2\"\n    }\n  ]\n}\n```\n\n### Looking up an PyPi package:\n\n```json\n{\n  \"components\": [\n    {\n      \"purl\": \"pkg:pypi/django@5.0.6\"\n    }\n  ]\n}\n```\n\n### Looking up a Maven package:\n\n```json\n{\n  \"components\": [\n    {\n      \"purl\": \"pkg:maven/log4j/log4j@1.2.17\"\n    }\n  ]\n}\n```\n\n### Batch lookup\n\n```json\n{\n  \"components\": [\n    {\n      \"purl\": \"pkg:npm/express@4.19.2\"\n    },\n    {\n      \"purl\": \"pkg:pypi/django@5.0.6\"\n    },\n    {\n      \"purl\": \"pkg:maven/log4j/log4j@1.2.17\"\n    }\n  ]\n}\n```\n\nThis endpoint consumes 100 units of your quota.\n\nThis endpoint requires the following org token scopes:\n- packages:list",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "purl"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "alerts",
+                  "value": "false",
+                  "description": "Include alert metadata."
+                },
+                {
+                  "disabled": false,
+                  "key": "actions",
+                  "value": "<string>,<string>",
+                  "description": "Include only alerts with comma separated actions defined by security policy."
+                },
+                {
+                  "disabled": false,
+                  "key": "compact",
+                  "value": "false",
+                  "description": "Compact metadata. When enabled, excludes metadata fields like author, scores, size, dependencies, and manifest files. Always includes: id, type, name, version, release, namespace, subpath, alerts, and alertPriorities."
+                },
+                {
+                  "disabled": false,
+                  "key": "fixable",
+                  "value": "false",
+                  "description": "Include only fixable alerts."
+                },
+                {
+                  "disabled": false,
+                  "key": "licenseattrib",
+                  "value": "false",
+                  "description": "Include license attribution data, including license text and author information. Maps attribution/license text to a list of data objects to which that attribution info applies."
+                },
+                {
+                  "disabled": false,
+                  "key": "licensedetails",
+                  "value": "false",
+                  "description": "Include detailed license information, including location and match strength, for each license datum."
+                },
+                {
+                  "disabled": false,
+                  "key": "purlErrors",
+                  "value": "false",
+                  "description": "Return errors found with handling PURLs as error objects in the stream."
+                },
+                {
+                  "disabled": false,
+                  "key": "poll",
+                  "value": "false",
+                  "description": "When true, wait up to timeoutSec for pending analysis to complete before returning. When false (default), return the current known state immediately, including synthesized pendingScan and notFound alerts when alerts=true unless purlErrors=true keeps legacy not-found errors."
+                },
+                {
+                  "disabled": false,
+                  "key": "cachedResultsOnly",
+                  "value": "false",
+                  "description": "Legacy fallback for older clients. Only used when poll is omitted: cachedResultsOnly=true behaves like poll=false, while cachedResultsOnly=false preserves the older blocking behavior."
+                },
+                {
+                  "disabled": false,
+                  "key": "summary",
+                  "value": "false",
+                  "description": "Include a summary object at the end of the stream with counts of malformed, resolved, and not found PURLs."
+                },
+                {
+                  "disabled": false,
+                  "key": "timeoutSec",
+                  "value": "<integer>",
+                  "description": "Maximum time in seconds to wait for package resolution and, when poll=true, pending analysis. Inputs that have not completed processing when the timeout is reached return pendingScan alerts when alerts=true, or errors when purlErrors=true."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/x-ndjson"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"components\": [\n    {\n      \"purl\": \"\"\n    },\n    {\n      \"purl\": \"\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "32912dec-a455-414a-8bf7-5be209342657",
+              "name": "Socket issue lists and scores for all packages, and optional metadata objects",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "purl"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "alerts",
+                      "value": "false"
+                    },
+                    {
+                      "key": "actions",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "compact",
+                      "value": "false"
+                    },
+                    {
+                      "key": "fixable",
+                      "value": "false"
+                    },
+                    {
+                      "key": "licenseattrib",
+                      "value": "false"
+                    },
+                    {
+                      "key": "licensedetails",
+                      "value": "false"
+                    },
+                    {
+                      "key": "purlErrors",
+                      "value": "false"
+                    },
+                    {
+                      "key": "poll",
+                      "value": "false"
+                    },
+                    {
+                      "key": "cachedResultsOnly",
+                      "value": "false"
+                    },
+                    {
+                      "key": "summary",
+                      "value": "false"
+                    },
+                    {
+                      "key": "timeoutSec",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/x-ndjson"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"components\": [\n    {\n      \"purl\": \"\"\n    },\n    {\n      \"purl\": \"\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/x-ndjson"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "38d5dada-6cfc-4676-a974-97d462a9ca0f",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "purl"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "alerts",
+                      "value": "false"
+                    },
+                    {
+                      "key": "actions",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "compact",
+                      "value": "false"
+                    },
+                    {
+                      "key": "fixable",
+                      "value": "false"
+                    },
+                    {
+                      "key": "licenseattrib",
+                      "value": "false"
+                    },
+                    {
+                      "key": "licensedetails",
+                      "value": "false"
+                    },
+                    {
+                      "key": "purlErrors",
+                      "value": "false"
+                    },
+                    {
+                      "key": "poll",
+                      "value": "false"
+                    },
+                    {
+                      "key": "cachedResultsOnly",
+                      "value": "false"
+                    },
+                    {
+                      "key": "summary",
+                      "value": "false"
+                    },
+                    {
+                      "key": "timeoutSec",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"components\": [\n    {\n      \"purl\": \"\"\n    },\n    {\n      \"purl\": \"\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"details\": null,\n    \"message\": \"\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "edeaf371-14b2-4862-8003-ba1e6d5e3ada",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "purl"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "alerts",
+                      "value": "false"
+                    },
+                    {
+                      "key": "actions",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "compact",
+                      "value": "false"
+                    },
+                    {
+                      "key": "fixable",
+                      "value": "false"
+                    },
+                    {
+                      "key": "licenseattrib",
+                      "value": "false"
+                    },
+                    {
+                      "key": "licensedetails",
+                      "value": "false"
+                    },
+                    {
+                      "key": "purlErrors",
+                      "value": "false"
+                    },
+                    {
+                      "key": "poll",
+                      "value": "false"
+                    },
+                    {
+                      "key": "cachedResultsOnly",
+                      "value": "false"
+                    },
+                    {
+                      "key": "summary",
+                      "value": "false"
+                    },
+                    {
+                      "key": "timeoutSec",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"components\": [\n    {\n      \"purl\": \"\"\n    },\n    {\n      \"purl\": \"\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"details\": null,\n    \"message\": \"\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1645572a-7cf4-4441-943f-ea893aa421de",
+              "name": "Insufficient max_quota for API method",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "purl"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "alerts",
+                      "value": "false"
+                    },
+                    {
+                      "key": "actions",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "compact",
+                      "value": "false"
+                    },
+                    {
+                      "key": "fixable",
+                      "value": "false"
+                    },
+                    {
+                      "key": "licenseattrib",
+                      "value": "false"
+                    },
+                    {
+                      "key": "licensedetails",
+                      "value": "false"
+                    },
+                    {
+                      "key": "purlErrors",
+                      "value": "false"
+                    },
+                    {
+                      "key": "poll",
+                      "value": "false"
+                    },
+                    {
+                      "key": "cachedResultsOnly",
+                      "value": "false"
+                    },
+                    {
+                      "key": "summary",
+                      "value": "false"
+                    },
+                    {
+                      "key": "timeoutSec",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"components\": [\n    {\n      \"purl\": \"\"\n    },\n    {\n      \"purl\": \"\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"details\": null,\n    \"message\": \"\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4bf35678-01d1-4bea-b484-3271bbe4447e",
+              "name": "Resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "purl"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "alerts",
+                      "value": "false"
+                    },
+                    {
+                      "key": "actions",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "compact",
+                      "value": "false"
+                    },
+                    {
+                      "key": "fixable",
+                      "value": "false"
+                    },
+                    {
+                      "key": "licenseattrib",
+                      "value": "false"
+                    },
+                    {
+                      "key": "licensedetails",
+                      "value": "false"
+                    },
+                    {
+                      "key": "purlErrors",
+                      "value": "false"
+                    },
+                    {
+                      "key": "poll",
+                      "value": "false"
+                    },
+                    {
+                      "key": "cachedResultsOnly",
+                      "value": "false"
+                    },
+                    {
+                      "key": "summary",
+                      "value": "false"
+                    },
+                    {
+                      "key": "timeoutSec",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"components\": [\n    {\n      \"purl\": \"\"\n    },\n    {\n      \"purl\": \"\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"details\": null,\n    \"message\": \"\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e7125681-d173-42fc-9cd3-2eaa429c58e0",
+              "name": "Insufficient quota for API route",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "purl"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "alerts",
+                      "value": "false"
+                    },
+                    {
+                      "key": "actions",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "compact",
+                      "value": "false"
+                    },
+                    {
+                      "key": "fixable",
+                      "value": "false"
+                    },
+                    {
+                      "key": "licenseattrib",
+                      "value": "false"
+                    },
+                    {
+                      "key": "licensedetails",
+                      "value": "false"
+                    },
+                    {
+                      "key": "purlErrors",
+                      "value": "false"
+                    },
+                    {
+                      "key": "poll",
+                      "value": "false"
+                    },
+                    {
+                      "key": "cachedResultsOnly",
+                      "value": "false"
+                    },
+                    {
+                      "key": "summary",
+                      "value": "false"
+                    },
+                    {
+                      "key": "timeoutSec",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"components\": [\n    {\n      \"purl\": \"\"\n    },\n    {\n      \"purl\": \"\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Retry contacting the endpoint *at least* after seconds.\nSee https://tools.ietf.org/html/rfc7231#section-7.1.3",
+                  "key": "Retry-After",
+                  "value": "5600"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"details\": null,\n    \"message\": \"\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4b105b4a-4905-403e-a7c6-de749332f10c",
+          "name": "Get Packages by PURL (Org Scoped)",
+          "request": {
+            "name": "Get Packages by PURL (Org Scoped)",
+            "description": {
+              "content": "Batch retrieval of package metadata and alerts by PURL strings for a specific organization. Compatible with CycloneDX reports.\n\nPackage URLs (PURLs) are an ecosystem agnostic way to identify packages.\nCycloneDX SBOMs use the purl format to identify components.\nThis endpoint supports fetching metadata and alerts for multiple packages at once by passing an array of purl strings, or by passing an entire CycloneDX report.\n\n**Note:** This endpoint has a batch size limit (default: 1024 PURLs per request). Requests exceeding this limit will return a 400 Bad Request error.\n\nMore information on purl and CycloneDX:\n\n- [`purl` Spec](https://github.com/package-url/purl-spec)\n- [CycloneDX Spec](https://cyclonedx.org/specification/overview/#components)\n\nThis endpoint returns the latest available alert data for artifacts in the batch (stale while revalidate).\nActively running analysis will be returned when available on subsequent runs.\n\nWhen `alerts=true`, Socket may synthesize two alert types to make partial\nresults actionable:\n\n- `pendingScan`: the package is known but analysis has not completed yet\n- `notFound`: Socket could not resolve the package/version metadata\n\nWhen `purlErrors=true`, unresolved `notFound` inputs keep the legacy\n`purlError` stream shape instead of emitting synthetic `notFound`\nartifacts.\n\nUse `poll=false` (default) to fail open and return the current known state\nquickly. Use `poll=true` to fail closed and wait up to `timeoutSec` for\npending analysis before returning.\n\n## Query Parameters\n\nThis endpoint supports all query parameters from `POST /v0/purl` including: `alerts`, `actions`, `compact`, `fixable`, `licenseattrib`, `licensedetails`, `purlErrors`, `poll`, `cachedResultsOnly`, and `summary`.\n\nAdditionally, you may provide a `labels` query parameter to apply a repository label's security policies. Pass the label slug as the value (e.g., `?labels=production`). Only one label is currently supported.\n\n## Examples:\n\n### Looking up an npm package:\n\n```json\n{\n  \"components\": [\n    {\n      \"purl\": \"pkg:npm/express@4.19.2\"\n    }\n  ]\n}\n```\n\n### Looking up a PyPi package:\n\n```json\n{\n  \"components\": [\n    {\n      \"purl\": \"pkg:pypi/django@5.0.6\"\n    }\n  ]\n}\n```\n\n### Looking up a Maven package:\n\n```json\n{\n  \"components\": [\n    {\n      \"purl\": \"pkg:maven/log4j/log4j@1.2.17\"\n    }\n  ]\n}\n```\n\n### Batch lookup\n\n```json\n{\n  \"components\": [\n    {\n      \"purl\": \"pkg:npm/express@4.19.2\"\n    },\n    {\n      \"purl\": \"pkg:pypi/django@5.0.6\"\n    },\n    {\n      \"purl\": \"pkg:maven/log4j/log4j@1.2.17\"\n    }\n  ]\n}\n```\n\n### With label and options (query parameters):\n\n```\nPOST /v0/orgs/{org_slug}/purl?labels=production&alerts=true&compact=true\n{\n  \"components\": [\n    {\n      \"purl\": \"pkg:npm/express@4.19.2\"\n    }\n  ]\n}\n```\n\nThis endpoint consumes 100 units of your quota.\n\nThis endpoint requires the following org token scopes:\n- packages:list",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "orgs",
+                ":org_slug",
+                "purl"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "labels",
+                  "value": "<string>,<string>",
+                  "description": "Repository label slugs to apply policies. Only one label is supported currently; the parameter is an array to allow future support for multiple labels."
+                },
+                {
+                  "disabled": false,
+                  "key": "alerts",
+                  "value": "false",
+                  "description": "Include alert metadata."
+                },
+                {
+                  "disabled": false,
+                  "key": "actions",
+                  "value": "<string>,<string>",
+                  "description": "Include only alerts with comma separated actions defined by security policy."
+                },
+                {
+                  "disabled": false,
+                  "key": "compact",
+                  "value": "false",
+                  "description": "Compact metadata. When enabled, excludes metadata fields like author, scores, size, dependencies, and manifest files. Always includes: id, type, name, version, release, namespace, subpath, alerts, and alertPriorities."
+                },
+                {
+                  "disabled": false,
+                  "key": "fixable",
+                  "value": "false",
+                  "description": "Include only fixable alerts."
+                },
+                {
+                  "disabled": false,
+                  "key": "licenseattrib",
+                  "value": "false",
+                  "description": "Include license attribution data, including license text and author information. Maps attribution/license text to a list of data objects to which that attribution info applies."
+                },
+                {
+                  "disabled": false,
+                  "key": "licensedetails",
+                  "value": "false",
+                  "description": "Include detailed license information, including location and match strength, for each license datum."
+                },
+                {
+                  "disabled": false,
+                  "key": "purlErrors",
+                  "value": "false",
+                  "description": "Return errors found with handling PURLs as error objects in the stream."
+                },
+                {
+                  "disabled": false,
+                  "key": "poll",
+                  "value": "false",
+                  "description": "When true, wait up to timeoutSec for pending analysis to complete before returning. When false (default), return the current known state immediately, including synthesized pendingScan and notFound alerts when alerts=true unless purlErrors=true keeps legacy not-found errors."
+                },
+                {
+                  "disabled": false,
+                  "key": "cachedResultsOnly",
+                  "value": "false",
+                  "description": "Legacy fallback for older clients. Only used when poll is omitted: cachedResultsOnly=true behaves like poll=false, while cachedResultsOnly=false preserves the older blocking behavior."
+                },
+                {
+                  "disabled": false,
+                  "key": "summary",
+                  "value": "false",
+                  "description": "Include a summary object at the end of the stream with counts of malformed, resolved, and not found PURLs."
+                },
+                {
+                  "disabled": false,
+                  "key": "timeoutSec",
+                  "value": "<integer>",
+                  "description": "Maximum time in seconds to wait for package resolution and, when poll=true, pending analysis. Inputs that have not completed processing when the timeout is reached return pendingScan alerts when alerts=true, or errors when purlErrors=true."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "org_slug",
+                  "description": "(Required) The slug of the organization"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/x-ndjson"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"components\": [\n    {\n      \"purl\": \"\"\n    },\n    {\n      \"purl\": \"\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "e25329c2-4125-4288-8c18-ca77de055258",
+              "name": "Socket issue lists and scores for all packages, and optional metadata objects",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    ":org_slug",
+                    "purl"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "labels",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "alerts",
+                      "value": "false"
+                    },
+                    {
+                      "key": "actions",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "compact",
+                      "value": "false"
+                    },
+                    {
+                      "key": "fixable",
+                      "value": "false"
+                    },
+                    {
+                      "key": "licenseattrib",
+                      "value": "false"
+                    },
+                    {
+                      "key": "licensedetails",
+                      "value": "false"
+                    },
+                    {
+                      "key": "purlErrors",
+                      "value": "false"
+                    },
+                    {
+                      "key": "poll",
+                      "value": "false"
+                    },
+                    {
+                      "key": "cachedResultsOnly",
+                      "value": "false"
+                    },
+                    {
+                      "key": "summary",
+                      "value": "false"
+                    },
+                    {
+                      "key": "timeoutSec",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "org_slug",
+                      "description": "(Required) The slug of the organization"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/x-ndjson"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"components\": [\n    {\n      \"purl\": \"\"\n    },\n    {\n      \"purl\": \"\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/x-ndjson"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "22c7d92a-45fb-47d3-a317-57b0e574b5a7",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    ":org_slug",
+                    "purl"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "labels",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "alerts",
+                      "value": "false"
+                    },
+                    {
+                      "key": "actions",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "compact",
+                      "value": "false"
+                    },
+                    {
+                      "key": "fixable",
+                      "value": "false"
+                    },
+                    {
+                      "key": "licenseattrib",
+                      "value": "false"
+                    },
+                    {
+                      "key": "licensedetails",
+                      "value": "false"
+                    },
+                    {
+                      "key": "purlErrors",
+                      "value": "false"
+                    },
+                    {
+                      "key": "poll",
+                      "value": "false"
+                    },
+                    {
+                      "key": "cachedResultsOnly",
+                      "value": "false"
+                    },
+                    {
+                      "key": "summary",
+                      "value": "false"
+                    },
+                    {
+                      "key": "timeoutSec",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "org_slug",
+                      "description": "(Required) The slug of the organization"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"components\": [\n    {\n      \"purl\": \"\"\n    },\n    {\n      \"purl\": \"\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"details\": null,\n    \"message\": \"\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3a2b9459-20c1-4fdc-ad78-3ce9a29e9f77",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    ":org_slug",
+                    "purl"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "labels",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "alerts",
+                      "value": "false"
+                    },
+                    {
+                      "key": "actions",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "compact",
+                      "value": "false"
+                    },
+                    {
+                      "key": "fixable",
+                      "value": "false"
+                    },
+                    {
+                      "key": "licenseattrib",
+                      "value": "false"
+                    },
+                    {
+                      "key": "licensedetails",
+                      "value": "false"
+                    },
+                    {
+                      "key": "purlErrors",
+                      "value": "false"
+                    },
+                    {
+                      "key": "poll",
+                      "value": "false"
+                    },
+                    {
+                      "key": "cachedResultsOnly",
+                      "value": "false"
+                    },
+                    {
+                      "key": "summary",
+                      "value": "false"
+                    },
+                    {
+                      "key": "timeoutSec",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "org_slug",
+                      "description": "(Required) The slug of the organization"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"components\": [\n    {\n      \"purl\": \"\"\n    },\n    {\n      \"purl\": \"\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"details\": null,\n    \"message\": \"\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "690f755d-7868-4e9e-a09b-8f0e5ac9dadd",
+              "name": "Insufficient max_quota for API method",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    ":org_slug",
+                    "purl"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "labels",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "alerts",
+                      "value": "false"
+                    },
+                    {
+                      "key": "actions",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "compact",
+                      "value": "false"
+                    },
+                    {
+                      "key": "fixable",
+                      "value": "false"
+                    },
+                    {
+                      "key": "licenseattrib",
+                      "value": "false"
+                    },
+                    {
+                      "key": "licensedetails",
+                      "value": "false"
+                    },
+                    {
+                      "key": "purlErrors",
+                      "value": "false"
+                    },
+                    {
+                      "key": "poll",
+                      "value": "false"
+                    },
+                    {
+                      "key": "cachedResultsOnly",
+                      "value": "false"
+                    },
+                    {
+                      "key": "summary",
+                      "value": "false"
+                    },
+                    {
+                      "key": "timeoutSec",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "org_slug",
+                      "description": "(Required) The slug of the organization"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"components\": [\n    {\n      \"purl\": \"\"\n    },\n    {\n      \"purl\": \"\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"details\": null,\n    \"message\": \"\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fc247a34-9786-4ac6-aa5b-e44c60442c0a",
+              "name": "Resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    ":org_slug",
+                    "purl"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "labels",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "alerts",
+                      "value": "false"
+                    },
+                    {
+                      "key": "actions",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "compact",
+                      "value": "false"
+                    },
+                    {
+                      "key": "fixable",
+                      "value": "false"
+                    },
+                    {
+                      "key": "licenseattrib",
+                      "value": "false"
+                    },
+                    {
+                      "key": "licensedetails",
+                      "value": "false"
+                    },
+                    {
+                      "key": "purlErrors",
+                      "value": "false"
+                    },
+                    {
+                      "key": "poll",
+                      "value": "false"
+                    },
+                    {
+                      "key": "cachedResultsOnly",
+                      "value": "false"
+                    },
+                    {
+                      "key": "summary",
+                      "value": "false"
+                    },
+                    {
+                      "key": "timeoutSec",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "org_slug",
+                      "description": "(Required) The slug of the organization"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"components\": [\n    {\n      \"purl\": \"\"\n    },\n    {\n      \"purl\": \"\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"details\": null,\n    \"message\": \"\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b393cb00-3b50-4ddb-9824-60c2b5fc5209",
+              "name": "Insufficient quota for API route",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    ":org_slug",
+                    "purl"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "labels",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "alerts",
+                      "value": "false"
+                    },
+                    {
+                      "key": "actions",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "compact",
+                      "value": "false"
+                    },
+                    {
+                      "key": "fixable",
+                      "value": "false"
+                    },
+                    {
+                      "key": "licenseattrib",
+                      "value": "false"
+                    },
+                    {
+                      "key": "licensedetails",
+                      "value": "false"
+                    },
+                    {
+                      "key": "purlErrors",
+                      "value": "false"
+                    },
+                    {
+                      "key": "poll",
+                      "value": "false"
+                    },
+                    {
+                      "key": "cachedResultsOnly",
+                      "value": "false"
+                    },
+                    {
+                      "key": "summary",
+                      "value": "false"
+                    },
+                    {
+                      "key": "timeoutSec",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "org_slug",
+                      "description": "(Required) The slug of the organization"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"components\": [\n    {\n      \"purl\": \"\"\n    },\n    {\n      \"purl\": \"\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Retry contacting the endpoint *at least* after seconds.\nSee https://tools.ietf.org/html/rfc7231#section-7.1.3",
+                  "key": "Retry-After",
+                  "value": "5600"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"details\": null,\n    \"message\": \"\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.socket.dev/v0",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "ed787ee6-a55f-4a9c-b8ff-aa2abe15bfe0",
+    "name": "API Endpoints alerts packages API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Specification of the Socket API endpoints",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,107 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "API Endpoints alerts fixes API",
+    "version": "0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "fixes",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Fetch fixes for vulnerabilities in a repository, scan, or uploaded manifest",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.socket.dev/v0/orgs/:org_slug/fixes",
+            "params": [
+              {
+                "name": "org_slug",
+                "value": "",
+                "type": "path",
+                "description": "The slug of the organization"
+              },
+              {
+                "name": "repo_slug",
+                "value": "",
+                "type": "query",
+                "description": "The slug of the repository to fetch fixes for (e.g. \"my-repo\" or \"my-org/my-repo\"). Use the full org/repo path to disambiguate when multiple GitHub orgs share the same repo name. Computes fixes based on the latest scan on the default branch"
+              },
+              {
+                "name": "full_scan_id",
+                "value": "",
+                "type": "query",
+                "description": "The ID of the scan to fetch fixes for"
+              },
+              {
+                "name": "tar_hash",
+                "value": "",
+                "type": "query",
+                "description": "A tarball hash from the upload-manifest-files endpoint. Mutually exclusive with repo_slug and full_scan_id."
+              },
+              {
+                "name": "vulnerability_ids",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of GHSA or CVE IDs, or \"*\" for all vulnerabilities"
+              },
+              {
+                "name": "allow_major_updates",
+                "value": "",
+                "type": "query",
+                "description": "Whether to allow major version updates in fixes"
+              },
+              {
+                "name": "minimum_release_age",
+                "value": "",
+                "type": "query",
+                "description": "Minimum release age for fixes packages (e.g., \"1h\", \"2d\", \"1w\"). Higher values reduces risk of installing recently released untested package versions."
+              },
+              {
+                "name": "include_details",
+                "value": "",
+                "type": "query",
+                "description": "Whether to include advisory details in the response"
+              },
+              {
+                "name": "include_responsible_direct_dependencies",
+                "value": "",
+                "type": "query",
+                "description": "Set to include the direct dependencies responsible for introducing the dependency or dependencies with the vulnerability in the response"
+              },
+              {
+                "name": "include_all_detected_ghsas",
+                "value": "",
+                "type": "query",
+                "description": "Set to include an allDetectedGhsas field listing every GHSA detected in the project, regardless of the vulnerability_ids filter. Useful for CLI clients that request a specific GHSA and want to show the user which GHSAs actually exist when the request has no overlap."
+              },
+              {
+                "name": "include_stateful_alert_ids",
+                "value": "",
+                "type": "query",
+                "description": "Set to include a statefulAlertIds map (GHSA ID → array of open stateful alert IDs detected in this organization) in the response. Lets callers correlate /fixes results back to the alert IDs surfaced by /v0/orgs/{org_slug}/alerts. Org-scoped only — multiple alerts across repos/branches may share a GHSA. Off by default to avoid an extra ClickHouse round-trip."
+              },
+              {
+                "name": "autofix_run_id",
+                "value": "",
+                "type": "query",
+                "description": "The id of an autofix-or-upgrade-cli-run record (created via /fixes/register-autofix-or-upgrade-cli-run) to associate this computation with. When set, the server records per-GHSA fix-computation telemetry into autofix_compute_vulnerability and updates the run's autofix_run row, mirroring the legacy /v0/fixes/compute-fixes endpoint. The caller must own the run's organization; foreign-org or unknown ids return 404."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Fetches available fixes for vulnerabilities in a repository, scan, or uploaded manifest.\nRequires exactly one of repo_slug, full_scan_id, or tar_hash, as well as vulnerability_ids to be provided.\nvulnerability_ids can be a comma-separated list of GHSA or CVE IDs, or \"*\" for all vulnerabilities.\n\n## Response Structure\n\nThe response contains a `fixDetails` object where each key is a vulnerability ID (GHSA or CVE) and the value is a discriminated union based on the `type` field.\n\n### Common Fields\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

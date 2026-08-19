@@ -1,0 +1,107 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "API Endpoints alerts threat-feed API",
+    "version": "0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "threat-feed",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Threat Feed Items (Beta)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.socket.dev/v0/orgs/:org_slug/threat-feed",
+            "params": [
+              {
+                "name": "org_slug",
+                "value": "",
+                "type": "path",
+                "description": "The slug of the organization"
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Number of threats per page"
+              },
+              {
+                "name": "page_cursor",
+                "value": "",
+                "type": "query",
+                "description": "Page cursor token. Pass the returned nextPageCursor to this query string to fetch the next page of the threat feed."
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Set the sort order for the threat feed items. Default is descending order by updated_at, which includes all new and updated threat feed items."
+              },
+              {
+                "name": "updated_after",
+                "value": "",
+                "type": "query",
+                "description": "A Unix timestamp in seconds that filters results to items only updated after the timestamp."
+              },
+              {
+                "name": "created_after",
+                "value": "",
+                "type": "query",
+                "description": "A Unix timestamp in seconds that filters results to items only created after the date."
+              },
+              {
+                "name": "direction",
+                "value": "",
+                "type": "query",
+                "description": "Order direction of the provided sort field."
+              },
+              {
+                "name": "filter",
+                "value": "",
+                "type": "query",
+                "description": "Filter by threat classification. Supported values: `mal` (malware, including possible malware), `vuln` (vulnerability), `typo` (typosquat, including possible typosquat), `anom` (anomaly), `spy` (telemetry), `obf` (obfuscated code), `dual` (dual-use tool), `joke` (protestware or joke package), `tp` (all confirmed true positives), `fp` (false positive), `u` (unreviewed), `c` (classified, i.e. anything except unreviewed)."
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "query",
+                "description": "Filter threats by package name"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "query",
+                "description": "Filter threats by package version."
+              },
+              {
+                "name": "is_human_reviewed",
+                "value": "",
+                "type": "query",
+                "description": "Only return threats which have been human-reviewed"
+              },
+              {
+                "name": "ecosystem",
+                "value": "",
+                "type": "query",
+                "description": "Filter threats by package ecosystem."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Paginated list of threats, sorted by updated_at by default. Set updated_after to the unix timestamp of your last sync while sorting by updated_at to synchronize all new or updated threats in the feed.\n\nThis endpoint requires an Enterprise Plan with Threat Feed add-on. [Contact](https://socket.dev/demo?utm_source=api-docs&utm_medium=referral&utm_campaign=tracking) our sales team for more details.\n\nThis endpoint consumes 1 unit of your quota.\n\nThis endpoint requires the following org token scopes:"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

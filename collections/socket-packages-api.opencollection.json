@@ -1,0 +1,204 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "API Endpoints alerts packages API",
+    "version": "0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "packages",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Packages by PURL",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.socket.dev/v0/purl",
+            "params": [
+              {
+                "name": "alerts",
+                "value": "",
+                "type": "query",
+                "description": "Include alert metadata."
+              },
+              {
+                "name": "actions",
+                "value": "",
+                "type": "query",
+                "description": "Include only alerts with comma separated actions defined by security policy."
+              },
+              {
+                "name": "compact",
+                "value": "",
+                "type": "query",
+                "description": "Compact metadata. When enabled, excludes metadata fields like author, scores, size, dependencies, and manifest files. Always includes: id, type, name, version, release, namespace, subpath, alerts, and alertPriorities."
+              },
+              {
+                "name": "fixable",
+                "value": "",
+                "type": "query",
+                "description": "Include only fixable alerts."
+              },
+              {
+                "name": "licenseattrib",
+                "value": "",
+                "type": "query",
+                "description": "Include license attribution data, including license text and author information. Maps attribution/license text to a list of data objects to which that attribution info applies."
+              },
+              {
+                "name": "licensedetails",
+                "value": "",
+                "type": "query",
+                "description": "Include detailed license information, including location and match strength, for each license datum."
+              },
+              {
+                "name": "purlErrors",
+                "value": "",
+                "type": "query",
+                "description": "Return errors found with handling PURLs as error objects in the stream."
+              },
+              {
+                "name": "poll",
+                "value": "",
+                "type": "query",
+                "description": "When true, wait up to timeoutSec for pending analysis to complete before returning. When false (default), return the current known state immediately, including synthesized pendingScan and notFound alerts when alerts=true unless purlErrors=true keeps legacy not-found errors."
+              },
+              {
+                "name": "cachedResultsOnly",
+                "value": "",
+                "type": "query",
+                "description": "Legacy fallback for older clients. Only used when poll is omitted: cachedResultsOnly=true behaves like poll=false, while cachedResultsOnly=false preserves the older blocking behavior."
+              },
+              {
+                "name": "summary",
+                "value": "",
+                "type": "query",
+                "description": "Include a summary object at the end of the stream with counts of malformed, resolved, and not found PURLs."
+              },
+              {
+                "name": "timeoutSec",
+                "value": "",
+                "type": "query",
+                "description": "Maximum time in seconds to wait for package resolution and, when poll=true, pending analysis. Inputs that have not completed processing when the timeout is reached return pendingScan alerts when alerts=true, or errors when purlErrors=true."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "**This endpoint is deprecated.** Deprecated since 2026-01-05.\n\nBatch retrieval of package metadata and alerts by PURL strings. Compatible with CycloneDX reports.\n\nPackage URLs (PURLs) are an ecosystem agnostic way to identify packages.\nCycloneDX SBOMs use the purl format to identify components.\nThis endpoint supports fetching metadata and alerts for multiple packages at once by passing an array of purl strings, or by passing an entire CycloneDX report.\n\n**Note:** This endpoint has a batch size l"
+        },
+        {
+          "info": {
+            "name": "Get Packages by PURL (Org Scoped)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.socket.dev/v0/orgs/:org_slug/purl",
+            "params": [
+              {
+                "name": "org_slug",
+                "value": "",
+                "type": "path",
+                "description": "The slug of the organization"
+              },
+              {
+                "name": "labels",
+                "value": "",
+                "type": "query",
+                "description": "Repository label slugs to apply policies. Only one label is supported currently; the parameter is an array to allow future support for multiple labels."
+              },
+              {
+                "name": "alerts",
+                "value": "",
+                "type": "query",
+                "description": "Include alert metadata."
+              },
+              {
+                "name": "actions",
+                "value": "",
+                "type": "query",
+                "description": "Include only alerts with comma separated actions defined by security policy."
+              },
+              {
+                "name": "compact",
+                "value": "",
+                "type": "query",
+                "description": "Compact metadata. When enabled, excludes metadata fields like author, scores, size, dependencies, and manifest files. Always includes: id, type, name, version, release, namespace, subpath, alerts, and alertPriorities."
+              },
+              {
+                "name": "fixable",
+                "value": "",
+                "type": "query",
+                "description": "Include only fixable alerts."
+              },
+              {
+                "name": "licenseattrib",
+                "value": "",
+                "type": "query",
+                "description": "Include license attribution data, including license text and author information. Maps attribution/license text to a list of data objects to which that attribution info applies."
+              },
+              {
+                "name": "licensedetails",
+                "value": "",
+                "type": "query",
+                "description": "Include detailed license information, including location and match strength, for each license datum."
+              },
+              {
+                "name": "purlErrors",
+                "value": "",
+                "type": "query",
+                "description": "Return errors found with handling PURLs as error objects in the stream."
+              },
+              {
+                "name": "poll",
+                "value": "",
+                "type": "query",
+                "description": "When true, wait up to timeoutSec for pending analysis to complete before returning. When false (default), return the current known state immediately, including synthesized pendingScan and notFound alerts when alerts=true unless purlErrors=true keeps legacy not-found errors."
+              },
+              {
+                "name": "cachedResultsOnly",
+                "value": "",
+                "type": "query",
+                "description": "Legacy fallback for older clients. Only used when poll is omitted: cachedResultsOnly=true behaves like poll=false, while cachedResultsOnly=false preserves the older blocking behavior."
+              },
+              {
+                "name": "summary",
+                "value": "",
+                "type": "query",
+                "description": "Include a summary object at the end of the stream with counts of malformed, resolved, and not found PURLs."
+              },
+              {
+                "name": "timeoutSec",
+                "value": "",
+                "type": "query",
+                "description": "Maximum time in seconds to wait for package resolution and, when poll=true, pending analysis. Inputs that have not completed processing when the timeout is reached return pendingScan alerts when alerts=true, or errors when purlErrors=true."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Batch retrieval of package metadata and alerts by PURL strings for a specific organization. Compatible with CycloneDX reports.\n\nPackage URLs (PURLs) are an ecosystem agnostic way to identify packages.\nCycloneDX SBOMs use the purl format to identify components.\nThis endpoint supports fetching metadata and alerts for multiple packages at once by passing an array of purl strings, or by passing an entire CycloneDX report.\n\n**Note:** This endpoint has a batch size limit (default: 1024 PURLs per reque"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

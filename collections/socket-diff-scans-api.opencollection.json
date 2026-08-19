@@ -1,0 +1,398 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "API Endpoints alerts diff-scans API",
+    "version": "0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "diff-scans",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List diff scans",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.socket.dev/v0/orgs/:org_slug/diff-scans",
+            "params": [
+              {
+                "name": "org_slug",
+                "value": "",
+                "type": "path",
+                "description": "The slug of the organization"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Specify sort field."
+              },
+              {
+                "name": "direction",
+                "value": "",
+                "type": "query",
+                "description": "Specify sort direction."
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Specify the maximum number of results to return per page."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Cursor for pagination. Use the next_cursor or prev_cursor from previous responses."
+              },
+              {
+                "name": "repository_id",
+                "value": "",
+                "type": "query",
+                "description": "Filter by repository ID."
+              },
+              {
+                "name": "before_full_scan_id",
+                "value": "",
+                "type": "query",
+                "description": "Filter by before full scan ID."
+              },
+              {
+                "name": "after_full_scan_id",
+                "value": "",
+                "type": "query",
+                "description": "Filter by after full scan ID."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns a paginated list of all diff scans in an organization.\n\nThis endpoint consumes 1 unit of your quota.\n\nThis endpoint requires the following org token scopes:\n- diff-scans:list"
+        },
+        {
+          "info": {
+            "name": "Get diff scan",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.socket.dev/v0/orgs/:org_slug/diff-scans/:diff_scan_id",
+            "params": [
+              {
+                "name": "org_slug",
+                "value": "",
+                "type": "path",
+                "description": "The slug of the organization"
+              },
+              {
+                "name": "diff_scan_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the diff scan"
+              },
+              {
+                "name": "omit_license_details",
+                "value": "",
+                "type": "query",
+                "description": "Omit license details in the response. This can reduce the size of the response significantly, but will not include license information for the artifacts."
+              },
+              {
+                "name": "omit_unchanged",
+                "value": "",
+                "type": "query",
+                "description": "Omit unchanged artifacts from the response. When set to true, the unchanged field will be set to null."
+              },
+              {
+                "name": "cached",
+                "value": "",
+                "type": "query",
+                "description": "Return cached immutable scan results. When enabled and results are cached, returns the pre-computed scan. When results are not yet cached, returns 202 Accepted and enqueues a background job. Note: When cached=true, the omit_license_details parameter is ignored as cached results always includes license details."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get the difference between two full scans from an existing diff scan resource.\n\nThis endpoint consumes 1 unit of your quota.\n\nThis endpoint requires the following org token scopes:\n- diff-scans:list"
+        },
+        {
+          "info": {
+            "name": "Delete diff scan",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.socket.dev/v0/orgs/:org_slug/diff-scans/:diff_scan_id",
+            "params": [
+              {
+                "name": "org_slug",
+                "value": "",
+                "type": "path",
+                "description": "The slug of the organization"
+              },
+              {
+                "name": "diff_scan_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the diff scan"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Delete an existing diff scan.\n\nThis endpoint consumes 1 unit of your quota.\n\nThis endpoint requires the following org token scopes:\n- diff-scans:delete"
+        },
+        {
+          "info": {
+            "name": "SCM Comment for Diff Scan",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.socket.dev/v0/orgs/:org_slug/diff-scans/:diff_scan_id/gfm",
+            "params": [
+              {
+                "name": "org_slug",
+                "value": "",
+                "type": "path",
+                "description": "The slug of the organization"
+              },
+              {
+                "name": "diff_scan_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the diff scan"
+              },
+              {
+                "name": "github_installation_id",
+                "value": "",
+                "type": "query",
+                "description": "The ID of the GitHub installation. This will be used to get the GitHub installation settings. If not provided, the default GitHub installation settings will be used."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get the dependency overview and dependency alert comments in GitHub flavored markdown for an existing diff scan.\n\nThis endpoint consumes 1 unit of your quota.\n\nThis endpoint requires the following org token scopes:\n- diff-scans:list"
+        },
+        {
+          "info": {
+            "name": "Create diff scan from repository HEAD full-scan",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.socket.dev/v0/orgs/:org_slug/diff-scans/from-repo/:repo_slug",
+            "params": [
+              {
+                "name": "org_slug",
+                "value": "",
+                "type": "path",
+                "description": "The slug of the organization"
+              },
+              {
+                "name": "repo_slug",
+                "value": "",
+                "type": "path",
+                "description": "The slug of the repository"
+              },
+              {
+                "name": "description",
+                "value": "",
+                "type": "query",
+                "description": "A description of the diff scan. This will be used in the diff report and can be used to provide context for the changes made."
+              },
+              {
+                "name": "external_href",
+                "value": "",
+                "type": "query",
+                "description": "An external URL to associate with the diff scan. This can be a link to a pull request, issue, or any other relevant resource."
+              },
+              {
+                "name": "branch",
+                "value": "",
+                "type": "query",
+                "description": "The branch name to associate the new full-scan with. Branch names must follow Git branch name rules: be 1–255 characters long; cannot be exactly @;  cannot begin or end with /, ., or .lock; cannot contain \"//\", \"..\", or \"@{\"; and cannot include control characters, spaces, or any of ~^:?*[."
+              },
+              {
+                "name": "commit_message",
+                "value": "",
+                "type": "query",
+                "description": "The commit message to associate the new full-scan with."
+              },
+              {
+                "name": "commit_hash",
+                "value": "",
+                "type": "query",
+                "description": "The commit hash to associate the full-scan with."
+              },
+              {
+                "name": "pull_request",
+                "value": "",
+                "type": "query",
+                "description": "The pull request number to associate the new full-scan with."
+              },
+              {
+                "name": "committers",
+                "value": "",
+                "type": "query",
+                "description": "The committers to associate the new full-scan with. Set query more than once to set multiple committers."
+              },
+              {
+                "name": "integration_type",
+                "value": "",
+                "type": "query",
+                "description": "The integration type to associate the new full-scan with. Defaults to \"api\" if omitted."
+              },
+              {
+                "name": "integration_org_slug",
+                "value": "",
+                "type": "query",
+                "description": "The integration org slug to associate the new full-scan with. If omitted, the Socket org name will be used. This is used to generate links and badges."
+              },
+              {
+                "name": "merge",
+                "value": "",
+                "type": "query",
+                "description": "Set to true when running a diff between a merged commit and its parent commit in the same branch. Set to false when running diffs in an open PR between unmerged commits."
+              },
+              {
+                "name": "workspace",
+                "value": "",
+                "type": "query",
+                "description": "The workspace of the repository."
+              }
+            ],
+            "body": {
+              "type": "multipart-form",
+              "data": []
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Create a diff scan between the repository's current HEAD full scan and a new full scan from uploaded manifest files.\nReturns metadata about the diff scan. Once the diff scan is created, fetch the diff scan from\nthe [api_url](/reference/getDiffScanById) URL to get the contents of the diff.\n\nThe maximum number of files you can upload at a time is 10000 and each file can be no bigger than 268 MB.\n\nThis endpoint consumes 1 unit of your quota.\n\nThis endpoint requires the following org token scopes:\n "
+        },
+        {
+          "info": {
+            "name": "Create diff scan from full scan IDs",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.socket.dev/v0/orgs/:org_slug/diff-scans/from-ids",
+            "params": [
+              {
+                "name": "org_slug",
+                "value": "",
+                "type": "path",
+                "description": "The slug of the organization"
+              },
+              {
+                "name": "before",
+                "value": "",
+                "type": "query",
+                "description": "The ID of the before/base full scan (older)"
+              },
+              {
+                "name": "after",
+                "value": "",
+                "type": "query",
+                "description": "The ID of the after/head full scan (newer)"
+              },
+              {
+                "name": "description",
+                "value": "",
+                "type": "query",
+                "description": "A description of the diff scan. This will be used in the diff report and can be used to provide context for the changes made."
+              },
+              {
+                "name": "external_href",
+                "value": "",
+                "type": "query",
+                "description": "An external URL to associate with the diff scan. This can be a link to a pull request, issue, or any other relevant resource."
+              },
+              {
+                "name": "merge",
+                "value": "",
+                "type": "query",
+                "description": "Set to true when running a diff between a merged commit and its parent commit in the same branch. Set to false when running diffs in an open PR between unmerged commits."
+              },
+              {
+                "name": "on_duplicate",
+                "value": "",
+                "type": "query",
+                "description": "Set to \"redirect\" to receive a 302 redirect to the existing diff scan instead of a 409 error when a duplicate is detected."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Create a diff scan from two existing full scan IDs. The full scans must be in the same repository.\nReturns metadata about the diff scan. Once the diff scan is created, fetch the diff scan from\nthe [api_url](/reference/getDiffScanById) URL to get the contents of the diff.\n\nThis endpoint consumes 1 unit of your quota.\n\nThis endpoint requires the following org token scopes:\n      - diff-scans:create\n- full-scans:list"
+        },
+        {
+          "info": {
+            "name": "Get supported file types",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.socket.dev/v0/orgs/:org_slug/supported-files",
+            "params": [
+              {
+                "name": "org_slug",
+                "value": "",
+                "type": "path",
+                "description": "The slug of the organization"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get a list of supported files for full scan generation.\nFiles are categorized first by environment (e.g. NPM or PyPI), then by name.\n\nFiles whose names match the patterns returned by this endpoint can be uploaded for report generation.\nExamples of supported filenames include `package.json`, `package-lock.json`, and `yarn.lock`.\n\nThis endpoint consumes 1 unit of your quota.\n\nThis endpoint requires the following org token scopes:\n- No Scopes Required, but authentication is required"
+        },
+        {
+          "info": {
+            "name": "Alert Types Metadata",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.socket.dev/v0/alert-types",
+            "params": [
+              {
+                "name": "language",
+                "value": "",
+                "type": "query",
+                "description": "Language for alert metadata"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "For an array of alert type identifiers, returns metadata for each alert type. Optionally, specify a language via the 'language' query parameter.\n\nThis endpoint consumes 1 unit of your quota.\n\nThis endpoint requires the following org token scopes:"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

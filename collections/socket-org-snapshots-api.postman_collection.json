@@ -1,0 +1,987 @@
+{
+  "item": [
+    {
+      "id": "5c95670f-437b-4855-a1e8-19f8eab66a65",
+      "name": "org-snapshots",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "9d731c92-2615-4b03-95f6-84d53f304c0f",
+          "name": "List details of periodic historical data snapshots (Beta)",
+          "request": {
+            "name": "List details of periodic historical data snapshots (Beta)",
+            "description": {
+              "content": "This API endpoint is used to list the details of historical snapshots.\nSnapshots of organization data are taken periodically, and each historical snapshot record contains high-level overview metrics about the data that was collected.\nOther [Historical Data Endpoints](/reference/historical-data-endpoints) can be used to fetch the raw data associated with each snapshot.\n\nHistorical snapshots contain details and raw data for the following resources:\n\n- Repositories\n- Alerts\n- Dependencies\n- Artifacts\n- Users\n- Settings\n\nDaily snapshot data is bucketed to the nearest day which is described in more detail at: [Historical Data Endpoints](/reference/historical-data-endpoints)\n\nThis endpoint consumes 10 units of your quota.\n\nThis endpoint requires the following org token scopes:\n- historical:snapshots-list",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "orgs",
+                ":org_slug",
+                "historical",
+                "snapshots"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "date",
+                  "value": "CURRENT_DATE",
+                  "description": "The UTC date in YYYY-MM-DD format for which to fetch snapshots"
+                },
+                {
+                  "disabled": false,
+                  "key": "range",
+                  "value": "-7d",
+                  "description": "The number of days of data to fetch as an offset from input date (e.g. \"-7d\" or \"7d\") or use \"latest\" to query for latest snapshots for each repo"
+                },
+                {
+                  "disabled": false,
+                  "key": "per_page",
+                  "value": "10000",
+                  "description": "Specify the maximum number of results to return per page (intermediate pages may have fewer than this limit and callers should always check \"endCursor\" in response body to know if there are more pages)"
+                },
+                {
+                  "disabled": false,
+                  "key": "startAfterCursor",
+                  "value": "",
+                  "description": "The pagination cursor that was returned as the \"endCursor\" property in previous request"
+                },
+                {
+                  "disabled": false,
+                  "key": "filters.status",
+                  "value": "",
+                  "description": "Comma-separated list of historical snapshot statuses that should be included (allowed: \"in-progress\", \"success\", \"failure\", \"timeout\", \"skipped\")"
+                },
+                {
+                  "disabled": false,
+                  "key": "filters.requestId",
+                  "value": "",
+                  "description": "Comma-separated list of requestId values that were used to start the historical snapshot job"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "org_slug",
+                  "description": "(Required) The slug of the organization"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "b43737b6-1104-46c7-83f5-6e9765a81e1e",
+              "name": "The historical snapshots.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    ":org_slug",
+                    "historical",
+                    "snapshots"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "date",
+                      "value": "CURRENT_DATE"
+                    },
+                    {
+                      "key": "range",
+                      "value": "-7d"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "10000"
+                    },
+                    {
+                      "key": "startAfterCursor",
+                      "value": ""
+                    },
+                    {
+                      "key": "filters.status",
+                      "value": ""
+                    },
+                    {
+                      "key": "filters.requestId",
+                      "value": ""
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "org_slug",
+                      "description": "(Required) The slug of the organization"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"endCursor\": \"\",\n  \"items\": [\n    {\n      \"durationMs\": 0,\n      \"finishedAt\": \"\",\n      \"id\": \"\",\n      \"numCriticalAlerts\": 0,\n      \"numHighAlerts\": 0,\n      \"numIgnoredCriticalAlerts\": 0,\n      \"numIgnoredHighAlerts\": 0,\n      \"numIgnoredLowAlerts\": 0,\n      \"numIgnoredMediumAlerts\": 0,\n      \"numLowAlerts\": 0,\n      \"numMediumAlerts\": 0,\n      \"numReposScanned\": 0,\n      \"numSbomsScanned\": 0,\n      \"requestId\": \"\",\n      \"requestedAt\": \"\",\n      \"requestedBy\": \"\",\n      \"startedAt\": \"\",\n      \"status\": \"\"\n    },\n    {\n      \"durationMs\": 0,\n      \"finishedAt\": \"\",\n      \"id\": \"\",\n      \"numCriticalAlerts\": 0,\n      \"numHighAlerts\": 0,\n      \"numIgnoredCriticalAlerts\": 0,\n      \"numIgnoredHighAlerts\": 0,\n      \"numIgnoredLowAlerts\": 0,\n      \"numIgnoredMediumAlerts\": 0,\n      \"numLowAlerts\": 0,\n      \"numMediumAlerts\": 0,\n      \"numReposScanned\": 0,\n      \"numSbomsScanned\": 0,\n      \"requestId\": \"\",\n      \"requestedAt\": \"\",\n      \"requestedBy\": \"\",\n      \"startedAt\": \"\",\n      \"status\": \"\"\n    }\n  ],\n  \"meta\": {\n    \"endDateInclusive\": \"\",\n    \"filters\": {\n      \"status\": [\n        \"\",\n        \"\"\n      ],\n      \"requestId\": [\n        \"\",\n        \"\"\n      ]\n    },\n    \"organizationId\": \"\",\n    \"queryStartTimestamp\": 0,\n    \"startDateInclusive\": \"\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ff857703-1f17-49f9-8468-75334ec9e40f",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    ":org_slug",
+                    "historical",
+                    "snapshots"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "date",
+                      "value": "CURRENT_DATE"
+                    },
+                    {
+                      "key": "range",
+                      "value": "-7d"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "10000"
+                    },
+                    {
+                      "key": "startAfterCursor",
+                      "value": ""
+                    },
+                    {
+                      "key": "filters.status",
+                      "value": ""
+                    },
+                    {
+                      "key": "filters.requestId",
+                      "value": ""
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "org_slug",
+                      "description": "(Required) The slug of the organization"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"details\": null,\n    \"message\": \"\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4ed158d2-326e-47f5-921e-a93b6bb4c82f",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    ":org_slug",
+                    "historical",
+                    "snapshots"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "date",
+                      "value": "CURRENT_DATE"
+                    },
+                    {
+                      "key": "range",
+                      "value": "-7d"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "10000"
+                    },
+                    {
+                      "key": "startAfterCursor",
+                      "value": ""
+                    },
+                    {
+                      "key": "filters.status",
+                      "value": ""
+                    },
+                    {
+                      "key": "filters.requestId",
+                      "value": ""
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "org_slug",
+                      "description": "(Required) The slug of the organization"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"details\": null,\n    \"message\": \"\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "080bde7a-a17e-4eec-b01a-1780ac53032b",
+              "name": "Insufficient max_quota for API method",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    ":org_slug",
+                    "historical",
+                    "snapshots"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "date",
+                      "value": "CURRENT_DATE"
+                    },
+                    {
+                      "key": "range",
+                      "value": "-7d"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "10000"
+                    },
+                    {
+                      "key": "startAfterCursor",
+                      "value": ""
+                    },
+                    {
+                      "key": "filters.status",
+                      "value": ""
+                    },
+                    {
+                      "key": "filters.requestId",
+                      "value": ""
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "org_slug",
+                      "description": "(Required) The slug of the organization"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"details\": null,\n    \"message\": \"\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8aeb3715-c130-43d6-9dac-ddb7ecdd5836",
+              "name": "Resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    ":org_slug",
+                    "historical",
+                    "snapshots"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "date",
+                      "value": "CURRENT_DATE"
+                    },
+                    {
+                      "key": "range",
+                      "value": "-7d"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "10000"
+                    },
+                    {
+                      "key": "startAfterCursor",
+                      "value": ""
+                    },
+                    {
+                      "key": "filters.status",
+                      "value": ""
+                    },
+                    {
+                      "key": "filters.requestId",
+                      "value": ""
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "org_slug",
+                      "description": "(Required) The slug of the organization"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"details\": null,\n    \"message\": \"\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8a4c1834-e836-4d0a-9355-c9cbf08b4644",
+              "name": "Insufficient quota for API route",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    ":org_slug",
+                    "historical",
+                    "snapshots"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "date",
+                      "value": "CURRENT_DATE"
+                    },
+                    {
+                      "key": "range",
+                      "value": "-7d"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "10000"
+                    },
+                    {
+                      "key": "startAfterCursor",
+                      "value": ""
+                    },
+                    {
+                      "key": "filters.status",
+                      "value": ""
+                    },
+                    {
+                      "key": "filters.requestId",
+                      "value": ""
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "org_slug",
+                      "description": "(Required) The slug of the organization"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Retry contacting the endpoint *at least* after seconds.\nSee https://tools.ietf.org/html/rfc7231#section-7.1.3",
+                  "key": "Retry-After",
+                  "value": "1826"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"details\": null,\n    \"message\": \"\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7754455e-98b4-495d-bf12-24b9cbb31b6c",
+          "name": "Start historical data snapshot job (Beta)",
+          "request": {
+            "name": "Start historical data snapshot job (Beta)",
+            "description": {
+              "content": "This API endpoint is used to start a historical snapshot job.\nWhile snapshots are typically taken multiple times a day for paid plans and once a day for free plans, this endpoint can be used to start an \"on demand\" snapshot job to ensure the latest data is collected and stored for historical purposes.\n\nAn historical snapshot will contain details and raw data for the following resources:\n\n- Repositories\n- Alerts\n- Dependencies\n- Artifacts\n- Users\n- Settings\n\nHistorical snapshot data is bucketed to the nearest day which is described in more detail at: [Historical Data Endpoints](/reference/historical-data-endpoints)\n\nThis endpoint consumes 10 units of your quota.\n\nThis endpoint requires the following org token scopes:\n- historical:snapshots-start",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "orgs",
+                ":org_slug",
+                "historical",
+                "snapshots"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "org_slug",
+                  "description": "(Required) The slug of the organization"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "d3953162-4d5d-4e70-b566-3dd469ea1de6",
+              "name": "The details of the snapshot job request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    ":org_slug",
+                    "historical",
+                    "snapshots"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "org_slug",
+                      "description": "(Required) The slug of the organization"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"requestId\": \"\",\n  \"requestedAt\": \"\",\n  \"requestedBy\": \"\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f2a7b7a8-73a5-493e-b874-7487e2dbd7a4",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    ":org_slug",
+                    "historical",
+                    "snapshots"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "org_slug",
+                      "description": "(Required) The slug of the organization"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"details\": null,\n    \"message\": \"\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2c272ffd-32f8-44af-adf2-b15add3320e4",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    ":org_slug",
+                    "historical",
+                    "snapshots"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "org_slug",
+                      "description": "(Required) The slug of the organization"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"details\": null,\n    \"message\": \"\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "91e7d255-a19f-41aa-aff3-296b52c83124",
+              "name": "Insufficient max_quota for API method",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    ":org_slug",
+                    "historical",
+                    "snapshots"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "org_slug",
+                      "description": "(Required) The slug of the organization"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"details\": null,\n    \"message\": \"\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "54326dbf-8f4c-43c2-a130-1c86abe8b80f",
+              "name": "Resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    ":org_slug",
+                    "historical",
+                    "snapshots"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "org_slug",
+                      "description": "(Required) The slug of the organization"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"details\": null,\n    \"message\": \"\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ee4e81db-d801-4936-87e2-0be69c4d76ac",
+              "name": "Insufficient quota for API route",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    ":org_slug",
+                    "historical",
+                    "snapshots"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "org_slug",
+                      "description": "(Required) The slug of the organization"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Retry contacting the endpoint *at least* after seconds.\nSee https://tools.ietf.org/html/rfc7231#section-7.1.3",
+                  "key": "Retry-After",
+                  "value": "1826"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"details\": null,\n    \"message\": \"\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.socket.dev/v0",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "4c6d0228-9d00-49ad-9901-9c2922ad0838",
+    "name": "API Endpoints alerts org-snapshots API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Specification of the Socket API endpoints",
+      "type": "text/plain"
+    }
+  }
+}

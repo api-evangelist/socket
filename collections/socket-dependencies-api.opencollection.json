@@ -1,0 +1,114 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "API Endpoints alerts dependencies API",
+    "version": "0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "dependencies",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Search dependencies",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.socket.dev/v0/dependencies/search",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Search for any dependency that is being used in your organization.\n\nThis endpoint consumes 1 unit of your quota.\n\nThis endpoint requires the following org token scopes:\n- No Scopes Required, but authentication is required"
+        },
+        {
+          "info": {
+            "name": "Trend of historical dependencies (Beta)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.socket.dev/v0/orgs/:org_slug/historical/dependencies/trend",
+            "params": [
+              {
+                "name": "org_slug",
+                "value": "",
+                "type": "path",
+                "description": "The slug of the organization"
+              },
+              {
+                "name": "date",
+                "value": "",
+                "type": "query",
+                "description": "The UTC date in YYYY-MM-DD format for which to fetch dependencies"
+              },
+              {
+                "name": "range",
+                "value": "",
+                "type": "query",
+                "description": "The number of days of data to fetch as an offset from input date"
+              },
+              {
+                "name": "repoFullName",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of repo full names that should be included"
+              },
+              {
+                "name": "repoSlug",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of repo slugs that should be included"
+              },
+              {
+                "name": "repoLabels",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of repo labels that should be included"
+              },
+              {
+                "name": "artifactType",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of artifact types (e.g. \"npm\", \"pypi\", \"gem\", \"maven\", \"golang\", etc.) that should be included"
+              },
+              {
+                "name": "dependencyDirect",
+                "value": "",
+                "type": "query",
+                "description": "Direct/transitive dependency filter flag"
+              },
+              {
+                "name": "dependencyDev",
+                "value": "",
+                "type": "query",
+                "description": "Development/production dependency filter flag"
+              },
+              {
+                "name": "dependencyDead",
+                "value": "",
+                "type": "query",
+                "description": "Dead/reachable dependency filter flag"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Trend analytics of historical dependencies.\n\nThis endpoint consumes 10 units of your quota.\n\nThis endpoint requires the following org token scopes:\n- historical:dependencies-trend"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

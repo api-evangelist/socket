@@ -1,0 +1,80 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "API Endpoints alerts security-policy API",
+    "version": "0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "security-policy",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Organization Security Policy",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.socket.dev/v0/orgs/:org_slug/settings/security-policy",
+            "params": [
+              {
+                "name": "org_slug",
+                "value": "",
+                "type": "path",
+                "description": "The slug of the organization"
+              },
+              {
+                "name": "custom_rules_only",
+                "value": "",
+                "type": "query",
+                "description": "Return only customized security policy rules."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Retrieve the security policy of an organization.\n\nThis endpoint consumes 1 unit of your quota.\n\nThis endpoint requires the following org token scopes:\n- security-policy:read"
+        },
+        {
+          "info": {
+            "name": "Update Security Policy",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.socket.dev/v0/orgs/:org_slug/settings/security-policy",
+            "params": [
+              {
+                "name": "org_slug",
+                "value": "",
+                "type": "path",
+                "description": "The slug of the organization"
+              },
+              {
+                "name": "custom_rules_only",
+                "value": "",
+                "type": "query",
+                "description": "Return only customized security policy rules in the response."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Update the security policy of an organization.\n\nThis endpoint consumes 1 unit of your quota.\n\nThis endpoint requires the following org token scopes:\n- security-policy:update"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

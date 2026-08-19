@@ -1,0 +1,1289 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "API Endpoints alerts API",
+    "version": "0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "alerts",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Org Alert Resolutions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.socket.dev/v0/orgs/:org_slug/alerts/resolutions",
+            "params": [
+              {
+                "name": "org_slug",
+                "value": "",
+                "type": "path",
+                "description": "The slug of the organization"
+              },
+              {
+                "name": "direction",
+                "value": "",
+                "type": "query",
+                "description": "Sort direction by `created_at`. One of: asc, desc."
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page (1–100, default 30)."
+              },
+              {
+                "name": "startAfterCursor",
+                "value": "",
+                "type": "query",
+                "description": "Opaque cursor returned by the previous response's `endCursor`. Omit on the first request."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "List active alert resolutions for an organization. Results are paginated via an opaque cursor and ordered by created_at. Each row includes the anchor fields (alert_type, repo, repo_label, artifact_*) that describe the resolution scope.\n\nThis endpoint consumes 1 unit of your quota.\n\nThis endpoint requires the following org token scopes:\n- alert-resolution:list"
+        },
+        {
+          "info": {
+            "name": "Get Org Alert Resolution",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.socket.dev/v0/orgs/:org_slug/alerts/resolutions/:uuid",
+            "params": [
+              {
+                "name": "org_slug",
+                "value": "",
+                "type": "path",
+                "description": "The slug of the organization"
+              },
+              {
+                "name": "uuid",
+                "value": "",
+                "type": "path",
+                "description": "The UUID of the alert resolution to fetch"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Fetch a single active alert resolution by UUID. Returns the same row shape as the list endpoint.\n\nThis endpoint consumes 1 unit of your quota.\n\nThis endpoint requires the following org token scopes:\n- alert-resolution:read"
+        },
+        {
+          "info": {
+            "name": "Delete Org Alert Resolution",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.socket.dev/v0/orgs/:org_slug/alerts/resolutions/:uuid",
+            "params": [
+              {
+                "name": "org_slug",
+                "value": "",
+                "type": "path",
+                "description": "The slug of the organization"
+              },
+              {
+                "name": "uuid",
+                "value": "",
+                "type": "path",
+                "description": "The UUID of the alert resolution to delete"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Delete an alert resolution by UUID. Once deleted, alerts previously hidden by this resolution will reappear after the next org snapshot.\n\nThis endpoint consumes 1 unit of your quota.\n\nThis endpoint requires the following org token scopes:\n- alert-resolution:delete"
+        },
+        {
+          "info": {
+            "name": "List historical alerts (Beta)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.socket.dev/v0/orgs/:org_slug/historical/alerts",
+            "params": [
+              {
+                "name": "org_slug",
+                "value": "",
+                "type": "path",
+                "description": "The slug of the organization"
+              },
+              {
+                "name": "date",
+                "value": "",
+                "type": "query",
+                "description": "The UTC date in YYYY-MM-DD format for which to fetch alerts"
+              },
+              {
+                "name": "range",
+                "value": "",
+                "type": "query",
+                "description": "The number of days of data to fetch as an offset from input date (e.g. \"-7d\" or \"7d\") or use \"latest\" to query for latest alerts for each repo"
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Specify the maximum number of results to return per page (intermediate pages may have fewer than this limit and callers should always check \"endCursor\" in response body to know if there are more pages)"
+              },
+              {
+                "name": "startAfterCursor",
+                "value": "",
+                "type": "query",
+                "description": "The pagination cursor that was returned as the \"endCursor\" property in previous request"
+              },
+              {
+                "name": "filters.alertAction",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of alert actions (\"error\", \"warn\", \"monitor\", or \"ignore) that should be included"
+              },
+              {
+                "name": "filters.alertAction.notIn",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of alert actions (\"error\", \"warn\", \"monitor\", or \"ignore) that should be excluded"
+              },
+              {
+                "name": "filters.alertActionSourceType",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of alert action source types (\"resolution\", \"alert-policy\", \"fallback\", \"injected-alert\", \"org-policy\", \"reachability\", \"repo-label-policy\", \"socket-yml\", or \"triage\") that should be included"
+              },
+              {
+                "name": "filters.alertActionSourceType.notIn",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of alert action source types (\"resolution\", \"alert-policy\", \"fallback\", \"injected-alert\", \"org-policy\", \"reachability\", \"repo-label-policy\", \"socket-yml\", or \"triage\") that should be excluded"
+              },
+              {
+                "name": "filters.alertCategory",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of alert categories (\"supplyChainRisk\", \"maintenance\", \"quality\", \"license\", or \"vulnerability\") that should be included"
+              },
+              {
+                "name": "filters.alertCategory.notIn",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of alert categories (\"supplyChainRisk\", \"maintenance\", \"quality\", \"license\", or \"vulnerability\") that should be excluded"
+              },
+              {
+                "name": "filters.alertCveId",
+                "value": "",
+                "type": "query",
+                "description": "CVE ID"
+              },
+              {
+                "name": "filters.alertCveId.notIn",
+                "value": "",
+                "type": "query",
+                "description": "CVE ID"
+              },
+              {
+                "name": "filters.alertCveTitle",
+                "value": "",
+                "type": "query",
+                "description": "CVE title"
+              },
+              {
+                "name": "filters.alertCveTitle.notIn",
+                "value": "",
+                "type": "query",
+                "description": "CVE title"
+              },
+              {
+                "name": "filters.alertCweId",
+                "value": "",
+                "type": "query",
+                "description": "CWE ID"
+              },
+              {
+                "name": "filters.alertCweId.notIn",
+                "value": "",
+                "type": "query",
+                "description": "CWE ID"
+              },
+              {
+                "name": "filters.alertCweName",
+                "value": "",
+                "type": "query",
+                "description": "CWE name"
+              },
+              {
+                "name": "filters.alertCweName.notIn",
+                "value": "",
+                "type": "query",
+                "description": "CWE name"
+              },
+              {
+                "name": "filters.alertEPSS",
+                "value": "",
+                "type": "query",
+                "description": "Alert EPSS (\"low\", \"medium\", \"high\", \"critical\")"
+              },
+              {
+                "name": "filters.alertEPSS.notIn",
+                "value": "",
+                "type": "query",
+                "description": "Alert EPSS (\"low\", \"medium\", \"high\", \"critical\")"
+              },
+              {
+                "name": "filters.alertFixType",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of alert fix types (\"upgrade\", \"cve\", or \"remove\") that should be included"
+              },
+              {
+                "name": "filters.alertFixType.notIn",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of alert fix types (\"upgrade\", \"cve\", or \"remove\") that should be excluded"
+              },
+              {
+                "name": "filters.alertKEV",
+                "value": "",
+                "type": "query",
+                "description": "Alert KEV (Known Exploited Vulnerability) filter flag"
+              },
+              {
+                "name": "filters.alertKEV.notIn",
+                "value": "",
+                "type": "query",
+                "description": "Alert KEV (Known Exploited Vulnerability) filter flag"
+              },
+              {
+                "name": "filters.alertPriority",
+                "value": "",
+                "type": "query",
+                "description": "Alert priority (\"low\", \"medium\", \"high\", or \"critical\")"
+              },
+              {
+                "name": "filters.alertPriority.notIn",
+                "value": "",
+                "type": "query",
+                "description": "Alert priority (\"low\", \"medium\", \"high\", or \"critical\")"
+              },
+              {
+                "name": "filters.alertReachabilityAnalysisType",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of alert CVE reachability analysis types (\"full-scan\" or \"precomputed\") that should be included"
+              },
+              {
+                "name": "filters.alertReachabilityAnalysisType.notIn",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of alert CVE reachability analysis types (\"full-scan\" or \"precomputed\") that should be excluded"
+              },
+              {
+                "name": "filters.alertReachabilityType",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of alert CVE reachability types (\"direct_dependency\", \"error\", \"maybe_reachable\", \"missing_support\", \"pending\", \"reachable\", \"undeterminable_reachability\", \"unknown\", or \"unreachable\") that should be included"
+              },
+              {
+                "name": "filters.alertReachabilityType.notIn",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of alert CVE reachability types (\"direct_dependency\", \"error\", \"maybe_reachable\", \"missing_support\", \"pending\", \"reachable\", \"undeterminable_reachability\", \"unknown\", or \"unreachable\") that should be excluded"
+              },
+              {
+                "name": "filters.alertSeverity",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of alert severities (\"low\", \"medium\", \"high\", or \"critical\") that should be included"
+              },
+              {
+                "name": "filters.alertSeverity.notIn",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of alert severities (\"low\", \"medium\", \"high\", or \"critical\") that should be excluded"
+              },
+              {
+                "name": "filters.alertType",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of alert types (e.g. \"usesEval\", \"unmaintained\", etc.) that should be included"
+              },
+              {
+                "name": "filters.alertType.notIn",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of alert types (e.g. \"usesEval\", \"unmaintained\", etc.) that should be excluded"
+              },
+              {
+                "name": "filters.artifactName",
+                "value": "",
+                "type": "query",
+                "description": "Name of artifact"
+              },
+              {
+                "name": "filters.artifactName.notIn",
+                "value": "",
+                "type": "query",
+                "description": "Name of artifact"
+              },
+              {
+                "name": "filters.artifactType",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of artifact types (e.g. \"npm\", \"pypi\", \"gem\", \"maven\", \"golang\", etc.) that should be included"
+              },
+              {
+                "name": "filters.artifactType.notIn",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of artifact types (e.g. \"npm\", \"pypi\", \"gem\", \"maven\", \"golang\", etc.) that should be excluded"
+              },
+              {
+                "name": "filters.branch",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of branch names that should be included"
+              },
+              {
+                "name": "filters.branch.notIn",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of branch names that should be excluded"
+              },
+              {
+                "name": "filters.cvePatchStatus",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of patch statuses (\"patch_unavailable\", \"patch_available\", or \"patch_applied\") that should be included"
+              },
+              {
+                "name": "filters.cvePatchStatus.notIn",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of patch statuses (\"patch_unavailable\", \"patch_available\", or \"patch_applied\") that should be excluded"
+              },
+              {
+                "name": "filters.dependencyDead",
+                "value": "",
+                "type": "query",
+                "description": "Dead/reachable dependency filter flag"
+              },
+              {
+                "name": "filters.dependencyDead.notIn",
+                "value": "",
+                "type": "query",
+                "description": "Dead/reachable dependency filter flag"
+              },
+              {
+                "name": "filters.dependencyDev",
+                "value": "",
+                "type": "query",
+                "description": "Development/production dependency filter flag"
+              },
+              {
+                "name": "filters.dependencyDev.notIn",
+                "value": "",
+                "type": "query",
+                "description": "Development/production dependency filter flag"
+              },
+              {
+                "name": "filters.dependencyDirect",
+                "value": "",
+                "type": "query",
+                "description": "Direct/transitive dependency filter flag"
+              },
+              {
+                "name": "filters.dependencyDirect.notIn",
+                "value": "",
+                "type": "query",
+                "description": "Direct/transitive dependency filter flag"
+              },
+              {
+                "name": "filters.repoFullName",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of repo full names that should be included"
+              },
+              {
+                "name": "filters.repoFullName.notIn",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of repo full names that should be excluded"
+              },
+              {
+                "name": "filters.repoLabels",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of repo labels that should be included. Use \"\" to filter for repositories with no labels."
+              },
+              {
+                "name": "filters.repoLabels.notIn",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of repo labels that should be excluded. Use \"\" to filter for repositories with no labels."
+              },
+              {
+                "name": "filters.repoSlug",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of repo slugs that should be included"
+              },
+              {
+                "name": "filters.repoSlug.notIn",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of repo slugs that should be excluded"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "List historical alerts.\n\nPagination: keep requesting pages (passing the previous response's `endCursor` as `startAfterCursor`) until `endCursor` is `null`. Do not stop when `items` is empty — an empty page can be returned while more results still remain on later pages, so `endCursor` being `null` is the only reliable end-of-results signal.\n\nThis endpoint consumes 10 units of your quota.\n\nThis endpoint requires the following org token scopes:\n- historical:alerts-list"
+        },
+        {
+          "info": {
+            "name": "Trend of historical alerts (Beta)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.socket.dev/v0/orgs/:org_slug/historical/alerts/trend",
+            "params": [
+              {
+                "name": "org_slug",
+                "value": "",
+                "type": "path",
+                "description": "The slug of the organization"
+              },
+              {
+                "name": "date",
+                "value": "",
+                "type": "query",
+                "description": "The UTC date in YYYY-MM-DD format for which to fetch alerts"
+              },
+              {
+                "name": "range",
+                "value": "",
+                "type": "query",
+                "description": "The number of days of data to fetch as an offset from input date"
+              },
+              {
+                "name": "aggregation.fields",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fields that should be used for count aggregation (allowed: alertSeverity,repoSlug,repoFullName,branch,repoLabels,alertType,artifactType,alertAction,alertActionSourceType,alertFixType,alertCategory,alertCveId,alertCveTitle,alertCweId,alertCweName,alertReachabilityType,cvePatchStatus,alertReachabilityAnalysisType,alertPriority,alertKEV,alertEPSS,dependencyDirect,dependencyDev,dependencyDead)"
+              },
+              {
+                "name": "filters.alertAction",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of alert actions (\"error\", \"warn\", \"monitor\", or \"ignore) that should be included"
+              },
+              {
+                "name": "filters.alertAction.notIn",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of alert actions (\"error\", \"warn\", \"monitor\", or \"ignore) that should be excluded"
+              },
+              {
+                "name": "filters.alertActionSourceType",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of alert action source types (\"resolution\", \"alert-policy\", \"fallback\", \"injected-alert\", \"org-policy\", \"reachability\", \"repo-label-policy\", \"socket-yml\", or \"triage\") that should be included"
+              },
+              {
+                "name": "filters.alertActionSourceType.notIn",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of alert action source types (\"resolution\", \"alert-policy\", \"fallback\", \"injected-alert\", \"org-policy\", \"reachability\", \"repo-label-policy\", \"socket-yml\", or \"triage\") that should be excluded"
+              },
+              {
+                "name": "filters.alertCategory",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of alert categories (\"supplyChainRisk\", \"maintenance\", \"quality\", \"license\", or \"vulnerability\") that should be included"
+              },
+              {
+                "name": "filters.alertCategory.notIn",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of alert categories (\"supplyChainRisk\", \"maintenance\", \"quality\", \"license\", or \"vulnerability\") that should be excluded"
+              },
+              {
+                "name": "filters.alertCveId",
+                "value": "",
+                "type": "query",
+                "description": "CVE ID"
+              },
+              {
+                "name": "filters.alertCveId.notIn",
+                "value": "",
+                "type": "query",
+                "description": "CVE ID"
+              },
+              {
+                "name": "filters.alertCveTitle",
+                "value": "",
+                "type": "query",
+                "description": "CVE title"
+              },
+              {
+                "name": "filters.alertCveTitle.notIn",
+                "value": "",
+                "type": "query",
+                "description": "CVE title"
+              },
+              {
+                "name": "filters.alertCweId",
+                "value": "",
+                "type": "query",
+                "description": "CWE ID"
+              },
+              {
+                "name": "filters.alertCweId.notIn",
+                "value": "",
+                "type": "query",
+                "description": "CWE ID"
+              },
+              {
+                "name": "filters.alertCweName",
+                "value": "",
+                "type": "query",
+                "description": "CWE name"
+              },
+              {
+                "name": "filters.alertCweName.notIn",
+                "value": "",
+                "type": "query",
+                "description": "CWE name"
+              },
+              {
+                "name": "filters.alertEPSS",
+                "value": "",
+                "type": "query",
+                "description": "Alert EPSS (\"low\", \"medium\", \"high\", \"critical\")"
+              },
+              {
+                "name": "filters.alertEPSS.notIn",
+                "value": "",
+                "type": "query",
+                "description": "Alert EPSS (\"low\", \"medium\", \"high\", \"critical\")"
+              },
+              {
+                "name": "filters.alertFixType",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of alert fix types (\"upgrade\", \"cve\", or \"remove\") that should be included"
+              },
+              {
+                "name": "filters.alertFixType.notIn",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of alert fix types (\"upgrade\", \"cve\", or \"remove\") that should be excluded"
+              },
+              {
+                "name": "filters.alertKEV",
+                "value": "",
+                "type": "query",
+                "description": "Alert KEV (Known Exploited Vulnerability) filter flag"
+              },
+              {
+                "name": "filters.alertKEV.notIn",
+                "value": "",
+                "type": "query",
+                "description": "Alert KEV (Known Exploited Vulnerability) filter flag"
+              },
+              {
+                "name": "filters.alertPriority",
+                "value": "",
+                "type": "query",
+                "description": "Alert priority (\"low\", \"medium\", \"high\", or \"critical\")"
+              },
+              {
+                "name": "filters.alertPriority.notIn",
+                "value": "",
+                "type": "query",
+                "description": "Alert priority (\"low\", \"medium\", \"high\", or \"critical\")"
+              },
+              {
+                "name": "filters.alertReachabilityAnalysisType",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of alert CVE reachability analysis types (\"full-scan\" or \"precomputed\") that should be included"
+              },
+              {
+                "name": "filters.alertReachabilityAnalysisType.notIn",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of alert CVE reachability analysis types (\"full-scan\" or \"precomputed\") that should be excluded"
+              },
+              {
+                "name": "filters.alertReachabilityType",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of alert CVE reachability types (\"direct_dependency\", \"error\", \"maybe_reachable\", \"missing_support\", \"pending\", \"reachable\", \"undeterminable_reachability\", \"unknown\", or \"unreachable\") that should be included"
+              },
+              {
+                "name": "filters.alertReachabilityType.notIn",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of alert CVE reachability types (\"direct_dependency\", \"error\", \"maybe_reachable\", \"missing_support\", \"pending\", \"reachable\", \"undeterminable_reachability\", \"unknown\", or \"unreachable\") that should be excluded"
+              },
+              {
+                "name": "filters.alertSeverity",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of alert severities (\"low\", \"medium\", \"high\", or \"critical\") that should be included"
+              },
+              {
+                "name": "filters.alertSeverity.notIn",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of alert severities (\"low\", \"medium\", \"high\", or \"critical\") that should be excluded"
+              },
+              {
+                "name": "filters.alertType",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of alert types (e.g. \"usesEval\", \"unmaintained\", etc.) that should be included"
+              },
+              {
+                "name": "filters.alertType.notIn",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of alert types (e.g. \"usesEval\", \"unmaintained\", etc.) that should be excluded"
+              },
+              {
+                "name": "filters.artifactName",
+                "value": "",
+                "type": "query",
+                "description": "Name of artifact"
+              },
+              {
+                "name": "filters.artifactName.notIn",
+                "value": "",
+                "type": "query",
+                "description": "Name of artifact"
+              },
+              {
+                "name": "filters.artifactType",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of artifact types (e.g. \"npm\", \"pypi\", \"gem\", \"maven\", \"golang\", etc.) that should be included"
+              },
+              {
+                "name": "filters.artifactType.notIn",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of artifact types (e.g. \"npm\", \"pypi\", \"gem\", \"maven\", \"golang\", etc.) that should be excluded"
+              },
+              {
+                "name": "filters.branch",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of branch names that should be included"
+              },
+              {
+                "name": "filters.branch.notIn",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of branch names that should be excluded"
+              },
+              {
+                "name": "filters.cvePatchStatus",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of patch statuses (\"patch_unavailable\", \"patch_available\", or \"patch_applied\") that should be included"
+              },
+              {
+                "name": "filters.cvePatchStatus.notIn",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of patch statuses (\"patch_unavailable\", \"patch_available\", or \"patch_applied\") that should be excluded"
+              },
+              {
+                "name": "filters.dependencyDead",
+                "value": "",
+                "type": "query",
+                "description": "Dead/reachable dependency filter flag"
+              },
+              {
+                "name": "filters.dependencyDead.notIn",
+                "value": "",
+                "type": "query",
+                "description": "Dead/reachable dependency filter flag"
+              },
+              {
+                "name": "filters.dependencyDev",
+                "value": "",
+                "type": "query",
+                "description": "Development/production dependency filter flag"
+              },
+              {
+                "name": "filters.dependencyDev.notIn",
+                "value": "",
+                "type": "query",
+                "description": "Development/production dependency filter flag"
+              },
+              {
+                "name": "filters.dependencyDirect",
+                "value": "",
+                "type": "query",
+                "description": "Direct/transitive dependency filter flag"
+              },
+              {
+                "name": "filters.dependencyDirect.notIn",
+                "value": "",
+                "type": "query",
+                "description": "Direct/transitive dependency filter flag"
+              },
+              {
+                "name": "filters.repoFullName",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of repo full names that should be included"
+              },
+              {
+                "name": "filters.repoFullName.notIn",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of repo full names that should be excluded"
+              },
+              {
+                "name": "filters.repoLabels",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of repo labels that should be included. Use \"\" to filter for repositories with no labels."
+              },
+              {
+                "name": "filters.repoLabels.notIn",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of repo labels that should be excluded. Use \"\" to filter for repositories with no labels."
+              },
+              {
+                "name": "filters.repoSlug",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of repo slugs that should be included"
+              },
+              {
+                "name": "filters.repoSlug.notIn",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of repo slugs that should be excluded"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Trend analytics of historical alerts.\n\nThis endpoint consumes 10 units of your quota.\n\nThis endpoint requires the following org token scopes:\n- historical:alerts-trend"
+        },
+        {
+          "info": {
+            "name": "List latest alerts (Beta)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.socket.dev/v0/orgs/:org_slug/alerts",
+            "params": [
+              {
+                "name": "org_slug",
+                "value": "",
+                "type": "path",
+                "description": "The slug of the organization"
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Specify the maximum number of results to return per page (intermediate pages may have fewer than this limit and callers should always check \"endCursor\" in response body to know if there are more pages)"
+              },
+              {
+                "name": "startAfterCursor",
+                "value": "",
+                "type": "query",
+                "description": "The pagination cursor that was returned as the \"endCursor\" property in previous request"
+              },
+              {
+                "name": "filters.alertAction",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of alert actions (\"error\", \"warn\", \"monitor\", or \"ignore) that should be included"
+              },
+              {
+                "name": "filters.alertAction.notIn",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of alert actions (\"error\", \"warn\", \"monitor\", or \"ignore) that should be excluded"
+              },
+              {
+                "name": "filters.alertActionSourceType",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of alert action source types (\"resolution\", \"alert-policy\", \"fallback\", \"injected-alert\", \"org-policy\", \"reachability\", \"repo-label-policy\", \"socket-yml\", or \"triage\") that should be included"
+              },
+              {
+                "name": "filters.alertActionSourceType.notIn",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of alert action source types (\"resolution\", \"alert-policy\", \"fallback\", \"injected-alert\", \"org-policy\", \"reachability\", \"repo-label-policy\", \"socket-yml\", or \"triage\") that should be excluded"
+              },
+              {
+                "name": "filters.alertCategory",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of alert categories (\"supplyChainRisk\", \"maintenance\", \"quality\", \"license\", or \"vulnerability\") that should be included"
+              },
+              {
+                "name": "filters.alertCategory.notIn",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of alert categories (\"supplyChainRisk\", \"maintenance\", \"quality\", \"license\", or \"vulnerability\") that should be excluded"
+              },
+              {
+                "name": "filters.alertClearedAt.eq",
+                "value": "",
+                "type": "query",
+                "description": "Alert cleared at (YYYY-MM-DD HH:MM:SS in UTC time zone)"
+              },
+              {
+                "name": "filters.alertClearedAt.lt",
+                "value": "",
+                "type": "query",
+                "description": "Alert cleared at (YYYY-MM-DD HH:MM:SS in UTC time zone)"
+              },
+              {
+                "name": "filters.alertClearedAt.lte",
+                "value": "",
+                "type": "query",
+                "description": "Alert cleared at (YYYY-MM-DD HH:MM:SS in UTC time zone)"
+              },
+              {
+                "name": "filters.alertClearedAt.gt",
+                "value": "",
+                "type": "query",
+                "description": "Alert cleared at (YYYY-MM-DD HH:MM:SS in UTC time zone)"
+              },
+              {
+                "name": "filters.alertClearedAt.gte",
+                "value": "",
+                "type": "query",
+                "description": "Alert cleared at (YYYY-MM-DD HH:MM:SS in UTC time zone)"
+              },
+              {
+                "name": "filters.alertCreatedAt.eq",
+                "value": "",
+                "type": "query",
+                "description": "Alert created at (YYYY-MM-DD HH:MM:SS in UTC time zone)"
+              },
+              {
+                "name": "filters.alertCreatedAt.lt",
+                "value": "",
+                "type": "query",
+                "description": "Alert created at (YYYY-MM-DD HH:MM:SS in UTC time zone)"
+              },
+              {
+                "name": "filters.alertCreatedAt.lte",
+                "value": "",
+                "type": "query",
+                "description": "Alert created at (YYYY-MM-DD HH:MM:SS in UTC time zone)"
+              },
+              {
+                "name": "filters.alertCreatedAt.gt",
+                "value": "",
+                "type": "query",
+                "description": "Alert created at (YYYY-MM-DD HH:MM:SS in UTC time zone)"
+              },
+              {
+                "name": "filters.alertCreatedAt.gte",
+                "value": "",
+                "type": "query",
+                "description": "Alert created at (YYYY-MM-DD HH:MM:SS in UTC time zone)"
+              },
+              {
+                "name": "filters.alertCveId",
+                "value": "",
+                "type": "query",
+                "description": "CVE ID"
+              },
+              {
+                "name": "filters.alertCveId.notIn",
+                "value": "",
+                "type": "query",
+                "description": "CVE ID"
+              },
+              {
+                "name": "filters.alertCveTitle",
+                "value": "",
+                "type": "query",
+                "description": "CVE title"
+              },
+              {
+                "name": "filters.alertCveTitle.notIn",
+                "value": "",
+                "type": "query",
+                "description": "CVE title"
+              },
+              {
+                "name": "filters.alertCweId",
+                "value": "",
+                "type": "query",
+                "description": "CWE ID"
+              },
+              {
+                "name": "filters.alertCweId.notIn",
+                "value": "",
+                "type": "query",
+                "description": "CWE ID"
+              },
+              {
+                "name": "filters.alertCweName",
+                "value": "",
+                "type": "query",
+                "description": "CWE name"
+              },
+              {
+                "name": "filters.alertCweName.notIn",
+                "value": "",
+                "type": "query",
+                "description": "CWE name"
+              },
+              {
+                "name": "filters.alertEPSS",
+                "value": "",
+                "type": "query",
+                "description": "Alert EPSS (\"low\", \"medium\", \"high\", \"critical\")"
+              },
+              {
+                "name": "filters.alertEPSS.notIn",
+                "value": "",
+                "type": "query",
+                "description": "Alert EPSS (\"low\", \"medium\", \"high\", \"critical\")"
+              },
+              {
+                "name": "filters.alertFixType",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of alert fix types (\"upgrade\", \"cve\", or \"remove\") that should be included"
+              },
+              {
+                "name": "filters.alertFixType.notIn",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of alert fix types (\"upgrade\", \"cve\", or \"remove\") that should be excluded"
+              },
+              {
+                "name": "filters.alertKEV",
+                "value": "",
+                "type": "query",
+                "description": "Alert KEV (Known Exploited Vulnerability) filter flag"
+              },
+              {
+                "name": "filters.alertKEV.notIn",
+                "value": "",
+                "type": "query",
+                "description": "Alert KEV (Known Exploited Vulnerability) filter flag"
+              },
+              {
+                "name": "filters.alertPriority",
+                "value": "",
+                "type": "query",
+                "description": "Alert priority (\"low\", \"medium\", \"high\", or \"critical\")"
+              },
+              {
+                "name": "filters.alertPriority.notIn",
+                "value": "",
+                "type": "query",
+                "description": "Alert priority (\"low\", \"medium\", \"high\", or \"critical\")"
+              },
+              {
+                "name": "filters.alertReachabilityAnalysisType",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of alert CVE reachability analysis types (\"full-scan\" or \"precomputed\") that should be included"
+              },
+              {
+                "name": "filters.alertReachabilityAnalysisType.notIn",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of alert CVE reachability analysis types (\"full-scan\" or \"precomputed\") that should be excluded"
+              },
+              {
+                "name": "filters.alertReachabilityType",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of alert CVE reachability types (\"direct_dependency\", \"error\", \"maybe_reachable\", \"missing_support\", \"pending\", \"reachable\", \"undeterminable_reachability\", \"unknown\", or \"unreachable\") that should be included"
+              },
+              {
+                "name": "filters.alertReachabilityType.notIn",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of alert CVE reachability types (\"direct_dependency\", \"error\", \"maybe_reachable\", \"missing_support\", \"pending\", \"reachable\", \"undeterminable_reachability\", \"unknown\", or \"unreachable\") that should be excluded"
+              },
+              {
+                "name": "filters.alertSeverity",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of alert severities (\"low\", \"medium\", \"high\", or \"critical\") that should be included"
+              },
+              {
+                "name": "filters.alertSeverity.notIn",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of alert severities (\"low\", \"medium\", \"high\", or \"critical\") that should be excluded"
+              },
+              {
+                "name": "filters.alertStatus",
+                "value": "",
+                "type": "query",
+                "description": "A single alert status (\"open\" or \"cleared\")"
+              },
+              {
+                "name": "filters.alertStatus.notIn",
+                "value": "",
+                "type": "query",
+                "description": "A single alert status (\"open\" or \"cleared\")"
+              },
+              {
+                "name": "filters.alertType",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of alert types (e.g. \"usesEval\", \"unmaintained\", etc.) that should be included"
+              },
+              {
+                "name": "filters.alertType.notIn",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of alert types (e.g. \"usesEval\", \"unmaintained\", etc.) that should be excluded"
+              },
+              {
+                "name": "filters.alertUpdatedAt.eq",
+                "value": "",
+                "type": "query",
+                "description": "Alert updated at (YYYY-MM-DD HH:MM:SS in UTC time zone)"
+              },
+              {
+                "name": "filters.alertUpdatedAt.lt",
+                "value": "",
+                "type": "query",
+                "description": "Alert updated at (YYYY-MM-DD HH:MM:SS in UTC time zone)"
+              },
+              {
+                "name": "filters.alertUpdatedAt.lte",
+                "value": "",
+                "type": "query",
+                "description": "Alert updated at (YYYY-MM-DD HH:MM:SS in UTC time zone)"
+              },
+              {
+                "name": "filters.alertUpdatedAt.gt",
+                "value": "",
+                "type": "query",
+                "description": "Alert updated at (YYYY-MM-DD HH:MM:SS in UTC time zone)"
+              },
+              {
+                "name": "filters.alertUpdatedAt.gte",
+                "value": "",
+                "type": "query",
+                "description": "Alert updated at (YYYY-MM-DD HH:MM:SS in UTC time zone)"
+              },
+              {
+                "name": "filters.artifactName",
+                "value": "",
+                "type": "query",
+                "description": "Name of artifact"
+              },
+              {
+                "name": "filters.artifactName.notIn",
+                "value": "",
+                "type": "query",
+                "description": "Name of artifact"
+              },
+              {
+                "name": "filters.artifactType",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of artifact types (e.g. \"npm\", \"pypi\", \"gem\", \"maven\", \"golang\", etc.) that should be included"
+              },
+              {
+                "name": "filters.artifactType.notIn",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of artifact types (e.g. \"npm\", \"pypi\", \"gem\", \"maven\", \"golang\", etc.) that should be excluded"
+              },
+              {
+                "name": "filters.branch",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of branch names that should be included"
+              },
+              {
+                "name": "filters.branch.notIn",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of branch names that should be excluded"
+              },
+              {
+                "name": "filters.cvePatchStatus",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of patch statuses (\"patch_unavailable\", \"patch_available\", or \"patch_applied\") that should be included"
+              },
+              {
+                "name": "filters.cvePatchStatus.notIn",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of patch statuses (\"patch_unavailable\", \"patch_available\", or \"patch_applied\") that should be excluded"
+              },
+              {
+                "name": "filters.dependencyDead",
+                "value": "",
+                "type": "query",
+                "description": "Dead/reachable dependency filter flag"
+              },
+              {
+                "name": "filters.dependencyDead.notIn",
+                "value": "",
+                "type": "query",
+                "description": "Dead/reachable dependency filter flag"
+              },
+              {
+                "name": "filters.dependencyDev",
+                "value": "",
+                "type": "query",
+                "description": "Development/production dependency filter flag"
+              },
+              {
+                "name": "filters.dependencyDev.notIn",
+                "value": "",
+                "type": "query",
+                "description": "Development/production dependency filter flag"
+              },
+              {
+                "name": "filters.dependencyDirect",
+                "value": "",
+                "type": "query",
+                "description": "Direct/transitive dependency filter flag"
+              },
+              {
+                "name": "filters.dependencyDirect.notIn",
+                "value": "",
+                "type": "query",
+                "description": "Direct/transitive dependency filter flag"
+              },
+              {
+                "name": "filters.repoFullName",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of repo full names that should be included"
+              },
+              {
+                "name": "filters.repoFullName.notIn",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of repo full names that should be excluded"
+              },
+              {
+                "name": "filters.repoLabels",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of repo labels that should be included. Use \"\" to filter for repositories with no labels."
+              },
+              {
+                "name": "filters.repoLabels.notIn",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of repo labels that should be excluded. Use \"\" to filter for repositories with no labels."
+              },
+              {
+                "name": "filters.repoSlug",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of repo slugs that should be included"
+              },
+              {
+                "name": "filters.repoSlug.notIn",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of repo slugs that should be excluded"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "List latest alerts.\n\nPagination: keep requesting pages (passing the previous response's `endCursor` as `startAfterCursor`) until `endCursor` is `null`. Do not stop when `items` is empty — an empty page can be returned while more results still remain on later pages, so `endCursor` being `null` is the only reliable end-of-results signal.\n\nThis endpoint consumes 10 units of your quota.\n\nThis endpoint requires the following org token scopes:\n- alerts:list"
+        },
+        {
+          "info": {
+            "name": "List full scans associated with alert (Beta)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.socket.dev/v0/orgs/:org_slug/alert-full-scan-search",
+            "params": [
+              {
+                "name": "org_slug",
+                "value": "",
+                "type": "path",
+                "description": "The slug of the organization"
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Specify the maximum number of items to return per page (intermediate pages may have fewer than this limit and callers should always check \"endCursor\" in response body to know if there are more pages)"
+              },
+              {
+                "name": "startAfterCursor",
+                "value": "",
+                "type": "query",
+                "description": "The pagination cursor that was returned as the \"endCursor\" property in previous request"
+              },
+              {
+                "name": "alertKey",
+                "value": "",
+                "type": "query",
+                "description": "One or more alert keys for which to find associated full scans"
+              },
+              {
+                "name": "range",
+                "value": "",
+                "type": "query",
+                "description": "The number of days of data to fetch as an offset from current date (e.g. \"-7d\" for past 7 days)"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "List full scans associated with alert.\n\nThis endpoint consumes 10 units of your quota.\n\nThis endpoint requires the following org token scopes:\n- alerts:list"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

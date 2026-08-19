@@ -1,0 +1,100 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "API Endpoints alerts org-snapshots API",
+    "version": "0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "org-snapshots",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List details of periodic historical data snapshots (Beta)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.socket.dev/v0/orgs/:org_slug/historical/snapshots",
+            "params": [
+              {
+                "name": "org_slug",
+                "value": "",
+                "type": "path",
+                "description": "The slug of the organization"
+              },
+              {
+                "name": "date",
+                "value": "",
+                "type": "query",
+                "description": "The UTC date in YYYY-MM-DD format for which to fetch snapshots"
+              },
+              {
+                "name": "range",
+                "value": "",
+                "type": "query",
+                "description": "The number of days of data to fetch as an offset from input date (e.g. \"-7d\" or \"7d\") or use \"latest\" to query for latest snapshots for each repo"
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Specify the maximum number of results to return per page (intermediate pages may have fewer than this limit and callers should always check \"endCursor\" in response body to know if there are more pages)"
+              },
+              {
+                "name": "startAfterCursor",
+                "value": "",
+                "type": "query",
+                "description": "The pagination cursor that was returned as the \"endCursor\" property in previous request"
+              },
+              {
+                "name": "filters.status",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of historical snapshot statuses that should be included (allowed: \"in-progress\", \"success\", \"failure\", \"timeout\", \"skipped\")"
+              },
+              {
+                "name": "filters.requestId",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of requestId values that were used to start the historical snapshot job"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "This API endpoint is used to list the details of historical snapshots.\nSnapshots of organization data are taken periodically, and each historical snapshot record contains high-level overview metrics about the data that was collected.\nOther [Historical Data Endpoints](/reference/historical-data-endpoints) can be used to fetch the raw data associated with each snapshot.\n\nHistorical snapshots contain details and raw data for the following resources:\n\n- Repositories\n- Alerts\n- Dependencies\n- Artifac"
+        },
+        {
+          "info": {
+            "name": "Start historical data snapshot job (Beta)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.socket.dev/v0/orgs/:org_slug/historical/snapshots",
+            "params": [
+              {
+                "name": "org_slug",
+                "value": "",
+                "type": "path",
+                "description": "The slug of the organization"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "This API endpoint is used to start a historical snapshot job.\nWhile snapshots are typically taken multiple times a day for paid plans and once a day for free plans, this endpoint can be used to start an \"on demand\" snapshot job to ensure the latest data is collected and stored for historical purposes.\n\nAn historical snapshot will contain details and raw data for the following resources:\n\n- Repositories\n- Alerts\n- Dependencies\n- Artifacts\n- Users\n- Settings\n\nHistorical snapshot data is bucketed t"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,217 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "API Endpoints alerts repos API",
+    "version": "0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "repos",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List repositories",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.socket.dev/v0/orgs/:org_slug/repos",
+            "params": [
+              {
+                "name": "org_slug",
+                "value": "",
+                "type": "path",
+                "description": "The slug of the organization"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Field to sort repositories by."
+              },
+              {
+                "name": "direction",
+                "value": "",
+                "type": "query",
+                "description": "Sort direction."
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "include_archived",
+                "value": "",
+                "type": "query",
+                "description": "Include archived repositories in the results"
+              },
+              {
+                "name": "workspace",
+                "value": "",
+                "type": "query",
+                "description": "Filter repositories by workspace. When provided (including empty string), only repos in that workspace are returned."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Lists repositories for the specified organization.\n\nThis endpoint consumes 1 unit of your quota.\n\nThis endpoint requires the following org token scopes:\n- repo:list"
+        },
+        {
+          "info": {
+            "name": "Create repository",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.socket.dev/v0/orgs/:org_slug/repos",
+            "params": [
+              {
+                "name": "org_slug",
+                "value": "",
+                "type": "path",
+                "description": "The slug of the organization"
+              },
+              {
+                "name": "on_duplicate",
+                "value": "",
+                "type": "query",
+                "description": "Set to \"redirect\" to receive a 302 redirect to the existing repo instead of a 409 error when a duplicate slug is detected."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Create a repository.\n\nRepos collect Full scans and Diff scans and are typically associated with a git repo.\n\nThis endpoint consumes 1 unit of your quota.\n\nThis endpoint requires the following org token scopes:\n- repo:create"
+        },
+        {
+          "info": {
+            "name": "Get repository",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.socket.dev/v0/orgs/:org_slug/repos/:repo_slug",
+            "params": [
+              {
+                "name": "org_slug",
+                "value": "",
+                "type": "path",
+                "description": "The slug of the organization"
+              },
+              {
+                "name": "repo_slug",
+                "value": "",
+                "type": "path",
+                "description": "The slug of the repository"
+              },
+              {
+                "name": "workspace",
+                "value": "",
+                "type": "query",
+                "description": "The workspace of the repository"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Retrieve a repository associated with an organization.\n\nThis endpoint consumes 1 unit of your quota.\n\nThis endpoint requires the following org token scopes:\n- repo:list"
+        },
+        {
+          "info": {
+            "name": "Update repository",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.socket.dev/v0/orgs/:org_slug/repos/:repo_slug",
+            "params": [
+              {
+                "name": "org_slug",
+                "value": "",
+                "type": "path",
+                "description": "The slug of the organization"
+              },
+              {
+                "name": "repo_slug",
+                "value": "",
+                "type": "path",
+                "description": "The slug of the repository"
+              },
+              {
+                "name": "workspace",
+                "value": "",
+                "type": "query",
+                "description": "The workspace of the repository"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Update details of an existing repository.\n\nThis endpoint consumes 1 unit of your quota.\n\nThis endpoint requires the following org token scopes:\n- repo:update"
+        },
+        {
+          "info": {
+            "name": "Delete repository",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.socket.dev/v0/orgs/:org_slug/repos/:repo_slug",
+            "params": [
+              {
+                "name": "org_slug",
+                "value": "",
+                "type": "path",
+                "description": "The slug of the organization"
+              },
+              {
+                "name": "repo_slug",
+                "value": "",
+                "type": "path",
+                "description": "The slug of the repository"
+              },
+              {
+                "name": "workspace",
+                "value": "",
+                "type": "query",
+                "description": "The workspace of the repository"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Delete a single repository and all of its associated Full scans and Diff scans.\n\nThis endpoint consumes 1 unit of your quota.\n\nThis endpoint requires the following org token scopes:\n- repo:delete"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

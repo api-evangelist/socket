@@ -1,0 +1,746 @@
+{
+  "item": [
+    {
+      "id": "763cd1c9-8dcb-4b92-b50e-ef9d0b01e7ae",
+      "name": "threat-feed",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "94ed8322-ebb4-46c8-907b-6524185afc9e",
+          "name": "Get Threat Feed Items (Beta)",
+          "request": {
+            "name": "Get Threat Feed Items (Beta)",
+            "description": {
+              "content": "Paginated list of threats, sorted by updated_at by default. Set updated_after to the unix timestamp of your last sync while sorting by updated_at to synchronize all new or updated threats in the feed.\n\nThis endpoint requires an Enterprise Plan with Threat Feed add-on. [Contact](https://socket.dev/demo?utm_source=api-docs&utm_medium=referral&utm_campaign=tracking) our sales team for more details.\n\nThis endpoint consumes 1 unit of your quota.\n\nThis endpoint requires the following org token scopes:\n- threat-feed:list",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "orgs",
+                ":org_slug",
+                "threat-feed"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "per_page",
+                  "value": "30",
+                  "description": "Number of threats per page"
+                },
+                {
+                  "disabled": false,
+                  "key": "page_cursor",
+                  "value": "<string>",
+                  "description": "Page cursor token. Pass the returned nextPageCursor to this query string to fetch the next page of the threat feed."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "updated_at",
+                  "description": "Set the sort order for the threat feed items. Default is descending order by updated_at, which includes all new and updated threat feed items."
+                },
+                {
+                  "disabled": false,
+                  "key": "updated_after",
+                  "value": "<string>",
+                  "description": "A Unix timestamp in seconds that filters results to items only updated after the timestamp."
+                },
+                {
+                  "disabled": false,
+                  "key": "created_after",
+                  "value": "<string>",
+                  "description": "A Unix timestamp in seconds that filters results to items only created after the date."
+                },
+                {
+                  "disabled": false,
+                  "key": "direction",
+                  "value": "desc",
+                  "description": "Order direction of the provided sort field."
+                },
+                {
+                  "disabled": false,
+                  "key": "filter",
+                  "value": "mal",
+                  "description": "Filter by threat classification. Supported values: `mal` (malware, including possible malware), `vuln` (vulnerability), `typo` (typosquat, including possible typosquat), `anom` (anomaly), `spy` (telemetry), `obf` (obfuscated code), `dual` (dual-use tool), `joke` (protestware or joke package), `tp` (all confirmed true positives), `fp` (false positive), `u` (unreviewed), `c` (classified, i.e. anything except unreviewed)."
+                },
+                {
+                  "disabled": false,
+                  "key": "name",
+                  "value": "",
+                  "description": "Filter threats by package name"
+                },
+                {
+                  "disabled": false,
+                  "key": "version",
+                  "value": "",
+                  "description": "Filter threats by package version."
+                },
+                {
+                  "disabled": false,
+                  "key": "is_human_reviewed",
+                  "value": "false",
+                  "description": "Only return threats which have been human-reviewed"
+                },
+                {
+                  "disabled": false,
+                  "key": "ecosystem",
+                  "value": "<string>",
+                  "description": "Filter threats by package ecosystem."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "org_slug",
+                  "description": "(Required) The slug of the organization"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "14dc7faf-d613-42d5-9fa6-a179b5de2187",
+              "name": "The paginated list of items in the threat feed and the next page cursor.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    ":org_slug",
+                    "threat-feed"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "per_page",
+                      "value": "30"
+                    },
+                    {
+                      "key": "page_cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "updated_at"
+                    },
+                    {
+                      "key": "updated_after",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "created_after",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "direction",
+                      "value": "desc"
+                    },
+                    {
+                      "key": "filter",
+                      "value": "mal"
+                    },
+                    {
+                      "key": "name",
+                      "value": ""
+                    },
+                    {
+                      "key": "version",
+                      "value": ""
+                    },
+                    {
+                      "key": "is_human_reviewed",
+                      "value": "false"
+                    },
+                    {
+                      "key": "ecosystem",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "org_slug",
+                      "description": "(Required) The slug of the organization"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"nextPageCursor\": \"\",\n  \"results\": [\n    {\n      \"createdAt\": \"\",\n      \"updatedAt\": \"\",\n      \"publishedAt\": \"\",\n      \"description\": \"\",\n      \"fileSha256\": \"\",\n      \"id\": 0,\n      \"locationHtmlUrl\": \"\",\n      \"packageHtmlUrl\": \"\",\n      \"purl\": \"\",\n      \"removedAt\": \"\",\n      \"threatType\": \"\",\n      \"needsHumanReview\": false,\n      \"threatInstanceId\": 0\n    },\n    {\n      \"createdAt\": \"\",\n      \"updatedAt\": \"\",\n      \"publishedAt\": \"\",\n      \"description\": \"\",\n      \"fileSha256\": \"\",\n      \"id\": 0,\n      \"locationHtmlUrl\": \"\",\n      \"packageHtmlUrl\": \"\",\n      \"purl\": \"\",\n      \"removedAt\": \"\",\n      \"threatType\": \"\",\n      \"needsHumanReview\": false,\n      \"threatInstanceId\": 0\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "77216619-9d3e-428a-8569-0cbcceacbc97",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    ":org_slug",
+                    "threat-feed"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "per_page",
+                      "value": "30"
+                    },
+                    {
+                      "key": "page_cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "updated_at"
+                    },
+                    {
+                      "key": "updated_after",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "created_after",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "direction",
+                      "value": "desc"
+                    },
+                    {
+                      "key": "filter",
+                      "value": "mal"
+                    },
+                    {
+                      "key": "name",
+                      "value": ""
+                    },
+                    {
+                      "key": "version",
+                      "value": ""
+                    },
+                    {
+                      "key": "is_human_reviewed",
+                      "value": "false"
+                    },
+                    {
+                      "key": "ecosystem",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "org_slug",
+                      "description": "(Required) The slug of the organization"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"details\": null,\n    \"message\": \"\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "abe07bdf-657c-484e-91a8-50a49d1d168d",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    ":org_slug",
+                    "threat-feed"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "per_page",
+                      "value": "30"
+                    },
+                    {
+                      "key": "page_cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "updated_at"
+                    },
+                    {
+                      "key": "updated_after",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "created_after",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "direction",
+                      "value": "desc"
+                    },
+                    {
+                      "key": "filter",
+                      "value": "mal"
+                    },
+                    {
+                      "key": "name",
+                      "value": ""
+                    },
+                    {
+                      "key": "version",
+                      "value": ""
+                    },
+                    {
+                      "key": "is_human_reviewed",
+                      "value": "false"
+                    },
+                    {
+                      "key": "ecosystem",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "org_slug",
+                      "description": "(Required) The slug of the organization"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"details\": null,\n    \"message\": \"\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f23e650d-2e67-4610-abeb-2a88d7211ad1",
+              "name": "Insufficient max_quota for API method",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    ":org_slug",
+                    "threat-feed"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "per_page",
+                      "value": "30"
+                    },
+                    {
+                      "key": "page_cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "updated_at"
+                    },
+                    {
+                      "key": "updated_after",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "created_after",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "direction",
+                      "value": "desc"
+                    },
+                    {
+                      "key": "filter",
+                      "value": "mal"
+                    },
+                    {
+                      "key": "name",
+                      "value": ""
+                    },
+                    {
+                      "key": "version",
+                      "value": ""
+                    },
+                    {
+                      "key": "is_human_reviewed",
+                      "value": "false"
+                    },
+                    {
+                      "key": "ecosystem",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "org_slug",
+                      "description": "(Required) The slug of the organization"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"details\": null,\n    \"message\": \"\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3691b1e4-310c-4b55-8006-952adc6fbbb8",
+              "name": "Resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    ":org_slug",
+                    "threat-feed"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "per_page",
+                      "value": "30"
+                    },
+                    {
+                      "key": "page_cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "updated_at"
+                    },
+                    {
+                      "key": "updated_after",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "created_after",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "direction",
+                      "value": "desc"
+                    },
+                    {
+                      "key": "filter",
+                      "value": "mal"
+                    },
+                    {
+                      "key": "name",
+                      "value": ""
+                    },
+                    {
+                      "key": "version",
+                      "value": ""
+                    },
+                    {
+                      "key": "is_human_reviewed",
+                      "value": "false"
+                    },
+                    {
+                      "key": "ecosystem",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "org_slug",
+                      "description": "(Required) The slug of the organization"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"details\": null,\n    \"message\": \"\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d8d89084-e327-45ff-b4b9-9e98d40252e3",
+              "name": "Insufficient quota for API route",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    ":org_slug",
+                    "threat-feed"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "per_page",
+                      "value": "30"
+                    },
+                    {
+                      "key": "page_cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "updated_at"
+                    },
+                    {
+                      "key": "updated_after",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "created_after",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "direction",
+                      "value": "desc"
+                    },
+                    {
+                      "key": "filter",
+                      "value": "mal"
+                    },
+                    {
+                      "key": "name",
+                      "value": ""
+                    },
+                    {
+                      "key": "version",
+                      "value": ""
+                    },
+                    {
+                      "key": "is_human_reviewed",
+                      "value": "false"
+                    },
+                    {
+                      "key": "ecosystem",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "org_slug",
+                      "description": "(Required) The slug of the organization"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Retry contacting the endpoint *at least* after seconds.\nSee https://tools.ietf.org/html/rfc7231#section-7.1.3",
+                  "key": "Retry-After",
+                  "value": "9301"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"details\": null,\n    \"message\": \"\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.socket.dev/v0",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "4de0f48c-43de-44f0-921c-b291e71d989d",
+    "name": "API Endpoints alerts threat-feed API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Specification of the Socket API endpoints",
+      "type": "text/plain"
+    }
+  }
+}

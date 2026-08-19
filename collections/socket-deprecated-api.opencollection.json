@@ -1,0 +1,528 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "API Endpoints alerts deprecated API",
+    "version": "0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "deprecated",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create a snapshot of all dependencies from manifest information",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.socket.dev/v0/dependencies/upload",
+            "params": [
+              {
+                "name": "repository",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "branch",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "body": {
+              "type": "multipart-form",
+              "data": [
+                {
+                  "name": "repository",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "branch",
+                  "type": "text",
+                  "value": ""
+                }
+              ]
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "**This endpoint is deprecated.**\n\nUpload a set of manifest or lockfiles to get your dependency tree analyzed by Socket.\nYou can upload multiple lockfiles in the same request, but each filename must be unique.\n\nThe name of the file must be in the supported list.\n\nFor example, these are valid filenames: \"requirements.txt\", \"package.json\", \"folder/package.json\", and \"deep/nested/folder/package.json\".\n\nThis endpoint consumes 100 units of your quota.\n\nThis endpoint requires the following org token sc"
+        },
+        {
+          "info": {
+            "name": "Diff Full Scans",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.socket.dev/v0/orgs/:org_slug/full-scans/diff",
+            "params": [
+              {
+                "name": "org_slug",
+                "value": "",
+                "type": "path",
+                "description": "The slug of the organization"
+              },
+              {
+                "name": "after",
+                "value": "",
+                "type": "query",
+                "description": "The full scan ID of the base/target of the diff (older)"
+              },
+              {
+                "name": "before",
+                "value": "",
+                "type": "query",
+                "description": "The full scan ID of the head/changed side of the diff (newer)"
+              },
+              {
+                "name": "include_license_details",
+                "value": "",
+                "type": "query",
+                "description": "Include license details in the response. This can increase the response size significantly."
+              },
+              {
+                "name": "omit_unchanged",
+                "value": "",
+                "type": "query",
+                "description": "Omit unchanged artifacts from the response. When set to true, the unchanged field will be set to null."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "**This endpoint is deprecated.**\n\nGet the difference between two existing Full Scans. The results are not persisted.\n\nThis endpoint consumes 1 unit of your quota.\n\nThis endpoint requires the following org token scopes:\n- full-scans:list"
+        },
+        {
+          "info": {
+            "name": "SCM Comment for Scan Diff",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.socket.dev/v0/orgs/:org_slug/full-scans/diff/gfm",
+            "params": [
+              {
+                "name": "org_slug",
+                "value": "",
+                "type": "path",
+                "description": "The slug of the organization"
+              },
+              {
+                "name": "after",
+                "value": "",
+                "type": "query",
+                "description": "The head full scan ID (newer)"
+              },
+              {
+                "name": "before",
+                "value": "",
+                "type": "query",
+                "description": "The base full scan ID (older)"
+              },
+              {
+                "name": "github_installation_id",
+                "value": "",
+                "type": "query",
+                "description": "The ID of the GitHub installation. This will be used to get the GitHub installation settings. If not provided, the default GitHub installation settings will be used."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "**This endpoint is deprecated.**\n\nGet the dependency overview and dependency alert comments in GitHub flavored markdown between the diff between two existing full scans.\n\nThis endpoint consumes 1 unit of your quota.\n\nThis endpoint requires the following org token scopes:\n- full-scans:list"
+        },
+        {
+          "info": {
+            "name": "Get Organization License Policy",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.socket.dev/v0/orgs/:org_slug/settings/license-policy",
+            "params": [
+              {
+                "name": "org_slug",
+                "value": "",
+                "type": "path",
+                "description": "The slug of the organization"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "**This endpoint is deprecated.** Use the [successor version](https://docs.socket.dev/reference/viewlicensepolicy) instead.\n\nRetrieve the license policy of an organization.\n\nThis endpoint consumes 1 unit of your quota.\n\nThis endpoint requires the following org token scopes:\n- license-policy:read"
+        },
+        {
+          "info": {
+            "name": "Get Threat Feed Items (Deprecated)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.socket.dev/v0/threat-feed",
+            "params": [
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Number of threats per page"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page token"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Sort sort the threat feed by ID or createdAt attribute."
+              },
+              {
+                "name": "discovery_period",
+                "value": "",
+                "type": "query",
+                "description": "Filter results by discovery period"
+              },
+              {
+                "name": "direction",
+                "value": "",
+                "type": "query",
+                "description": "Ordering direction of the sort attribute"
+              },
+              {
+                "name": "filter",
+                "value": "",
+                "type": "query",
+                "description": "Filter by threat classification. Supported values: `mal` (malware, including possible malware), `vuln` (vulnerability), `typo` (typosquat, including possible typosquat), `anom` (anomaly), `spy` (telemetry), `obf` (obfuscated code), `dual` (dual-use tool), `joke` (protestware or joke package), `tp` (all confirmed true positives), `fp` (false positive), `u` (unreviewed), `c` (classified, i.e. anything except unreviewed)."
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "query",
+                "description": "Filter threats by package name"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "query",
+                "description": "Filter threats by package version"
+              },
+              {
+                "name": "is_human_reviewed",
+                "value": "",
+                "type": "query",
+                "description": "Only return threats which have been human-reviewed"
+              },
+              {
+                "name": "ecosystem",
+                "value": "",
+                "type": "query",
+                "description": "Filter threats by package ecosystem."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "**This endpoint is deprecated.** Use the [successor version](https://docs.socket.dev/reference/getorgthreatfeeditems) instead.\n\nPaginated list of threat feed items.\n\nThis endpoint requires an Enterprise Plan with Threat Feed add-on. [Contact](https://socket.dev/demo?utm_source=api-docs&utm_medium=referral&utm_campaign=tracking) our sales team for more details.\n\nThis endpoint consumes 1 unit of your quota.\n\nThis endpoint requires the following org token scopes:\n- threat-feed:list"
+        },
+        {
+          "info": {
+            "name": "Saturate License Policy (Legacy)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.socket.dev/v0/saturate-license-policy",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "**This endpoint is deprecated.** Use the [successor version](https://docs.socket.dev/reference/updateorglicensepolicy) instead.\n\nGet the \"saturated\" version of a license policy's allow list, filling in the entire set of allowed\nlicense data. For example, the saturated form of a license allow list which only specifies that\nlicenses in the tier \"maximal copyleft\" are allowed is shown below (note the expanded `allowedStrings` property):\n\n```json\n{\n  \"allowedApprovalSources\": [],\n  \"allowedFamilies\""
+        },
+        {
+          "info": {
+            "name": "Calculate settings",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.socket.dev/v0/settings",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "**This endpoint is deprecated.** Use the [successor version](https://docs.socket.dev/reference/updateorgsecuritypolicy) instead.\n\nGet current settings for the requested organizations and default settings to allow deferrals.\n\nThis endpoint consumes 1 unit of your quota.\n\nThis endpoint requires the following org token scopes:\n- No Scopes Required, but authentication is required"
+        },
+        {
+          "info": {
+            "name": "Get supported files for report",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.socket.dev/v0/report/supported"
+          },
+          "docs": "**This endpoint is deprecated.** Deprecated since 2023-01-15. Use the [successor version](https://docs.socket.dev/reference/getsupportedfiles) instead.\n\nThis route has been moved to the `orgs/{org_slug}/supported-files` endpoint.\n\nGet a list of supported files for project report generation.\nFiles are categorized first by environment (e.g. NPM or PyPI), then by name.\n\nFiles whose names match the patterns returned by this endpoint can be uploaded for report generation.\nExamples of supported filena"
+        },
+        {
+          "info": {
+            "name": "Delete a report",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.socket.dev/v0/report/delete/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "**This endpoint is deprecated.** Use the [successor version](https://docs.socket.dev/reference) instead.\n\nDeprecated: Use `/orgs/{org_slug}/full-scans` instead. Delete a specific project report generated with the GitHub app.\n\nThis endpoint consumes 10 units of your quota.\n\nThis endpoint requires the following org token scopes:\n- report:write"
+        },
+        {
+          "info": {
+            "name": "Get list of reports",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.socket.dev/v0/report/list",
+            "params": [
+              {
+                "name": "from",
+                "value": "",
+                "type": "query",
+                "description": "A Unix timestamp in seconds to filter results prior to this date."
+              },
+              {
+                "name": "repo",
+                "value": "",
+                "type": "query",
+                "description": "When defined, returns only reports for the associated repository slug. "
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "**This endpoint is deprecated.** Use the [successor version](https://docs.socket.dev/reference) instead.\n\nDeprecated: Use `/orgs/{org_slug}/full-scans` instead. Get all your project reports generated with the GitHub app.\n\nThis endpoint consumes 10 units of your quota.\n\nThis endpoint requires the following org token scopes:\n- report:list"
+        },
+        {
+          "info": {
+            "name": "Create a report",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.socket.dev/v0/report/upload",
+            "params": [
+              {
+                "name": "workspace",
+                "value": "",
+                "type": "query",
+                "description": "The workspace of the repository to associate the full-scan with."
+              }
+            ],
+            "body": {
+              "type": "multipart-form",
+              "data": [
+                {
+                  "name": "issueRules",
+                  "type": "text",
+                  "value": ""
+                }
+              ]
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "**This endpoint is deprecated.** Use the [successor version](https://docs.socket.dev/reference/createorgfullscan) instead.\n\nDeprecated: Use `/orgs/{org_slug}/full-scans` instead.\n\nUpload a lockfile to get your project analyzed by Socket.\nYou can upload multiple lockfiles in the same request, but each filename must be unique.\n\nThe name of the file must be in the supported list.\n\nFor example, these are valid filenames: `package.json`, `folder/package.json` and `deep/nested/folder/package.json`.\n\nT"
+        },
+        {
+          "info": {
+            "name": "View a report",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.socket.dev/v0/report/view/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "**This endpoint is deprecated.** Use the [successor version](https://docs.socket.dev/reference/getorgfullscan) instead.\n\nDeprecated: Use `/orgs/{org_slug}/full-scans` instead. Get all the issues, packages, and scores related to an specific project report.\n\nThis endpoint consumes 10 units of your quota.\n\nThis endpoint requires the following org token scopes:\n- report:read"
+        },
+        {
+          "info": {
+            "name": "List GitHub repositories",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.socket.dev/v0/repo/list",
+            "params": [
+              {
+                "name": "pageToken",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "**This endpoint is deprecated.** Use the [successor version](https://docs.socket.dev/reference/getorgrepolist) instead.\n\nDeprecated: Use `/orgs/{org_slug}/repos` instead. Get all GitHub repositories associated with a Socket org.\n\nThis endpoint consumes 1 unit of your quota.\n\nThis endpoint requires the following org token scopes:\n- repo:list"
+        },
+        {
+          "info": {
+            "name": "Get issues by package",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.socket.dev/v0/npm/:package/:version/issues",
+            "params": [
+              {
+                "name": "package",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "**This endpoint is deprecated.** Use the [successor version](https://docs.socket.dev/reference) instead.\n\nGet all the issues related with a particular npm package version.\nThis endpoint returns the issue type, location, and additional details related to each issue in the `props` attribute.\n\nYou can [see here](https://socket.dev/alerts) the full list of issues.\n\nThis endpoint consumes 1 unit of your quota.\n\nThis endpoint requires the following org token scopes:\n- No Scopes Required, but authentic"
+        },
+        {
+          "info": {
+            "name": "Get score by package",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.socket.dev/v0/npm/:package/:version/score",
+            "params": [
+              {
+                "name": "package",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "**This endpoint is deprecated.** Use the [successor version](https://docs.socket.dev/reference/batchpackagefetch) instead.\n\nGet all the scores and metrics by category that are used to evaluate the package version.\n\n- depscore: The average of all score factors. (0-1)\n- supplyChainRisk: Score factors relating to supply chain security (0-1)\n- downloadCount: The number of downloads for the package. Higher downloads contribute to a higher score.\n- supplyChainRiskIssueLow/Mid/High/Critical: The number"
+        },
+        {
+          "info": {
+            "name": "Get organization analytics (unstable)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.socket.dev/v0/analytics/org/:filter",
+            "params": [
+              {
+                "name": "filter",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "**This endpoint is deprecated.** Use the [successor version](https://docs.socket.dev/reference/historicalalertstrend) instead.\n\nPlease implement against the [Historical dependencies](/reference/historicaldependenciestrend) or [Historical alerts](/reference/historicalalertstrend) endpoints.\n\nGet analytics data regarding the number of alerts found across all active repositories.\n\nThis endpoint consumes 1 unit of your quota.\n\nThis endpoint requires the following org token scopes:\n- report:write"
+        },
+        {
+          "info": {
+            "name": "Get repository analytics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.socket.dev/v0/analytics/repo/:name/:filter",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "filter",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "**This endpoint is deprecated.** Use the [successor version](https://docs.socket.dev/reference/historicalalertstrend) instead.\n\nPlease implement against the [Historical dependencies](/reference/historicaldependenciestrend) or [Historical alerts](/reference/historicalalertstrend) endpoints.\n\nGet analytics data regarding the number of alerts found in a single repository.\n\nThis endpoint consumes 1 unit of your quota.\n\nThis endpoint requires the following org token scopes:\n- report:write"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

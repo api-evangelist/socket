@@ -1,0 +1,338 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "API Endpoints alerts repo-labels API",
+    "version": "0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "repo-labels",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Associate repository label (beta)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.socket.dev/v0/orgs/:org_slug/repos/labels/:label_id/associate",
+            "params": [
+              {
+                "name": "org_slug",
+                "value": "",
+                "type": "path",
+                "description": "The slug of the organization"
+              },
+              {
+                "name": "label_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the label"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Associate a repository label with a repository.\n\nLabels can be used to group and organize repositories and to apply security/license policies.\n\nThis endpoint consumes 1 unit of your quota.\n\nThis endpoint requires the following org token scopes:\n- repo-label:update"
+        },
+        {
+          "info": {
+            "name": "List repository labels (beta)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.socket.dev/v0/orgs/:org_slug/repos/labels",
+            "params": [
+              {
+                "name": "org_slug",
+                "value": "",
+                "type": "path",
+                "description": "The slug of the organization"
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Lists repository labels for the specified organization.\n\nThis endpoint consumes 1 unit of your quota.\n\nThis endpoint requires the following org token scopes:\n- repo-label:list"
+        },
+        {
+          "info": {
+            "name": "Create repository label (beta)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.socket.dev/v0/orgs/:org_slug/repos/labels",
+            "params": [
+              {
+                "name": "org_slug",
+                "value": "",
+                "type": "path",
+                "description": "The slug of the organization"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Create a repository label.\n\nLabels can be used to group and organize repositories and to apply security/license policies.\n\nThis endpoint consumes 1 unit of your quota.\n\nThis endpoint requires the following org token scopes:\n- repo-label:create"
+        },
+        {
+          "info": {
+            "name": "Get repository label (beta)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.socket.dev/v0/orgs/:org_slug/repos/labels/:label_id",
+            "params": [
+              {
+                "name": "org_slug",
+                "value": "",
+                "type": "path",
+                "description": "The slug of the organization"
+              },
+              {
+                "name": "label_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the label"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Retrieve a repository label associated with an organization and label ID.\n\nThis endpoint consumes 1 unit of your quota.\n\nThis endpoint requires the following org token scopes:\n- repo-label:list"
+        },
+        {
+          "info": {
+            "name": "Update repository label (beta)",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.socket.dev/v0/orgs/:org_slug/repos/labels/:label_id",
+            "params": [
+              {
+                "name": "org_slug",
+                "value": "",
+                "type": "path",
+                "description": "The slug of the organization"
+              },
+              {
+                "name": "label_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the label"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Update a repository label name.\n\nLabels can be used to group and organize repositories and to apply security/license policies.\n\nThis endpoint consumes 1 unit of your quota.\n\nThis endpoint requires the following org token scopes:\n- repo-label:update"
+        },
+        {
+          "info": {
+            "name": "Delete repository label (beta)",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.socket.dev/v0/orgs/:org_slug/repos/labels/:label_id",
+            "params": [
+              {
+                "name": "org_slug",
+                "value": "",
+                "type": "path",
+                "description": "The slug of the organization"
+              },
+              {
+                "name": "label_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the label"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Delete a repository label and all of its associations (repositories, security policy, license policy, etc.).\n\nThis endpoint consumes 1 unit of your quota.\n\nThis endpoint requires the following org token scopes:\n- repo-label:delete"
+        },
+        {
+          "info": {
+            "name": "Get repository label setting (beta)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.socket.dev/v0/orgs/:org_slug/repos/labels/:label_id/label-setting",
+            "params": [
+              {
+                "name": "org_slug",
+                "value": "",
+                "type": "path",
+                "description": "The slug of the organization"
+              },
+              {
+                "name": "label_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the label"
+              },
+              {
+                "name": "setting_key",
+                "value": "",
+                "type": "query",
+                "description": "Setting key to query for in the repository label. Valid values include issueRules, issueRulesPolicyDefault, licensePolicy, and recentlyPublishedThresholdMs"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Retrieve the setting (e.g. security/license policy) for a repository label.\n\n\nNote that repository label settings currently only support `issueRules`,\n`issueRulesPolicyDefault`, `licensePolicy`, and\n`recentlyPublishedThresholdMs`. A policy is considered \"active\"\nfor a given repository label if the `issueRulesPolicyDefault` is\nset, and inactive when not set. `issueRules` can be used to further\nrefine the alert triage strategy.\n\nThis endpoint consumes 1 unit of your quota.\n\nThis endpoint requires "
+        },
+        {
+          "info": {
+            "name": "Update repository label setting (beta)",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.socket.dev/v0/orgs/:org_slug/repos/labels/:label_id/label-setting",
+            "params": [
+              {
+                "name": "org_slug",
+                "value": "",
+                "type": "path",
+                "description": "The slug of the organization"
+              },
+              {
+                "name": "label_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the label"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Update the setting (e.g. security/license policy) for a repository label.\n\n\nNote that repository label settings currently only support `issueRules`,\n`issueRulesPolicyDefault`, `licensePolicy`, and\n`recentlyPublishedThresholdMs`. A policy is considered \"active\"\nfor a given repository label if the `issueRulesPolicyDefault` is\nset, and inactive when not set. `issueRules` can be used to further\nrefine the alert triage strategy.\n\nThis endpoint consumes 1 unit of your quota.\n\nThis endpoint requires th"
+        },
+        {
+          "info": {
+            "name": "Delete repository label setting (beta)",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.socket.dev/v0/orgs/:org_slug/repos/labels/:label_id/label-setting",
+            "params": [
+              {
+                "name": "org_slug",
+                "value": "",
+                "type": "path",
+                "description": "The slug of the organization"
+              },
+              {
+                "name": "label_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the label"
+              },
+              {
+                "name": "setting_key",
+                "value": "",
+                "type": "query",
+                "description": "Setting key to delete from the repository label. Valid values include issueRules, issueRulesPolicyDefault, licensePolicy, and recentlyPublishedThresholdMs"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Delete the setting (e.g. security/license policy) for a repository label.\n\n\nNote that repository label settings currently only support `issueRules`,\n`issueRulesPolicyDefault`, `licensePolicy`, and\n`recentlyPublishedThresholdMs`. A policy is considered \"active\"\nfor a given repository label if the `issueRulesPolicyDefault` is\nset, and inactive when not set. `issueRules` can be used to further\nrefine the alert triage strategy.\n\nThis endpoint consumes 1 unit of your quota.\n\nThis endpoint requires th"
+        },
+        {
+          "info": {
+            "name": "Disassociate repository label (beta)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.socket.dev/v0/orgs/:org_slug/repos/labels/:label_id/disassociate",
+            "params": [
+              {
+                "name": "org_slug",
+                "value": "",
+                "type": "path",
+                "description": "The slug of the organization"
+              },
+              {
+                "name": "label_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the label"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Disassociate a repository label from a repository.\n\nLabels can be used to group and organize repositories and to apply security/license policies.\n\nThis endpoint consumes 1 unit of your quota.\n\nThis endpoint requires the following org token scopes:\n- repo-label:update"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

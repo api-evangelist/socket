@@ -1,0 +1,109 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "API Endpoints alerts metadata API",
+    "version": "0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "metadata",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get supported file types",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.socket.dev/v0/orgs/:org_slug/supported-files",
+            "params": [
+              {
+                "name": "org_slug",
+                "value": "",
+                "type": "path",
+                "description": "The slug of the organization"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get a list of supported files for full scan generation.\nFiles are categorized first by environment (e.g. NPM or PyPI), then by name.\n\nFiles whose names match the patterns returned by this endpoint can be uploaded for report generation.\nExamples of supported filenames include `package.json`, `package-lock.json`, and `yarn.lock`.\n\nThis endpoint consumes 1 unit of your quota.\n\nThis endpoint requires the following org token scopes:\n- No Scopes Required, but authentication is required"
+        },
+        {
+          "info": {
+            "name": "License Metadata",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.socket.dev/v0/license-metadata",
+            "params": [
+              {
+                "name": "includetext",
+                "value": "",
+                "type": "query",
+                "description": "If `true`, the response will include the full text of the requested licenses"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "For an array of license identifiers or names (short form SPDX identifiers, or long form license names),\n    returns an array of metadata for the corresponding license, if the license is recognized. If the query\n    parameter `includetext=true` is set, the returned metadata will also include the license text.\n\n\n    ## Example request body:\n\n    ```json\n    [\n      \"Apache-2.0\",\n      \"BSD Zero Clause License\"\n    ]\n    ```\n\n\n    ## Return value\n\n    ```json\n    // Response schema:\n    Array<{\n   "
+        },
+        {
+          "info": {
+            "name": "Alert Types Metadata",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.socket.dev/v0/alert-types",
+            "params": [
+              {
+                "name": "language",
+                "value": "",
+                "type": "query",
+                "description": "Language for alert metadata"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "For an array of alert type identifiers, returns metadata for each alert type. Optionally, specify a language via the 'language' query parameter.\n\nThis endpoint consumes 1 unit of your quota.\n\nThis endpoint requires the following org token scopes:"
+        },
+        {
+          "info": {
+            "name": "Returns the OpenAPI definition",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.socket.dev/v0/openapi"
+          },
+          "docs": "Retrieve the API specification in an Openapi JSON format.\n\nThis endpoint consumes 1 unit of your quota.\n\nThis endpoint requires the following org token scopes:"
+        },
+        {
+          "info": {
+            "name": "Returns the OpenAPI definition",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.socket.dev/v0/openapi.json"
+          },
+          "docs": "Retrieve the API specification in an Openapi JSON format.\n\nThis endpoint consumes 1 unit of your quota.\n\nThis endpoint requires the following org token scopes:"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

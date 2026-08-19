@@ -1,0 +1,823 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "API Endpoints alerts full-scans API",
+    "version": "0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "full-scans",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List full scans",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.socket.dev/v0/orgs/:org_slug/full-scans",
+            "params": [
+              {
+                "name": "org_slug",
+                "value": "",
+                "type": "path",
+                "description": "The slug of the organization"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Specify Sort order."
+              },
+              {
+                "name": "direction",
+                "value": "",
+                "type": "query",
+                "description": "Specify sort direction."
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Specify the maximum number of results to return per page."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "The page number to return when using offset-style pagination. Ignored when cursor pagination is used."
+              },
+              {
+                "name": "startAfterCursor",
+                "value": "",
+                "type": "query",
+                "description": "Cursor token for pagination. Pass the returned nextPageCursor from previous responses to fetch the next set of results."
+              },
+              {
+                "name": "use_cursor",
+                "value": "",
+                "type": "query",
+                "description": "Set to true on the first request to opt into cursor-based pagination."
+              },
+              {
+                "name": "from",
+                "value": "",
+                "type": "query",
+                "description": "A Unix timestamp in seconds that filters full-scans prior to the date."
+              },
+              {
+                "name": "workspace",
+                "value": "",
+                "type": "query",
+                "description": "A repository workspace to filter full-scans by."
+              },
+              {
+                "name": "repo",
+                "value": "",
+                "type": "query",
+                "description": "A repository slug to filter full-scans by."
+              },
+              {
+                "name": "branch",
+                "value": "",
+                "type": "query",
+                "description": "A branch name to filter full-scans by."
+              },
+              {
+                "name": "pull_request",
+                "value": "",
+                "type": "query",
+                "description": "A PR number to filter full-scans by."
+              },
+              {
+                "name": "commit_hash",
+                "value": "",
+                "type": "query",
+                "description": "A commit hash to filter full-scans by."
+              },
+              {
+                "name": "scan_type",
+                "value": "",
+                "type": "query",
+                "description": "A scan type to filter full-scans by (e.g. socket, socket_tier1, socket_basics)."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns a paginated list of all full scans in an org, excluding SBOM artifacts.\n\nThis endpoint consumes 1 unit of your quota.\n\nThis endpoint requires the following org token scopes:\n- full-scans:list"
+        },
+        {
+          "info": {
+            "name": "Create full scan",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.socket.dev/v0/orgs/:org_slug/full-scans",
+            "params": [
+              {
+                "name": "org_slug",
+                "value": "",
+                "type": "path",
+                "description": "The slug of the organization"
+              },
+              {
+                "name": "repo",
+                "value": "",
+                "type": "query",
+                "description": "The slug of the repository to associate the full-scan with."
+              },
+              {
+                "name": "workspace",
+                "value": "",
+                "type": "query",
+                "description": "The workspace of the repository to associate the full-scan with."
+              },
+              {
+                "name": "branch",
+                "value": "",
+                "type": "query",
+                "description": "The branch name to associate the full-scan with. Branch names must follow Git branch name rules: be 1–255 characters long; cannot be exactly @;  cannot begin or end with /, ., or .lock; cannot contain \"//\", \"..\", or \"@{\"; and cannot include control characters, spaces, or any of ~^:?*[."
+              },
+              {
+                "name": "commit_message",
+                "value": "",
+                "type": "query",
+                "description": "The commit message to associate the full-scan with."
+              },
+              {
+                "name": "commit_hash",
+                "value": "",
+                "type": "query",
+                "description": "The commit hash to associate the full-scan with."
+              },
+              {
+                "name": "pull_request",
+                "value": "",
+                "type": "query",
+                "description": "The pull request number to associate the full-scan with."
+              },
+              {
+                "name": "committers",
+                "value": "",
+                "type": "query",
+                "description": "The committers to associate with the full-scan. Set query more than once to set multiple."
+              },
+              {
+                "name": "integration_type",
+                "value": "",
+                "type": "query",
+                "description": "The integration type to associate the full-scan with. Defaults to \"Api\" if omitted."
+              },
+              {
+                "name": "integration_org_slug",
+                "value": "",
+                "type": "query",
+                "description": "The integration org slug to associate the full-scan with. If omitted, the Socket org name will be used. This is used to generate links and badges."
+              },
+              {
+                "name": "make_default_branch",
+                "value": "",
+                "type": "query",
+                "description": "Set the default branch of the repository to the branch of this full-scan. A branch name is required with this option."
+              },
+              {
+                "name": "set_as_pending_head",
+                "value": "",
+                "type": "query",
+                "description": "Designate this full-scan as the latest scan of a given branch. Default branch head scans are included in org alerts. This is only supported on the default branch. A branch name is required with this option."
+              },
+              {
+                "name": "tmp",
+                "value": "",
+                "type": "query",
+                "description": "Create a temporary full-scan that is not listed in the reports dashboard. Cannot be used when set_as_pending_head=true."
+              },
+              {
+                "name": "scan_type",
+                "value": "",
+                "type": "query",
+                "description": "The type of scan to perform. Defaults to 'socket'. Must be 32 characters or less. Used for categorizing multiple SBOM heads per repository branch."
+              }
+            ],
+            "body": {
+              "type": "multipart-form",
+              "data": []
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Create a full scan from a set of package manifest files. Returns a full scan including all SBOM artifacts.\n\nTo get a list of supported filetypes that can be uploaded in a full-scan, see the [Get supported file types](/reference/getsupportedfiles) endpoint.\n\nThe maximum number of files you can upload at a time is 10000 and each file can be no bigger than 268 MB.\n\n**Query Parameters:**\n- `scan_type` (optional): The type of scan to perform. Defaults to 'socket'. Must be 32 characters or less. Used "
+        },
+        {
+          "info": {
+            "name": "Stream full scan",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.socket.dev/v0/orgs/:org_slug/full-scans/:full_scan_id",
+            "params": [
+              {
+                "name": "org_slug",
+                "value": "",
+                "type": "path",
+                "description": "The slug of the organization"
+              },
+              {
+                "name": "full_scan_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the full scan"
+              },
+              {
+                "name": "include_alert_priority_details",
+                "value": "",
+                "type": "query",
+                "description": "Control which alert priority fields to include in the response. Set to \"true\" to include all fields, \"false\" to exclude all fields, or specify individual fields like \"components,formula\" to include only those fields."
+              },
+              {
+                "name": "include_scores",
+                "value": "",
+                "type": "query",
+                "description": "Include scores event in the response. include_scores_details implies this flag"
+              },
+              {
+                "name": "include_scores_details",
+                "value": "",
+                "type": "query",
+                "description": "Control which score detail fields to include in the scores event. Set to \"true\" to include all fields, \"false\" to exclude all fields, or specify individual fields like \"components,formula\" to include only those fields."
+              },
+              {
+                "name": "include_license_details",
+                "value": "",
+                "type": "query",
+                "description": "Include license details in the response. This can increase the response size significantly."
+              },
+              {
+                "name": "cached",
+                "value": "",
+                "type": "query",
+                "description": "Return cached immutable scan results. When enabled and results are cached, returns the pre-computed scan. When results are not yet cached, returns 202 Accepted and enqueues a background job."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Stream all SBOM artifacts for a full scan.\n\nThis endpoint returns the latest, available alert data for artifacts in the full scan (stale while revalidate).\nActively running analysis will be returned when available on subsequent runs.\n\nThis endpoint consumes 1 unit of your quota.\n\nThis endpoint requires the following org token scopes:\n- full-scans:list"
+        },
+        {
+          "info": {
+            "name": "Delete full scan",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.socket.dev/v0/orgs/:org_slug/full-scans/:full_scan_id",
+            "params": [
+              {
+                "name": "org_slug",
+                "value": "",
+                "type": "path",
+                "description": "The slug of the organization"
+              },
+              {
+                "name": "full_scan_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the full scan"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Delete an existing full scan.\n\nThis endpoint consumes 1 unit of your quota.\n\nThis endpoint requires the following org token scopes:\n- full-scans:delete"
+        },
+        {
+          "info": {
+            "name": "Get full scan metadata",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.socket.dev/v0/orgs/:org_slug/full-scans/:full_scan_id/metadata",
+            "params": [
+              {
+                "name": "org_slug",
+                "value": "",
+                "type": "path",
+                "description": "The slug of the organization"
+              },
+              {
+                "name": "full_scan_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the full scan"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get metadata for a single full scan\n\nThis endpoint consumes 1 unit of your quota.\n\nThis endpoint requires the following org token scopes:\n- full-scans:list"
+        },
+        {
+          "info": {
+            "name": "Download full scan files as tarball",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.socket.dev/v0/orgs/:org_slug/full-scans/:full_scan_id/files/tar",
+            "params": [
+              {
+                "name": "org_slug",
+                "value": "",
+                "type": "path",
+                "description": "The slug of the organization"
+              },
+              {
+                "name": "full_scan_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the full scan"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Download all files associated with a full scan in tar format.\n\nThis endpoint consumes 1 unit of your quota.\n\nThis endpoint requires the following org token scopes:\n- full-scans:list"
+        },
+        {
+          "info": {
+            "name": "Create full scan from archive",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.socket.dev/v0/orgs/:org_slug/full-scans/archive",
+            "params": [
+              {
+                "name": "org_slug",
+                "value": "",
+                "type": "path",
+                "description": "The slug of the organization"
+              },
+              {
+                "name": "repo",
+                "value": "",
+                "type": "query",
+                "description": "The slug of the repository to associate the full-scan with."
+              },
+              {
+                "name": "workspace",
+                "value": "",
+                "type": "query",
+                "description": "The workspace of the repository to associate the full-scan with."
+              },
+              {
+                "name": "branch",
+                "value": "",
+                "type": "query",
+                "description": "The branch name to associate the full-scan with. Branch names must follow Git branch name rules: be 1–255 characters long; cannot be exactly @;  cannot begin or end with /, ., or .lock; cannot contain \"//\", \"..\", or \"@{\"; and cannot include control characters, spaces, or any of ~^:?*[."
+              },
+              {
+                "name": "commit_message",
+                "value": "",
+                "type": "query",
+                "description": "The commit message to associate the full-scan with."
+              },
+              {
+                "name": "commit_hash",
+                "value": "",
+                "type": "query",
+                "description": "The commit hash to associate the full-scan with."
+              },
+              {
+                "name": "pull_request",
+                "value": "",
+                "type": "query",
+                "description": "The pull request number to associate the full-scan with."
+              },
+              {
+                "name": "committers",
+                "value": "",
+                "type": "query",
+                "description": "The committers to associate with the full-scan. Set query more than once to set multiple."
+              },
+              {
+                "name": "integration_type",
+                "value": "",
+                "type": "query",
+                "description": "The integration type to associate the full-scan with. Defaults to \"Api\" if omitted."
+              },
+              {
+                "name": "integration_org_slug",
+                "value": "",
+                "type": "query",
+                "description": "The integration org slug to associate the full-scan with. If omitted, the Socket org name will be used. This is used to generate links and badges."
+              },
+              {
+                "name": "make_default_branch",
+                "value": "",
+                "type": "query",
+                "description": "Set the default branch of the repository to the branch of this full-scan. A branch name is required with this option."
+              },
+              {
+                "name": "set_as_pending_head",
+                "value": "",
+                "type": "query",
+                "description": "Designate this full-scan as the latest scan of a given branch. Default branch head scans are included in org alerts. This is only supported on the default branch. A branch name is required with this option."
+              },
+              {
+                "name": "tmp",
+                "value": "",
+                "type": "query",
+                "description": "Create a temporary full-scan that is not listed in the reports dashboard. Cannot be used when set_as_pending_head=true."
+              },
+              {
+                "name": "scan_type",
+                "value": "",
+                "type": "query",
+                "description": "The type of scan to perform. Defaults to 'socket'. Must be 32 characters or less. Used for categorizing multiple SBOM heads per repository branch."
+              }
+            ],
+            "body": {
+              "type": "multipart-form",
+              "data": []
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Create a full scan by uploading one or more archives. Supported archive formats include **.tar**, **.tar.gz/.tgz**, and **.zip**.\n\nEach uploaded archive is extracted server-side and any supported manifest files (like package.json, package-lock.json, pnpm-lock.yaml, etc.) are ingested for the scan. If you upload multiple archives in a single request, the manifests from every archive are merged into one full scan. The response includes any files that were ignored.\n\nThe maximum combined number of f"
+        },
+        {
+          "info": {
+            "name": "Rescan full scan",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.socket.dev/v0/orgs/:org_slug/full-scans/:full_scan_id/rescan",
+            "params": [
+              {
+                "name": "org_slug",
+                "value": "",
+                "type": "path",
+                "description": "The slug of the organization"
+              },
+              {
+                "name": "full_scan_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the full scan to rescan"
+              },
+              {
+                "name": "mode",
+                "value": "",
+                "type": "query",
+                "description": "The rescan mode: \"shallow\" (default) re-applies policies to cached data, \"deep\" re-fetches the SBOM stream."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Create a new full scan by rescanning an existing scan. A \"shallow\" rescan reapplies the latest policies to the previously cached dependency resolution results. A \"deep\" rescan reruns dependency resolution and applies the latest policies to the results.\n\nThis endpoint consumes 1 unit of your quota.\n\nThis endpoint requires the following org token scopes:\n- full-scans:create"
+        },
+        {
+          "info": {
+            "name": "Export CSV of alerts for full scan",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.socket.dev/v0/orgs/:org_slug/full-scans/:full_scan_id/format/csv",
+            "params": [
+              {
+                "name": "org_slug",
+                "value": "",
+                "type": "path",
+                "description": "The slug of the organization"
+              },
+              {
+                "name": "full_scan_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the full scan"
+              },
+              {
+                "name": "include_alert_priority_details",
+                "value": "",
+                "type": "query",
+                "description": "Control which alert priority fields to include in the response. Set to \"true\" to include all fields, \"false\" to exclude all fields, or specify individual fields like \"components,formula\" to include only those fields."
+              },
+              {
+                "name": "include_license_details",
+                "value": "",
+                "type": "query",
+                "description": "Include license details in the response."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Export a CSV file containing all alerts from a full scan.\n\nThe CSV includes details about each alert and the affected packages.\nYou can optionally filter using the request body \"filters\" array. Supported filter IDs include:\n- alert.action (error|warn|monitor|ignore)\n- alert.type\n- alert.category\n- alert.severity (low|medium|middle|high|critical or 0-3)\n- artifact.type (purl type, e.g. npm, pypi)\n- dependency.type (direct|transitive)\n- dependency.scope (dev|normal)\n- dependency.usage (used|unused"
+        },
+        {
+          "info": {
+            "name": "Generate PDF report for full scan",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.socket.dev/v0/orgs/:org_slug/full-scans/:full_scan_id/format/pdf",
+            "params": [
+              {
+                "name": "org_slug",
+                "value": "",
+                "type": "path",
+                "description": "The slug of the organization"
+              },
+              {
+                "name": "full_scan_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the full scan"
+              },
+              {
+                "name": "include_alert_priority_details",
+                "value": "",
+                "type": "query",
+                "description": "Control which alert priority fields to include in the response. Set to \"true\" to include all fields, \"false\" to exclude all fields, or specify individual fields like \"components,formula\" to include only those fields."
+              },
+              {
+                "name": "include_license_details",
+                "value": "",
+                "type": "query",
+                "description": "Include license details in the response."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Generate a PDF report for all alerts in a full scan.\n\nThis endpoint streams a PDF document containing all alerts found in the full scan,\nwith optional filtering and grouping options.\n\nSupported request body filter IDs include:\n- alert.action (error|warn|monitor|ignore)\n- alert.type\n- alert.category\n- alert.severity (low|medium|middle|high|critical or 0-3)\n- artifact.type (purl type, e.g. npm, pypi)\n- dependency.type (direct|transitive)\n- dependency.scope (dev|normal)\n- dependency.usage (used|unu"
+        },
+        {
+          "info": {
+            "name": "Export CycloneDX SBOM (Beta)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.socket.dev/v0/orgs/:org_slug/export/cdx/:id",
+            "params": [
+              {
+                "name": "org_slug",
+                "value": "",
+                "type": "path",
+                "description": "The slug of the organization"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The full scan OR sbom report ID"
+              },
+              {
+                "name": "author",
+                "value": "",
+                "type": "query",
+                "description": "The person(s) who created the BOM.\nSet this value if you're intending the modify the BOM and claim authorship."
+              },
+              {
+                "name": "project_group",
+                "value": "",
+                "type": "query",
+                "description": "Dependency track project group"
+              },
+              {
+                "name": "project_name",
+                "value": "",
+                "type": "query",
+                "description": "Dependency track project name. Default use the directory name"
+              },
+              {
+                "name": "project_version",
+                "value": "",
+                "type": "query",
+                "description": "Dependency track project version"
+              },
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "query",
+                "description": "Dependency track project id. Either provide the id or the project name and version together"
+              },
+              {
+                "name": "include_vulnerabilities",
+                "value": "",
+                "type": "query",
+                "description": "Include vulnerability information in the SBOM. Also includes reachability/VEX if available"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Export a Socket SBOM as a CycloneDX SBOM\n\nSupported ecosystems:\n\n- crates\n- go\n- maven\n- npm\n- nuget\n- pypi\n- rubygems\n- spdx\n- cdx\n\nUnsupported ecosystems are filtered from the export.\n\nThis endpoint consumes 1 unit of your quota.\n\nThis endpoint requires the following org token scopes:\n- report:read"
+        },
+        {
+          "info": {
+            "name": "Export OpenVEX Document (Beta)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.socket.dev/v0/orgs/:org_slug/export/openvex/:id",
+            "params": [
+              {
+                "name": "org_slug",
+                "value": "",
+                "type": "path",
+                "description": "The slug of the organization"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The full scan OR sbom report ID"
+              },
+              {
+                "name": "author",
+                "value": "",
+                "type": "query",
+                "description": "The author of the VEX document. Should be an individual or organization."
+              },
+              {
+                "name": "role",
+                "value": "",
+                "type": "query",
+                "description": "The role of the document author (e.g., \"VEX Generator\", \"Security Team\")."
+              },
+              {
+                "name": "document_id",
+                "value": "",
+                "type": "query",
+                "description": "Custom IRI for the VEX document. If not provided, a default IRI will be generated."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Export vulnerability exploitability data as an OpenVEX v0.2.0 document.\n\nOpenVEX (Vulnerability Exploitability eXchange) documents communicate the\nexploitability status of vulnerabilities in software products. This export\nincludes:\n\n- **Patch data**: Vulnerabilities fixed by applied Socket patches are marked as \"fixed\"\n- **Reachability analysis**: Code reachability determines if vulnerable code is exploitable:\n- Unreachable code → \"not_affected\" with justification\n- Reachable code → \"affected\"\n-"
+        },
+        {
+          "info": {
+            "name": "Export SPDX SBOM (Beta)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.socket.dev/v0/orgs/:org_slug/export/spdx/:id",
+            "params": [
+              {
+                "name": "org_slug",
+                "value": "",
+                "type": "path",
+                "description": "The slug of the organization"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The full scan OR sbom report ID"
+              },
+              {
+                "name": "author",
+                "value": "",
+                "type": "query",
+                "description": "The person(s) who created the BOM.\nSet this value if you're intending the modify the BOM and claim authorship."
+              },
+              {
+                "name": "project_group",
+                "value": "",
+                "type": "query",
+                "description": "Dependency track project group"
+              },
+              {
+                "name": "project_name",
+                "value": "",
+                "type": "query",
+                "description": "Dependency track project name. Default use the directory name"
+              },
+              {
+                "name": "project_version",
+                "value": "",
+                "type": "query",
+                "description": "Dependency track project version"
+              },
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "query",
+                "description": "Dependency track project id. Either provide the id or the project name and version together"
+              },
+              {
+                "name": "include_vulnerabilities",
+                "value": "",
+                "type": "query",
+                "description": "Include vulnerability information in the SBOM. Also includes reachability/VEX if available"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Export a Socket SBOM as a SPDX SBOM\n\nSupported ecosystems:\n\n- crates\n- go\n- maven\n- npm\n- nuget\n- pypi\n- rubygems\n- spdx\n- cdx\n\nUnsupported ecosystems are filtered from the export.\n\nThis endpoint consumes 1 unit of your quota.\n\nThis endpoint requires the following org token scopes:\n- report:read"
+        },
+        {
+          "info": {
+            "name": "Get supported file types",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.socket.dev/v0/orgs/:org_slug/supported-files",
+            "params": [
+              {
+                "name": "org_slug",
+                "value": "",
+                "type": "path",
+                "description": "The slug of the organization"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get a list of supported files for full scan generation.\nFiles are categorized first by environment (e.g. NPM or PyPI), then by name.\n\nFiles whose names match the patterns returned by this endpoint can be uploaded for report generation.\nExamples of supported filenames include `package.json`, `package-lock.json`, and `yarn.lock`.\n\nThis endpoint consumes 1 unit of your quota.\n\nThis endpoint requires the following org token scopes:\n- No Scopes Required, but authentication is required"
+        },
+        {
+          "info": {
+            "name": "Alert Types Metadata",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.socket.dev/v0/alert-types",
+            "params": [
+              {
+                "name": "language",
+                "value": "",
+                "type": "query",
+                "description": "Language for alert metadata"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "For an array of alert type identifiers, returns metadata for each alert type. Optionally, specify a language via the 'language' query parameter.\n\nThis endpoint consumes 1 unit of your quota.\n\nThis endpoint requires the following org token scopes:"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

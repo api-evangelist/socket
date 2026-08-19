@@ -1,0 +1,70 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "API Endpoints alerts org-settings API",
+    "version": "0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "org-settings",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get integration events",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.socket.dev/v0/orgs/:org_slug/settings/integrations/:integration_id/events",
+            "params": [
+              {
+                "name": "org_slug",
+                "value": "",
+                "type": "path",
+                "description": "The slug of the organization"
+              },
+              {
+                "name": "integration_id",
+                "value": "",
+                "type": "path",
+                "description": "The id of the integration"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "This endpoint consumes 1 unit of your quota.\n\nThis endpoint requires the following org token scopes:\n- integration:list"
+        },
+        {
+          "info": {
+            "name": "Get Socket Basics configuration, including toggles for the various tools it supports.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.socket.dev/v0/orgs/:org_slug/settings/socket-basics",
+            "params": [
+              {
+                "name": "org_slug",
+                "value": "",
+                "type": "path",
+                "description": "The slug of the organization"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Socket Basics is a CI/CD security scanning suite that runs on your source code, designed to complement Socket SCA and provide full coverage.\n\n- **SAST** - Find issues and risks with your code via static analysis using best in class Open Source tools\n- **Secret Scanning** - Detected potentially leaked secrets and credentials within your code\n- **Container Security** - Docker image and Dockerfile vulnerability scanning\n\nThis endpoint consumes 1 unit of your quota.\n\nThis endpoint requires the follo"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

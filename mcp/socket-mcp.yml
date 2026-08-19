@@ -2,10 +2,9 @@ generated: '2026-07-21'
 method: searched
 status: published
 source: https://docs.socket.dev/docs/guide-to-socket-mcp
-description: >-
-  Socket ships an official Model Context Protocol server that lets AI assistants query the
-  Socket API for dependency scoring. A public hosted instance is available with no local setup;
-  it can also be run locally over stdio or HTTP.
+description: Socket ships an official Model Context Protocol server that lets AI assistants query the
+  Socket API for dependency scoring. A public hosted instance is available with no local setup; it can
+  also be run locally over stdio or HTTP.
 server:
   name: socket-mcp
   transport: http
@@ -17,18 +16,17 @@ docs:
 - https://docs.socket.dev/docs/remote-socket-mcp
 - https://docs.socket.dev/docs/local-socket-mcp
 - https://docs.socket.dev/docs/socket-mcp-for-claude-desktop
-client_config: |
-  {
-    "mcpServers": {
-      "socket-mcp": {
-        "type": "http",
-        "url": "https://mcp.socket.dev/"
-      }
-    }
-  }
+client_config: "{\n  \"mcpServers\": {\n    \"socket-mcp\": {\n      \"type\": \"http\",\n      \"url\"\
+  : \"https://mcp.socket.dev/\"\n    }\n  }\n}\n"
 tools:
 - name: depscore
-  description: >-
-    Query the Socket API for dependency scoring information across supply-chain, quality,
-    maintenance, vulnerability, and license dimensions for one or more packages.
+  description: Query the Socket API for dependency scoring information across supply-chain, quality, maintenance,
+    vulnerability, and license dimensions for one or more packages.
   source_operation: openapi/socket-openapi-original.json#batchPackageFetchByOrg
+deployment:
+  mode: remote
+  endpoint: https://mcp.socket.dev/
+  verified: probed
+  probe: live
+  checked: '2026-08-12'
+  source: catalog MCP census

@@ -1,0 +1,1002 @@
+{
+  "item": [
+    {
+      "id": "7b602bc8-42d3-40bf-8706-b9b7afde3054",
+      "name": "security-policy",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "8ecf7b43-2cdc-4551-bd9f-5b0622bc5aa7",
+          "name": "Get Organization Security Policy",
+          "request": {
+            "name": "Get Organization Security Policy",
+            "description": {
+              "content": "Retrieve the security policy of an organization.\n\nThis endpoint consumes 1 unit of your quota.\n\nThis endpoint requires the following org token scopes:\n- security-policy:read",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "orgs",
+                ":org_slug",
+                "settings",
+                "security-policy"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "custom_rules_only",
+                  "value": "false",
+                  "description": "Return only customized security policy rules."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "org_slug",
+                  "description": "(Required) The slug of the organization"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "860c65d3-4fb9-4562-9f9b-3653bf35ec55",
+              "name": "Retrieved security policy details",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    ":org_slug",
+                    "settings",
+                    "security-policy"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "custom_rules_only",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "org_slug",
+                      "description": "(Required) The slug of the organization"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"securityPolicyRules\": {\n    \"gptSecurity\": {\n      \"action\": \"defer\"\n    },\n    \"gptAnomaly\": {\n      \"action\": \"ignore\"\n    },\n    \"gptMalware\": {\n      \"action\": \"ignore\"\n    },\n    \"filesystemAccess\": {\n      \"action\": \"error\"\n    },\n    \"networkAccess\": {\n      \"action\": \"error\"\n    },\n    \"shellAccess\": {\n      \"action\": \"error\"\n    },\n    \"debugAccess\": {\n      \"action\": \"warn\"\n    },\n    \"chromePermission\": {\n      \"action\": \"warn\"\n    },\n    \"chromeHostPermission\": {\n      \"action\": \"monitor\"\n    },\n    \"chromeWildcardHostPermission\": {\n      \"action\": \"error\"\n    },\n    \"chromeContentScript\": {\n      \"action\": \"error\"\n    },\n    \"criticalCVE\": {\n      \"action\": \"error\"\n    },\n    \"cve\": {\n      \"action\": \"defer\"\n    },\n    \"mediumCVE\": {\n      \"action\": \"ignore\"\n    },\n    \"mildCVE\": {\n      \"action\": \"monitor\"\n    },\n    \"emptyPackage\": {\n      \"action\": \"warn\"\n    },\n    \"trivialPackage\": {\n      \"action\": \"defer\"\n    },\n    \"noREADME\": {\n      \"action\": \"defer\"\n    },\n    \"missingLockfile\": {\n      \"action\": \"monitor\"\n    },\n    \"oversizedManifest\": {\n      \"action\": \"error\"\n    },\n    \"shrinkwrap\": {\n      \"action\": \"error\"\n    },\n    \"tooManyFiles\": {\n      \"action\": \"warn\"\n    },\n    \"generic\": {\n      \"action\": \"error\"\n    },\n    \"ghaArgToSink\": {\n      \"action\": \"warn\"\n    },\n    \"ghaEnvToSink\": {\n      \"action\": \"error\"\n    },\n    \"ghaContextToSink\": {\n      \"action\": \"error\"\n    },\n    \"ghaArgToOutput\": {\n      \"action\": \"monitor\"\n    },\n    \"ghaArgToEnv\": {\n      \"action\": \"defer\"\n    },\n    \"ghaContextToOutput\": {\n      \"action\": \"error\"\n    },\n    \"ghaContextToEnv\": {\n      \"action\": \"error\"\n    },\n    \"recentlyPublished\": {\n      \"action\": \"warn\"\n    },\n    \"licenseSpdxDisj\": {\n      \"action\": \"monitor\"\n    },\n    \"unsafeCopyright\": {\n      \"action\": \"defer\"\n    },\n    \"licenseChange\": {\n      \"action\": \"monitor\"\n    },\n    \"nonOSILicense\": {\n      \"action\": \"warn\"\n    },\n    \"deprecatedLicense\": {\n      \"action\": \"monitor\"\n    },\n    \"missingLicense\": {\n      \"action\": \"ignore\"\n    },\n    \"nonSPDXLicense\": {\n      \"action\": \"ignore\"\n    },\n    \"unclearLicense\": {\n      \"action\": \"warn\"\n    },\n    \"mixedLicense\": {\n      \"action\": \"warn\"\n    },\n    \"notice\": {\n      \"action\": \"ignore\"\n    },\n    \"modifiedLicense\": {\n      \"action\": \"defer\"\n    },\n    \"modifiedException\": {\n      \"action\": \"ignore\"\n    },\n    \"licenseException\": {\n      \"action\": \"warn\"\n    },\n    \"deprecatedException\": {\n      \"action\": \"warn\"\n    },\n    \"miscLicenseIssues\": {\n      \"action\": \"defer\"\n    },\n    \"unidentifiedLicense\": {\n      \"action\": \"monitor\"\n    },\n    \"noLicenseFound\": {\n      \"action\": \"warn\"\n    },\n    \"explicitlyUnlicensedItem\": {\n      \"action\": \"ignore\"\n    },\n    \"copyleftLicense\": {\n      \"action\": \"error\"\n    },\n    \"nonpermissiveLicense\": {\n      \"action\": \"ignore\"\n    },\n    \"ambiguousClassifier\": {\n      \"action\": \"monitor\"\n    },\n    \"invalidPackageJSON\": {\n      \"action\": \"warn\"\n    },\n    \"httpDependency\": {\n      \"action\": \"warn\"\n    },\n    \"gitDependency\": {\n      \"action\": \"warn\"\n    },\n    \"gitHubDependency\": {\n      \"action\": \"warn\"\n    },\n    \"fileDependency\": {\n      \"action\": \"defer\"\n    },\n    \"noTests\": {\n      \"action\": \"error\"\n    },\n    \"noRepository\": {\n      \"action\": \"error\"\n    },\n    \"badSemver\": {\n      \"action\": \"monitor\"\n    },\n    \"badSemverDependency\": {\n      \"action\": \"warn\"\n    },\n    \"noV1\": {\n      \"action\": \"ignore\"\n    },\n    \"noWebsite\": {\n      \"action\": \"error\"\n    },\n    \"noBugTracker\": {\n      \"action\": \"monitor\"\n    },\n    \"noAuthorData\": {\n      \"action\": \"error\"\n    },\n    \"typeModuleCompatibility\": {\n      \"action\": \"error\"\n    },\n    \"floatingDependency\": {\n      \"action\": \"error\"\n    },\n    \"manifestConfusion\": {\n      \"action\": \"defer\"\n    },\n    \"malware\": {\n      \"action\": \"ignore\"\n    },\n    \"telemetry\": {\n      \"action\": \"warn\"\n    },\n    \"troll\": {\n      \"action\": \"defer\"\n    },\n    \"pendingScan\": {\n      \"action\": \"ignore\"\n    },\n    \"deprecated\": {\n      \"action\": \"ignore\"\n    },\n    \"chronoAnomaly\": {\n      \"action\": \"defer\"\n    },\n    \"compromisedSSHKey\": {\n      \"action\": \"monitor\"\n    },\n    \"semverAnomaly\": {\n      \"action\": \"error\"\n    },\n    \"newAuthor\": {\n      \"action\": \"defer\"\n    },\n    \"unstableOwnership\": {\n      \"action\": \"defer\"\n    },\n    \"missingAuthor\": {\n      \"action\": \"defer\"\n    },\n    \"unmaintained\": {\n      \"action\": \"ignore\"\n    },\n    \"unpublished\": {\n      \"action\": \"error\"\n    },\n    \"majorRefactor\": {\n      \"action\": \"defer\"\n    },\n    \"missingTarball\": {\n      \"action\": \"ignore\"\n    },\n    \"suspiciousStarActivity\": {\n      \"action\": \"monitor\"\n    },\n    \"notFound\": {\n      \"action\": \"ignore\"\n    },\n    \"unpopularPackage\": {\n      \"action\": \"error\"\n    },\n    \"policy\": {\n      \"action\": \"ignore\"\n    },\n    \"skillAutonomyAbuse\": {\n      \"action\": \"warn\"\n    },\n    \"skillCommandInjection\": {\n      \"action\": \"monitor\"\n    },\n    \"skillDataExfiltration\": {\n      \"action\": \"ignore\"\n    },\n    \"skillDiscoveryAbuse\": {\n      \"action\": \"error\"\n    },\n    \"skillHardcodedSecrets\": {\n      \"action\": \"ignore\"\n    },\n    \"skillObfuscation\": {\n      \"action\": \"ignore\"\n    },\n    \"skillPreExecution\": {\n      \"action\": \"error\"\n    },\n    \"skillPromptInjection\": {\n      \"action\": \"defer\"\n    },\n    \"skillResourceAbuse\": {\n      \"action\": \"defer\"\n    },\n    \"skillSupplyChain\": {\n      \"action\": \"ignore\"\n    },\n    \"skillToolAbuse\": {\n      \"action\": \"ignore\"\n    },\n    \"skillToolChaining\": {\n      \"action\": \"defer\"\n    },\n    \"skillTransitiveTrust\": {\n      \"action\": \"monitor\"\n    },\n    \"socketUpgradeAvailable\": {\n      \"action\": \"monitor\"\n    },\n    \"longStrings\": {\n      \"action\": \"monitor\"\n    },\n    \"highEntropyStrings\": {\n      \"action\": \"ignore\"\n    },\n    \"urlStrings\": {\n      \"action\": \"monitor\"\n    },\n    \"usesEval\": {\n      \"action\": \"error\"\n    },\n    \"dynamicRequire\": {\n      \"action\": \"warn\"\n    },\n    \"envVars\": {\n      \"action\": \"defer\"\n    },\n    \"missingDependency\": {\n      \"action\": \"defer\"\n    },\n    \"unusedDependency\": {\n      \"action\": \"error\"\n    },\n    \"peerDependency\": {\n      \"action\": \"monitor\"\n    },\n    \"uncaughtOptionalDependency\": {\n      \"action\": \"ignore\"\n    },\n    \"unresolvedRequire\": {\n      \"action\": \"ignore\"\n    },\n    \"extraneousDependency\": {\n      \"action\": \"defer\"\n    },\n    \"obfuscatedRequire\": {\n      \"action\": \"warn\"\n    },\n    \"obfuscatedFile\": {\n      \"action\": \"warn\"\n    },\n    \"minifiedFile\": {\n      \"action\": \"monitor\"\n    },\n    \"installScripts\": {\n      \"action\": \"error\"\n    },\n    \"hasNativeCode\": {\n      \"action\": \"defer\"\n    },\n    \"binScriptConfusion\": {\n      \"action\": \"warn\"\n    },\n    \"shellScriptOverride\": {\n      \"action\": \"error\"\n    },\n    \"didYouMean\": {\n      \"action\": \"defer\"\n    },\n    \"gptDidYouMean\": {\n      \"action\": \"warn\"\n    },\n    \"bidi\": {\n      \"action\": \"defer\"\n    },\n    \"zeroWidth\": {\n      \"action\": \"monitor\"\n    },\n    \"badEncoding\": {\n      \"action\": \"error\"\n    },\n    \"homoglyphs\": {\n      \"action\": \"monitor\"\n    },\n    \"invisibleChars\": {\n      \"action\": \"ignore\"\n    },\n    \"suspiciousString\": {\n      \"action\": \"defer\"\n    },\n    \"potentialVulnerability\": {\n      \"action\": \"warn\"\n    },\n    \"vsxProposedApiUsage\": {\n      \"action\": \"warn\"\n    },\n    \"vsxActivationWildcard\": {\n      \"action\": \"error\"\n    },\n    \"vsxWorkspaceContainsActivation\": {\n      \"action\": \"ignore\"\n    },\n    \"vsxUntrustedWorkspaceSupported\": {\n      \"action\": \"defer\"\n    },\n    \"vsxVirtualWorkspaceSupported\": {\n      \"action\": \"defer\"\n    },\n    \"vsxWebviewContribution\": {\n      \"action\": \"error\"\n    },\n    \"vsxDebuggerContribution\": {\n      \"action\": \"monitor\"\n    },\n    \"vsxExtensionDependency\": {\n      \"action\": \"error\"\n    },\n    \"vsxExtensionPack\": {\n      \"action\": \"error\"\n    }\n  },\n  \"securityPolicyDefault\": \"default\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f6f2175d-9239-4e25-b5e4-99ab9b2a10b8",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    ":org_slug",
+                    "settings",
+                    "security-policy"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "custom_rules_only",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "org_slug",
+                      "description": "(Required) The slug of the organization"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"details\": null,\n    \"message\": \"\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "712ba786-5989-4ddb-9479-675a04419043",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    ":org_slug",
+                    "settings",
+                    "security-policy"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "custom_rules_only",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "org_slug",
+                      "description": "(Required) The slug of the organization"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"details\": null,\n    \"message\": \"\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e73384a7-8dab-4332-b32a-1320e16a98ce",
+              "name": "Insufficient max_quota for API method",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    ":org_slug",
+                    "settings",
+                    "security-policy"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "custom_rules_only",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "org_slug",
+                      "description": "(Required) The slug of the organization"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"details\": null,\n    \"message\": \"\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "08cdcb79-10c8-4307-8ac9-402781996340",
+              "name": "Resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    ":org_slug",
+                    "settings",
+                    "security-policy"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "custom_rules_only",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "org_slug",
+                      "description": "(Required) The slug of the organization"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"details\": null,\n    \"message\": \"\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4a41f378-e1a7-4256-8b8f-e8380b5fa2ba",
+              "name": "Insufficient quota for API route",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    ":org_slug",
+                    "settings",
+                    "security-policy"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "custom_rules_only",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "org_slug",
+                      "description": "(Required) The slug of the organization"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Retry contacting the endpoint *at least* after seconds.\nSee https://tools.ietf.org/html/rfc7231#section-7.1.3",
+                  "key": "Retry-After",
+                  "value": "7461"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"details\": null,\n    \"message\": \"\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "904b123a-07ac-4233-9fed-037d2c94663a",
+          "name": "Update Security Policy",
+          "request": {
+            "name": "Update Security Policy",
+            "description": {
+              "content": "Update the security policy of an organization.\n\nThis endpoint consumes 1 unit of your quota.\n\nThis endpoint requires the following org token scopes:\n- security-policy:update",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "orgs",
+                ":org_slug",
+                "settings",
+                "security-policy"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "custom_rules_only",
+                  "value": "false",
+                  "description": "Return only customized security policy rules in the response."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "org_slug",
+                  "description": "(Required) The slug of the organization"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"policyDefault\": \"<string>\",\n  \"policyRules\": {\n    \"gptSecurity\": {\n      \"action\": \"<string>\"\n    },\n    \"gptAnomaly\": {\n      \"action\": \"<string>\"\n    },\n    \"gptMalware\": {\n      \"action\": \"<string>\"\n    },\n    \"filesystemAccess\": {\n      \"action\": \"<string>\"\n    },\n    \"networkAccess\": {\n      \"action\": \"<string>\"\n    },\n    \"shellAccess\": {\n      \"action\": \"<string>\"\n    },\n    \"debugAccess\": {\n      \"action\": \"<string>\"\n    },\n    \"chromePermission\": {\n      \"action\": \"<string>\"\n    },\n    \"chromeHostPermission\": {\n      \"action\": \"<string>\"\n    },\n    \"chromeWildcardHostPermission\": {\n      \"action\": \"<string>\"\n    },\n    \"chromeContentScript\": {\n      \"action\": \"<string>\"\n    },\n    \"criticalCVE\": {\n      \"action\": \"<string>\"\n    },\n    \"cve\": {\n      \"action\": \"<string>\"\n    },\n    \"mediumCVE\": {\n      \"action\": \"<string>\"\n    },\n    \"mildCVE\": {\n      \"action\": \"<string>\"\n    },\n    \"emptyPackage\": {\n      \"action\": \"<string>\"\n    },\n    \"trivialPackage\": {\n      \"action\": \"<string>\"\n    },\n    \"noREADME\": {\n      \"action\": \"<string>\"\n    },\n    \"missingLockfile\": {\n      \"action\": \"<string>\"\n    },\n    \"oversizedManifest\": {\n      \"action\": \"<string>\"\n    },\n    \"shrinkwrap\": {\n      \"action\": \"<string>\"\n    },\n    \"tooManyFiles\": {\n      \"action\": \"<string>\"\n    },\n    \"generic\": {\n      \"action\": \"<string>\"\n    },\n    \"ghaArgToSink\": {\n      \"action\": \"<string>\"\n    },\n    \"ghaEnvToSink\": {\n      \"action\": \"<string>\"\n    },\n    \"ghaContextToSink\": {\n      \"action\": \"<string>\"\n    },\n    \"ghaArgToOutput\": {\n      \"action\": \"<string>\"\n    },\n    \"ghaArgToEnv\": {\n      \"action\": \"<string>\"\n    },\n    \"ghaContextToOutput\": {\n      \"action\": \"<string>\"\n    },\n    \"ghaContextToEnv\": {\n      \"action\": \"<string>\"\n    },\n    \"recentlyPublished\": {\n      \"action\": \"<string>\"\n    },\n    \"licenseSpdxDisj\": {\n      \"action\": \"<string>\"\n    },\n    \"unsafeCopyright\": {\n      \"action\": \"<string>\"\n    },\n    \"licenseChange\": {\n      \"action\": \"<string>\"\n    },\n    \"nonOSILicense\": {\n      \"action\": \"<string>\"\n    },\n    \"deprecatedLicense\": {\n      \"action\": \"<string>\"\n    },\n    \"missingLicense\": {\n      \"action\": \"<string>\"\n    },\n    \"nonSPDXLicense\": {\n      \"action\": \"<string>\"\n    },\n    \"unclearLicense\": {\n      \"action\": \"<string>\"\n    },\n    \"mixedLicense\": {\n      \"action\": \"<string>\"\n    },\n    \"notice\": {\n      \"action\": \"<string>\"\n    },\n    \"modifiedLicense\": {\n      \"action\": \"<string>\"\n    },\n    \"modifiedException\": {\n      \"action\": \"<string>\"\n    },\n    \"licenseException\": {\n      \"action\": \"<string>\"\n    },\n    \"deprecatedException\": {\n      \"action\": \"<string>\"\n    },\n    \"miscLicenseIssues\": {\n      \"action\": \"<string>\"\n    },\n    \"unidentifiedLicense\": {\n      \"action\": \"<string>\"\n    },\n    \"noLicenseFound\": {\n      \"action\": \"<string>\"\n    },\n    \"explicitlyUnlicensedItem\": {\n      \"action\": \"<string>\"\n    },\n    \"copyleftLicense\": {\n      \"action\": \"<string>\"\n    },\n    \"nonpermissiveLicense\": {\n      \"action\": \"<string>\"\n    },\n    \"ambiguousClassifier\": {\n      \"action\": \"<string>\"\n    },\n    \"invalidPackageJSON\": {\n      \"action\": \"<string>\"\n    },\n    \"httpDependency\": {\n      \"action\": \"<string>\"\n    },\n    \"gitDependency\": {\n      \"action\": \"<string>\"\n    },\n    \"gitHubDependency\": {\n      \"action\": \"<string>\"\n    },\n    \"fileDependency\": {\n      \"action\": \"<string>\"\n    },\n    \"noTests\": {\n      \"action\": \"<string>\"\n    },\n    \"noRepository\": {\n      \"action\": \"<string>\"\n    },\n    \"badSemver\": {\n      \"action\": \"<string>\"\n    },\n    \"badSemverDependency\": {\n      \"action\": \"<string>\"\n    },\n    \"noV1\": {\n      \"action\": \"<string>\"\n    },\n    \"noWebsite\": {\n      \"action\": \"<string>\"\n    },\n    \"noBugTracker\": {\n      \"action\": \"<string>\"\n    },\n    \"noAuthorData\": {\n      \"action\": \"<string>\"\n    },\n    \"typeModuleCompatibility\": {\n      \"action\": \"<string>\"\n    },\n    \"floatingDependency\": {\n      \"action\": \"<string>\"\n    },\n    \"manifestConfusion\": {\n      \"action\": \"<string>\"\n    },\n    \"malware\": {\n      \"action\": \"<string>\"\n    },\n    \"telemetry\": {\n      \"action\": \"<string>\"\n    },\n    \"troll\": {\n      \"action\": \"<string>\"\n    },\n    \"pendingScan\": {\n      \"action\": \"<string>\"\n    },\n    \"deprecated\": {\n      \"action\": \"<string>\"\n    },\n    \"chronoAnomaly\": {\n      \"action\": \"<string>\"\n    },\n    \"compromisedSSHKey\": {\n      \"action\": \"<string>\"\n    },\n    \"semverAnomaly\": {\n      \"action\": \"<string>\"\n    },\n    \"newAuthor\": {\n      \"action\": \"<string>\"\n    },\n    \"unstableOwnership\": {\n      \"action\": \"<string>\"\n    },\n    \"missingAuthor\": {\n      \"action\": \"<string>\"\n    },\n    \"unmaintained\": {\n      \"action\": \"<string>\"\n    },\n    \"unpublished\": {\n      \"action\": \"<string>\"\n    },\n    \"majorRefactor\": {\n      \"action\": \"<string>\"\n    },\n    \"missingTarball\": {\n      \"action\": \"<string>\"\n    },\n    \"suspiciousStarActivity\": {\n      \"action\": \"<string>\"\n    },\n    \"notFound\": {\n      \"action\": \"<string>\"\n    },\n    \"unpopularPackage\": {\n      \"action\": \"<string>\"\n    },\n    \"policy\": {\n      \"action\": \"<string>\"\n    },\n    \"skillAutonomyAbuse\": {\n      \"action\": \"<string>\"\n    },\n    \"skillCommandInjection\": {\n      \"action\": \"<string>\"\n    },\n    \"skillDataExfiltration\": {\n      \"action\": \"<string>\"\n    },\n    \"skillDiscoveryAbuse\": {\n      \"action\": \"<string>\"\n    },\n    \"skillHardcodedSecrets\": {\n      \"action\": \"<string>\"\n    },\n    \"skillObfuscation\": {\n      \"action\": \"<string>\"\n    },\n    \"skillPreExecution\": {\n      \"action\": \"<string>\"\n    },\n    \"skillPromptInjection\": {\n      \"action\": \"<string>\"\n    },\n    \"skillResourceAbuse\": {\n      \"action\": \"<string>\"\n    },\n    \"skillSupplyChain\": {\n      \"action\": \"<string>\"\n    },\n    \"skillToolAbuse\": {\n      \"action\": \"<string>\"\n    },\n    \"skillToolChaining\": {\n      \"action\": \"<string>\"\n    },\n    \"skillTransitiveTrust\": {\n      \"action\": \"<string>\"\n    },\n    \"socketUpgradeAvailable\": {\n      \"action\": \"<string>\"\n    },\n    \"longStrings\": {\n      \"action\": \"<string>\"\n    },\n    \"highEntropyStrings\": {\n      \"action\": \"<string>\"\n    },\n    \"urlStrings\": {\n      \"action\": \"<string>\"\n    },\n    \"usesEval\": {\n      \"action\": \"<string>\"\n    },\n    \"dynamicRequire\": {\n      \"action\": \"<string>\"\n    },\n    \"envVars\": {\n      \"action\": \"<string>\"\n    },\n    \"missingDependency\": {\n      \"action\": \"<string>\"\n    },\n    \"unusedDependency\": {\n      \"action\": \"<string>\"\n    },\n    \"peerDependency\": {\n      \"action\": \"<string>\"\n    },\n    \"uncaughtOptionalDependency\": {\n      \"action\": \"<string>\"\n    },\n    \"unresolvedRequire\": {\n      \"action\": \"<string>\"\n    },\n    \"extraneousDependency\": {\n      \"action\": \"<string>\"\n    },\n    \"obfuscatedRequire\": {\n      \"action\": \"<string>\"\n    },\n    \"obfuscatedFile\": {\n      \"action\": \"<string>\"\n    },\n    \"minifiedFile\": {\n      \"action\": \"<string>\"\n    },\n    \"installScripts\": {\n      \"action\": \"<string>\"\n    },\n    \"hasNativeCode\": {\n      \"action\": \"<string>\"\n    },\n    \"binScriptConfusion\": {\n      \"action\": \"<string>\"\n    },\n    \"shellScriptOverride\": {\n      \"action\": \"<string>\"\n    },\n    \"didYouMean\": {\n      \"action\": \"<string>\"\n    },\n    \"gptDidYouMean\": {\n      \"action\": \"<string>\"\n    },\n    \"bidi\": {\n      \"action\": \"<string>\"\n    },\n    \"zeroWidth\": {\n      \"action\": \"<string>\"\n    },\n    \"badEncoding\": {\n      \"action\": \"<string>\"\n    },\n    \"homoglyphs\": {\n      \"action\": \"<string>\"\n    },\n    \"invisibleChars\": {\n      \"action\": \"<string>\"\n    },\n    \"suspiciousString\": {\n      \"action\": \"<string>\"\n    },\n    \"potentialVulnerability\": {\n      \"action\": \"<string>\"\n    },\n    \"vsxProposedApiUsage\": {\n      \"action\": \"<string>\"\n    },\n    \"vsxActivationWildcard\": {\n      \"action\": \"<string>\"\n    },\n    \"vsxWorkspaceContainsActivation\": {\n      \"action\": \"<string>\"\n    },\n    \"vsxUntrustedWorkspaceSupported\": {\n      \"action\": \"<string>\"\n    },\n    \"vsxVirtualWorkspaceSupported\": {\n      \"action\": \"<string>\"\n    },\n    \"vsxWebviewContribution\": {\n      \"action\": \"<string>\"\n    },\n    \"vsxDebuggerContribution\": {\n      \"action\": \"<string>\"\n    },\n    \"vsxExtensionDependency\": {\n      \"action\": \"<string>\"\n    },\n    \"vsxExtensionPack\": {\n      \"action\": \"<string>\"\n    }\n  },\n  \"resetPolicyRules\": false\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "7e3f8a5e-ce29-40df-9cfc-e5ebcb6fb0c2",
+              "name": "Updated repository details",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    ":org_slug",
+                    "settings",
+                    "security-policy"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "custom_rules_only",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "org_slug",
+                      "description": "(Required) The slug of the organization"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"policyDefault\": \"<string>\",\n  \"policyRules\": {\n    \"gptSecurity\": {\n      \"action\": \"<string>\"\n    },\n    \"gptAnomaly\": {\n      \"action\": \"<string>\"\n    },\n    \"gptMalware\": {\n      \"action\": \"<string>\"\n    },\n    \"filesystemAccess\": {\n      \"action\": \"<string>\"\n    },\n    \"networkAccess\": {\n      \"action\": \"<string>\"\n    },\n    \"shellAccess\": {\n      \"action\": \"<string>\"\n    },\n    \"debugAccess\": {\n      \"action\": \"<string>\"\n    },\n    \"chromePermission\": {\n      \"action\": \"<string>\"\n    },\n    \"chromeHostPermission\": {\n      \"action\": \"<string>\"\n    },\n    \"chromeWildcardHostPermission\": {\n      \"action\": \"<string>\"\n    },\n    \"chromeContentScript\": {\n      \"action\": \"<string>\"\n    },\n    \"criticalCVE\": {\n      \"action\": \"<string>\"\n    },\n    \"cve\": {\n      \"action\": \"<string>\"\n    },\n    \"mediumCVE\": {\n      \"action\": \"<string>\"\n    },\n    \"mildCVE\": {\n      \"action\": \"<string>\"\n    },\n    \"emptyPackage\": {\n      \"action\": \"<string>\"\n    },\n    \"trivialPackage\": {\n      \"action\": \"<string>\"\n    },\n    \"noREADME\": {\n      \"action\": \"<string>\"\n    },\n    \"missingLockfile\": {\n      \"action\": \"<string>\"\n    },\n    \"oversizedManifest\": {\n      \"action\": \"<string>\"\n    },\n    \"shrinkwrap\": {\n      \"action\": \"<string>\"\n    },\n    \"tooManyFiles\": {\n      \"action\": \"<string>\"\n    },\n    \"generic\": {\n      \"action\": \"<string>\"\n    },\n    \"ghaArgToSink\": {\n      \"action\": \"<string>\"\n    },\n    \"ghaEnvToSink\": {\n      \"action\": \"<string>\"\n    },\n    \"ghaContextToSink\": {\n      \"action\": \"<string>\"\n    },\n    \"ghaArgToOutput\": {\n      \"action\": \"<string>\"\n    },\n    \"ghaArgToEnv\": {\n      \"action\": \"<string>\"\n    },\n    \"ghaContextToOutput\": {\n      \"action\": \"<string>\"\n    },\n    \"ghaContextToEnv\": {\n      \"action\": \"<string>\"\n    },\n    \"recentlyPublished\": {\n      \"action\": \"<string>\"\n    },\n    \"licenseSpdxDisj\": {\n      \"action\": \"<string>\"\n    },\n    \"unsafeCopyright\": {\n      \"action\": \"<string>\"\n    },\n    \"licenseChange\": {\n      \"action\": \"<string>\"\n    },\n    \"nonOSILicense\": {\n      \"action\": \"<string>\"\n    },\n    \"deprecatedLicense\": {\n      \"action\": \"<string>\"\n    },\n    \"missingLicense\": {\n      \"action\": \"<string>\"\n    },\n    \"nonSPDXLicense\": {\n      \"action\": \"<string>\"\n    },\n    \"unclearLicense\": {\n      \"action\": \"<string>\"\n    },\n    \"mixedLicense\": {\n      \"action\": \"<string>\"\n    },\n    \"notice\": {\n      \"action\": \"<string>\"\n    },\n    \"modifiedLicense\": {\n      \"action\": \"<string>\"\n    },\n    \"modifiedException\": {\n      \"action\": \"<string>\"\n    },\n    \"licenseException\": {\n      \"action\": \"<string>\"\n    },\n    \"deprecatedException\": {\n      \"action\": \"<string>\"\n    },\n    \"miscLicenseIssues\": {\n      \"action\": \"<string>\"\n    },\n    \"unidentifiedLicense\": {\n      \"action\": \"<string>\"\n    },\n    \"noLicenseFound\": {\n      \"action\": \"<string>\"\n    },\n    \"explicitlyUnlicensedItem\": {\n      \"action\": \"<string>\"\n    },\n    \"copyleftLicense\": {\n      \"action\": \"<string>\"\n    },\n    \"nonpermissiveLicense\": {\n      \"action\": \"<string>\"\n    },\n    \"ambiguousClassifier\": {\n      \"action\": \"<string>\"\n    },\n    \"invalidPackageJSON\": {\n      \"action\": \"<string>\"\n    },\n    \"httpDependency\": {\n      \"action\": \"<string>\"\n    },\n    \"gitDependency\": {\n      \"action\": \"<string>\"\n    },\n    \"gitHubDependency\": {\n      \"action\": \"<string>\"\n    },\n    \"fileDependency\": {\n      \"action\": \"<string>\"\n    },\n    \"noTests\": {\n      \"action\": \"<string>\"\n    },\n    \"noRepository\": {\n      \"action\": \"<string>\"\n    },\n    \"badSemver\": {\n      \"action\": \"<string>\"\n    },\n    \"badSemverDependency\": {\n      \"action\": \"<string>\"\n    },\n    \"noV1\": {\n      \"action\": \"<string>\"\n    },\n    \"noWebsite\": {\n      \"action\": \"<string>\"\n    },\n    \"noBugTracker\": {\n      \"action\": \"<string>\"\n    },\n    \"noAuthorData\": {\n      \"action\": \"<string>\"\n    },\n    \"typeModuleCompatibility\": {\n      \"action\": \"<string>\"\n    },\n    \"floatingDependency\": {\n      \"action\": \"<string>\"\n    },\n    \"manifestConfusion\": {\n      \"action\": \"<string>\"\n    },\n    \"malware\": {\n      \"action\": \"<string>\"\n    },\n    \"telemetry\": {\n      \"action\": \"<string>\"\n    },\n    \"troll\": {\n      \"action\": \"<string>\"\n    },\n    \"pendingScan\": {\n      \"action\": \"<string>\"\n    },\n    \"deprecated\": {\n      \"action\": \"<string>\"\n    },\n    \"chronoAnomaly\": {\n      \"action\": \"<string>\"\n    },\n    \"compromisedSSHKey\": {\n      \"action\": \"<string>\"\n    },\n    \"semverAnomaly\": {\n      \"action\": \"<string>\"\n    },\n    \"newAuthor\": {\n      \"action\": \"<string>\"\n    },\n    \"unstableOwnership\": {\n      \"action\": \"<string>\"\n    },\n    \"missingAuthor\": {\n      \"action\": \"<string>\"\n    },\n    \"unmaintained\": {\n      \"action\": \"<string>\"\n    },\n    \"unpublished\": {\n      \"action\": \"<string>\"\n    },\n    \"majorRefactor\": {\n      \"action\": \"<string>\"\n    },\n    \"missingTarball\": {\n      \"action\": \"<string>\"\n    },\n    \"suspiciousStarActivity\": {\n      \"action\": \"<string>\"\n    },\n    \"notFound\": {\n      \"action\": \"<string>\"\n    },\n    \"unpopularPackage\": {\n      \"action\": \"<string>\"\n    },\n    \"policy\": {\n      \"action\": \"<string>\"\n    },\n    \"skillAutonomyAbuse\": {\n      \"action\": \"<string>\"\n    },\n    \"skillCommandInjection\": {\n      \"action\": \"<string>\"\n    },\n    \"skillDataExfiltration\": {\n      \"action\": \"<string>\"\n    },\n    \"skillDiscoveryAbuse\": {\n      \"action\": \"<string>\"\n    },\n    \"skillHardcodedSecrets\": {\n      \"action\": \"<string>\"\n    },\n    \"skillObfuscation\": {\n      \"action\": \"<string>\"\n    },\n    \"skillPreExecution\": {\n      \"action\": \"<string>\"\n    },\n    \"skillPromptInjection\": {\n      \"action\": \"<string>\"\n    },\n    \"skillResourceAbuse\": {\n      \"action\": \"<string>\"\n    },\n    \"skillSupplyChain\": {\n      \"action\": \"<string>\"\n    },\n    \"skillToolAbuse\": {\n      \"action\": \"<string>\"\n    },\n    \"skillToolChaining\": {\n      \"action\": \"<string>\"\n    },\n    \"skillTransitiveTrust\": {\n      \"action\": \"<string>\"\n    },\n    \"socketUpgradeAvailable\": {\n      \"action\": \"<string>\"\n    },\n    \"longStrings\": {\n      \"action\": \"<string>\"\n    },\n    \"highEntropyStrings\": {\n      \"action\": \"<string>\"\n    },\n    \"urlStrings\": {\n      \"action\": \"<string>\"\n    },\n    \"usesEval\": {\n      \"action\": \"<string>\"\n    },\n    \"dynamicRequire\": {\n      \"action\": \"<string>\"\n    },\n    \"envVars\": {\n      \"action\": \"<string>\"\n    },\n    \"missingDependency\": {\n      \"action\": \"<string>\"\n    },\n    \"unusedDependency\": {\n      \"action\": \"<string>\"\n    },\n    \"peerDependency\": {\n      \"action\": \"<string>\"\n    },\n    \"uncaughtOptionalDependency\": {\n      \"action\": \"<string>\"\n    },\n    \"unresolvedRequire\": {\n      \"action\": \"<string>\"\n    },\n    \"extraneousDependency\": {\n      \"action\": \"<string>\"\n    },\n    \"obfuscatedRequire\": {\n      \"action\": \"<string>\"\n    },\n    \"obfuscatedFile\": {\n      \"action\": \"<string>\"\n    },\n    \"minifiedFile\": {\n      \"action\": \"<string>\"\n    },\n    \"installScripts\": {\n      \"action\": \"<string>\"\n    },\n    \"hasNativeCode\": {\n      \"action\": \"<string>\"\n    },\n    \"binScriptConfusion\": {\n      \"action\": \"<string>\"\n    },\n    \"shellScriptOverride\": {\n      \"action\": \"<string>\"\n    },\n    \"didYouMean\": {\n      \"action\": \"<string>\"\n    },\n    \"gptDidYouMean\": {\n      \"action\": \"<string>\"\n    },\n    \"bidi\": {\n      \"action\": \"<string>\"\n    },\n    \"zeroWidth\": {\n      \"action\": \"<string>\"\n    },\n    \"badEncoding\": {\n      \"action\": \"<string>\"\n    },\n    \"homoglyphs\": {\n      \"action\": \"<string>\"\n    },\n    \"invisibleChars\": {\n      \"action\": \"<string>\"\n    },\n    \"suspiciousString\": {\n      \"action\": \"<string>\"\n    },\n    \"potentialVulnerability\": {\n      \"action\": \"<string>\"\n    },\n    \"vsxProposedApiUsage\": {\n      \"action\": \"<string>\"\n    },\n    \"vsxActivationWildcard\": {\n      \"action\": \"<string>\"\n    },\n    \"vsxWorkspaceContainsActivation\": {\n      \"action\": \"<string>\"\n    },\n    \"vsxUntrustedWorkspaceSupported\": {\n      \"action\": \"<string>\"\n    },\n    \"vsxVirtualWorkspaceSupported\": {\n      \"action\": \"<string>\"\n    },\n    \"vsxWebviewContribution\": {\n      \"action\": \"<string>\"\n    },\n    \"vsxDebuggerContribution\": {\n      \"action\": \"<string>\"\n    },\n    \"vsxExtensionDependency\": {\n      \"action\": \"<string>\"\n    },\n    \"vsxExtensionPack\": {\n      \"action\": \"<string>\"\n    }\n  },\n  \"resetPolicyRules\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"securityPolicyRules\": {\n    \"gptSecurity\": {\n      \"action\": \"defer\"\n    },\n    \"gptAnomaly\": {\n      \"action\": \"ignore\"\n    },\n    \"gptMalware\": {\n      \"action\": \"ignore\"\n    },\n    \"filesystemAccess\": {\n      \"action\": \"error\"\n    },\n    \"networkAccess\": {\n      \"action\": \"error\"\n    },\n    \"shellAccess\": {\n      \"action\": \"error\"\n    },\n    \"debugAccess\": {\n      \"action\": \"warn\"\n    },\n    \"chromePermission\": {\n      \"action\": \"warn\"\n    },\n    \"chromeHostPermission\": {\n      \"action\": \"monitor\"\n    },\n    \"chromeWildcardHostPermission\": {\n      \"action\": \"error\"\n    },\n    \"chromeContentScript\": {\n      \"action\": \"error\"\n    },\n    \"criticalCVE\": {\n      \"action\": \"error\"\n    },\n    \"cve\": {\n      \"action\": \"defer\"\n    },\n    \"mediumCVE\": {\n      \"action\": \"ignore\"\n    },\n    \"mildCVE\": {\n      \"action\": \"monitor\"\n    },\n    \"emptyPackage\": {\n      \"action\": \"warn\"\n    },\n    \"trivialPackage\": {\n      \"action\": \"defer\"\n    },\n    \"noREADME\": {\n      \"action\": \"defer\"\n    },\n    \"missingLockfile\": {\n      \"action\": \"monitor\"\n    },\n    \"oversizedManifest\": {\n      \"action\": \"error\"\n    },\n    \"shrinkwrap\": {\n      \"action\": \"error\"\n    },\n    \"tooManyFiles\": {\n      \"action\": \"warn\"\n    },\n    \"generic\": {\n      \"action\": \"error\"\n    },\n    \"ghaArgToSink\": {\n      \"action\": \"warn\"\n    },\n    \"ghaEnvToSink\": {\n      \"action\": \"error\"\n    },\n    \"ghaContextToSink\": {\n      \"action\": \"error\"\n    },\n    \"ghaArgToOutput\": {\n      \"action\": \"monitor\"\n    },\n    \"ghaArgToEnv\": {\n      \"action\": \"defer\"\n    },\n    \"ghaContextToOutput\": {\n      \"action\": \"error\"\n    },\n    \"ghaContextToEnv\": {\n      \"action\": \"error\"\n    },\n    \"recentlyPublished\": {\n      \"action\": \"warn\"\n    },\n    \"licenseSpdxDisj\": {\n      \"action\": \"monitor\"\n    },\n    \"unsafeCopyright\": {\n      \"action\": \"defer\"\n    },\n    \"licenseChange\": {\n      \"action\": \"monitor\"\n    },\n    \"nonOSILicense\": {\n      \"action\": \"warn\"\n    },\n    \"deprecatedLicense\": {\n      \"action\": \"monitor\"\n    },\n    \"missingLicense\": {\n      \"action\": \"ignore\"\n    },\n    \"nonSPDXLicense\": {\n      \"action\": \"ignore\"\n    },\n    \"unclearLicense\": {\n      \"action\": \"warn\"\n    },\n    \"mixedLicense\": {\n      \"action\": \"warn\"\n    },\n    \"notice\": {\n      \"action\": \"ignore\"\n    },\n    \"modifiedLicense\": {\n      \"action\": \"defer\"\n    },\n    \"modifiedException\": {\n      \"action\": \"ignore\"\n    },\n    \"licenseException\": {\n      \"action\": \"warn\"\n    },\n    \"deprecatedException\": {\n      \"action\": \"warn\"\n    },\n    \"miscLicenseIssues\": {\n      \"action\": \"defer\"\n    },\n    \"unidentifiedLicense\": {\n      \"action\": \"monitor\"\n    },\n    \"noLicenseFound\": {\n      \"action\": \"warn\"\n    },\n    \"explicitlyUnlicensedItem\": {\n      \"action\": \"ignore\"\n    },\n    \"copyleftLicense\": {\n      \"action\": \"error\"\n    },\n    \"nonpermissiveLicense\": {\n      \"action\": \"ignore\"\n    },\n    \"ambiguousClassifier\": {\n      \"action\": \"monitor\"\n    },\n    \"invalidPackageJSON\": {\n      \"action\": \"warn\"\n    },\n    \"httpDependency\": {\n      \"action\": \"warn\"\n    },\n    \"gitDependency\": {\n      \"action\": \"warn\"\n    },\n    \"gitHubDependency\": {\n      \"action\": \"warn\"\n    },\n    \"fileDependency\": {\n      \"action\": \"defer\"\n    },\n    \"noTests\": {\n      \"action\": \"error\"\n    },\n    \"noRepository\": {\n      \"action\": \"error\"\n    },\n    \"badSemver\": {\n      \"action\": \"monitor\"\n    },\n    \"badSemverDependency\": {\n      \"action\": \"warn\"\n    },\n    \"noV1\": {\n      \"action\": \"ignore\"\n    },\n    \"noWebsite\": {\n      \"action\": \"error\"\n    },\n    \"noBugTracker\": {\n      \"action\": \"monitor\"\n    },\n    \"noAuthorData\": {\n      \"action\": \"error\"\n    },\n    \"typeModuleCompatibility\": {\n      \"action\": \"error\"\n    },\n    \"floatingDependency\": {\n      \"action\": \"error\"\n    },\n    \"manifestConfusion\": {\n      \"action\": \"defer\"\n    },\n    \"malware\": {\n      \"action\": \"ignore\"\n    },\n    \"telemetry\": {\n      \"action\": \"warn\"\n    },\n    \"troll\": {\n      \"action\": \"defer\"\n    },\n    \"pendingScan\": {\n      \"action\": \"ignore\"\n    },\n    \"deprecated\": {\n      \"action\": \"ignore\"\n    },\n    \"chronoAnomaly\": {\n      \"action\": \"defer\"\n    },\n    \"compromisedSSHKey\": {\n      \"action\": \"monitor\"\n    },\n    \"semverAnomaly\": {\n      \"action\": \"error\"\n    },\n    \"newAuthor\": {\n      \"action\": \"defer\"\n    },\n    \"unstableOwnership\": {\n      \"action\": \"defer\"\n    },\n    \"missingAuthor\": {\n      \"action\": \"defer\"\n    },\n    \"unmaintained\": {\n      \"action\": \"ignore\"\n    },\n    \"unpublished\": {\n      \"action\": \"error\"\n    },\n    \"majorRefactor\": {\n      \"action\": \"defer\"\n    },\n    \"missingTarball\": {\n      \"action\": \"ignore\"\n    },\n    \"suspiciousStarActivity\": {\n      \"action\": \"monitor\"\n    },\n    \"notFound\": {\n      \"action\": \"ignore\"\n    },\n    \"unpopularPackage\": {\n      \"action\": \"error\"\n    },\n    \"policy\": {\n      \"action\": \"ignore\"\n    },\n    \"skillAutonomyAbuse\": {\n      \"action\": \"warn\"\n    },\n    \"skillCommandInjection\": {\n      \"action\": \"monitor\"\n    },\n    \"skillDataExfiltration\": {\n      \"action\": \"ignore\"\n    },\n    \"skillDiscoveryAbuse\": {\n      \"action\": \"error\"\n    },\n    \"skillHardcodedSecrets\": {\n      \"action\": \"ignore\"\n    },\n    \"skillObfuscation\": {\n      \"action\": \"ignore\"\n    },\n    \"skillPreExecution\": {\n      \"action\": \"error\"\n    },\n    \"skillPromptInjection\": {\n      \"action\": \"defer\"\n    },\n    \"skillResourceAbuse\": {\n      \"action\": \"defer\"\n    },\n    \"skillSupplyChain\": {\n      \"action\": \"ignore\"\n    },\n    \"skillToolAbuse\": {\n      \"action\": \"ignore\"\n    },\n    \"skillToolChaining\": {\n      \"action\": \"defer\"\n    },\n    \"skillTransitiveTrust\": {\n      \"action\": \"monitor\"\n    },\n    \"socketUpgradeAvailable\": {\n      \"action\": \"monitor\"\n    },\n    \"longStrings\": {\n      \"action\": \"monitor\"\n    },\n    \"highEntropyStrings\": {\n      \"action\": \"ignore\"\n    },\n    \"urlStrings\": {\n      \"action\": \"monitor\"\n    },\n    \"usesEval\": {\n      \"action\": \"error\"\n    },\n    \"dynamicRequire\": {\n      \"action\": \"warn\"\n    },\n    \"envVars\": {\n      \"action\": \"defer\"\n    },\n    \"missingDependency\": {\n      \"action\": \"defer\"\n    },\n    \"unusedDependency\": {\n      \"action\": \"error\"\n    },\n    \"peerDependency\": {\n      \"action\": \"monitor\"\n    },\n    \"uncaughtOptionalDependency\": {\n      \"action\": \"ignore\"\n    },\n    \"unresolvedRequire\": {\n      \"action\": \"ignore\"\n    },\n    \"extraneousDependency\": {\n      \"action\": \"defer\"\n    },\n    \"obfuscatedRequire\": {\n      \"action\": \"warn\"\n    },\n    \"obfuscatedFile\": {\n      \"action\": \"warn\"\n    },\n    \"minifiedFile\": {\n      \"action\": \"monitor\"\n    },\n    \"installScripts\": {\n      \"action\": \"error\"\n    },\n    \"hasNativeCode\": {\n      \"action\": \"defer\"\n    },\n    \"binScriptConfusion\": {\n      \"action\": \"warn\"\n    },\n    \"shellScriptOverride\": {\n      \"action\": \"error\"\n    },\n    \"didYouMean\": {\n      \"action\": \"defer\"\n    },\n    \"gptDidYouMean\": {\n      \"action\": \"warn\"\n    },\n    \"bidi\": {\n      \"action\": \"defer\"\n    },\n    \"zeroWidth\": {\n      \"action\": \"monitor\"\n    },\n    \"badEncoding\": {\n      \"action\": \"error\"\n    },\n    \"homoglyphs\": {\n      \"action\": \"monitor\"\n    },\n    \"invisibleChars\": {\n      \"action\": \"ignore\"\n    },\n    \"suspiciousString\": {\n      \"action\": \"defer\"\n    },\n    \"potentialVulnerability\": {\n      \"action\": \"warn\"\n    },\n    \"vsxProposedApiUsage\": {\n      \"action\": \"warn\"\n    },\n    \"vsxActivationWildcard\": {\n      \"action\": \"error\"\n    },\n    \"vsxWorkspaceContainsActivation\": {\n      \"action\": \"ignore\"\n    },\n    \"vsxUntrustedWorkspaceSupported\": {\n      \"action\": \"defer\"\n    },\n    \"vsxVirtualWorkspaceSupported\": {\n      \"action\": \"defer\"\n    },\n    \"vsxWebviewContribution\": {\n      \"action\": \"error\"\n    },\n    \"vsxDebuggerContribution\": {\n      \"action\": \"monitor\"\n    },\n    \"vsxExtensionDependency\": {\n      \"action\": \"error\"\n    },\n    \"vsxExtensionPack\": {\n      \"action\": \"error\"\n    }\n  },\n  \"securityPolicyDefault\": \"default\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2e4688aa-c119-483e-90e0-7c495103dadc",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    ":org_slug",
+                    "settings",
+                    "security-policy"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "custom_rules_only",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "org_slug",
+                      "description": "(Required) The slug of the organization"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"policyDefault\": \"<string>\",\n  \"policyRules\": {\n    \"gptSecurity\": {\n      \"action\": \"<string>\"\n    },\n    \"gptAnomaly\": {\n      \"action\": \"<string>\"\n    },\n    \"gptMalware\": {\n      \"action\": \"<string>\"\n    },\n    \"filesystemAccess\": {\n      \"action\": \"<string>\"\n    },\n    \"networkAccess\": {\n      \"action\": \"<string>\"\n    },\n    \"shellAccess\": {\n      \"action\": \"<string>\"\n    },\n    \"debugAccess\": {\n      \"action\": \"<string>\"\n    },\n    \"chromePermission\": {\n      \"action\": \"<string>\"\n    },\n    \"chromeHostPermission\": {\n      \"action\": \"<string>\"\n    },\n    \"chromeWildcardHostPermission\": {\n      \"action\": \"<string>\"\n    },\n    \"chromeContentScript\": {\n      \"action\": \"<string>\"\n    },\n    \"criticalCVE\": {\n      \"action\": \"<string>\"\n    },\n    \"cve\": {\n      \"action\": \"<string>\"\n    },\n    \"mediumCVE\": {\n      \"action\": \"<string>\"\n    },\n    \"mildCVE\": {\n      \"action\": \"<string>\"\n    },\n    \"emptyPackage\": {\n      \"action\": \"<string>\"\n    },\n    \"trivialPackage\": {\n      \"action\": \"<string>\"\n    },\n    \"noREADME\": {\n      \"action\": \"<string>\"\n    },\n    \"missingLockfile\": {\n      \"action\": \"<string>\"\n    },\n    \"oversizedManifest\": {\n      \"action\": \"<string>\"\n    },\n    \"shrinkwrap\": {\n      \"action\": \"<string>\"\n    },\n    \"tooManyFiles\": {\n      \"action\": \"<string>\"\n    },\n    \"generic\": {\n      \"action\": \"<string>\"\n    },\n    \"ghaArgToSink\": {\n      \"action\": \"<string>\"\n    },\n    \"ghaEnvToSink\": {\n      \"action\": \"<string>\"\n    },\n    \"ghaContextToSink\": {\n      \"action\": \"<string>\"\n    },\n    \"ghaArgToOutput\": {\n      \"action\": \"<string>\"\n    },\n    \"ghaArgToEnv\": {\n      \"action\": \"<string>\"\n    },\n    \"ghaContextToOutput\": {\n      \"action\": \"<string>\"\n    },\n    \"ghaContextToEnv\": {\n      \"action\": \"<string>\"\n    },\n    \"recentlyPublished\": {\n      \"action\": \"<string>\"\n    },\n    \"licenseSpdxDisj\": {\n      \"action\": \"<string>\"\n    },\n    \"unsafeCopyright\": {\n      \"action\": \"<string>\"\n    },\n    \"licenseChange\": {\n      \"action\": \"<string>\"\n    },\n    \"nonOSILicense\": {\n      \"action\": \"<string>\"\n    },\n    \"deprecatedLicense\": {\n      \"action\": \"<string>\"\n    },\n    \"missingLicense\": {\n      \"action\": \"<string>\"\n    },\n    \"nonSPDXLicense\": {\n      \"action\": \"<string>\"\n    },\n    \"unclearLicense\": {\n      \"action\": \"<string>\"\n    },\n    \"mixedLicense\": {\n      \"action\": \"<string>\"\n    },\n    \"notice\": {\n      \"action\": \"<string>\"\n    },\n    \"modifiedLicense\": {\n      \"action\": \"<string>\"\n    },\n    \"modifiedException\": {\n      \"action\": \"<string>\"\n    },\n    \"licenseException\": {\n      \"action\": \"<string>\"\n    },\n    \"deprecatedException\": {\n      \"action\": \"<string>\"\n    },\n    \"miscLicenseIssues\": {\n      \"action\": \"<string>\"\n    },\n    \"unidentifiedLicense\": {\n      \"action\": \"<string>\"\n    },\n    \"noLicenseFound\": {\n      \"action\": \"<string>\"\n    },\n    \"explicitlyUnlicensedItem\": {\n      \"action\": \"<string>\"\n    },\n    \"copyleftLicense\": {\n      \"action\": \"<string>\"\n    },\n    \"nonpermissiveLicense\": {\n      \"action\": \"<string>\"\n    },\n    \"ambiguousClassifier\": {\n      \"action\": \"<string>\"\n    },\n    \"invalidPackageJSON\": {\n      \"action\": \"<string>\"\n    },\n    \"httpDependency\": {\n      \"action\": \"<string>\"\n    },\n    \"gitDependency\": {\n      \"action\": \"<string>\"\n    },\n    \"gitHubDependency\": {\n      \"action\": \"<string>\"\n    },\n    \"fileDependency\": {\n      \"action\": \"<string>\"\n    },\n    \"noTests\": {\n      \"action\": \"<string>\"\n    },\n    \"noRepository\": {\n      \"action\": \"<string>\"\n    },\n    \"badSemver\": {\n      \"action\": \"<string>\"\n    },\n    \"badSemverDependency\": {\n      \"action\": \"<string>\"\n    },\n    \"noV1\": {\n      \"action\": \"<string>\"\n    },\n    \"noWebsite\": {\n      \"action\": \"<string>\"\n    },\n    \"noBugTracker\": {\n      \"action\": \"<string>\"\n    },\n    \"noAuthorData\": {\n      \"action\": \"<string>\"\n    },\n    \"typeModuleCompatibility\": {\n      \"action\": \"<string>\"\n    },\n    \"floatingDependency\": {\n      \"action\": \"<string>\"\n    },\n    \"manifestConfusion\": {\n      \"action\": \"<string>\"\n    },\n    \"malware\": {\n      \"action\": \"<string>\"\n    },\n    \"telemetry\": {\n      \"action\": \"<string>\"\n    },\n    \"troll\": {\n      \"action\": \"<string>\"\n    },\n    \"pendingScan\": {\n      \"action\": \"<string>\"\n    },\n    \"deprecated\": {\n      \"action\": \"<string>\"\n    },\n    \"chronoAnomaly\": {\n      \"action\": \"<string>\"\n    },\n    \"compromisedSSHKey\": {\n      \"action\": \"<string>\"\n    },\n    \"semverAnomaly\": {\n      \"action\": \"<string>\"\n    },\n    \"newAuthor\": {\n      \"action\": \"<string>\"\n    },\n    \"unstableOwnership\": {\n      \"action\": \"<string>\"\n    },\n    \"missingAuthor\": {\n      \"action\": \"<string>\"\n    },\n    \"unmaintained\": {\n      \"action\": \"<string>\"\n    },\n    \"unpublished\": {\n      \"action\": \"<string>\"\n    },\n    \"majorRefactor\": {\n      \"action\": \"<string>\"\n    },\n    \"missingTarball\": {\n      \"action\": \"<string>\"\n    },\n    \"suspiciousStarActivity\": {\n      \"action\": \"<string>\"\n    },\n    \"notFound\": {\n      \"action\": \"<string>\"\n    },\n    \"unpopularPackage\": {\n      \"action\": \"<string>\"\n    },\n    \"policy\": {\n      \"action\": \"<string>\"\n    },\n    \"skillAutonomyAbuse\": {\n      \"action\": \"<string>\"\n    },\n    \"skillCommandInjection\": {\n      \"action\": \"<string>\"\n    },\n    \"skillDataExfiltration\": {\n      \"action\": \"<string>\"\n    },\n    \"skillDiscoveryAbuse\": {\n      \"action\": \"<string>\"\n    },\n    \"skillHardcodedSecrets\": {\n      \"action\": \"<string>\"\n    },\n    \"skillObfuscation\": {\n      \"action\": \"<string>\"\n    },\n    \"skillPreExecution\": {\n      \"action\": \"<string>\"\n    },\n    \"skillPromptInjection\": {\n      \"action\": \"<string>\"\n    },\n    \"skillResourceAbuse\": {\n      \"action\": \"<string>\"\n    },\n    \"skillSupplyChain\": {\n      \"action\": \"<string>\"\n    },\n    \"skillToolAbuse\": {\n      \"action\": \"<string>\"\n    },\n    \"skillToolChaining\": {\n      \"action\": \"<string>\"\n    },\n    \"skillTransitiveTrust\": {\n      \"action\": \"<string>\"\n    },\n    \"socketUpgradeAvailable\": {\n      \"action\": \"<string>\"\n    },\n    \"longStrings\": {\n      \"action\": \"<string>\"\n    },\n    \"highEntropyStrings\": {\n      \"action\": \"<string>\"\n    },\n    \"urlStrings\": {\n      \"action\": \"<string>\"\n    },\n    \"usesEval\": {\n      \"action\": \"<string>\"\n    },\n    \"dynamicRequire\": {\n      \"action\": \"<string>\"\n    },\n    \"envVars\": {\n      \"action\": \"<string>\"\n    },\n    \"missingDependency\": {\n      \"action\": \"<string>\"\n    },\n    \"unusedDependency\": {\n      \"action\": \"<string>\"\n    },\n    \"peerDependency\": {\n      \"action\": \"<string>\"\n    },\n    \"uncaughtOptionalDependency\": {\n      \"action\": \"<string>\"\n    },\n    \"unresolvedRequire\": {\n      \"action\": \"<string>\"\n    },\n    \"extraneousDependency\": {\n      \"action\": \"<string>\"\n    },\n    \"obfuscatedRequire\": {\n      \"action\": \"<string>\"\n    },\n    \"obfuscatedFile\": {\n      \"action\": \"<string>\"\n    },\n    \"minifiedFile\": {\n      \"action\": \"<string>\"\n    },\n    \"installScripts\": {\n      \"action\": \"<string>\"\n    },\n    \"hasNativeCode\": {\n      \"action\": \"<string>\"\n    },\n    \"binScriptConfusion\": {\n      \"action\": \"<string>\"\n    },\n    \"shellScriptOverride\": {\n      \"action\": \"<string>\"\n    },\n    \"didYouMean\": {\n      \"action\": \"<string>\"\n    },\n    \"gptDidYouMean\": {\n      \"action\": \"<string>\"\n    },\n    \"bidi\": {\n      \"action\": \"<string>\"\n    },\n    \"zeroWidth\": {\n      \"action\": \"<string>\"\n    },\n    \"badEncoding\": {\n      \"action\": \"<string>\"\n    },\n    \"homoglyphs\": {\n      \"action\": \"<string>\"\n    },\n    \"invisibleChars\": {\n      \"action\": \"<string>\"\n    },\n    \"suspiciousString\": {\n      \"action\": \"<string>\"\n    },\n    \"potentialVulnerability\": {\n      \"action\": \"<string>\"\n    },\n    \"vsxProposedApiUsage\": {\n      \"action\": \"<string>\"\n    },\n    \"vsxActivationWildcard\": {\n      \"action\": \"<string>\"\n    },\n    \"vsxWorkspaceContainsActivation\": {\n      \"action\": \"<string>\"\n    },\n    \"vsxUntrustedWorkspaceSupported\": {\n      \"action\": \"<string>\"\n    },\n    \"vsxVirtualWorkspaceSupported\": {\n      \"action\": \"<string>\"\n    },\n    \"vsxWebviewContribution\": {\n      \"action\": \"<string>\"\n    },\n    \"vsxDebuggerContribution\": {\n      \"action\": \"<string>\"\n    },\n    \"vsxExtensionDependency\": {\n      \"action\": \"<string>\"\n    },\n    \"vsxExtensionPack\": {\n      \"action\": \"<string>\"\n    }\n  },\n  \"resetPolicyRules\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"details\": null,\n    \"message\": \"\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "20912f66-afa8-4fd4-b6fd-679517e15cf4",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    ":org_slug",
+                    "settings",
+                    "security-policy"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "custom_rules_only",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "org_slug",
+                      "description": "(Required) The slug of the organization"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"policyDefault\": \"<string>\",\n  \"policyRules\": {\n    \"gptSecurity\": {\n      \"action\": \"<string>\"\n    },\n    \"gptAnomaly\": {\n      \"action\": \"<string>\"\n    },\n    \"gptMalware\": {\n      \"action\": \"<string>\"\n    },\n    \"filesystemAccess\": {\n      \"action\": \"<string>\"\n    },\n    \"networkAccess\": {\n      \"action\": \"<string>\"\n    },\n    \"shellAccess\": {\n      \"action\": \"<string>\"\n    },\n    \"debugAccess\": {\n      \"action\": \"<string>\"\n    },\n    \"chromePermission\": {\n      \"action\": \"<string>\"\n    },\n    \"chromeHostPermission\": {\n      \"action\": \"<string>\"\n    },\n    \"chromeWildcardHostPermission\": {\n      \"action\": \"<string>\"\n    },\n    \"chromeContentScript\": {\n      \"action\": \"<string>\"\n    },\n    \"criticalCVE\": {\n      \"action\": \"<string>\"\n    },\n    \"cve\": {\n      \"action\": \"<string>\"\n    },\n    \"mediumCVE\": {\n      \"action\": \"<string>\"\n    },\n    \"mildCVE\": {\n      \"action\": \"<string>\"\n    },\n    \"emptyPackage\": {\n      \"action\": \"<string>\"\n    },\n    \"trivialPackage\": {\n      \"action\": \"<string>\"\n    },\n    \"noREADME\": {\n      \"action\": \"<string>\"\n    },\n    \"missingLockfile\": {\n      \"action\": \"<string>\"\n    },\n    \"oversizedManifest\": {\n      \"action\": \"<string>\"\n    },\n    \"shrinkwrap\": {\n      \"action\": \"<string>\"\n    },\n    \"tooManyFiles\": {\n      \"action\": \"<string>\"\n    },\n    \"generic\": {\n      \"action\": \"<string>\"\n    },\n    \"ghaArgToSink\": {\n      \"action\": \"<string>\"\n    },\n    \"ghaEnvToSink\": {\n      \"action\": \"<string>\"\n    },\n    \"ghaContextToSink\": {\n      \"action\": \"<string>\"\n    },\n    \"ghaArgToOutput\": {\n      \"action\": \"<string>\"\n    },\n    \"ghaArgToEnv\": {\n      \"action\": \"<string>\"\n    },\n    \"ghaContextToOutput\": {\n      \"action\": \"<string>\"\n    },\n    \"ghaContextToEnv\": {\n      \"action\": \"<string>\"\n    },\n    \"recentlyPublished\": {\n      \"action\": \"<string>\"\n    },\n    \"licenseSpdxDisj\": {\n      \"action\": \"<string>\"\n    },\n    \"unsafeCopyright\": {\n      \"action\": \"<string>\"\n    },\n    \"licenseChange\": {\n      \"action\": \"<string>\"\n    },\n    \"nonOSILicense\": {\n      \"action\": \"<string>\"\n    },\n    \"deprecatedLicense\": {\n      \"action\": \"<string>\"\n    },\n    \"missingLicense\": {\n      \"action\": \"<string>\"\n    },\n    \"nonSPDXLicense\": {\n      \"action\": \"<string>\"\n    },\n    \"unclearLicense\": {\n      \"action\": \"<string>\"\n    },\n    \"mixedLicense\": {\n      \"action\": \"<string>\"\n    },\n    \"notice\": {\n      \"action\": \"<string>\"\n    },\n    \"modifiedLicense\": {\n      \"action\": \"<string>\"\n    },\n    \"modifiedException\": {\n      \"action\": \"<string>\"\n    },\n    \"licenseException\": {\n      \"action\": \"<string>\"\n    },\n    \"deprecatedException\": {\n      \"action\": \"<string>\"\n    },\n    \"miscLicenseIssues\": {\n      \"action\": \"<string>\"\n    },\n    \"unidentifiedLicense\": {\n      \"action\": \"<string>\"\n    },\n    \"noLicenseFound\": {\n      \"action\": \"<string>\"\n    },\n    \"explicitlyUnlicensedItem\": {\n      \"action\": \"<string>\"\n    },\n    \"copyleftLicense\": {\n      \"action\": \"<string>\"\n    },\n    \"nonpermissiveLicense\": {\n      \"action\": \"<string>\"\n    },\n    \"ambiguousClassifier\": {\n      \"action\": \"<string>\"\n    },\n    \"invalidPackageJSON\": {\n      \"action\": \"<string>\"\n    },\n    \"httpDependency\": {\n      \"action\": \"<string>\"\n    },\n    \"gitDependency\": {\n      \"action\": \"<string>\"\n    },\n    \"gitHubDependency\": {\n      \"action\": \"<string>\"\n    },\n    \"fileDependency\": {\n      \"action\": \"<string>\"\n    },\n    \"noTests\": {\n      \"action\": \"<string>\"\n    },\n    \"noRepository\": {\n      \"action\": \"<string>\"\n    },\n    \"badSemver\": {\n      \"action\": \"<string>\"\n    },\n    \"badSemverDependency\": {\n      \"action\": \"<string>\"\n    },\n    \"noV1\": {\n      \"action\": \"<string>\"\n    },\n    \"noWebsite\": {\n      \"action\": \"<string>\"\n    },\n    \"noBugTracker\": {\n      \"action\": \"<string>\"\n    },\n    \"noAuthorData\": {\n      \"action\": \"<string>\"\n    },\n    \"typeModuleCompatibility\": {\n      \"action\": \"<string>\"\n    },\n    \"floatingDependency\": {\n      \"action\": \"<string>\"\n    },\n    \"manifestConfusion\": {\n      \"action\": \"<string>\"\n    },\n    \"malware\": {\n      \"action\": \"<string>\"\n    },\n    \"telemetry\": {\n      \"action\": \"<string>\"\n    },\n    \"troll\": {\n      \"action\": \"<string>\"\n    },\n    \"pendingScan\": {\n      \"action\": \"<string>\"\n    },\n    \"deprecated\": {\n      \"action\": \"<string>\"\n    },\n    \"chronoAnomaly\": {\n      \"action\": \"<string>\"\n    },\n    \"compromisedSSHKey\": {\n      \"action\": \"<string>\"\n    },\n    \"semverAnomaly\": {\n      \"action\": \"<string>\"\n    },\n    \"newAuthor\": {\n      \"action\": \"<string>\"\n    },\n    \"unstableOwnership\": {\n      \"action\": \"<string>\"\n    },\n    \"missingAuthor\": {\n      \"action\": \"<string>\"\n    },\n    \"unmaintained\": {\n      \"action\": \"<string>\"\n    },\n    \"unpublished\": {\n      \"action\": \"<string>\"\n    },\n    \"majorRefactor\": {\n      \"action\": \"<string>\"\n    },\n    \"missingTarball\": {\n      \"action\": \"<string>\"\n    },\n    \"suspiciousStarActivity\": {\n      \"action\": \"<string>\"\n    },\n    \"notFound\": {\n      \"action\": \"<string>\"\n    },\n    \"unpopularPackage\": {\n      \"action\": \"<string>\"\n    },\n    \"policy\": {\n      \"action\": \"<string>\"\n    },\n    \"skillAutonomyAbuse\": {\n      \"action\": \"<string>\"\n    },\n    \"skillCommandInjection\": {\n      \"action\": \"<string>\"\n    },\n    \"skillDataExfiltration\": {\n      \"action\": \"<string>\"\n    },\n    \"skillDiscoveryAbuse\": {\n      \"action\": \"<string>\"\n    },\n    \"skillHardcodedSecrets\": {\n      \"action\": \"<string>\"\n    },\n    \"skillObfuscation\": {\n      \"action\": \"<string>\"\n    },\n    \"skillPreExecution\": {\n      \"action\": \"<string>\"\n    },\n    \"skillPromptInjection\": {\n      \"action\": \"<string>\"\n    },\n    \"skillResourceAbuse\": {\n      \"action\": \"<string>\"\n    },\n    \"skillSupplyChain\": {\n      \"action\": \"<string>\"\n    },\n    \"skillToolAbuse\": {\n      \"action\": \"<string>\"\n    },\n    \"skillToolChaining\": {\n      \"action\": \"<string>\"\n    },\n    \"skillTransitiveTrust\": {\n      \"action\": \"<string>\"\n    },\n    \"socketUpgradeAvailable\": {\n      \"action\": \"<string>\"\n    },\n    \"longStrings\": {\n      \"action\": \"<string>\"\n    },\n    \"highEntropyStrings\": {\n      \"action\": \"<string>\"\n    },\n    \"urlStrings\": {\n      \"action\": \"<string>\"\n    },\n    \"usesEval\": {\n      \"action\": \"<string>\"\n    },\n    \"dynamicRequire\": {\n      \"action\": \"<string>\"\n    },\n    \"envVars\": {\n      \"action\": \"<string>\"\n    },\n    \"missingDependency\": {\n      \"action\": \"<string>\"\n    },\n    \"unusedDependency\": {\n      \"action\": \"<string>\"\n    },\n    \"peerDependency\": {\n      \"action\": \"<string>\"\n    },\n    \"uncaughtOptionalDependency\": {\n      \"action\": \"<string>\"\n    },\n    \"unresolvedRequire\": {\n      \"action\": \"<string>\"\n    },\n    \"extraneousDependency\": {\n      \"action\": \"<string>\"\n    },\n    \"obfuscatedRequire\": {\n      \"action\": \"<string>\"\n    },\n    \"obfuscatedFile\": {\n      \"action\": \"<string>\"\n    },\n    \"minifiedFile\": {\n      \"action\": \"<string>\"\n    },\n    \"installScripts\": {\n      \"action\": \"<string>\"\n    },\n    \"hasNativeCode\": {\n      \"action\": \"<string>\"\n    },\n    \"binScriptConfusion\": {\n      \"action\": \"<string>\"\n    },\n    \"shellScriptOverride\": {\n      \"action\": \"<string>\"\n    },\n    \"didYouMean\": {\n      \"action\": \"<string>\"\n    },\n    \"gptDidYouMean\": {\n      \"action\": \"<string>\"\n    },\n    \"bidi\": {\n      \"action\": \"<string>\"\n    },\n    \"zeroWidth\": {\n      \"action\": \"<string>\"\n    },\n    \"badEncoding\": {\n      \"action\": \"<string>\"\n    },\n    \"homoglyphs\": {\n      \"action\": \"<string>\"\n    },\n    \"invisibleChars\": {\n      \"action\": \"<string>\"\n    },\n    \"suspiciousString\": {\n      \"action\": \"<string>\"\n    },\n    \"potentialVulnerability\": {\n      \"action\": \"<string>\"\n    },\n    \"vsxProposedApiUsage\": {\n      \"action\": \"<string>\"\n    },\n    \"vsxActivationWildcard\": {\n      \"action\": \"<string>\"\n    },\n    \"vsxWorkspaceContainsActivation\": {\n      \"action\": \"<string>\"\n    },\n    \"vsxUntrustedWorkspaceSupported\": {\n      \"action\": \"<string>\"\n    },\n    \"vsxVirtualWorkspaceSupported\": {\n      \"action\": \"<string>\"\n    },\n    \"vsxWebviewContribution\": {\n      \"action\": \"<string>\"\n    },\n    \"vsxDebuggerContribution\": {\n      \"action\": \"<string>\"\n    },\n    \"vsxExtensionDependency\": {\n      \"action\": \"<string>\"\n    },\n    \"vsxExtensionPack\": {\n      \"action\": \"<string>\"\n    }\n  },\n  \"resetPolicyRules\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"details\": null,\n    \"message\": \"\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "639a5e07-3923-4798-9c35-36121078fd37",
+              "name": "Insufficient max_quota for API method",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    ":org_slug",
+                    "settings",
+                    "security-policy"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "custom_rules_only",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "org_slug",
+                      "description": "(Required) The slug of the organization"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"policyDefault\": \"<string>\",\n  \"policyRules\": {\n    \"gptSecurity\": {\n      \"action\": \"<string>\"\n    },\n    \"gptAnomaly\": {\n      \"action\": \"<string>\"\n    },\n    \"gptMalware\": {\n      \"action\": \"<string>\"\n    },\n    \"filesystemAccess\": {\n      \"action\": \"<string>\"\n    },\n    \"networkAccess\": {\n      \"action\": \"<string>\"\n    },\n    \"shellAccess\": {\n      \"action\": \"<string>\"\n    },\n    \"debugAccess\": {\n      \"action\": \"<string>\"\n    },\n    \"chromePermission\": {\n      \"action\": \"<string>\"\n    },\n    \"chromeHostPermission\": {\n      \"action\": \"<string>\"\n    },\n    \"chromeWildcardHostPermission\": {\n      \"action\": \"<string>\"\n    },\n    \"chromeContentScript\": {\n      \"action\": \"<string>\"\n    },\n    \"criticalCVE\": {\n      \"action\": \"<string>\"\n    },\n    \"cve\": {\n      \"action\": \"<string>\"\n    },\n    \"mediumCVE\": {\n      \"action\": \"<string>\"\n    },\n    \"mildCVE\": {\n      \"action\": \"<string>\"\n    },\n    \"emptyPackage\": {\n      \"action\": \"<string>\"\n    },\n    \"trivialPackage\": {\n      \"action\": \"<string>\"\n    },\n    \"noREADME\": {\n      \"action\": \"<string>\"\n    },\n    \"missingLockfile\": {\n      \"action\": \"<string>\"\n    },\n    \"oversizedManifest\": {\n      \"action\": \"<string>\"\n    },\n    \"shrinkwrap\": {\n      \"action\": \"<string>\"\n    },\n    \"tooManyFiles\": {\n      \"action\": \"<string>\"\n    },\n    \"generic\": {\n      \"action\": \"<string>\"\n    },\n    \"ghaArgToSink\": {\n      \"action\": \"<string>\"\n    },\n    \"ghaEnvToSink\": {\n      \"action\": \"<string>\"\n    },\n    \"ghaContextToSink\": {\n      \"action\": \"<string>\"\n    },\n    \"ghaArgToOutput\": {\n      \"action\": \"<string>\"\n    },\n    \"ghaArgToEnv\": {\n      \"action\": \"<string>\"\n    },\n    \"ghaContextToOutput\": {\n      \"action\": \"<string>\"\n    },\n    \"ghaContextToEnv\": {\n      \"action\": \"<string>\"\n    },\n    \"recentlyPublished\": {\n      \"action\": \"<string>\"\n    },\n    \"licenseSpdxDisj\": {\n      \"action\": \"<string>\"\n    },\n    \"unsafeCopyright\": {\n      \"action\": \"<string>\"\n    },\n    \"licenseChange\": {\n      \"action\": \"<string>\"\n    },\n    \"nonOSILicense\": {\n      \"action\": \"<string>\"\n    },\n    \"deprecatedLicense\": {\n      \"action\": \"<string>\"\n    },\n    \"missingLicense\": {\n      \"action\": \"<string>\"\n    },\n    \"nonSPDXLicense\": {\n      \"action\": \"<string>\"\n    },\n    \"unclearLicense\": {\n      \"action\": \"<string>\"\n    },\n    \"mixedLicense\": {\n      \"action\": \"<string>\"\n    },\n    \"notice\": {\n      \"action\": \"<string>\"\n    },\n    \"modifiedLicense\": {\n      \"action\": \"<string>\"\n    },\n    \"modifiedException\": {\n      \"action\": \"<string>\"\n    },\n    \"licenseException\": {\n      \"action\": \"<string>\"\n    },\n    \"deprecatedException\": {\n      \"action\": \"<string>\"\n    },\n    \"miscLicenseIssues\": {\n      \"action\": \"<string>\"\n    },\n    \"unidentifiedLicense\": {\n      \"action\": \"<string>\"\n    },\n    \"noLicenseFound\": {\n      \"action\": \"<string>\"\n    },\n    \"explicitlyUnlicensedItem\": {\n      \"action\": \"<string>\"\n    },\n    \"copyleftLicense\": {\n      \"action\": \"<string>\"\n    },\n    \"nonpermissiveLicense\": {\n      \"action\": \"<string>\"\n    },\n    \"ambiguousClassifier\": {\n      \"action\": \"<string>\"\n    },\n    \"invalidPackageJSON\": {\n      \"action\": \"<string>\"\n    },\n    \"httpDependency\": {\n      \"action\": \"<string>\"\n    },\n    \"gitDependency\": {\n      \"action\": \"<string>\"\n    },\n    \"gitHubDependency\": {\n      \"action\": \"<string>\"\n    },\n    \"fileDependency\": {\n      \"action\": \"<string>\"\n    },\n    \"noTests\": {\n      \"action\": \"<string>\"\n    },\n    \"noRepository\": {\n      \"action\": \"<string>\"\n    },\n    \"badSemver\": {\n      \"action\": \"<string>\"\n    },\n    \"badSemverDependency\": {\n      \"action\": \"<string>\"\n    },\n    \"noV1\": {\n      \"action\": \"<string>\"\n    },\n    \"noWebsite\": {\n      \"action\": \"<string>\"\n    },\n    \"noBugTracker\": {\n      \"action\": \"<string>\"\n    },\n    \"noAuthorData\": {\n      \"action\": \"<string>\"\n    },\n    \"typeModuleCompatibility\": {\n      \"action\": \"<string>\"\n    },\n    \"floatingDependency\": {\n      \"action\": \"<string>\"\n    },\n    \"manifestConfusion\": {\n      \"action\": \"<string>\"\n    },\n    \"malware\": {\n      \"action\": \"<string>\"\n    },\n    \"telemetry\": {\n      \"action\": \"<string>\"\n    },\n    \"troll\": {\n      \"action\": \"<string>\"\n    },\n    \"pendingScan\": {\n      \"action\": \"<string>\"\n    },\n    \"deprecated\": {\n      \"action\": \"<string>\"\n    },\n    \"chronoAnomaly\": {\n      \"action\": \"<string>\"\n    },\n    \"compromisedSSHKey\": {\n      \"action\": \"<string>\"\n    },\n    \"semverAnomaly\": {\n      \"action\": \"<string>\"\n    },\n    \"newAuthor\": {\n      \"action\": \"<string>\"\n    },\n    \"unstableOwnership\": {\n      \"action\": \"<string>\"\n    },\n    \"missingAuthor\": {\n      \"action\": \"<string>\"\n    },\n    \"unmaintained\": {\n      \"action\": \"<string>\"\n    },\n    \"unpublished\": {\n      \"action\": \"<string>\"\n    },\n    \"majorRefactor\": {\n      \"action\": \"<string>\"\n    },\n    \"missingTarball\": {\n      \"action\": \"<string>\"\n    },\n    \"suspiciousStarActivity\": {\n      \"action\": \"<string>\"\n    },\n    \"notFound\": {\n      \"action\": \"<string>\"\n    },\n    \"unpopularPackage\": {\n      \"action\": \"<string>\"\n    },\n    \"policy\": {\n      \"action\": \"<string>\"\n    },\n    \"skillAutonomyAbuse\": {\n      \"action\": \"<string>\"\n    },\n    \"skillCommandInjection\": {\n      \"action\": \"<string>\"\n    },\n    \"skillDataExfiltration\": {\n      \"action\": \"<string>\"\n    },\n    \"skillDiscoveryAbuse\": {\n      \"action\": \"<string>\"\n    },\n    \"skillHardcodedSecrets\": {\n      \"action\": \"<string>\"\n    },\n    \"skillObfuscation\": {\n      \"action\": \"<string>\"\n    },\n    \"skillPreExecution\": {\n      \"action\": \"<string>\"\n    },\n    \"skillPromptInjection\": {\n      \"action\": \"<string>\"\n    },\n    \"skillResourceAbuse\": {\n      \"action\": \"<string>\"\n    },\n    \"skillSupplyChain\": {\n      \"action\": \"<string>\"\n    },\n    \"skillToolAbuse\": {\n      \"action\": \"<string>\"\n    },\n    \"skillToolChaining\": {\n      \"action\": \"<string>\"\n    },\n    \"skillTransitiveTrust\": {\n      \"action\": \"<string>\"\n    },\n    \"socketUpgradeAvailable\": {\n      \"action\": \"<string>\"\n    },\n    \"longStrings\": {\n      \"action\": \"<string>\"\n    },\n    \"highEntropyStrings\": {\n      \"action\": \"<string>\"\n    },\n    \"urlStrings\": {\n      \"action\": \"<string>\"\n    },\n    \"usesEval\": {\n      \"action\": \"<string>\"\n    },\n    \"dynamicRequire\": {\n      \"action\": \"<string>\"\n    },\n    \"envVars\": {\n      \"action\": \"<string>\"\n    },\n    \"missingDependency\": {\n      \"action\": \"<string>\"\n    },\n    \"unusedDependency\": {\n      \"action\": \"<string>\"\n    },\n    \"peerDependency\": {\n      \"action\": \"<string>\"\n    },\n    \"uncaughtOptionalDependency\": {\n      \"action\": \"<string>\"\n    },\n    \"unresolvedRequire\": {\n      \"action\": \"<string>\"\n    },\n    \"extraneousDependency\": {\n      \"action\": \"<string>\"\n    },\n    \"obfuscatedRequire\": {\n      \"action\": \"<string>\"\n    },\n    \"obfuscatedFile\": {\n      \"action\": \"<string>\"\n    },\n    \"minifiedFile\": {\n      \"action\": \"<string>\"\n    },\n    \"installScripts\": {\n      \"action\": \"<string>\"\n    },\n    \"hasNativeCode\": {\n      \"action\": \"<string>\"\n    },\n    \"binScriptConfusion\": {\n      \"action\": \"<string>\"\n    },\n    \"shellScriptOverride\": {\n      \"action\": \"<string>\"\n    },\n    \"didYouMean\": {\n      \"action\": \"<string>\"\n    },\n    \"gptDidYouMean\": {\n      \"action\": \"<string>\"\n    },\n    \"bidi\": {\n      \"action\": \"<string>\"\n    },\n    \"zeroWidth\": {\n      \"action\": \"<string>\"\n    },\n    \"badEncoding\": {\n      \"action\": \"<string>\"\n    },\n    \"homoglyphs\": {\n      \"action\": \"<string>\"\n    },\n    \"invisibleChars\": {\n      \"action\": \"<string>\"\n    },\n    \"suspiciousString\": {\n      \"action\": \"<string>\"\n    },\n    \"potentialVulnerability\": {\n      \"action\": \"<string>\"\n    },\n    \"vsxProposedApiUsage\": {\n      \"action\": \"<string>\"\n    },\n    \"vsxActivationWildcard\": {\n      \"action\": \"<string>\"\n    },\n    \"vsxWorkspaceContainsActivation\": {\n      \"action\": \"<string>\"\n    },\n    \"vsxUntrustedWorkspaceSupported\": {\n      \"action\": \"<string>\"\n    },\n    \"vsxVirtualWorkspaceSupported\": {\n      \"action\": \"<string>\"\n    },\n    \"vsxWebviewContribution\": {\n      \"action\": \"<string>\"\n    },\n    \"vsxDebuggerContribution\": {\n      \"action\": \"<string>\"\n    },\n    \"vsxExtensionDependency\": {\n      \"action\": \"<string>\"\n    },\n    \"vsxExtensionPack\": {\n      \"action\": \"<string>\"\n    }\n  },\n  \"resetPolicyRules\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"details\": null,\n    \"message\": \"\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1480a2f5-14a5-4878-b005-1f1cafac3b3c",
+              "name": "Resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    ":org_slug",
+                    "settings",
+                    "security-policy"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "custom_rules_only",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "org_slug",
+                      "description": "(Required) The slug of the organization"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"policyDefault\": \"<string>\",\n  \"policyRules\": {\n    \"gptSecurity\": {\n      \"action\": \"<string>\"\n    },\n    \"gptAnomaly\": {\n      \"action\": \"<string>\"\n    },\n    \"gptMalware\": {\n      \"action\": \"<string>\"\n    },\n    \"filesystemAccess\": {\n      \"action\": \"<string>\"\n    },\n    \"networkAccess\": {\n      \"action\": \"<string>\"\n    },\n    \"shellAccess\": {\n      \"action\": \"<string>\"\n    },\n    \"debugAccess\": {\n      \"action\": \"<string>\"\n    },\n    \"chromePermission\": {\n      \"action\": \"<string>\"\n    },\n    \"chromeHostPermission\": {\n      \"action\": \"<string>\"\n    },\n    \"chromeWildcardHostPermission\": {\n      \"action\": \"<string>\"\n    },\n    \"chromeContentScript\": {\n      \"action\": \"<string>\"\n    },\n    \"criticalCVE\": {\n      \"action\": \"<string>\"\n    },\n    \"cve\": {\n      \"action\": \"<string>\"\n    },\n    \"mediumCVE\": {\n      \"action\": \"<string>\"\n    },\n    \"mildCVE\": {\n      \"action\": \"<string>\"\n    },\n    \"emptyPackage\": {\n      \"action\": \"<string>\"\n    },\n    \"trivialPackage\": {\n      \"action\": \"<string>\"\n    },\n    \"noREADME\": {\n      \"action\": \"<string>\"\n    },\n    \"missingLockfile\": {\n      \"action\": \"<string>\"\n    },\n    \"oversizedManifest\": {\n      \"action\": \"<string>\"\n    },\n    \"shrinkwrap\": {\n      \"action\": \"<string>\"\n    },\n    \"tooManyFiles\": {\n      \"action\": \"<string>\"\n    },\n    \"generic\": {\n      \"action\": \"<string>\"\n    },\n    \"ghaArgToSink\": {\n      \"action\": \"<string>\"\n    },\n    \"ghaEnvToSink\": {\n      \"action\": \"<string>\"\n    },\n    \"ghaContextToSink\": {\n      \"action\": \"<string>\"\n    },\n    \"ghaArgToOutput\": {\n      \"action\": \"<string>\"\n    },\n    \"ghaArgToEnv\": {\n      \"action\": \"<string>\"\n    },\n    \"ghaContextToOutput\": {\n      \"action\": \"<string>\"\n    },\n    \"ghaContextToEnv\": {\n      \"action\": \"<string>\"\n    },\n    \"recentlyPublished\": {\n      \"action\": \"<string>\"\n    },\n    \"licenseSpdxDisj\": {\n      \"action\": \"<string>\"\n    },\n    \"unsafeCopyright\": {\n      \"action\": \"<string>\"\n    },\n    \"licenseChange\": {\n      \"action\": \"<string>\"\n    },\n    \"nonOSILicense\": {\n      \"action\": \"<string>\"\n    },\n    \"deprecatedLicense\": {\n      \"action\": \"<string>\"\n    },\n    \"missingLicense\": {\n      \"action\": \"<string>\"\n    },\n    \"nonSPDXLicense\": {\n      \"action\": \"<string>\"\n    },\n    \"unclearLicense\": {\n      \"action\": \"<string>\"\n    },\n    \"mixedLicense\": {\n      \"action\": \"<string>\"\n    },\n    \"notice\": {\n      \"action\": \"<string>\"\n    },\n    \"modifiedLicense\": {\n      \"action\": \"<string>\"\n    },\n    \"modifiedException\": {\n      \"action\": \"<string>\"\n    },\n    \"licenseException\": {\n      \"action\": \"<string>\"\n    },\n    \"deprecatedException\": {\n      \"action\": \"<string>\"\n    },\n    \"miscLicenseIssues\": {\n      \"action\": \"<string>\"\n    },\n    \"unidentifiedLicense\": {\n      \"action\": \"<string>\"\n    },\n    \"noLicenseFound\": {\n      \"action\": \"<string>\"\n    },\n    \"explicitlyUnlicensedItem\": {\n      \"action\": \"<string>\"\n    },\n    \"copyleftLicense\": {\n      \"action\": \"<string>\"\n    },\n    \"nonpermissiveLicense\": {\n      \"action\": \"<string>\"\n    },\n    \"ambiguousClassifier\": {\n      \"action\": \"<string>\"\n    },\n    \"invalidPackageJSON\": {\n      \"action\": \"<string>\"\n    },\n    \"httpDependency\": {\n      \"action\": \"<string>\"\n    },\n    \"gitDependency\": {\n      \"action\": \"<string>\"\n    },\n    \"gitHubDependency\": {\n      \"action\": \"<string>\"\n    },\n    \"fileDependency\": {\n      \"action\": \"<string>\"\n    },\n    \"noTests\": {\n      \"action\": \"<string>\"\n    },\n    \"noRepository\": {\n      \"action\": \"<string>\"\n    },\n    \"badSemver\": {\n      \"action\": \"<string>\"\n    },\n    \"badSemverDependency\": {\n      \"action\": \"<string>\"\n    },\n    \"noV1\": {\n      \"action\": \"<string>\"\n    },\n    \"noWebsite\": {\n      \"action\": \"<string>\"\n    },\n    \"noBugTracker\": {\n      \"action\": \"<string>\"\n    },\n    \"noAuthorData\": {\n      \"action\": \"<string>\"\n    },\n    \"typeModuleCompatibility\": {\n      \"action\": \"<string>\"\n    },\n    \"floatingDependency\": {\n      \"action\": \"<string>\"\n    },\n    \"manifestConfusion\": {\n      \"action\": \"<string>\"\n    },\n    \"malware\": {\n      \"action\": \"<string>\"\n    },\n    \"telemetry\": {\n      \"action\": \"<string>\"\n    },\n    \"troll\": {\n      \"action\": \"<string>\"\n    },\n    \"pendingScan\": {\n      \"action\": \"<string>\"\n    },\n    \"deprecated\": {\n      \"action\": \"<string>\"\n    },\n    \"chronoAnomaly\": {\n      \"action\": \"<string>\"\n    },\n    \"compromisedSSHKey\": {\n      \"action\": \"<string>\"\n    },\n    \"semverAnomaly\": {\n      \"action\": \"<string>\"\n    },\n    \"newAuthor\": {\n      \"action\": \"<string>\"\n    },\n    \"unstableOwnership\": {\n      \"action\": \"<string>\"\n    },\n    \"missingAuthor\": {\n      \"action\": \"<string>\"\n    },\n    \"unmaintained\": {\n      \"action\": \"<string>\"\n    },\n    \"unpublished\": {\n      \"action\": \"<string>\"\n    },\n    \"majorRefactor\": {\n      \"action\": \"<string>\"\n    },\n    \"missingTarball\": {\n      \"action\": \"<string>\"\n    },\n    \"suspiciousStarActivity\": {\n      \"action\": \"<string>\"\n    },\n    \"notFound\": {\n      \"action\": \"<string>\"\n    },\n    \"unpopularPackage\": {\n      \"action\": \"<string>\"\n    },\n    \"policy\": {\n      \"action\": \"<string>\"\n    },\n    \"skillAutonomyAbuse\": {\n      \"action\": \"<string>\"\n    },\n    \"skillCommandInjection\": {\n      \"action\": \"<string>\"\n    },\n    \"skillDataExfiltration\": {\n      \"action\": \"<string>\"\n    },\n    \"skillDiscoveryAbuse\": {\n      \"action\": \"<string>\"\n    },\n    \"skillHardcodedSecrets\": {\n      \"action\": \"<string>\"\n    },\n    \"skillObfuscation\": {\n      \"action\": \"<string>\"\n    },\n    \"skillPreExecution\": {\n      \"action\": \"<string>\"\n    },\n    \"skillPromptInjection\": {\n      \"action\": \"<string>\"\n    },\n    \"skillResourceAbuse\": {\n      \"action\": \"<string>\"\n    },\n    \"skillSupplyChain\": {\n      \"action\": \"<string>\"\n    },\n    \"skillToolAbuse\": {\n      \"action\": \"<string>\"\n    },\n    \"skillToolChaining\": {\n      \"action\": \"<string>\"\n    },\n    \"skillTransitiveTrust\": {\n      \"action\": \"<string>\"\n    },\n    \"socketUpgradeAvailable\": {\n      \"action\": \"<string>\"\n    },\n    \"longStrings\": {\n      \"action\": \"<string>\"\n    },\n    \"highEntropyStrings\": {\n      \"action\": \"<string>\"\n    },\n    \"urlStrings\": {\n      \"action\": \"<string>\"\n    },\n    \"usesEval\": {\n      \"action\": \"<string>\"\n    },\n    \"dynamicRequire\": {\n      \"action\": \"<string>\"\n    },\n    \"envVars\": {\n      \"action\": \"<string>\"\n    },\n    \"missingDependency\": {\n      \"action\": \"<string>\"\n    },\n    \"unusedDependency\": {\n      \"action\": \"<string>\"\n    },\n    \"peerDependency\": {\n      \"action\": \"<string>\"\n    },\n    \"uncaughtOptionalDependency\": {\n      \"action\": \"<string>\"\n    },\n    \"unresolvedRequire\": {\n      \"action\": \"<string>\"\n    },\n    \"extraneousDependency\": {\n      \"action\": \"<string>\"\n    },\n    \"obfuscatedRequire\": {\n      \"action\": \"<string>\"\n    },\n    \"obfuscatedFile\": {\n      \"action\": \"<string>\"\n    },\n    \"minifiedFile\": {\n      \"action\": \"<string>\"\n    },\n    \"installScripts\": {\n      \"action\": \"<string>\"\n    },\n    \"hasNativeCode\": {\n      \"action\": \"<string>\"\n    },\n    \"binScriptConfusion\": {\n      \"action\": \"<string>\"\n    },\n    \"shellScriptOverride\": {\n      \"action\": \"<string>\"\n    },\n    \"didYouMean\": {\n      \"action\": \"<string>\"\n    },\n    \"gptDidYouMean\": {\n      \"action\": \"<string>\"\n    },\n    \"bidi\": {\n      \"action\": \"<string>\"\n    },\n    \"zeroWidth\": {\n      \"action\": \"<string>\"\n    },\n    \"badEncoding\": {\n      \"action\": \"<string>\"\n    },\n    \"homoglyphs\": {\n      \"action\": \"<string>\"\n    },\n    \"invisibleChars\": {\n      \"action\": \"<string>\"\n    },\n    \"suspiciousString\": {\n      \"action\": \"<string>\"\n    },\n    \"potentialVulnerability\": {\n      \"action\": \"<string>\"\n    },\n    \"vsxProposedApiUsage\": {\n      \"action\": \"<string>\"\n    },\n    \"vsxActivationWildcard\": {\n      \"action\": \"<string>\"\n    },\n    \"vsxWorkspaceContainsActivation\": {\n      \"action\": \"<string>\"\n    },\n    \"vsxUntrustedWorkspaceSupported\": {\n      \"action\": \"<string>\"\n    },\n    \"vsxVirtualWorkspaceSupported\": {\n      \"action\": \"<string>\"\n    },\n    \"vsxWebviewContribution\": {\n      \"action\": \"<string>\"\n    },\n    \"vsxDebuggerContribution\": {\n      \"action\": \"<string>\"\n    },\n    \"vsxExtensionDependency\": {\n      \"action\": \"<string>\"\n    },\n    \"vsxExtensionPack\": {\n      \"action\": \"<string>\"\n    }\n  },\n  \"resetPolicyRules\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"details\": null,\n    \"message\": \"\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "51161281-b0fc-4e76-a833-df90bd4bc267",
+              "name": "Resource already exists",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    ":org_slug",
+                    "settings",
+                    "security-policy"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "custom_rules_only",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "org_slug",
+                      "description": "(Required) The slug of the organization"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"policyDefault\": \"<string>\",\n  \"policyRules\": {\n    \"gptSecurity\": {\n      \"action\": \"<string>\"\n    },\n    \"gptAnomaly\": {\n      \"action\": \"<string>\"\n    },\n    \"gptMalware\": {\n      \"action\": \"<string>\"\n    },\n    \"filesystemAccess\": {\n      \"action\": \"<string>\"\n    },\n    \"networkAccess\": {\n      \"action\": \"<string>\"\n    },\n    \"shellAccess\": {\n      \"action\": \"<string>\"\n    },\n    \"debugAccess\": {\n      \"action\": \"<string>\"\n    },\n    \"chromePermission\": {\n      \"action\": \"<string>\"\n    },\n    \"chromeHostPermission\": {\n      \"action\": \"<string>\"\n    },\n    \"chromeWildcardHostPermission\": {\n      \"action\": \"<string>\"\n    },\n    \"chromeContentScript\": {\n      \"action\": \"<string>\"\n    },\n    \"criticalCVE\": {\n      \"action\": \"<string>\"\n    },\n    \"cve\": {\n      \"action\": \"<string>\"\n    },\n    \"mediumCVE\": {\n      \"action\": \"<string>\"\n    },\n    \"mildCVE\": {\n      \"action\": \"<string>\"\n    },\n    \"emptyPackage\": {\n      \"action\": \"<string>\"\n    },\n    \"trivialPackage\": {\n      \"action\": \"<string>\"\n    },\n    \"noREADME\": {\n      \"action\": \"<string>\"\n    },\n    \"missingLockfile\": {\n      \"action\": \"<string>\"\n    },\n    \"oversizedManifest\": {\n      \"action\": \"<string>\"\n    },\n    \"shrinkwrap\": {\n      \"action\": \"<string>\"\n    },\n    \"tooManyFiles\": {\n      \"action\": \"<string>\"\n    },\n    \"generic\": {\n      \"action\": \"<string>\"\n    },\n    \"ghaArgToSink\": {\n      \"action\": \"<string>\"\n    },\n    \"ghaEnvToSink\": {\n      \"action\": \"<string>\"\n    },\n    \"ghaContextToSink\": {\n      \"action\": \"<string>\"\n    },\n    \"ghaArgToOutput\": {\n      \"action\": \"<string>\"\n    },\n    \"ghaArgToEnv\": {\n      \"action\": \"<string>\"\n    },\n    \"ghaContextToOutput\": {\n      \"action\": \"<string>\"\n    },\n    \"ghaContextToEnv\": {\n      \"action\": \"<string>\"\n    },\n    \"recentlyPublished\": {\n      \"action\": \"<string>\"\n    },\n    \"licenseSpdxDisj\": {\n      \"action\": \"<string>\"\n    },\n    \"unsafeCopyright\": {\n      \"action\": \"<string>\"\n    },\n    \"licenseChange\": {\n      \"action\": \"<string>\"\n    },\n    \"nonOSILicense\": {\n      \"action\": \"<string>\"\n    },\n    \"deprecatedLicense\": {\n      \"action\": \"<string>\"\n    },\n    \"missingLicense\": {\n      \"action\": \"<string>\"\n    },\n    \"nonSPDXLicense\": {\n      \"action\": \"<string>\"\n    },\n    \"unclearLicense\": {\n      \"action\": \"<string>\"\n    },\n    \"mixedLicense\": {\n      \"action\": \"<string>\"\n    },\n    \"notice\": {\n      \"action\": \"<string>\"\n    },\n    \"modifiedLicense\": {\n      \"action\": \"<string>\"\n    },\n    \"modifiedException\": {\n      \"action\": \"<string>\"\n    },\n    \"licenseException\": {\n      \"action\": \"<string>\"\n    },\n    \"deprecatedException\": {\n      \"action\": \"<string>\"\n    },\n    \"miscLicenseIssues\": {\n      \"action\": \"<string>\"\n    },\n    \"unidentifiedLicense\": {\n      \"action\": \"<string>\"\n    },\n    \"noLicenseFound\": {\n      \"action\": \"<string>\"\n    },\n    \"explicitlyUnlicensedItem\": {\n      \"action\": \"<string>\"\n    },\n    \"copyleftLicense\": {\n      \"action\": \"<string>\"\n    },\n    \"nonpermissiveLicense\": {\n      \"action\": \"<string>\"\n    },\n    \"ambiguousClassifier\": {\n      \"action\": \"<string>\"\n    },\n    \"invalidPackageJSON\": {\n      \"action\": \"<string>\"\n    },\n    \"httpDependency\": {\n      \"action\": \"<string>\"\n    },\n    \"gitDependency\": {\n      \"action\": \"<string>\"\n    },\n    \"gitHubDependency\": {\n      \"action\": \"<string>\"\n    },\n    \"fileDependency\": {\n      \"action\": \"<string>\"\n    },\n    \"noTests\": {\n      \"action\": \"<string>\"\n    },\n    \"noRepository\": {\n      \"action\": \"<string>\"\n    },\n    \"badSemver\": {\n      \"action\": \"<string>\"\n    },\n    \"badSemverDependency\": {\n      \"action\": \"<string>\"\n    },\n    \"noV1\": {\n      \"action\": \"<string>\"\n    },\n    \"noWebsite\": {\n      \"action\": \"<string>\"\n    },\n    \"noBugTracker\": {\n      \"action\": \"<string>\"\n    },\n    \"noAuthorData\": {\n      \"action\": \"<string>\"\n    },\n    \"typeModuleCompatibility\": {\n      \"action\": \"<string>\"\n    },\n    \"floatingDependency\": {\n      \"action\": \"<string>\"\n    },\n    \"manifestConfusion\": {\n      \"action\": \"<string>\"\n    },\n    \"malware\": {\n      \"action\": \"<string>\"\n    },\n    \"telemetry\": {\n      \"action\": \"<string>\"\n    },\n    \"troll\": {\n      \"action\": \"<string>\"\n    },\n    \"pendingScan\": {\n      \"action\": \"<string>\"\n    },\n    \"deprecated\": {\n      \"action\": \"<string>\"\n    },\n    \"chronoAnomaly\": {\n      \"action\": \"<string>\"\n    },\n    \"compromisedSSHKey\": {\n      \"action\": \"<string>\"\n    },\n    \"semverAnomaly\": {\n      \"action\": \"<string>\"\n    },\n    \"newAuthor\": {\n      \"action\": \"<string>\"\n    },\n    \"unstableOwnership\": {\n      \"action\": \"<string>\"\n    },\n    \"missingAuthor\": {\n      \"action\": \"<string>\"\n    },\n    \"unmaintained\": {\n      \"action\": \"<string>\"\n    },\n    \"unpublished\": {\n      \"action\": \"<string>\"\n    },\n    \"majorRefactor\": {\n      \"action\": \"<string>\"\n    },\n    \"missingTarball\": {\n      \"action\": \"<string>\"\n    },\n    \"suspiciousStarActivity\": {\n      \"action\": \"<string>\"\n    },\n    \"notFound\": {\n      \"action\": \"<string>\"\n    },\n    \"unpopularPackage\": {\n      \"action\": \"<string>\"\n    },\n    \"policy\": {\n      \"action\": \"<string>\"\n    },\n    \"skillAutonomyAbuse\": {\n      \"action\": \"<string>\"\n    },\n    \"skillCommandInjection\": {\n      \"action\": \"<string>\"\n    },\n    \"skillDataExfiltration\": {\n      \"action\": \"<string>\"\n    },\n    \"skillDiscoveryAbuse\": {\n      \"action\": \"<string>\"\n    },\n    \"skillHardcodedSecrets\": {\n      \"action\": \"<string>\"\n    },\n    \"skillObfuscation\": {\n      \"action\": \"<string>\"\n    },\n    \"skillPreExecution\": {\n      \"action\": \"<string>\"\n    },\n    \"skillPromptInjection\": {\n      \"action\": \"<string>\"\n    },\n    \"skillResourceAbuse\": {\n      \"action\": \"<string>\"\n    },\n    \"skillSupplyChain\": {\n      \"action\": \"<string>\"\n    },\n    \"skillToolAbuse\": {\n      \"action\": \"<string>\"\n    },\n    \"skillToolChaining\": {\n      \"action\": \"<string>\"\n    },\n    \"skillTransitiveTrust\": {\n      \"action\": \"<string>\"\n    },\n    \"socketUpgradeAvailable\": {\n      \"action\": \"<string>\"\n    },\n    \"longStrings\": {\n      \"action\": \"<string>\"\n    },\n    \"highEntropyStrings\": {\n      \"action\": \"<string>\"\n    },\n    \"urlStrings\": {\n      \"action\": \"<string>\"\n    },\n    \"usesEval\": {\n      \"action\": \"<string>\"\n    },\n    \"dynamicRequire\": {\n      \"action\": \"<string>\"\n    },\n    \"envVars\": {\n      \"action\": \"<string>\"\n    },\n    \"missingDependency\": {\n      \"action\": \"<string>\"\n    },\n    \"unusedDependency\": {\n      \"action\": \"<string>\"\n    },\n    \"peerDependency\": {\n      \"action\": \"<string>\"\n    },\n    \"uncaughtOptionalDependency\": {\n      \"action\": \"<string>\"\n    },\n    \"unresolvedRequire\": {\n      \"action\": \"<string>\"\n    },\n    \"extraneousDependency\": {\n      \"action\": \"<string>\"\n    },\n    \"obfuscatedRequire\": {\n      \"action\": \"<string>\"\n    },\n    \"obfuscatedFile\": {\n      \"action\": \"<string>\"\n    },\n    \"minifiedFile\": {\n      \"action\": \"<string>\"\n    },\n    \"installScripts\": {\n      \"action\": \"<string>\"\n    },\n    \"hasNativeCode\": {\n      \"action\": \"<string>\"\n    },\n    \"binScriptConfusion\": {\n      \"action\": \"<string>\"\n    },\n    \"shellScriptOverride\": {\n      \"action\": \"<string>\"\n    },\n    \"didYouMean\": {\n      \"action\": \"<string>\"\n    },\n    \"gptDidYouMean\": {\n      \"action\": \"<string>\"\n    },\n    \"bidi\": {\n      \"action\": \"<string>\"\n    },\n    \"zeroWidth\": {\n      \"action\": \"<string>\"\n    },\n    \"badEncoding\": {\n      \"action\": \"<string>\"\n    },\n    \"homoglyphs\": {\n      \"action\": \"<string>\"\n    },\n    \"invisibleChars\": {\n      \"action\": \"<string>\"\n    },\n    \"suspiciousString\": {\n      \"action\": \"<string>\"\n    },\n    \"potentialVulnerability\": {\n      \"action\": \"<string>\"\n    },\n    \"vsxProposedApiUsage\": {\n      \"action\": \"<string>\"\n    },\n    \"vsxActivationWildcard\": {\n      \"action\": \"<string>\"\n    },\n    \"vsxWorkspaceContainsActivation\": {\n      \"action\": \"<string>\"\n    },\n    \"vsxUntrustedWorkspaceSupported\": {\n      \"action\": \"<string>\"\n    },\n    \"vsxVirtualWorkspaceSupported\": {\n      \"action\": \"<string>\"\n    },\n    \"vsxWebviewContribution\": {\n      \"action\": \"<string>\"\n    },\n    \"vsxDebuggerContribution\": {\n      \"action\": \"<string>\"\n    },\n    \"vsxExtensionDependency\": {\n      \"action\": \"<string>\"\n    },\n    \"vsxExtensionPack\": {\n      \"action\": \"<string>\"\n    }\n  },\n  \"resetPolicyRules\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"details\": null,\n    \"message\": \"\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a00e9003-8f8d-4612-aa78-d6a7c8c63d21",
+              "name": "Insufficient quota for API route",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    ":org_slug",
+                    "settings",
+                    "security-policy"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "custom_rules_only",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "org_slug",
+                      "description": "(Required) The slug of the organization"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"policyDefault\": \"<string>\",\n  \"policyRules\": {\n    \"gptSecurity\": {\n      \"action\": \"<string>\"\n    },\n    \"gptAnomaly\": {\n      \"action\": \"<string>\"\n    },\n    \"gptMalware\": {\n      \"action\": \"<string>\"\n    },\n    \"filesystemAccess\": {\n      \"action\": \"<string>\"\n    },\n    \"networkAccess\": {\n      \"action\": \"<string>\"\n    },\n    \"shellAccess\": {\n      \"action\": \"<string>\"\n    },\n    \"debugAccess\": {\n      \"action\": \"<string>\"\n    },\n    \"chromePermission\": {\n      \"action\": \"<string>\"\n    },\n    \"chromeHostPermission\": {\n      \"action\": \"<string>\"\n    },\n    \"chromeWildcardHostPermission\": {\n      \"action\": \"<string>\"\n    },\n    \"chromeContentScript\": {\n      \"action\": \"<string>\"\n    },\n    \"criticalCVE\": {\n      \"action\": \"<string>\"\n    },\n    \"cve\": {\n      \"action\": \"<string>\"\n    },\n    \"mediumCVE\": {\n      \"action\": \"<string>\"\n    },\n    \"mildCVE\": {\n      \"action\": \"<string>\"\n    },\n    \"emptyPackage\": {\n      \"action\": \"<string>\"\n    },\n    \"trivialPackage\": {\n      \"action\": \"<string>\"\n    },\n    \"noREADME\": {\n      \"action\": \"<string>\"\n    },\n    \"missingLockfile\": {\n      \"action\": \"<string>\"\n    },\n    \"oversizedManifest\": {\n      \"action\": \"<string>\"\n    },\n    \"shrinkwrap\": {\n      \"action\": \"<string>\"\n    },\n    \"tooManyFiles\": {\n      \"action\": \"<string>\"\n    },\n    \"generic\": {\n      \"action\": \"<string>\"\n    },\n    \"ghaArgToSink\": {\n      \"action\": \"<string>\"\n    },\n    \"ghaEnvToSink\": {\n      \"action\": \"<string>\"\n    },\n    \"ghaContextToSink\": {\n      \"action\": \"<string>\"\n    },\n    \"ghaArgToOutput\": {\n      \"action\": \"<string>\"\n    },\n    \"ghaArgToEnv\": {\n      \"action\": \"<string>\"\n    },\n    \"ghaContextToOutput\": {\n      \"action\": \"<string>\"\n    },\n    \"ghaContextToEnv\": {\n      \"action\": \"<string>\"\n    },\n    \"recentlyPublished\": {\n      \"action\": \"<string>\"\n    },\n    \"licenseSpdxDisj\": {\n      \"action\": \"<string>\"\n    },\n    \"unsafeCopyright\": {\n      \"action\": \"<string>\"\n    },\n    \"licenseChange\": {\n      \"action\": \"<string>\"\n    },\n    \"nonOSILicense\": {\n      \"action\": \"<string>\"\n    },\n    \"deprecatedLicense\": {\n      \"action\": \"<string>\"\n    },\n    \"missingLicense\": {\n      \"action\": \"<string>\"\n    },\n    \"nonSPDXLicense\": {\n      \"action\": \"<string>\"\n    },\n    \"unclearLicense\": {\n      \"action\": \"<string>\"\n    },\n    \"mixedLicense\": {\n      \"action\": \"<string>\"\n    },\n    \"notice\": {\n      \"action\": \"<string>\"\n    },\n    \"modifiedLicense\": {\n      \"action\": \"<string>\"\n    },\n    \"modifiedException\": {\n      \"action\": \"<string>\"\n    },\n    \"licenseException\": {\n      \"action\": \"<string>\"\n    },\n    \"deprecatedException\": {\n      \"action\": \"<string>\"\n    },\n    \"miscLicenseIssues\": {\n      \"action\": \"<string>\"\n    },\n    \"unidentifiedLicense\": {\n      \"action\": \"<string>\"\n    },\n    \"noLicenseFound\": {\n      \"action\": \"<string>\"\n    },\n    \"explicitlyUnlicensedItem\": {\n      \"action\": \"<string>\"\n    },\n    \"copyleftLicense\": {\n      \"action\": \"<string>\"\n    },\n    \"nonpermissiveLicense\": {\n      \"action\": \"<string>\"\n    },\n    \"ambiguousClassifier\": {\n      \"action\": \"<string>\"\n    },\n    \"invalidPackageJSON\": {\n      \"action\": \"<string>\"\n    },\n    \"httpDependency\": {\n      \"action\": \"<string>\"\n    },\n    \"gitDependency\": {\n      \"action\": \"<string>\"\n    },\n    \"gitHubDependency\": {\n      \"action\": \"<string>\"\n    },\n    \"fileDependency\": {\n      \"action\": \"<string>\"\n    },\n    \"noTests\": {\n      \"action\": \"<string>\"\n    },\n    \"noRepository\": {\n      \"action\": \"<string>\"\n    },\n    \"badSemver\": {\n      \"action\": \"<string>\"\n    },\n    \"badSemverDependency\": {\n      \"action\": \"<string>\"\n    },\n    \"noV1\": {\n      \"action\": \"<string>\"\n    },\n    \"noWebsite\": {\n      \"action\": \"<string>\"\n    },\n    \"noBugTracker\": {\n      \"action\": \"<string>\"\n    },\n    \"noAuthorData\": {\n      \"action\": \"<string>\"\n    },\n    \"typeModuleCompatibility\": {\n      \"action\": \"<string>\"\n    },\n    \"floatingDependency\": {\n      \"action\": \"<string>\"\n    },\n    \"manifestConfusion\": {\n      \"action\": \"<string>\"\n    },\n    \"malware\": {\n      \"action\": \"<string>\"\n    },\n    \"telemetry\": {\n      \"action\": \"<string>\"\n    },\n    \"troll\": {\n      \"action\": \"<string>\"\n    },\n    \"pendingScan\": {\n      \"action\": \"<string>\"\n    },\n    \"deprecated\": {\n      \"action\": \"<string>\"\n    },\n    \"chronoAnomaly\": {\n      \"action\": \"<string>\"\n    },\n    \"compromisedSSHKey\": {\n      \"action\": \"<string>\"\n    },\n    \"semverAnomaly\": {\n      \"action\": \"<string>\"\n    },\n    \"newAuthor\": {\n      \"action\": \"<string>\"\n    },\n    \"unstableOwnership\": {\n      \"action\": \"<string>\"\n    },\n    \"missingAuthor\": {\n      \"action\": \"<string>\"\n    },\n    \"unmaintained\": {\n      \"action\": \"<string>\"\n    },\n    \"unpublished\": {\n      \"action\": \"<string>\"\n    },\n    \"majorRefactor\": {\n      \"action\": \"<string>\"\n    },\n    \"missingTarball\": {\n      \"action\": \"<string>\"\n    },\n    \"suspiciousStarActivity\": {\n      \"action\": \"<string>\"\n    },\n    \"notFound\": {\n      \"action\": \"<string>\"\n    },\n    \"unpopularPackage\": {\n      \"action\": \"<string>\"\n    },\n    \"policy\": {\n      \"action\": \"<string>\"\n    },\n    \"skillAutonomyAbuse\": {\n      \"action\": \"<string>\"\n    },\n    \"skillCommandInjection\": {\n      \"action\": \"<string>\"\n    },\n    \"skillDataExfiltration\": {\n      \"action\": \"<string>\"\n    },\n    \"skillDiscoveryAbuse\": {\n      \"action\": \"<string>\"\n    },\n    \"skillHardcodedSecrets\": {\n      \"action\": \"<string>\"\n    },\n    \"skillObfuscation\": {\n      \"action\": \"<string>\"\n    },\n    \"skillPreExecution\": {\n      \"action\": \"<string>\"\n    },\n    \"skillPromptInjection\": {\n      \"action\": \"<string>\"\n    },\n    \"skillResourceAbuse\": {\n      \"action\": \"<string>\"\n    },\n    \"skillSupplyChain\": {\n      \"action\": \"<string>\"\n    },\n    \"skillToolAbuse\": {\n      \"action\": \"<string>\"\n    },\n    \"skillToolChaining\": {\n      \"action\": \"<string>\"\n    },\n    \"skillTransitiveTrust\": {\n      \"action\": \"<string>\"\n    },\n    \"socketUpgradeAvailable\": {\n      \"action\": \"<string>\"\n    },\n    \"longStrings\": {\n      \"action\": \"<string>\"\n    },\n    \"highEntropyStrings\": {\n      \"action\": \"<string>\"\n    },\n    \"urlStrings\": {\n      \"action\": \"<string>\"\n    },\n    \"usesEval\": {\n      \"action\": \"<string>\"\n    },\n    \"dynamicRequire\": {\n      \"action\": \"<string>\"\n    },\n    \"envVars\": {\n      \"action\": \"<string>\"\n    },\n    \"missingDependency\": {\n      \"action\": \"<string>\"\n    },\n    \"unusedDependency\": {\n      \"action\": \"<string>\"\n    },\n    \"peerDependency\": {\n      \"action\": \"<string>\"\n    },\n    \"uncaughtOptionalDependency\": {\n      \"action\": \"<string>\"\n    },\n    \"unresolvedRequire\": {\n      \"action\": \"<string>\"\n    },\n    \"extraneousDependency\": {\n      \"action\": \"<string>\"\n    },\n    \"obfuscatedRequire\": {\n      \"action\": \"<string>\"\n    },\n    \"obfuscatedFile\": {\n      \"action\": \"<string>\"\n    },\n    \"minifiedFile\": {\n      \"action\": \"<string>\"\n    },\n    \"installScripts\": {\n      \"action\": \"<string>\"\n    },\n    \"hasNativeCode\": {\n      \"action\": \"<string>\"\n    },\n    \"binScriptConfusion\": {\n      \"action\": \"<string>\"\n    },\n    \"shellScriptOverride\": {\n      \"action\": \"<string>\"\n    },\n    \"didYouMean\": {\n      \"action\": \"<string>\"\n    },\n    \"gptDidYouMean\": {\n      \"action\": \"<string>\"\n    },\n    \"bidi\": {\n      \"action\": \"<string>\"\n    },\n    \"zeroWidth\": {\n      \"action\": \"<string>\"\n    },\n    \"badEncoding\": {\n      \"action\": \"<string>\"\n    },\n    \"homoglyphs\": {\n      \"action\": \"<string>\"\n    },\n    \"invisibleChars\": {\n      \"action\": \"<string>\"\n    },\n    \"suspiciousString\": {\n      \"action\": \"<string>\"\n    },\n    \"potentialVulnerability\": {\n      \"action\": \"<string>\"\n    },\n    \"vsxProposedApiUsage\": {\n      \"action\": \"<string>\"\n    },\n    \"vsxActivationWildcard\": {\n      \"action\": \"<string>\"\n    },\n    \"vsxWorkspaceContainsActivation\": {\n      \"action\": \"<string>\"\n    },\n    \"vsxUntrustedWorkspaceSupported\": {\n      \"action\": \"<string>\"\n    },\n    \"vsxVirtualWorkspaceSupported\": {\n      \"action\": \"<string>\"\n    },\n    \"vsxWebviewContribution\": {\n      \"action\": \"<string>\"\n    },\n    \"vsxDebuggerContribution\": {\n      \"action\": \"<string>\"\n    },\n    \"vsxExtensionDependency\": {\n      \"action\": \"<string>\"\n    },\n    \"vsxExtensionPack\": {\n      \"action\": \"<string>\"\n    }\n  },\n  \"resetPolicyRules\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Retry contacting the endpoint *at least* after seconds.\nSee https://tools.ietf.org/html/rfc7231#section-7.1.3",
+                  "key": "Retry-After",
+                  "value": "7461"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"details\": null,\n    \"message\": \"\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.socket.dev/v0",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "e0e5f3c7-7f36-4ef1-8dbf-06f56eb72df6",
+    "name": "API Endpoints alerts security-policy API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Specification of the Socket API endpoints",
+      "type": "text/plain"
+    }
+  }
+}

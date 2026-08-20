@@ -54,6 +54,8 @@ apis:
   humanURL: https://docs.socket.dev
   baseURL: https://api.socket.dev/v0
   tags:
+  - Alerts
+  tags_raw:
   - alerts
   properties:
   - type: OpenAPI
@@ -68,6 +70,8 @@ apis:
   humanURL: https://docs.socket.dev
   baseURL: https://api.socket.dev/v0
   tags:
+  - API Tokens
+  tags_raw:
   - api-tokens
   properties:
   - type: OpenAPI
@@ -82,6 +86,8 @@ apis:
   humanURL: https://docs.socket.dev
   baseURL: https://api.socket.dev/v0
   tags:
+  - Audit Log
+  tags_raw:
   - audit-log
   properties:
   - type: OpenAPI
@@ -96,6 +102,8 @@ apis:
   humanURL: https://docs.socket.dev
   baseURL: https://api.socket.dev/v0
   tags:
+  - Dependencies
+  tags_raw:
   - dependencies
   properties:
   - type: OpenAPI
@@ -110,6 +118,8 @@ apis:
   humanURL: https://docs.socket.dev
   baseURL: https://api.socket.dev/v0
   tags:
+  - Deprecated
+  tags_raw:
   - deprecated
   properties:
   - type: OpenAPI
@@ -138,6 +148,8 @@ apis:
   humanURL: https://docs.socket.dev
   baseURL: https://api.socket.dev/v0
   tags:
+  - Fixes
+  tags_raw:
   - fixes
   properties:
   - type: OpenAPI
@@ -180,6 +192,8 @@ apis:
   humanURL: https://docs.socket.dev
   baseURL: https://api.socket.dev/v0
   tags:
+  - Metadata
+  tags_raw:
   - metadata
   properties:
   - type: OpenAPI
@@ -222,6 +236,8 @@ apis:
   humanURL: https://docs.socket.dev
   baseURL: https://api.socket.dev/v0
   tags:
+  - Packages
+  tags_raw:
   - packages
   properties:
   - type: OpenAPI
@@ -250,6 +266,8 @@ apis:
   humanURL: https://docs.socket.dev
   baseURL: https://api.socket.dev/v0
   tags:
+  - Repos
+  tags_raw:
   - repos
   properties:
   - type: OpenAPI
@@ -278,6 +296,8 @@ apis:
   humanURL: https://docs.socket.dev
   baseURL: https://api.socket.dev/v0
   tags:
+  - Telemetry
+  tags_raw:
   - telemetry
   properties:
   - type: OpenAPI
@@ -320,6 +340,8 @@ apis:
   humanURL: https://docs.socket.dev
   baseURL: https://api.socket.dev/v0
   tags:
+  - Webhook
+  tags_raw:
   - webhooks
   properties:
   - type: OpenAPI

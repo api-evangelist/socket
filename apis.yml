@@ -8,6 +8,18 @@ description: Socket is a developer-first software supply chain security platform
   REST API, CLI, GitHub App, MCP server, and static reachability analysis. Founded by Feross
   Aboukhadijeh and backed by a16z, Socket is used by engineering teams at organizations
   including Vercel, Replit, and Brave.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: unknown
   onboarding: self-serve

@@ -82,7 +82,7 @@ apis:
   humanURL: https://docs.socket.dev
   baseURL: https://api.socket.dev/v0
   tags:
-  - api-tokens
+  - API Tokens
   tags_raw:
   - api-tokens
   properties:
@@ -98,7 +98,7 @@ apis:
   humanURL: https://docs.socket.dev
   baseURL: https://api.socket.dev/v0
   tags:
-  - audit-log
+  - Audit Log
   tags_raw:
   - audit-log
   properties:
@@ -114,7 +114,7 @@ apis:
   humanURL: https://docs.socket.dev
   baseURL: https://api.socket.dev/v0
   tags:
-  - dependencies
+  - Dependencies
   tags_raw:
   - dependencies
   properties:
@@ -130,7 +130,7 @@ apis:
   humanURL: https://docs.socket.dev
   baseURL: https://api.socket.dev/v0
   tags:
-  - deprecated
+  - Deprecated
   tags_raw:
   - deprecated
   properties:
@@ -160,7 +160,7 @@ apis:
   humanURL: https://docs.socket.dev
   baseURL: https://api.socket.dev/v0
   tags:
-  - fixes
+  - Fixes
   tags_raw:
   - fixes
   properties:
@@ -278,7 +278,7 @@ apis:
   humanURL: https://docs.socket.dev
   baseURL: https://api.socket.dev/v0
   tags:
-  - repos
+  - Repos
   tags_raw:
   - repos
   properties:

@@ -101,7 +101,7 @@ apis:
   humanURL: https://docs.socket.dev
   baseURL: https://api.socket.dev/v0
   tags:
-  - Audit Log
+  - Audit Logs
   tags_raw:
   - audit-log
   properties:

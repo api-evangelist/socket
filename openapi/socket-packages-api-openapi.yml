@@ -1,17 +1,17 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
   description: Specification of the Socket API endpoints
-  title: API Endpoints alerts packages API
+  title: Endpoints Packages API
   version: '0'
 servers:
 - url: https://api.socket.dev/v0
 tags:
-- name: packages
+- name: Packages
 paths:
   /purl:
     post:
       tags:
-      - packages
+      - Packages
       summary: Get Packages by PURL
       deprecated: true
       externalDocs:
@@ -116,7 +116,168 @@ paths:
         - packages:list
       - basicAuth:
         - packages:list
-      description: "**This endpoint is deprecated.** Deprecated since 2026-01-05.\n\nBatch retrieval of package metadata and alerts by PURL strings. Compatible with CycloneDX reports.\n\nPackage URLs (PURLs) are an ecosystem agnostic way to identify packages.\nCycloneDX SBOMs use the purl format to identify components.\nThis endpoint supports fetching metadata and alerts for multiple packages at once by passing an array of purl strings, or by passing an entire CycloneDX report.\n\n**Note:** This endpoint has a batch size limit (default: 1024 PURLs per request). Requests exceeding this limit will return a 400 Bad Request error.\n\nMore information on purl and CycloneDX:\n\n- [`purl` Spec](https://github.com/package-url/purl-spec)\n- [CycloneDX Spec](https://cyclonedx.org/specification/overview/#components)\n\nThis endpoint returns the latest available alert data for artifacts in the batch (stale while revalidate).\nActively running analysis will be returned when available on subsequent runs.\n\nWhen `alerts=true`, Socket may synthesize two alert types to make partial\nresults actionable:\n\n- `pendingScan`: the package is known but analysis has not completed yet\n- `notFound`: Socket could not resolve the package/version metadata\n\nWhen `purlErrors=true`, unresolved `notFound` inputs keep the legacy\n`purlError` stream shape instead of emitting synthetic `notFound`\nartifacts.\n\nUse `poll=false` (default) to fail open and return the current known state\nquickly. Use `poll=true` to fail closed and wait up to `timeoutSec` for\npending analysis before returning.\n\n## Examples:\n\n### Looking up an npm package:\n\n```json\n{\n  \"components\": [\n    {\n      \"purl\": \"pkg:npm/express@4.19.2\"\n    }\n  ]\n}\n```\n\n### Looking up an PyPi package:\n\n```json\n{\n  \"components\": [\n    {\n      \"purl\": \"pkg:pypi/django@5.0.6\"\n    }\n  ]\n}\n```\n\n### Looking up a Maven package:\n\n```json\n{\n  \"components\": [\n    {\n      \"purl\": \"pkg:maven/log4j/log4j@1.2.17\"\n    }\n  ]\n}\n```\n\n### Batch lookup\n\n```json\n{\n  \"components\": [\n    {\n      \"purl\": \"pkg:npm/express@4.19.2\"\n    },\n    {\n      \"purl\": \"pkg:pypi/django@5.0.6\"\n    },\n    {\n      \"purl\": \"pkg:maven/log4j/log4j@1.2.17\"\n    }\n  ]\n}\n```\n\nThis endpoint consumes 100 units of your quota.\n\nThis endpoint requires the following org token scopes:\n- packages:list"
+      description: '**This endpoint is deprecated.** Deprecated since 2026-01-05.
+
+
+        Batch retrieval of package metadata and alerts by PURL strings. Compatible with CycloneDX reports.
+
+
+        Package URLs (PURLs) are an ecosystem agnostic way to identify packages.
+
+        CycloneDX SBOMs use the purl format to identify components.
+
+        This endpoint supports fetching metadata and alerts for multiple packages at once by passing an array of purl strings, or by passing an entire CycloneDX report.
+
+
+        **Note:** This endpoint has a batch size limit (default: 1024 PURLs per request). Requests exceeding this limit will return a 400 Bad Request error.
+
+
+        More information on purl and CycloneDX:
+
+
+        - `purl` Spec
+
+        - CycloneDX Spec
+
+
+        This endpoint returns the latest available alert data for artifacts in the batch (stale while revalidate).
+
+        Actively running analysis will be returned when available on subsequent runs.
+
+
+        When `alerts=true`, Socket may synthesize two alert types to make partial
+
+        results actionable:
+
+
+        - `pendingScan`: the package is known but analysis has not completed yet
+
+        - `notFound`: Socket could not resolve the package/version metadata
+
+
+        When `purlErrors=true`, unresolved `notFound` inputs keep the legacy
+
+        `purlError` stream shape instead of emitting synthetic `notFound`
+
+        artifacts.
+
+
+        Use `poll=false` (default) to fail open and return the current known state
+
+        quickly. Use `poll=true` to fail closed and wait up to `timeoutSec` for
+
+        pending analysis before returning.
+
+
+        ## Examples:
+
+
+        ### Looking up an npm package:
+
+
+        ```json
+
+        {
+
+        "components": [
+
+        {
+
+        "purl": "pkg:npm/express@4.19.2"
+
+        }
+
+        ]
+
+        }
+
+        ```
+
+
+        ### Looking up an PyPi package:
+
+
+        ```json
+
+        {
+
+        "components": [
+
+        {
+
+        "purl": "pkg:pypi/django@5.0.6"
+
+        }
+
+        ]
+
+        }
+
+        ```
+
+
+        ### Looking up a Maven package:
+
+
+        ```json
+
+        {
+
+        "components": [
+
+        {
+
+        "purl": "pkg:maven/log4j/log4j@1.2.17"
+
+        }
+
+        ]
+
+        }
+
+        ```
+
+
+        ### Batch lookup
+
+
+        ```json
+
+        {
+
+        "components": [
+
+        {
+
+        "purl": "pkg:npm/express@4.19.2"
+
+        },
+
+        {
+
+        "purl": "pkg:pypi/django@5.0.6"
+
+        },
+
+        {
+
+        "purl": "pkg:maven/log4j/log4j@1.2.17"
+
+        }
+
+        ]
+
+        }
+
+        ```
+
+
+        This endpoint consumes 100 units of your quota.
+
+
+        This endpoint requires the following org token scopes:
+
+        - packages:list'
       responses:
         '200':
           content:
@@ -138,7 +299,7 @@ paths:
   /orgs/{org_slug}/purl:
     post:
       tags:
-      - packages
+      - Packages
       summary: Get Packages by PURL (Org Scoped)
       externalDocs:
         description: Socket Package URLs (purl)
@@ -258,7 +419,198 @@ paths:
         - packages:list
       - basicAuth:
         - packages:list
-      description: "Batch retrieval of package metadata and alerts by PURL strings for a specific organization. Compatible with CycloneDX reports.\n\nPackage URLs (PURLs) are an ecosystem agnostic way to identify packages.\nCycloneDX SBOMs use the purl format to identify components.\nThis endpoint supports fetching metadata and alerts for multiple packages at once by passing an array of purl strings, or by passing an entire CycloneDX report.\n\n**Note:** This endpoint has a batch size limit (default: 1024 PURLs per request). Requests exceeding this limit will return a 400 Bad Request error.\n\nMore information on purl and CycloneDX:\n\n- [`purl` Spec](https://github.com/package-url/purl-spec)\n- [CycloneDX Spec](https://cyclonedx.org/specification/overview/#components)\n\nThis endpoint returns the latest available alert data for artifacts in the batch (stale while revalidate).\nActively running analysis will be returned when available on subsequent runs.\n\nWhen `alerts=true`, Socket may synthesize two alert types to make partial\nresults actionable:\n\n- `pendingScan`: the package is known but analysis has not completed yet\n- `notFound`: Socket could not resolve the package/version metadata\n\nWhen `purlErrors=true`, unresolved `notFound` inputs keep the legacy\n`purlError` stream shape instead of emitting synthetic `notFound`\nartifacts.\n\nUse `poll=false` (default) to fail open and return the current known state\nquickly. Use `poll=true` to fail closed and wait up to `timeoutSec` for\npending analysis before returning.\n\n## Query Parameters\n\nThis endpoint supports all query parameters from `POST /v0/purl` including: `alerts`, `actions`, `compact`, `fixable`, `licenseattrib`, `licensedetails`, `purlErrors`, `poll`, `cachedResultsOnly`, and `summary`.\n\nAdditionally, you may provide a `labels` query parameter to apply a repository label's security policies. Pass the label slug as the value (e.g., `?labels=production`). Only one label is currently supported.\n\n## Examples:\n\n### Looking up an npm package:\n\n```json\n{\n  \"components\": [\n    {\n      \"purl\": \"pkg:npm/express@4.19.2\"\n    }\n  ]\n}\n```\n\n### Looking up a PyPi package:\n\n```json\n{\n  \"components\": [\n    {\n      \"purl\": \"pkg:pypi/django@5.0.6\"\n    }\n  ]\n}\n```\n\n### Looking up a Maven package:\n\n```json\n{\n  \"components\": [\n    {\n      \"purl\": \"pkg:maven/log4j/log4j@1.2.17\"\n    }\n  ]\n}\n```\n\n### Batch lookup\n\n```json\n{\n  \"components\": [\n    {\n      \"purl\": \"pkg:npm/express@4.19.2\"\n    },\n    {\n      \"purl\": \"pkg:pypi/django@5.0.6\"\n    },\n    {\n      \"purl\": \"pkg:maven/log4j/log4j@1.2.17\"\n    }\n  ]\n}\n```\n\n### With label and options (query parameters):\n\n```\nPOST /v0/orgs/{org_slug}/purl?labels=production&alerts=true&compact=true\n{\n  \"components\": [\n    {\n      \"purl\": \"pkg:npm/express@4.19.2\"\n    }\n  ]\n}\n```\n\nThis endpoint consumes 100 units of your quota.\n\nThis endpoint requires the following org token scopes:\n- packages:list"
+      description: 'Batch retrieval of package metadata and alerts by PURL strings for a specific organization. Compatible with CycloneDX reports.
+
+
+        Package URLs (PURLs) are an ecosystem agnostic way to identify packages.
+
+        CycloneDX SBOMs use the purl format to identify components.
+
+        This endpoint supports fetching metadata and alerts for multiple packages at once by passing an array of purl strings, or by passing an entire CycloneDX report.
+
+
+        **Note:** This endpoint has a batch size limit (default: 1024 PURLs per request). Requests exceeding this limit will return a 400 Bad Request error.
+
+
+        More information on purl and CycloneDX:
+
+
+        - `purl` Spec
+
+        - CycloneDX Spec
+
+
+        This endpoint returns the latest available alert data for artifacts in the batch (stale while revalidate).
+
+        Actively running analysis will be returned when available on subsequent runs.
+
+
+        When `alerts=true`, Socket may synthesize two alert types to make partial
+
+        results actionable:
+
+
+        - `pendingScan`: the package is known but analysis has not completed yet
+
+        - `notFound`: Socket could not resolve the package/version metadata
+
+
+        When `purlErrors=true`, unresolved `notFound` inputs keep the legacy
+
+        `purlError` stream shape instead of emitting synthetic `notFound`
+
+        artifacts.
+
+
+        Use `poll=false` (default) to fail open and return the current known state
+
+        quickly. Use `poll=true` to fail closed and wait up to `timeoutSec` for
+
+        pending analysis before returning.
+
+
+        ## Query Parameters
+
+
+        This endpoint supports all query parameters from `POST /v0/purl` including: `alerts`, `actions`, `compact`, `fixable`, `licenseattrib`, `licensedetails`, `purlErrors`, `poll`, `cachedResultsOnly`, and `summary`.
+
+
+        Additionally, you may provide a `labels` query parameter to apply a repository label''s security policies. Pass the label slug as the value (e.g., `?labels=production`). Only one label is currently supported.
+
+
+        ## Examples:
+
+
+        ### Looking up an npm package:
+
+
+        ```json
+
+        {
+
+        "components": [
+
+        {
+
+        "purl": "pkg:npm/express@4.19.2"
+
+        }
+
+        ]
+
+        }
+
+        ```
+
+
+        ### Looking up a PyPi package:
+
+
+        ```json
+
+        {
+
+        "components": [
+
+        {
+
+        "purl": "pkg:pypi/django@5.0.6"
+
+        }
+
+        ]
+
+        }
+
+        ```
+
+
+        ### Looking up a Maven package:
+
+
+        ```json
+
+        {
+
+        "components": [
+
+        {
+
+        "purl": "pkg:maven/log4j/log4j@1.2.17"
+
+        }
+
+        ]
+
+        }
+
+        ```
+
+
+        ### Batch lookup
+
+
+        ```json
+
+        {
+
+        "components": [
+
+        {
+
+        "purl": "pkg:npm/express@4.19.2"
+
+        },
+
+        {
+
+        "purl": "pkg:pypi/django@5.0.6"
+
+        },
+
+        {
+
+        "purl": "pkg:maven/log4j/log4j@1.2.17"
+
+        }
+
+        ]
+
+        }
+
+        ```
+
+
+        ### With label and options (query parameters):
+
+
+        ```
+
+        POST /v0/orgs/{org_slug}/purl?labels=production&alerts=true&compact=true
+
+        {
+
+        "components": [
+
+        {
+
+        "purl": "pkg:npm/express@4.19.2"
+
+        }
+
+        ]
+
+        }
+
+        ```
+
+
+        This endpoint consumes 100 units of your quota.
+
+
+        This endpoint requires the following org token scopes:
+
+        - packages:list'
       responses:
         '200':
           content:
@@ -279,6 +631,140 @@ paths:
       x-readme: {}
 components:
   schemas:
+    LicenseDetails:
+      type: array
+      items:
+        type: object
+        additionalProperties: false
+        description: ''
+        properties:
+          spdxDisj:
+            type: string
+            description: SPDX license expression in disjunctive normal form (e.g., '(MIT OR Apache-2.0)')
+            default: ''
+          authors:
+            type: array
+            items:
+              type: string
+              description: ''
+              default: ''
+            description: List of authors found in the license text
+          errorData:
+            type: string
+            description: Error details if license parsing failed
+            default: ''
+          provenance:
+            type: string
+            description: Source where this license information was detected (e.g., 'package.json', 'LICENSE file', 'README')
+            default: ''
+          filepath:
+            type: string
+            description: Path to the file containing this license information
+            default: ''
+          match_strength:
+            type: number
+            description: Confidence score from 0.0 to 1.0 indicating how well the detected license matches the source text
+            default: 0
+        required:
+        - authors
+        - errorData
+        - filepath
+        - match_strength
+        - provenance
+        - spdxDisj
+      description: ''
+    SocketArtifactPatch:
+      type: object
+      additionalProperties: false
+      properties:
+        appliedPatch:
+          $ref: '#/components/schemas/SocketPatch'
+        availablePatches:
+          type: array
+          items:
+            $ref: '#/components/schemas/SocketPatch'
+          description: List of available patches that can be applied to fix vulnerabilities
+      description: ''
+    SocketOrgBatchPURLFetch:
+      type: object
+      additionalProperties: false
+      properties:
+        components:
+          type: array
+          items:
+            $ref: '#/components/schemas/SocketBatchPURLRequest'
+          description: ''
+      required:
+      - components
+    PurlErrorSchema:
+      type: object
+      additionalProperties: false
+      description: ''
+      properties:
+        error:
+          type: string
+          description: ''
+          default: ''
+        inputPurl:
+          type: string
+          description: ''
+          default: ''
+      required:
+      - error
+      - inputPurl
+    SocketScore:
+      type: object
+      additionalProperties: false
+      description: ''
+      properties:
+        license:
+          type: number
+          description: Score from 0.0 to 1.0 evaluating license permissiveness and compatibility
+          default: 0
+        maintenance:
+          type: number
+          description: Score from 0.0 to 1.0 evaluating project maintenance health and activity
+          default: 0
+        overall:
+          type: number
+          description: Combined score from 0.0 to 1.0 representing overall package health and safety
+          default: 0
+        quality:
+          type: number
+          description: Score from 0.0 to 1.0 evaluating code quality, testing, and documentation
+          default: 0
+        supplyChain:
+          type: number
+          description: Score from 0.0 to 1.0 evaluating supply chain security and provenance
+          default: 0
+        vulnerability:
+          type: number
+          description: Score from 0.0 to 1.0 based on known vulnerabilities and their severity
+          default: 0
+      required:
+      - license
+      - maintenance
+      - overall
+      - quality
+      - supplyChain
+      - vulnerability
+    ClassStackItem:
+      type: object
+      additionalProperties: false
+      properties:
+        purl:
+          type: string
+          description: Package URL (PURL) of the dependency containing this class
+          default: ''
+        class:
+          type: string
+          description: Name of the class in the dependency
+          default: ''
+        confidence:
+          type: number
+          description: Confidence score from 0.0 to 1.0 indicating how certain the reachability analysis is about this result
+          default: 0
+      description: ''
     SAttrib1_N:
       type: array
       items:
@@ -326,285 +812,6 @@ components:
         - attribData
         - attribText
       description: ''
-    SocketArtifactLink:
-      type: object
-      additionalProperties: false
-      properties:
-        direct:
-          type: boolean
-          default: false
-          description: Indicates if this is a direct dependency (not transitive)
-        dev:
-          type: boolean
-          default: false
-          description: Indicates if this is a development-only dependency not used in production
-        dead:
-          type: boolean
-          default: false
-          description: Indicates if this package is deprecated, abandoned, or no longer maintained
-        manifestFiles:
-          type: array
-          items:
-            $ref: '#/components/schemas/SocketManifestReference'
-          description: ''
-        topLevelAncestors:
-          type: array
-          items:
-            $ref: '#/components/schemas/SocketId'
-          description: IDs of the root-level packages in the dependency tree that depend on this package
-        dependencies:
-          type: array
-          items:
-            $ref: '#/components/schemas/SocketId'
-          description: IDs of packages that this package directly depends on
-        alertPriorities:
-          type: object
-          additionalProperties:
-            type: object
-            additionalProperties: false
-            properties:
-              result:
-                type: integer
-                description: Computed priority score for this alert
-                default: 0
-              components:
-                type: object
-                additionalProperties: false
-                description: ''
-                properties:
-                  isFixable:
-                    type: object
-                    additionalProperties: false
-                    description: ''
-                    properties:
-                      result:
-                        type: number
-                        description: Contribution of fixability to the priority score
-                        default: 0
-                      value:
-                        type: boolean
-                        default: false
-                        description: Whether a fix is available for this alert
-                    required:
-                    - result
-                    - value
-                  isReachable:
-                    type: object
-                    additionalProperties: false
-                    description: ''
-                    properties:
-                      result:
-                        type: number
-                        description: Contribution of reachability to the priority score
-                        default: 0
-                      value:
-                        type: boolean
-                        default: false
-                        description: Whether the vulnerable code is reachable
-                      specificValue:
-                        type: string
-                        description: Specific reachability type value such as 'unreachable', 'maybe_reachable', or 'reachable'
-                        default: ''
-                    required:
-                    - result
-                    - specificValue
-                    - value
-                  severity:
-                    type: object
-                    additionalProperties: false
-                    description: ''
-                    properties:
-                      result:
-                        type: number
-                        description: Contribution of severity to the priority score
-                        default: 0
-                      value:
-                        type: integer
-                        description: Numeric severity level
-                        default: 0
-                    required:
-                    - result
-                    - value
-                required:
-                - isFixable
-                - isReachable
-                - severity
-              formula:
-                type: string
-                description: Formula used to calculate the priority score
-                default: ''
-            required:
-            - result
-          properties: {}
-          description: Computed priority scores for each alert type based on severity, reachability, and fixability factors
-        artifact:
-          allOf:
-          - $ref: '#/components/schemas/SocketPURL'
-          - type: object
-            additionalProperties: false
-            properties:
-              id:
-                $ref: '#/components/schemas/SocketId'
-            required:
-            - id
-        alertKeysToReachabilityTypes:
-          type: object
-          additionalProperties:
-            type: array
-            items:
-              type: string
-              description: ''
-              default: ''
-            description: ''
-          properties: {}
-          description: 'Deprecated: mapping of alert keys to arrays of reachability types found across different manifest files or code locations. This field is derived from alertKeysToReachabilitySummaries for backward compatibility; use that property instead.'
-        alertKeysToReachabilitySummaries:
-          type: object
-          additionalProperties:
-            type: array
-            items:
-              type: object
-              additionalProperties: false
-              description: ''
-              properties:
-                type:
-                  type: string
-                  description: ''
-                  default: ''
-              required:
-              - type
-            description: ''
-          properties: {}
-          description: Mapping of alert keys to arrays of reachability summaries. Each summary contains a reachability type indicating the result of reachability analysis for the corresponding vulnerability alert.
-      description: ''
-    SocketBatchPURLRequest:
-      type: object
-      additionalProperties: false
-      description: ''
-      properties:
-        purl:
-          type: string
-          description: ''
-          default: ''
-      required:
-      - purl
-    ClassStackItem:
-      type: object
-      additionalProperties: false
-      properties:
-        purl:
-          type: string
-          description: Package URL (PURL) of the dependency containing this class
-          default: ''
-        class:
-          type: string
-          description: Name of the class in the dependency
-          default: ''
-        confidence:
-          type: number
-          description: Confidence score from 0.0 to 1.0 indicating how certain the reachability analysis is about this result
-          default: 0
-      description: ''
-    SocketPURL_Type:
-      type: string
-      enum:
-      - alpm
-      - apk
-      - bitbucket
-      - cocoapods
-      - cargo
-      - chrome
-      - clawhub
-      - composer
-      - conan
-      - conda
-      - cran
-      - deb
-      - docker
-      - gem
-      - generic
-      - github
-      - golang
-      - hackage
-      - hex
-      - huggingface
-      - maven
-      - mlflow
-      - npm
-      - nuget
-      - qpkg
-      - oci
-      - pub
-      - pypi
-      - rpm
-      - socket
-      - swid
-      - swift
-      - vscode
-      - unknown
-      description: Package ecosystem type identifier based on the PURL specification
-      default: unknown
-    ReachabilityType:
-      type: string
-      enum:
-      - missing_support
-      - undeterminable_reachability
-      - pending
-      - unreachable
-      - unknown
-      - direct_dependency
-      - error
-      - maybe_reachable
-      - reachable
-      description: Status of reachability analysis for vulnerable code paths
-      default: unknown
-    BatchPurlStreamSchema:
-      anyOf:
-      - $ref: '#/components/schemas/SocketArtifact'
-      - type: object
-        additionalProperties: false
-        properties:
-          _type:
-            type: string
-            enum:
-            - purlError
-          value:
-            $ref: '#/components/schemas/PurlErrorSchema'
-        required:
-        - _type
-        - value
-      - type: object
-        additionalProperties: false
-        properties:
-          _type:
-            type: string
-            enum:
-            - summary
-          value:
-            $ref: '#/components/schemas/PurlSummarySchema'
-        required:
-        - _type
-        - value
-    ReachabilityResult:
-      type: object
-      additionalProperties: false
-      description: ''
-      properties:
-        type:
-          type: string
-          enum:
-          - precomputed
-          - full-scan
-          description: Type of reachability analysis performed
-          default: precomputed
-        results:
-          type: array
-          items:
-            $ref: '#/components/schemas/ReachabilityResultItem'
-          description: Reachability analysis results for each vulnerability
-      required:
-      - results
-      - type
     SourceLocation:
       type: object
       additionalProperties: false
@@ -661,120 +868,31 @@ components:
       - fileHash
       - filename
       - start
-    SocketIssueSeverity:
+    ReachabilityType:
       type: string
       enum:
-      - low
-      - middle
-      - high
-      - critical
-      description: ''
-      default: low
-    ReachabilityResultItem:
-      type: object
-      additionalProperties: false
-      properties:
-        type:
-          $ref: '#/components/schemas/ReachabilityType'
-        truncated:
-          type: boolean
-          default: false
-          description: Indicates if the reachability analysis was stopped early due to depth or complexity limits
-        error:
-          type: string
-          description: Error message if reachability analysis failed
-          default: ''
-        matches:
-          anyOf:
-          - type: object
-            additionalProperties: false
-            properties:
-              type:
-                type: string
-                enum:
-                - function-level
-              value:
-                type: array
-                items:
-                  type: array
-                  items:
-                    $ref: '#/components/schemas/CallStackItem'
-                  description: ''
-                description: ''
-          - type: object
-            additionalProperties: false
-            properties:
-              type:
-                type: string
-                enum:
-                - class-level
-              value:
-                type: array
-                items:
-                  type: array
-                  items:
-                    $ref: '#/components/schemas/ClassStackItem'
-                  description: ''
-                description: ''
-        workspacePath:
-          type: string
-          description: Path to the workspace root for multi-workspace projects
-          default: ''
-        subprojectPath:
-          type: string
-          description: Path to the subproject within the workspace
-          default: ''
-      required:
-      - type
-    SocketOrgBatchPURLFetch:
-      type: object
-      additionalProperties: false
-      properties:
-        components:
-          type: array
-          items:
-            $ref: '#/components/schemas/SocketBatchPURLRequest'
-          description: ''
-      required:
-      - components
-    PurlErrorSchema:
-      type: object
-      additionalProperties: false
-      description: ''
-      properties:
-        error:
-          type: string
-          description: ''
-          default: ''
-        inputPurl:
-          type: string
-          description: ''
-          default: ''
-      required:
+      - missing_support
+      - undeterminable_reachability
+      - pending
+      - unreachable
+      - unknown
+      - direct_dependency
       - error
-      - inputPurl
-    SocketPatch:
-      type: object
-      additionalProperties: false
-      properties:
-        uuid:
-          type: string
-          description: Unique identifier for this patch
-          default: ''
-        tier:
-          type: string
-          enum:
-          - free
-          - paid
-          description: Access tier required for this patch (free or paid)
-          default: free
-        deprecated:
-          type: boolean
-          default: false
-          description: Indicates if this patch is deprecated and should not be used
-      required:
-      - tier
-      - uuid
+      - maybe_reachable
+      - reachable
+      description: Status of reachability analysis for vulnerable code paths
+      default: unknown
+    SocketCategory:
+      type: string
+      enum:
+      - supplyChainRisk
+      - quality
+      - maintenance
+      - vulnerability
+      - license
+      - other
+      description: ''
+      default: other
     SocketArtifact:
       allOf:
       - $ref: '#/components/schemas/SocketPURL'
@@ -828,6 +946,30 @@ components:
             $ref: '#/components/schemas/LicenseDetails'
           licenseAttrib:
             $ref: '#/components/schemas/SAttrib1_N'
+    ReachabilityResult:
+      type: object
+      additionalProperties: false
+      description: ''
+      properties:
+        type:
+          type: string
+          enum:
+          - precomputed
+          - full-scan
+          description: Type of reachability analysis performed
+          default: precomputed
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/ReachabilityResultItem'
+          description: Reachability analysis results for each vulnerability
+      required:
+      - results
+      - type
+    SocketId:
+      type: string
+      description: ''
+      default: ''
     PurlSummarySchema:
       type: object
       additionalProperties: false
@@ -1005,10 +1147,28 @@ components:
       required:
       - key
       - type
-    SocketId:
-      type: string
-      description: ''
-      default: ''
+    SocketPatch:
+      type: object
+      additionalProperties: false
+      properties:
+        uuid:
+          type: string
+          description: Unique identifier for this patch
+          default: ''
+        tier:
+          type: string
+          enum:
+          - free
+          - paid
+          description: Access tier required for this patch (free or paid)
+          default: free
+        deprecated:
+          type: boolean
+          default: false
+          description: Indicates if this patch is deprecated and should not be used
+      required:
+      - tier
+      - uuid
     CallStackItem:
       type: object
       additionalProperties: false
@@ -1023,6 +1183,233 @@ components:
           type: number
           description: Confidence score from 0.0 to 1.0 indicating how certain the reachability analysis is about this result
           default: 0
+      description: ''
+    SocketIssueSeverity:
+      type: string
+      enum:
+      - low
+      - middle
+      - high
+      - critical
+      description: ''
+      default: low
+    SocketBatchPURLRequest:
+      type: object
+      additionalProperties: false
+      description: ''
+      properties:
+        purl:
+          type: string
+          description: ''
+          default: ''
+      required:
+      - purl
+    ReachabilityResultItem:
+      type: object
+      additionalProperties: false
+      properties:
+        type:
+          $ref: '#/components/schemas/ReachabilityType'
+        truncated:
+          type: boolean
+          default: false
+          description: Indicates if the reachability analysis was stopped early due to depth or complexity limits
+        error:
+          type: string
+          description: Error message if reachability analysis failed
+          default: ''
+        matches:
+          anyOf:
+          - type: object
+            additionalProperties: false
+            properties:
+              type:
+                type: string
+                enum:
+                - function-level
+              value:
+                type: array
+                items:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/CallStackItem'
+                  description: ''
+                description: ''
+          - type: object
+            additionalProperties: false
+            properties:
+              type:
+                type: string
+                enum:
+                - class-level
+              value:
+                type: array
+                items:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/ClassStackItem'
+                  description: ''
+                description: ''
+        workspacePath:
+          type: string
+          description: Path to the workspace root for multi-workspace projects
+          default: ''
+        subprojectPath:
+          type: string
+          description: Path to the subproject within the workspace
+          default: ''
+      required:
+      - type
+    SocketArtifactLink:
+      type: object
+      additionalProperties: false
+      properties:
+        direct:
+          type: boolean
+          default: false
+          description: Indicates if this is a direct dependency (not transitive)
+        dev:
+          type: boolean
+          default: false
+          description: Indicates if this is a development-only dependency not used in production
+        dead:
+          type: boolean
+          default: false
+          description: Indicates if this package is deprecated, abandoned, or no longer maintained
+        manifestFiles:
+          type: array
+          items:
+            $ref: '#/components/schemas/SocketManifestReference'
+          description: ''
+        topLevelAncestors:
+          type: array
+          items:
+            $ref: '#/components/schemas/SocketId'
+          description: IDs of the root-level packages in the dependency tree that depend on this package
+        dependencies:
+          type: array
+          items:
+            $ref: '#/components/schemas/SocketId'
+          description: IDs of packages that this package directly depends on
+        alertPriorities:
+          type: object
+          additionalProperties:
+            type: object
+            additionalProperties: false
+            properties:
+              result:
+                type: integer
+                description: Computed priority score for this alert
+                default: 0
+              components:
+                type: object
+                additionalProperties: false
+                description: ''
+                properties:
+                  isFixable:
+                    type: object
+                    additionalProperties: false
+                    description: ''
+                    properties:
+                      result:
+                        type: number
+                        description: Contribution of fixability to the priority score
+                        default: 0
+                      value:
+                        type: boolean
+                        default: false
+                        description: Whether a fix is available for this alert
+                    required:
+                    - result
+                    - value
+                  isReachable:
+                    type: object
+                    additionalProperties: false
+                    description: ''
+                    properties:
+                      result:
+                        type: number
+                        description: Contribution of reachability to the priority score
+                        default: 0
+                      value:
+                        type: boolean
+                        default: false
+                        description: Whether the vulnerable code is reachable
+                      specificValue:
+                        type: string
+                        description: Specific reachability type value such as 'unreachable', 'maybe_reachable', or 'reachable'
+                        default: ''
+                    required:
+                    - result
+                    - specificValue
+                    - value
+                  severity:
+                    type: object
+                    additionalProperties: false
+                    description: ''
+                    properties:
+                      result:
+                        type: number
+                        description: Contribution of severity to the priority score
+                        default: 0
+                      value:
+                        type: integer
+                        description: Numeric severity level
+                        default: 0
+                    required:
+                    - result
+                    - value
+                required:
+                - isFixable
+                - isReachable
+                - severity
+              formula:
+                type: string
+                description: Formula used to calculate the priority score
+                default: ''
+            required:
+            - result
+          properties: {}
+          description: Computed priority scores for each alert type based on severity, reachability, and fixability factors
+        artifact:
+          allOf:
+          - $ref: '#/components/schemas/SocketPURL'
+          - type: object
+            additionalProperties: false
+            properties:
+              id:
+                $ref: '#/components/schemas/SocketId'
+            required:
+            - id
+        alertKeysToReachabilityTypes:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: string
+              description: ''
+              default: ''
+            description: ''
+          properties: {}
+          description: 'Deprecated: mapping of alert keys to arrays of reachability types found across different manifest files or code locations. This field is derived from alertKeysToReachabilitySummaries for backward compatibility; use that property instead.'
+        alertKeysToReachabilitySummaries:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: object
+              additionalProperties: false
+              description: ''
+              properties:
+                type:
+                  type: string
+                  description: ''
+                  default: ''
+              required:
+              - type
+            description: ''
+          properties: {}
+          description: Mapping of alert keys to arrays of reachability summaries. Each summary contains a reachability type indicating the result of reachability analysis for the corresponding vulnerability alert.
       description: ''
     SocketPURL:
       type: object
@@ -1052,53 +1439,72 @@ components:
           default: ''
       required:
       - type
-    SocketScore:
-      type: object
-      additionalProperties: false
-      description: ''
-      properties:
-        license:
-          type: number
-          description: Score from 0.0 to 1.0 evaluating license permissiveness and compatibility
-          default: 0
-        maintenance:
-          type: number
-          description: Score from 0.0 to 1.0 evaluating project maintenance health and activity
-          default: 0
-        overall:
-          type: number
-          description: Combined score from 0.0 to 1.0 representing overall package health and safety
-          default: 0
-        quality:
-          type: number
-          description: Score from 0.0 to 1.0 evaluating code quality, testing, and documentation
-          default: 0
-        supplyChain:
-          type: number
-          description: Score from 0.0 to 1.0 evaluating supply chain security and provenance
-          default: 0
-        vulnerability:
-          type: number
-          description: Score from 0.0 to 1.0 based on known vulnerabilities and their severity
-          default: 0
-      required:
-      - license
-      - maintenance
-      - overall
-      - quality
-      - supplyChain
-      - vulnerability
-    SocketCategory:
+    SocketPURL_Type:
       type: string
       enum:
-      - supplyChainRisk
-      - quality
-      - maintenance
-      - vulnerability
-      - license
-      - other
-      description: ''
-      default: other
+      - alpm
+      - apk
+      - bitbucket
+      - cocoapods
+      - cargo
+      - chrome
+      - clawhub
+      - composer
+      - conan
+      - conda
+      - cran
+      - deb
+      - docker
+      - gem
+      - generic
+      - github
+      - golang
+      - hackage
+      - hex
+      - huggingface
+      - maven
+      - mlflow
+      - npm
+      - nuget
+      - qpkg
+      - oci
+      - pub
+      - pypi
+      - rpm
+      - socket
+      - swid
+      - swift
+      - vscode
+      - unknown
+      description: Package ecosystem type identifier based on the PURL specification
+      default: unknown
+    BatchPurlStreamSchema:
+      anyOf:
+      - $ref: '#/components/schemas/SocketArtifact'
+      - type: object
+        additionalProperties: false
+        properties:
+          _type:
+            type: string
+            enum:
+            - purlError
+          value:
+            $ref: '#/components/schemas/PurlErrorSchema'
+        required:
+        - _type
+        - value
+      - type: object
+        additionalProperties: false
+        properties:
+          _type:
+            type: string
+            enum:
+            - summary
+          value:
+            $ref: '#/components/schemas/PurlSummarySchema'
+        required:
+        - _type
+        - value
     SocketManifestReference:
       type: object
       additionalProperties: false
@@ -1117,117 +1523,7 @@ components:
           default: 0
       required:
       - file
-    LicenseDetails:
-      type: array
-      items:
-        type: object
-        additionalProperties: false
-        description: ''
-        properties:
-          spdxDisj:
-            type: string
-            description: SPDX license expression in disjunctive normal form (e.g., '(MIT OR Apache-2.0)')
-            default: ''
-          authors:
-            type: array
-            items:
-              type: string
-              description: ''
-              default: ''
-            description: List of authors found in the license text
-          errorData:
-            type: string
-            description: Error details if license parsing failed
-            default: ''
-          provenance:
-            type: string
-            description: Source where this license information was detected (e.g., 'package.json', 'LICENSE file', 'README')
-            default: ''
-          filepath:
-            type: string
-            description: Path to the file containing this license information
-            default: ''
-          match_strength:
-            type: number
-            description: Confidence score from 0.0 to 1.0 indicating how well the detected license matches the source text
-            default: 0
-        required:
-        - authors
-        - errorData
-        - filepath
-        - match_strength
-        - provenance
-        - spdxDisj
-      description: ''
-    SocketArtifactPatch:
-      type: object
-      additionalProperties: false
-      properties:
-        appliedPatch:
-          $ref: '#/components/schemas/SocketPatch'
-        availablePatches:
-          type: array
-          items:
-            $ref: '#/components/schemas/SocketPatch'
-          description: List of available patches that can be applied to fix vulnerabilities
-      description: ''
   responses:
-    SocketForbidden:
-      content:
-        application/json:
-          schema:
-            type: object
-            additionalProperties: false
-            description: ''
-            properties:
-              error:
-                type: object
-                additionalProperties: false
-                description: ''
-                properties:
-                  message:
-                    type: string
-                    description: ''
-                    default: ''
-                  details:
-                    type: object
-                    description: ''
-                    default: null
-                    nullable: true
-                required:
-                - details
-                - message
-            required:
-            - error
-      description: Insufficient max_quota for API method
-    SocketUnauthorized:
-      content:
-        application/json:
-          schema:
-            type: object
-            additionalProperties: false
-            description: ''
-            properties:
-              error:
-                type: object
-                additionalProperties: false
-                description: ''
-                properties:
-                  message:
-                    type: string
-                    description: ''
-                    default: ''
-                  details:
-                    type: object
-                    description: ''
-                    default: null
-                    nullable: true
-                required:
-                - details
-                - message
-            required:
-            - error
-      description: Unauthorized
     SocketTooManyRequestsResponse:
       description: Insufficient quota for API route
       headers:
@@ -1255,43 +1551,16 @@ components:
                     description: ''
                     default: ''
                   details:
-                    type: object
+                    type:
+                    - object
+                    - 'null'
                     description: ''
                     default: null
-                    nullable: true
                 required:
                 - details
                 - message
             required:
             - error
-    SocketBadRequest:
-      content:
-        application/json:
-          schema:
-            type: object
-            additionalProperties: false
-            description: ''
-            properties:
-              error:
-                type: object
-                additionalProperties: false
-                description: ''
-                properties:
-                  message:
-                    type: string
-                    description: ''
-                    default: ''
-                  details:
-                    type: object
-                    description: ''
-                    default: null
-                    nullable: true
-                required:
-                - details
-                - message
-            required:
-            - error
-      description: Bad request
     SocketNotFoundResponse:
       content:
         application/json:
@@ -1310,16 +1579,104 @@ components:
                     description: ''
                     default: ''
                   details:
-                    type: object
+                    type:
+                    - object
+                    - 'null'
                     description: ''
                     default: null
-                    nullable: true
                 required:
                 - details
                 - message
             required:
             - error
       description: Resource not found
+    SocketBadRequest:
+      content:
+        application/json:
+          schema:
+            type: object
+            additionalProperties: false
+            description: ''
+            properties:
+              error:
+                type: object
+                additionalProperties: false
+                description: ''
+                properties:
+                  message:
+                    type: string
+                    description: ''
+                    default: ''
+                  details:
+                    type:
+                    - object
+                    - 'null'
+                    description: ''
+                    default: null
+                required:
+                - details
+                - message
+            required:
+            - error
+      description: Bad request
+    SocketUnauthorized:
+      content:
+        application/json:
+          schema:
+            type: object
+            additionalProperties: false
+            description: ''
+            properties:
+              error:
+                type: object
+                additionalProperties: false
+                description: ''
+                properties:
+                  message:
+                    type: string
+                    description: ''
+                    default: ''
+                  details:
+                    type:
+                    - object
+                    - 'null'
+                    description: ''
+                    default: null
+                required:
+                - details
+                - message
+            required:
+            - error
+      description: Unauthorized
+    SocketForbidden:
+      content:
+        application/json:
+          schema:
+            type: object
+            additionalProperties: false
+            description: ''
+            properties:
+              error:
+                type: object
+                additionalProperties: false
+                description: ''
+                properties:
+                  message:
+                    type: string
+                    description: ''
+                    default: ''
+                  details:
+                    type:
+                    - object
+                    - 'null'
+                    description: ''
+                    default: null
+                required:
+                - details
+                - message
+            required:
+            - error
+      description: Insufficient max_quota for API method
   securitySchemes:
     bearerAuth:
       type: http

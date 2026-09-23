@@ -1,7 +1,7 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
   description: Specification of the Socket API endpoints
-  title: API Endpoints alerts triage API
+  title: Endpoints Triage API
   version: '0'
 servers:
 - url: https://api.socket.dev/v0
@@ -82,63 +82,73 @@ paths:
                       additionalProperties: false
                       properties:
                         uuid:
-                          type: string
+                          type:
+                          - string
+                          - 'null'
                           description: The uuid of the triage action
                           default: ''
-                          nullable: true
                         package_type:
-                          type: string
+                          type:
+                          - string
+                          - 'null'
                           description: The package type associated with the triage state
                           default: ''
-                          nullable: true
                         package_namespace:
-                          type: string
+                          type:
+                          - string
+                          - 'null'
                           description: The package namespace associated with the triage state
                           default: ''
-                          nullable: true
                         package_name:
-                          type: string
+                          type:
+                          - string
+                          - 'null'
                           description: The package name associated with the triage state
                           default: ''
-                          nullable: true
                         package_version:
-                          type: string
+                          type:
+                          - string
+                          - 'null'
                           description: The package version associated with the triage state, it can contain a * suffix for wildcard matching
                           default: ''
-                          nullable: true
                         alert_key:
-                          type: string
+                          type:
+                          - string
+                          - 'null'
                           description: The alert_key associated with the triage state
                           default: ''
-                          nullable: true
                         alert_type:
-                          type: string
+                          type:
+                          - string
+                          - 'null'
                           description: The alert type (e.g., criticalCVE, highCVE) associated with the triage state
                           default: ''
-                          nullable: true
                         fix_available:
-                          type: string
+                          type:
+                          - string
+                          - 'null'
                           enum:
                           - available
                           - unavailable
                           - '*'
                           description: Whether a fix must be available, unavailable, or * for any
                           default: '*'
-                          nullable: true
                         patch_available:
-                          type: string
+                          type:
+                          - string
+                          - 'null'
                           enum:
                           - available
                           - unavailable
                           - '*'
                           description: Whether a patch must be available, unavailable, or * for any
                           default: '*'
-                          nullable: true
                         cvss_score_cmp:
-                          type: string
+                          type:
+                          - string
+                          - 'null'
                           description: CVSS score comparison (e.g., >=7.5, >5.0, ==8.0)
                           default: ''
-                          nullable: true
                         created_at:
                           type: string
                           description: The creation date of the triage action
@@ -166,12 +176,15 @@ paths:
                           description: The triage state of the alert
                           default: inherit
                         cve_or_ghsa_id:
-                          type: string
+                          type:
+                          - string
+                          - 'null'
                           description: CVE or GHSA ID associated with the triage state
                           default: ''
-                          nullable: true
                         reachability:
-                          type: string
+                          type:
+                          - string
+                          - 'null'
                           enum:
                           - reachable
                           - unreachable
@@ -179,23 +192,24 @@ paths:
                           - '*'
                           description: The reachability of the alert, can be reachable, unreachable, other, or * for any
                           default: '*'
-                          nullable: true
                         kevs:
-                          type: string
+                          type:
+                          - string
+                          - 'null'
                           enum:
                           - exist
                           - none
                           - '*'
                           description: Whether the alert has a CISA KEV (Known Exploited Vulnerability), can be exist, none, or * for any
                           default: '*'
-                          nullable: true
                       description: ''
                     description: ''
                   nextPage:
-                    type: integer
+                    type:
+                    - integer
+                    - 'null'
                     description: ''
                     default: 0
-                    nullable: true
                 required:
                 - nextPage
                 - results
@@ -245,40 +259,47 @@ paths:
                     additionalProperties: false
                     properties:
                       uuid:
-                        type: string
+                        type:
+                        - string
+                        - 'null'
                         description: The UUID of the triage entry. Omit to create a new entry; provide to update an existing one.
                         default: ''
-                        nullable: true
                       packageType:
-                        type: string
+                        type:
+                        - string
+                        - 'null'
                         description: The package ecosystem type (e.g., npm, pypi). Use null or "*" for wildcard.
                         default: ''
-                        nullable: true
                       packageNamespace:
-                        type: string
+                        type:
+                        - string
+                        - 'null'
                         description: The package namespace or scope. Use null or "*" for wildcard.
                         default: ''
-                        nullable: true
                       packageName:
-                        type: string
+                        type:
+                        - string
+                        - 'null'
                         description: The package name. Use null or "*" for wildcard.
                         default: ''
-                        nullable: true
                       packageVersion:
-                        type: string
+                        type:
+                        - string
+                        - 'null'
                         description: The package version. Supports a "*" suffix for wildcard prefix matching. Use null for any version.
                         default: ''
-                        nullable: true
                       alertKey:
-                        type: string
+                        type:
+                        - string
+                        - 'null'
                         description: The specific alert key to target.
                         default: ''
-                        nullable: true
                       alertType:
-                        type: string
+                        type:
+                        - string
+                        - 'null'
                         description: The alert type (e.g., criticalCVE, highCVE).
                         default: ''
-                        nullable: true
                       fixAvailable:
                         type: string
                         enum:
@@ -301,10 +322,11 @@ paths:
                         - '*'
                         description: Whether the alert has a CISA KEV, can be exist, none, or * for any
                       cveOrGhsaId:
-                        type: string
+                        type:
+                        - string
+                        - 'null'
                         description: CVE or GHSA ID to match against.
                         default: ''
-                        nullable: true
                       reachability:
                         type: string
                         enum:
@@ -314,10 +336,11 @@ paths:
                         - '*'
                         description: The reachability of the alert, can be reachable, unreachable, other, or * for any
                       cvssScoreCmp:
-                        type: string
+                        type:
+                        - string
+                        - 'null'
                         description: CVSS score comparison operator and value (e.g., >=7.5, >5.0, ==8.0).
                         default: ''
-                        nullable: true
                       note:
                         type: string
                         description: A note or comment for the triage action.
@@ -461,100 +484,17 @@ components:
                     description: ''
                     default: ''
                   details:
-                    type: object
+                    type:
+                    - object
+                    - 'null'
                     description: ''
                     default: null
-                    nullable: true
                 required:
                 - details
                 - message
             required:
             - error
       description: Resource already exists
-    SocketForbidden:
-      content:
-        application/json:
-          schema:
-            type: object
-            additionalProperties: false
-            description: ''
-            properties:
-              error:
-                type: object
-                additionalProperties: false
-                description: ''
-                properties:
-                  message:
-                    type: string
-                    description: ''
-                    default: ''
-                  details:
-                    type: object
-                    description: ''
-                    default: null
-                    nullable: true
-                required:
-                - details
-                - message
-            required:
-            - error
-      description: Insufficient max_quota for API method
-    SocketBadRequest:
-      content:
-        application/json:
-          schema:
-            type: object
-            additionalProperties: false
-            description: ''
-            properties:
-              error:
-                type: object
-                additionalProperties: false
-                description: ''
-                properties:
-                  message:
-                    type: string
-                    description: ''
-                    default: ''
-                  details:
-                    type: object
-                    description: ''
-                    default: null
-                    nullable: true
-                required:
-                - details
-                - message
-            required:
-            - error
-      description: Bad request
-    SocketNotFoundResponse:
-      content:
-        application/json:
-          schema:
-            type: object
-            additionalProperties: false
-            description: ''
-            properties:
-              error:
-                type: object
-                additionalProperties: false
-                description: ''
-                properties:
-                  message:
-                    type: string
-                    description: ''
-                    default: ''
-                  details:
-                    type: object
-                    description: ''
-                    default: null
-                    nullable: true
-                required:
-                - details
-                - message
-            required:
-            - error
-      description: Resource not found
     SocketTooManyRequestsResponse:
       description: Insufficient quota for API route
       headers:
@@ -582,15 +522,74 @@ components:
                     description: ''
                     default: ''
                   details:
-                    type: object
+                    type:
+                    - object
+                    - 'null'
                     description: ''
                     default: null
-                    nullable: true
                 required:
                 - details
                 - message
             required:
             - error
+    SocketBadRequest:
+      content:
+        application/json:
+          schema:
+            type: object
+            additionalProperties: false
+            description: ''
+            properties:
+              error:
+                type: object
+                additionalProperties: false
+                description: ''
+                properties:
+                  message:
+                    type: string
+                    description: ''
+                    default: ''
+                  details:
+                    type:
+                    - object
+                    - 'null'
+                    description: ''
+                    default: null
+                required:
+                - details
+                - message
+            required:
+            - error
+      description: Bad request
+    SocketNotFoundResponse:
+      content:
+        application/json:
+          schema:
+            type: object
+            additionalProperties: false
+            description: ''
+            properties:
+              error:
+                type: object
+                additionalProperties: false
+                description: ''
+                properties:
+                  message:
+                    type: string
+                    description: ''
+                    default: ''
+                  details:
+                    type:
+                    - object
+                    - 'null'
+                    description: ''
+                    default: null
+                required:
+                - details
+                - message
+            required:
+            - error
+      description: Resource not found
     SocketUnauthorized:
       content:
         application/json:
@@ -609,16 +608,46 @@ components:
                     description: ''
                     default: ''
                   details:
-                    type: object
+                    type:
+                    - object
+                    - 'null'
                     description: ''
                     default: null
-                    nullable: true
                 required:
                 - details
                 - message
             required:
             - error
       description: Unauthorized
+    SocketForbidden:
+      content:
+        application/json:
+          schema:
+            type: object
+            additionalProperties: false
+            description: ''
+            properties:
+              error:
+                type: object
+                additionalProperties: false
+                description: ''
+                properties:
+                  message:
+                    type: string
+                    description: ''
+                    default: ''
+                  details:
+                    type:
+                    - object
+                    - 'null'
+                    description: ''
+                    default: null
+                required:
+                - details
+                - message
+            required:
+            - error
+      description: Insufficient max_quota for API method
   securitySchemes:
     bearerAuth:
       type: http

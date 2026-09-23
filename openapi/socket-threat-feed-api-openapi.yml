@@ -1,7 +1,7 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
   description: Specification of the Socket API endpoints
-  title: API Endpoints alerts threat-feed API
+  title: Endpoints Threat Feed API
   version: '0'
 servers:
 - url: https://api.socket.dev/v0
@@ -139,7 +139,7 @@ paths:
       description: 'Paginated list of threats, sorted by updated_at by default. Set updated_after to the unix timestamp of your last sync while sorting by updated_at to synchronize all new or updated threats in the feed.
 
 
-        This endpoint requires an Enterprise Plan with Threat Feed add-on. [Contact](https://socket.dev/demo?utm_source=api-docs&utm_medium=referral&utm_campaign=tracking) our sales team for more details.
+        This endpoint requires an Enterprise Plan with Threat Feed add-on. Contact our sales team for more details.
 
 
         This endpoint consumes 1 unit of your quota.
@@ -174,20 +174,22 @@ paths:
                           default: ''
                           format: date-time
                         publishedAt:
-                          type: string
+                          type:
+                          - string
+                          - 'null'
                           description: ISO 8601 timestamp of when the package artifact was published to the respective registry
                           default: ''
                           format: date-time
-                          nullable: true
                         description:
                           type: string
                           description: Detailed description of the underlying threat
                           default: ''
                         fileSha256:
-                          type: string
+                          type:
+                          - string
+                          - 'null'
                           description: Hex-encoded SHA-256 hash of the malicious file content, usable as an indicator of compromise (IOC). Null when no file content hash is available for the threat.
                           default: ''
-                          nullable: true
                         id:
                           type: integer
                           description: Unique identifier of the threat feed entry
@@ -207,11 +209,12 @@ paths:
                           description: Package URL (PURL) of the affected package artifact
                           default: ''
                         removedAt:
-                          type: string
+                          type:
+                          - string
+                          - 'null'
                           description: ISO 8601 timestamp of when the package artifact was removed from the respective registry, or null if the package is still available on the registry
                           default: ''
                           format: date-time
-                          nullable: true
                         threatType:
                           type: string
                           description: 'Threat classification. Possible values: `malware` (known malware), `possible_malware` (AI-detected potential malware), `vulnerability` (potential vulnerability), `typosquat` (human-reviewed typosquat), `possible_typosquat` (AI-detected potential typosquat), `anomaly` (anomalous behavior), `telemetry` (telemetry), `obfuscated` (obfuscated code), `dual_use` (dual-use tool), `troll` (protestware or joke package), `unreviewed` (not yet reviewed), `false_positive` (confirmed false positive).'
@@ -227,10 +230,11 @@ paths:
                       description: ''
                     description: ''
                   nextPageCursor:
-                    type: string
+                    type:
+                    - string
+                    - 'null'
                     description: ''
                     default: ''
-                    nullable: true
                 required:
                 - nextPageCursor
                 - results
@@ -248,90 +252,6 @@ paths:
       x-readme: {}
 components:
   responses:
-    SocketForbidden:
-      content:
-        application/json:
-          schema:
-            type: object
-            additionalProperties: false
-            description: ''
-            properties:
-              error:
-                type: object
-                additionalProperties: false
-                description: ''
-                properties:
-                  message:
-                    type: string
-                    description: ''
-                    default: ''
-                  details:
-                    type: object
-                    description: ''
-                    default: null
-                    nullable: true
-                required:
-                - details
-                - message
-            required:
-            - error
-      description: Insufficient max_quota for API method
-    SocketBadRequest:
-      content:
-        application/json:
-          schema:
-            type: object
-            additionalProperties: false
-            description: ''
-            properties:
-              error:
-                type: object
-                additionalProperties: false
-                description: ''
-                properties:
-                  message:
-                    type: string
-                    description: ''
-                    default: ''
-                  details:
-                    type: object
-                    description: ''
-                    default: null
-                    nullable: true
-                required:
-                - details
-                - message
-            required:
-            - error
-      description: Bad request
-    SocketNotFoundResponse:
-      content:
-        application/json:
-          schema:
-            type: object
-            additionalProperties: false
-            description: ''
-            properties:
-              error:
-                type: object
-                additionalProperties: false
-                description: ''
-                properties:
-                  message:
-                    type: string
-                    description: ''
-                    default: ''
-                  details:
-                    type: object
-                    description: ''
-                    default: null
-                    nullable: true
-                required:
-                - details
-                - message
-            required:
-            - error
-      description: Resource not found
     SocketTooManyRequestsResponse:
       description: Insufficient quota for API route
       headers:
@@ -359,15 +279,74 @@ components:
                     description: ''
                     default: ''
                   details:
-                    type: object
+                    type:
+                    - object
+                    - 'null'
                     description: ''
                     default: null
-                    nullable: true
                 required:
                 - details
                 - message
             required:
             - error
+    SocketBadRequest:
+      content:
+        application/json:
+          schema:
+            type: object
+            additionalProperties: false
+            description: ''
+            properties:
+              error:
+                type: object
+                additionalProperties: false
+                description: ''
+                properties:
+                  message:
+                    type: string
+                    description: ''
+                    default: ''
+                  details:
+                    type:
+                    - object
+                    - 'null'
+                    description: ''
+                    default: null
+                required:
+                - details
+                - message
+            required:
+            - error
+      description: Bad request
+    SocketNotFoundResponse:
+      content:
+        application/json:
+          schema:
+            type: object
+            additionalProperties: false
+            description: ''
+            properties:
+              error:
+                type: object
+                additionalProperties: false
+                description: ''
+                properties:
+                  message:
+                    type: string
+                    description: ''
+                    default: ''
+                  details:
+                    type:
+                    - object
+                    - 'null'
+                    description: ''
+                    default: null
+                required:
+                - details
+                - message
+            required:
+            - error
+      description: Resource not found
     SocketUnauthorized:
       content:
         application/json:
@@ -386,16 +365,46 @@ components:
                     description: ''
                     default: ''
                   details:
-                    type: object
+                    type:
+                    - object
+                    - 'null'
                     description: ''
                     default: null
-                    nullable: true
                 required:
                 - details
                 - message
             required:
             - error
       description: Unauthorized
+    SocketForbidden:
+      content:
+        application/json:
+          schema:
+            type: object
+            additionalProperties: false
+            description: ''
+            properties:
+              error:
+                type: object
+                additionalProperties: false
+                description: ''
+                properties:
+                  message:
+                    type: string
+                    description: ''
+                    default: ''
+                  details:
+                    type:
+                    - object
+                    - 'null'
+                    description: ''
+                    default: null
+                required:
+                - details
+                - message
+            required:
+            - error
+      description: Insufficient max_quota for API method
   securitySchemes:
     bearerAuth:
       type: http

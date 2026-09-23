@@ -1,7 +1,7 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
   description: Specification of the Socket API endpoints
-  title: API Endpoints alerts full-scans API
+  title: Endpoints Full Scans API
   version: '0'
 servers:
 - url: https://api.socket.dev/v0
@@ -171,25 +171,29 @@ paths:
                           description: ''
                           default: ''
                         branch:
-                          type: string
+                          type:
+                          - string
+                          - 'null'
                           description: ''
                           default: ''
-                          nullable: true
                         commit_message:
-                          type: string
+                          type:
+                          - string
+                          - 'null'
                           description: ''
                           default: ''
-                          nullable: true
                         commit_hash:
-                          type: string
+                          type:
+                          - string
+                          - 'null'
                           description: ''
                           default: ''
-                          nullable: true
                         pull_request:
-                          type: integer
+                          type:
+                          - integer
+                          - 'null'
                           description: ''
                           default: 0
-                          nullable: true
                         committers:
                           type: array
                           items:
@@ -198,15 +202,17 @@ paths:
                             default: ''
                           description: ''
                         html_url:
-                          type: string
+                          type:
+                          - string
+                          - 'null'
                           description: ''
                           default: ''
-                          nullable: true
                         api_url:
-                          type: string
+                          type:
+                          - string
+                          - 'null'
                           description: ''
                           default: ''
-                          nullable: true
                         workspace:
                           type: string
                           description: ''
@@ -220,37 +226,45 @@ paths:
                           description: ''
                           default: ''
                         integration_type:
-                          type: string
+                          type:
+                          - string
+                          - 'null'
                           description: ''
                           default: ''
-                          nullable: true
                         integration_repo_url:
-                          type: string
+                          type:
+                          - string
+                          - 'null'
                           description: ''
                           default: ''
-                          nullable: true
                         integration_branch_url:
-                          type: string
+                          type:
+                          - string
+                          - 'null'
                           description: ''
                           default: ''
-                          nullable: true
                         integration_commit_url:
-                          type: string
+                          type:
+                          - string
+                          - 'null'
                           description: ''
                           default: ''
-                          nullable: true
                         integration_pull_request_url:
-                          type: string
+                          type:
+                          - string
+                          - 'null'
                           description: ''
                           default: ''
-                          nullable: true
                         scan_type:
-                          type: string
+                          type:
+                          - string
+                          - 'null'
                           description: ''
                           default: ''
-                          nullable: true
                         scan_state:
-                          type: string
+                          type:
+                          - string
+                          - 'null'
                           enum:
                           - pending
                           - precrawl
@@ -258,19 +272,20 @@ paths:
                           - scan
                           description: The current processing status of the SBOM
                           default: pending
-                          nullable: true
                       description: ''
                     description: ''
                   nextPageCursor:
-                    type: string
+                    type:
+                    - string
+                    - 'null'
                     description: ''
                     default: ''
-                    nullable: true
                   nextPage:
-                    type: integer
+                    type:
+                    - integer
+                    - 'null'
                     description: ''
                     default: 0
-                    nullable: true
                 required:
                 - nextPage
                 - nextPageCursor
@@ -412,7 +427,7 @@ paths:
       description: 'Create a full scan from a set of package manifest files. Returns a full scan including all SBOM artifacts.
 
 
-        To get a list of supported filetypes that can be uploaded in a full-scan, see the [Get supported file types](/reference/getsupportedfiles) endpoint.
+        To get a list of supported filetypes that can be uploaded in a full-scan, see the Get supported file types endpoint.
 
 
         The maximum number of files you can upload at a time is 10000 and each file can be no bigger than 268 MB.
@@ -466,25 +481,29 @@ paths:
                     description: ''
                     default: ''
                   branch:
-                    type: string
+                    type:
+                    - string
+                    - 'null'
                     description: ''
                     default: ''
-                    nullable: true
                   commit_message:
-                    type: string
+                    type:
+                    - string
+                    - 'null'
                     description: ''
                     default: ''
-                    nullable: true
                   commit_hash:
-                    type: string
+                    type:
+                    - string
+                    - 'null'
                     description: ''
                     default: ''
-                    nullable: true
                   pull_request:
-                    type: integer
+                    type:
+                    - integer
+                    - 'null'
                     description: ''
                     default: 0
-                    nullable: true
                   committers:
                     type: array
                     items:
@@ -493,15 +512,17 @@ paths:
                       default: ''
                     description: ''
                   html_url:
-                    type: string
+                    type:
+                    - string
+                    - 'null'
                     description: ''
                     default: ''
-                    nullable: true
                   api_url:
-                    type: string
+                    type:
+                    - string
+                    - 'null'
                     description: ''
                     default: ''
-                    nullable: true
                   workspace:
                     type: string
                     description: ''
@@ -515,37 +536,45 @@ paths:
                     description: ''
                     default: ''
                   integration_type:
-                    type: string
+                    type:
+                    - string
+                    - 'null'
                     description: ''
                     default: ''
-                    nullable: true
                   integration_repo_url:
-                    type: string
+                    type:
+                    - string
+                    - 'null'
                     description: ''
                     default: ''
-                    nullable: true
                   integration_branch_url:
-                    type: string
+                    type:
+                    - string
+                    - 'null'
                     description: ''
                     default: ''
-                    nullable: true
                   integration_commit_url:
-                    type: string
+                    type:
+                    - string
+                    - 'null'
                     description: ''
                     default: ''
-                    nullable: true
                   integration_pull_request_url:
-                    type: string
+                    type:
+                    - string
+                    - 'null'
                     description: ''
                     default: ''
-                    nullable: true
                   scan_type:
-                    type: string
+                    type:
+                    - string
+                    - 'null'
                     description: ''
                     default: ''
-                    nullable: true
                   scan_state:
-                    type: string
+                    type:
+                    - string
+                    - 'null'
                     enum:
                     - pending
                     - precrawl
@@ -553,7 +582,6 @@ paths:
                     - scan
                     description: The current processing status of the SBOM
                     default: pending
-                    nullable: true
                   unmatchedFiles:
                     type: array
                     items:
@@ -843,25 +871,29 @@ paths:
                     description: ''
                     default: ''
                   branch:
-                    type: string
+                    type:
+                    - string
+                    - 'null'
                     description: ''
                     default: ''
-                    nullable: true
                   commit_message:
-                    type: string
+                    type:
+                    - string
+                    - 'null'
                     description: ''
                     default: ''
-                    nullable: true
                   commit_hash:
-                    type: string
+                    type:
+                    - string
+                    - 'null'
                     description: ''
                     default: ''
-                    nullable: true
                   pull_request:
-                    type: integer
+                    type:
+                    - integer
+                    - 'null'
                     description: ''
                     default: 0
-                    nullable: true
                   committers:
                     type: array
                     items:
@@ -870,15 +902,17 @@ paths:
                       default: ''
                     description: ''
                   html_url:
-                    type: string
+                    type:
+                    - string
+                    - 'null'
                     description: ''
                     default: ''
-                    nullable: true
                   api_url:
-                    type: string
+                    type:
+                    - string
+                    - 'null'
                     description: ''
                     default: ''
-                    nullable: true
                   workspace:
                     type: string
                     description: ''
@@ -892,37 +926,45 @@ paths:
                     description: ''
                     default: ''
                   integration_type:
-                    type: string
+                    type:
+                    - string
+                    - 'null'
                     description: ''
                     default: ''
-                    nullable: true
                   integration_repo_url:
-                    type: string
+                    type:
+                    - string
+                    - 'null'
                     description: ''
                     default: ''
-                    nullable: true
                   integration_branch_url:
-                    type: string
+                    type:
+                    - string
+                    - 'null'
                     description: ''
                     default: ''
-                    nullable: true
                   integration_commit_url:
-                    type: string
+                    type:
+                    - string
+                    - 'null'
                     description: ''
                     default: ''
-                    nullable: true
                   integration_pull_request_url:
-                    type: string
+                    type:
+                    - string
+                    - 'null'
                     description: ''
                     default: ''
-                    nullable: true
                   scan_type:
-                    type: string
+                    type:
+                    - string
+                    - 'null'
                     description: ''
                     default: ''
-                    nullable: true
                   scan_state:
-                    type: string
+                    type:
+                    - string
+                    - 'null'
                     enum:
                     - pending
                     - precrawl
@@ -930,7 +972,6 @@ paths:
                     - scan
                     description: The current processing status of the SBOM
                     default: pending
-                    nullable: true
                 description: ''
           description: The data from the full scan
         '400':
@@ -1168,25 +1209,29 @@ paths:
                     description: ''
                     default: ''
                   branch:
-                    type: string
+                    type:
+                    - string
+                    - 'null'
                     description: ''
                     default: ''
-                    nullable: true
                   commit_message:
-                    type: string
+                    type:
+                    - string
+                    - 'null'
                     description: ''
                     default: ''
-                    nullable: true
                   commit_hash:
-                    type: string
+                    type:
+                    - string
+                    - 'null'
                     description: ''
                     default: ''
-                    nullable: true
                   pull_request:
-                    type: integer
+                    type:
+                    - integer
+                    - 'null'
                     description: ''
                     default: 0
-                    nullable: true
                   committers:
                     type: array
                     items:
@@ -1195,15 +1240,17 @@ paths:
                       default: ''
                     description: ''
                   html_url:
-                    type: string
+                    type:
+                    - string
+                    - 'null'
                     description: ''
                     default: ''
-                    nullable: true
                   api_url:
-                    type: string
+                    type:
+                    - string
+                    - 'null'
                     description: ''
                     default: ''
-                    nullable: true
                   workspace:
                     type: string
                     description: ''
@@ -1217,37 +1264,45 @@ paths:
                     description: ''
                     default: ''
                   integration_type:
-                    type: string
+                    type:
+                    - string
+                    - 'null'
                     description: ''
                     default: ''
-                    nullable: true
                   integration_repo_url:
-                    type: string
+                    type:
+                    - string
+                    - 'null'
                     description: ''
                     default: ''
-                    nullable: true
                   integration_branch_url:
-                    type: string
+                    type:
+                    - string
+                    - 'null'
                     description: ''
                     default: ''
-                    nullable: true
                   integration_commit_url:
-                    type: string
+                    type:
+                    - string
+                    - 'null'
                     description: ''
                     default: ''
-                    nullable: true
                   integration_pull_request_url:
-                    type: string
+                    type:
+                    - string
+                    - 'null'
                     description: ''
                     default: ''
-                    nullable: true
                   scan_type:
-                    type: string
+                    type:
+                    - string
+                    - 'null'
                     description: ''
                     default: ''
-                    nullable: true
                   scan_state:
-                    type: string
+                    type:
+                    - string
+                    - 'null'
                     enum:
                     - pending
                     - precrawl
@@ -1255,7 +1310,6 @@ paths:
                     - scan
                     description: The current processing status of the SBOM
                     default: pending
-                    nullable: true
                   unmatchedFiles:
                     type: array
                     items:
@@ -2084,14 +2138,15 @@ paths:
                       description: ''
                       default: ''
                     props:
-                      type: object
+                      type:
+                      - object
+                      - 'null'
                       additionalProperties:
                         type: string
                         description: ''
                         default: ''
                       properties: {}
                       description: ''
-                      nullable: true
                   required:
                   - description
                   - emoji
@@ -2107,359 +2162,85 @@ paths:
       x-readme: {}
 components:
   schemas:
-    SAttrib1_N:
+    LicenseDetails:
       type: array
       items:
         type: object
         additionalProperties: false
         description: ''
         properties:
-          attribText:
+          spdxDisj:
             type: string
-            description: Full text of the license attribution or copyright notice found in the package
+            description: SPDX license expression in disjunctive normal form (e.g., '(MIT OR Apache-2.0)')
             default: ''
-          attribData:
-            type: array
-            items:
-              type: object
-              additionalProperties: false
-              description: ''
-              properties:
-                purl:
-                  type: string
-                  description: Package URL this attribution applies to
-                  default: ''
-                foundInFilepath:
-                  type: string
-                  description: File path where this attribution was found
-                  default: ''
-                spdxExpr:
-                  type: string
-                  description: SPDX license expression parsed from the attribution text
-                  default: ''
-                foundAuthors:
-                  type: array
-                  items:
-                    type: string
-                    description: ''
-                    default: ''
-                  description: Authors mentioned in this attribution
-              required:
-              - foundAuthors
-              - foundInFilepath
-              - purl
-              - spdxExpr
-            description: ''
-        required:
-        - attribData
-        - attribText
-      description: ''
-    SocketArtifactLink:
-      type: object
-      additionalProperties: false
-      properties:
-        direct:
-          type: boolean
-          default: false
-          description: Indicates if this is a direct dependency (not transitive)
-        dev:
-          type: boolean
-          default: false
-          description: Indicates if this is a development-only dependency not used in production
-        dead:
-          type: boolean
-          default: false
-          description: Indicates if this package is deprecated, abandoned, or no longer maintained
-        manifestFiles:
-          type: array
-          items:
-            $ref: '#/components/schemas/SocketManifestReference'
-          description: ''
-        topLevelAncestors:
-          type: array
-          items:
-            $ref: '#/components/schemas/SocketId'
-          description: IDs of the root-level packages in the dependency tree that depend on this package
-        dependencies:
-          type: array
-          items:
-            $ref: '#/components/schemas/SocketId'
-          description: IDs of packages that this package directly depends on
-        alertPriorities:
-          type: object
-          additionalProperties:
-            type: object
-            additionalProperties: false
-            properties:
-              result:
-                type: integer
-                description: Computed priority score for this alert
-                default: 0
-              components:
-                type: object
-                additionalProperties: false
-                description: ''
-                properties:
-                  isFixable:
-                    type: object
-                    additionalProperties: false
-                    description: ''
-                    properties:
-                      result:
-                        type: number
-                        description: Contribution of fixability to the priority score
-                        default: 0
-                      value:
-                        type: boolean
-                        default: false
-                        description: Whether a fix is available for this alert
-                    required:
-                    - result
-                    - value
-                  isReachable:
-                    type: object
-                    additionalProperties: false
-                    description: ''
-                    properties:
-                      result:
-                        type: number
-                        description: Contribution of reachability to the priority score
-                        default: 0
-                      value:
-                        type: boolean
-                        default: false
-                        description: Whether the vulnerable code is reachable
-                      specificValue:
-                        type: string
-                        description: Specific reachability type value such as 'unreachable', 'maybe_reachable', or 'reachable'
-                        default: ''
-                    required:
-                    - result
-                    - specificValue
-                    - value
-                  severity:
-                    type: object
-                    additionalProperties: false
-                    description: ''
-                    properties:
-                      result:
-                        type: number
-                        description: Contribution of severity to the priority score
-                        default: 0
-                      value:
-                        type: integer
-                        description: Numeric severity level
-                        default: 0
-                    required:
-                    - result
-                    - value
-                required:
-                - isFixable
-                - isReachable
-                - severity
-              formula:
-                type: string
-                description: Formula used to calculate the priority score
-                default: ''
-            required:
-            - result
-          properties: {}
-          description: Computed priority scores for each alert type based on severity, reachability, and fixability factors
-        artifact:
-          allOf:
-          - $ref: '#/components/schemas/SocketPURL'
-          - type: object
-            additionalProperties: false
-            properties:
-              id:
-                $ref: '#/components/schemas/SocketId'
-            required:
-            - id
-        alertKeysToReachabilityTypes:
-          type: object
-          additionalProperties:
+          authors:
             type: array
             items:
               type: string
               description: ''
               default: ''
-            description: ''
-          properties: {}
-          description: 'Deprecated: mapping of alert keys to arrays of reachability types found across different manifest files or code locations. This field is derived from alertKeysToReachabilitySummaries for backward compatibility; use that property instead.'
-        alertKeysToReachabilitySummaries:
-          type: object
-          additionalProperties:
-            type: array
-            items:
-              type: object
-              additionalProperties: false
-              description: ''
-              properties:
-                type:
-                  type: string
-                  description: ''
-                  default: ''
-              required:
-              - type
-            description: ''
-          properties: {}
-          description: Mapping of alert keys to arrays of reachability summaries. Each summary contains a reachability type indicating the result of reachability analysis for the corresponding vulnerability alert.
+            description: List of authors found in the license text
+          errorData:
+            type: string
+            description: Error details if license parsing failed
+            default: ''
+          provenance:
+            type: string
+            description: Source where this license information was detected (e.g., 'package.json', 'LICENSE file', 'README')
+            default: ''
+          filepath:
+            type: string
+            description: Path to the file containing this license information
+            default: ''
+          match_strength:
+            type: number
+            description: Confidence score from 0.0 to 1.0 indicating how well the detected license matches the source text
+            default: 0
+        required:
+        - authors
+        - errorData
+        - filepath
+        - match_strength
+        - provenance
+        - spdxDisj
       description: ''
-    ClassStackItem:
+    SocketArtifactPatch:
       type: object
       additionalProperties: false
       properties:
-        purl:
-          type: string
-          description: Package URL (PURL) of the dependency containing this class
-          default: ''
-        class:
-          type: string
-          description: Name of the class in the dependency
-          default: ''
-        confidence:
-          type: number
-          description: Confidence score from 0.0 to 1.0 indicating how certain the reachability analysis is about this result
-          default: 0
-      description: ''
-    SocketPURL_Type:
-      type: string
-      enum:
-      - alpm
-      - apk
-      - bitbucket
-      - cocoapods
-      - cargo
-      - chrome
-      - clawhub
-      - composer
-      - conan
-      - conda
-      - cran
-      - deb
-      - docker
-      - gem
-      - generic
-      - github
-      - golang
-      - hackage
-      - hex
-      - huggingface
-      - maven
-      - mlflow
-      - npm
-      - nuget
-      - qpkg
-      - oci
-      - pub
-      - pypi
-      - rpm
-      - socket
-      - swid
-      - swift
-      - vscode
-      - unknown
-      description: Package ecosystem type identifier based on the PURL specification
-      default: unknown
-    ReachabilityType:
-      type: string
-      enum:
-      - missing_support
-      - undeterminable_reachability
-      - pending
-      - unreachable
-      - unknown
-      - direct_dependency
-      - error
-      - maybe_reachable
-      - reachable
-      description: Status of reachability analysis for vulnerable code paths
-      default: unknown
-    ReachabilityResult:
-      type: object
-      additionalProperties: false
-      description: ''
-      properties:
-        type:
-          type: string
-          enum:
-          - precomputed
-          - full-scan
-          description: Type of reachability analysis performed
-          default: precomputed
-        results:
+        appliedPatch:
+          $ref: '#/components/schemas/SocketPatch'
+        availablePatches:
           type: array
           items:
-            $ref: '#/components/schemas/ReachabilityResultItem'
-          description: Reachability analysis results for each vulnerability
-      required:
-      - results
-      - type
-    SourceLocation:
+            $ref: '#/components/schemas/SocketPatch'
+          description: List of available patches that can be applied to fix vulnerabilities
+      description: ''
+    OpenVEXVulnerabilitySchema:
       type: object
       additionalProperties: false
-      description: ''
       properties:
-        start:
-          type: object
-          additionalProperties: false
-          description: ''
-          properties:
-            line:
-              type: integer
-              description: Line number in the source file
-              default: 0
-            column:
-              type: integer
-              description: Column number in the source file
-              default: 0
-            byteOffset:
-              type: integer
-              description: Absolute byte position from the beginning of the file, used for precise location tracking
-              default: 0
-          required:
-          - byteOffset
-          - column
-          - line
-        end:
-          type: object
-          additionalProperties: false
-          properties:
-            line:
-              type: integer
-              description: Line number in the source file
-              default: 0
-            column:
-              type: integer
-              description: Column number in the source file
-              default: 0
-            byteOffset:
-              type: integer
-              description: Absolute byte position from the beginning of the file, used for precise location tracking
-              default: 0
-          description: ''
-        filename:
+        name:
           type: string
-          description: Path to the source file
+          description: ''
           default: ''
-        fileHash:
+        '@id':
           type: string
-          description: Hash of the source file for integrity verification
+          description: ''
           default: ''
+        description:
+          type: string
+          description: ''
+          default: ''
+        aliases:
+          type: array
+          items:
+            type: string
+            description: ''
+            default: ''
+          description: ''
       required:
-      - end
-      - fileHash
-      - filename
-      - start
-    SocketIssueSeverity:
-      type: string
-      enum:
-      - low
-      - middle
-      - high
-      - critical
-      description: ''
-      default: low
+      - name
     CDXManifestSchema:
       type: object
       additionalProperties: false
@@ -2787,62 +2568,276 @@ components:
       - serialNumber
       - specVersion
       - version
-    ReachabilityResultItem:
+    SocketSBOMScore:
+      type: object
+      additionalProperties:
+        type: object
+        additionalProperties: false
+        description: ''
+        properties:
+          value:
+            type: object
+            additionalProperties: false
+            properties:
+              result:
+                type: number
+                description: Score from 0.0 to 1.0 for the scanned repository, computed from supply chain risk alerts using weighted exponential decay per direct dependency
+                default: 0
+              components:
+                type: object
+                additionalProperties:
+                  type: number
+                  description: ''
+                  default: 0
+                properties: {}
+                description: Components used to compute result of the formula
+              formula:
+                type: string
+                description: Formula used to compute the supply chain security score
+                default: ''
+            required:
+            - result
+        required:
+        - value
+      properties: {}
+      description: Mapping of supply chain risk alert types to their computed score contributions and formulas used for calculation. This allows for detailed breakdowns of how each alert type impacts the overall supply chain security score, with the ability to include custom formulas and components for each alert type.
+    SPDXManifestSchema:
+      type: object
+      additionalProperties: false
+      description: ''
+      properties:
+        spdxVersion:
+          type: string
+          description: ''
+          default: SPDX-2.3
+        dataLicense:
+          type: string
+          description: ''
+          default: CC0-1.0
+        SPDXID:
+          type: string
+          description: ''
+          default: SPDXRef-DOCUMENT
+        name:
+          type: string
+          description: ''
+          default: ''
+        documentNamespace:
+          type: string
+          description: ''
+          default: ''
+        creationInfo:
+          type: object
+          additionalProperties: false
+          description: ''
+          properties:
+            created:
+              type: string
+              description: ''
+              default: ''
+            creators:
+              type: array
+              items:
+                type: string
+                description: ''
+                default: ''
+              description: ''
+          required:
+          - created
+          - creators
+        documentDescribes:
+          type: array
+          items:
+            type: string
+            description: ''
+            default: ''
+          description: ''
+        packages:
+          type: array
+          items:
+            type: object
+            additionalProperties: false
+            properties:
+              name:
+                type: string
+                description: ''
+                default: ''
+              SPDXID:
+                type: string
+                description: ''
+                default: ''
+              versionInfo:
+                type: string
+                description: ''
+                default: ''
+              packageFileName:
+                type: string
+                description: ''
+                default: ''
+              description:
+                type: string
+                description: ''
+                default: ''
+              primaryPackagePurpose:
+                type: string
+                description: ''
+                default: ''
+              downloadLocation:
+                type: string
+                description: ''
+                default: ''
+              filesAnalyzed:
+                type: boolean
+                default: false
+                description: ''
+              homepage:
+                type: string
+                description: ''
+                default: NOASSERTION
+              licenseDeclared:
+                type: string
+                description: ''
+                default: NOASSERTION
+              externalRefs:
+                type: array
+                items:
+                  type: object
+                  additionalProperties: false
+                  description: ''
+                  properties:
+                    referenceCategory:
+                      type: string
+                      description: ''
+                      default: PACKAGE-MANAGER
+                    referenceType:
+                      type: string
+                      description: ''
+                      default: purl
+                    referenceLocator:
+                      type: string
+                      description: ''
+                      default: ''
+                  required:
+                  - referenceCategory
+                  - referenceLocator
+                  - referenceType
+                description: ''
+              checksums:
+                type: array
+                items:
+                  type: object
+                  additionalProperties: false
+                  description: ''
+                  properties:
+                    algorithm:
+                      type: string
+                      description: ''
+                      default: ''
+                    checksumValue:
+                      type: string
+                      description: ''
+                      default: ''
+                  required:
+                  - algorithm
+                  - checksumValue
+                description: ''
+            required:
+            - SPDXID
+            - externalRefs
+            - filesAnalyzed
+            - homepage
+            - licenseDeclared
+            - name
+            - packageFileName
+            - versionInfo
+          description: ''
+        relationships:
+          type: array
+          items:
+            type: object
+            additionalProperties: false
+            description: ''
+            properties:
+              spdxElementId:
+                type: string
+                description: ''
+                default: SPDXRef-DOCUMENT
+              relatedSpdxElement:
+                type: string
+                description: ''
+                default: ''
+              relationshipType:
+                type: string
+                description: ''
+                default: DESCRIBES
+            required:
+            - relatedSpdxElement
+            - relationshipType
+            - spdxElementId
+          description: ''
+      required:
+      - SPDXID
+      - creationInfo
+      - dataLicense
+      - documentDescribes
+      - documentNamespace
+      - name
+      - packages
+      - relationships
+      - spdxVersion
+    SocketScore:
+      type: object
+      additionalProperties: false
+      description: ''
+      properties:
+        license:
+          type: number
+          description: Score from 0.0 to 1.0 evaluating license permissiveness and compatibility
+          default: 0
+        maintenance:
+          type: number
+          description: Score from 0.0 to 1.0 evaluating project maintenance health and activity
+          default: 0
+        overall:
+          type: number
+          description: Combined score from 0.0 to 1.0 representing overall package health and safety
+          default: 0
+        quality:
+          type: number
+          description: Score from 0.0 to 1.0 evaluating code quality, testing, and documentation
+          default: 0
+        supplyChain:
+          type: number
+          description: Score from 0.0 to 1.0 evaluating supply chain security and provenance
+          default: 0
+        vulnerability:
+          type: number
+          description: Score from 0.0 to 1.0 based on known vulnerabilities and their severity
+          default: 0
+      required:
+      - license
+      - maintenance
+      - overall
+      - quality
+      - supplyChain
+      - vulnerability
+    ClassStackItem:
       type: object
       additionalProperties: false
       properties:
-        type:
-          $ref: '#/components/schemas/ReachabilityType'
-        truncated:
-          type: boolean
-          default: false
-          description: Indicates if the reachability analysis was stopped early due to depth or complexity limits
-        error:
+        purl:
           type: string
-          description: Error message if reachability analysis failed
+          description: Package URL (PURL) of the dependency containing this class
           default: ''
-        matches:
-          anyOf:
-          - type: object
-            additionalProperties: false
-            properties:
-              type:
-                type: string
-                enum:
-                - function-level
-              value:
-                type: array
-                items:
-                  type: array
-                  items:
-                    $ref: '#/components/schemas/CallStackItem'
-                  description: ''
-                description: ''
-          - type: object
-            additionalProperties: false
-            properties:
-              type:
-                type: string
-                enum:
-                - class-level
-              value:
-                type: array
-                items:
-                  type: array
-                  items:
-                    $ref: '#/components/schemas/ClassStackItem'
-                  description: ''
-                description: ''
-        workspacePath:
+        class:
           type: string
-          description: Path to the workspace root for multi-workspace projects
+          description: Name of the class in the dependency
           default: ''
-        subprojectPath:
-          type: string
-          description: Path to the subproject within the workspace
-          default: ''
-      required:
-      - type
+        confidence:
+          type: number
+          description: Confidence score from 0.0 to 1.0 indicating how certain the reachability analysis is about this result
+          default: 0
+      description: ''
     CDXComponentSchema:
       type: object
       additionalProperties: false
@@ -3084,78 +3079,134 @@ components:
       - purl
       - type
       - version
-    OpenVEXIdentifiersSchema:
-      type: object
-      additionalProperties: false
-      properties:
-        purl:
-          type: string
-          description: ''
-          default: ''
-        cpe23:
-          type: string
-          description: ''
-          default: ''
-        cpe22:
-          type: string
-          description: ''
-          default: ''
-      description: ''
-    SocketSBOMScore:
-      type: object
-      additionalProperties:
+    SAttrib1_N:
+      type: array
+      items:
         type: object
         additionalProperties: false
         description: ''
         properties:
-          value:
-            type: object
-            additionalProperties: false
-            properties:
-              result:
-                type: number
-                description: Score from 0.0 to 1.0 for the scanned repository, computed from supply chain risk alerts using weighted exponential decay per direct dependency
-                default: 0
-              components:
-                type: object
-                additionalProperties:
-                  type: number
-                  description: ''
-                  default: 0
-                properties: {}
-                description: Components used to compute result of the formula
-              formula:
-                type: string
-                description: Formula used to compute the supply chain security score
-                default: ''
-            required:
-            - result
+          attribText:
+            type: string
+            description: Full text of the license attribution or copyright notice found in the package
+            default: ''
+          attribData:
+            type: array
+            items:
+              type: object
+              additionalProperties: false
+              description: ''
+              properties:
+                purl:
+                  type: string
+                  description: Package URL this attribution applies to
+                  default: ''
+                foundInFilepath:
+                  type: string
+                  description: File path where this attribution was found
+                  default: ''
+                spdxExpr:
+                  type: string
+                  description: SPDX license expression parsed from the attribution text
+                  default: ''
+                foundAuthors:
+                  type: array
+                  items:
+                    type: string
+                    description: ''
+                    default: ''
+                  description: Authors mentioned in this attribution
+              required:
+              - foundAuthors
+              - foundInFilepath
+              - purl
+              - spdxExpr
+            description: ''
         required:
-        - value
-      properties: {}
-      description: Mapping of supply chain risk alert types to their computed score contributions and formulas used for calculation. This allows for detailed breakdowns of how each alert type impacts the overall supply chain security score, with the ability to include custom formulas and components for each alert type.
-    SocketPatch:
+        - attribData
+        - attribText
+      description: ''
+    SourceLocation:
       type: object
       additionalProperties: false
+      description: ''
       properties:
-        uuid:
+        start:
+          type: object
+          additionalProperties: false
+          description: ''
+          properties:
+            line:
+              type: integer
+              description: Line number in the source file
+              default: 0
+            column:
+              type: integer
+              description: Column number in the source file
+              default: 0
+            byteOffset:
+              type: integer
+              description: Absolute byte position from the beginning of the file, used for precise location tracking
+              default: 0
+          required:
+          - byteOffset
+          - column
+          - line
+        end:
+          type: object
+          additionalProperties: false
+          properties:
+            line:
+              type: integer
+              description: Line number in the source file
+              default: 0
+            column:
+              type: integer
+              description: Column number in the source file
+              default: 0
+            byteOffset:
+              type: integer
+              description: Absolute byte position from the beginning of the file, used for precise location tracking
+              default: 0
+          description: ''
+        filename:
           type: string
-          description: Unique identifier for this patch
+          description: Path to the source file
           default: ''
-        tier:
+        fileHash:
           type: string
-          enum:
-          - free
-          - paid
-          description: Access tier required for this patch (free or paid)
-          default: free
-        deprecated:
-          type: boolean
-          default: false
-          description: Indicates if this patch is deprecated and should not be used
+          description: Hash of the source file for integrity verification
+          default: ''
       required:
-      - tier
-      - uuid
+      - end
+      - fileHash
+      - filename
+      - start
+    ReachabilityType:
+      type: string
+      enum:
+      - missing_support
+      - undeterminable_reachability
+      - pending
+      - unreachable
+      - unknown
+      - direct_dependency
+      - error
+      - maybe_reachable
+      - reachable
+      description: Status of reachability analysis for vulnerable code paths
+      default: unknown
+    SocketCategory:
+      type: string
+      enum:
+      - supplyChainRisk
+      - quality
+      - maintenance
+      - vulnerability
+      - license
+      - other
+      description: ''
+      default: other
     SocketArtifact:
       allOf:
       - $ref: '#/components/schemas/SocketPURL'
@@ -3209,6 +3260,207 @@ components:
             $ref: '#/components/schemas/LicenseDetails'
           licenseAttrib:
             $ref: '#/components/schemas/SAttrib1_N'
+    ReachabilityResult:
+      type: object
+      additionalProperties: false
+      description: ''
+      properties:
+        type:
+          type: string
+          enum:
+          - precomputed
+          - full-scan
+          description: Type of reachability analysis performed
+          default: precomputed
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/ReachabilityResultItem'
+          description: Reachability analysis results for each vulnerability
+      required:
+      - results
+      - type
+    SocketId:
+      type: string
+      description: ''
+      default: ''
+    OpenVEXStatementSchema:
+      type: object
+      additionalProperties: false
+      properties:
+        vulnerability:
+          $ref: '#/components/schemas/OpenVEXVulnerabilitySchema'
+        products:
+          type: array
+          items:
+            $ref: '#/components/schemas/OpenVEXProductSchema'
+          description: ''
+        status:
+          type: string
+          description: ''
+          default: affected
+        '@id':
+          type: string
+          description: ''
+          default: ''
+        version:
+          type: number
+          description: ''
+          default: 0
+        timestamp:
+          type: string
+          description: ''
+          default: ''
+        last_updated:
+          type: string
+          description: ''
+          default: ''
+        supplier:
+          type: string
+          description: ''
+          default: ''
+        status_notes:
+          type: string
+          description: ''
+          default: ''
+        justification:
+          type: string
+          description: ''
+          default: ''
+        impact_statement:
+          type: string
+          description: ''
+          default: ''
+        action_statement:
+          type: string
+          description: ''
+          default: ''
+        action_statement_timestamp:
+          type: string
+          description: ''
+          default: ''
+      required:
+      - products
+      - status
+      - vulnerability
+    OpenVEXDocumentSchema:
+      type: object
+      additionalProperties: false
+      properties:
+        '@context':
+          type: string
+          description: ''
+          default: https://openvex.dev/ns/v0.2.0
+        '@id':
+          type: string
+          description: ''
+          default: ''
+        author:
+          type: string
+          description: ''
+          default: Socket Security
+        timestamp:
+          type: string
+          description: ''
+          default: ''
+        version:
+          type: number
+          description: ''
+          default: 1
+        statements:
+          type: array
+          items:
+            $ref: '#/components/schemas/OpenVEXStatementSchema'
+          description: ''
+        role:
+          type: string
+          description: ''
+          default: VEX Generator
+        last_updated:
+          type: string
+          description: ''
+          default: ''
+        tooling:
+          type: string
+          description: ''
+          default: Socket Security VEX Generator
+      required:
+      - '@context'
+      - '@id'
+      - author
+      - statements
+      - timestamp
+      - version
+    OpenVEXIdentifiersSchema:
+      type: object
+      additionalProperties: false
+      properties:
+        purl:
+          type: string
+          description: ''
+          default: ''
+        cpe23:
+          type: string
+          description: ''
+          default: ''
+        cpe22:
+          type: string
+          description: ''
+          default: ''
+      description: ''
+    OpenVEXHashesSchema:
+      type: object
+      additionalProperties: false
+      properties:
+        md5:
+          type: string
+          description: ''
+          default: ''
+        sha1:
+          type: string
+          description: ''
+          default: ''
+        sha-256:
+          type: string
+          description: ''
+          default: ''
+        sha-384:
+          type: string
+          description: ''
+          default: ''
+        sha-512:
+          type: string
+          description: ''
+          default: ''
+        sha3-224:
+          type: string
+          description: ''
+          default: ''
+        sha3-256:
+          type: string
+          description: ''
+          default: ''
+        sha3-384:
+          type: string
+          description: ''
+          default: ''
+        sha3-512:
+          type: string
+          description: ''
+          default: ''
+        blake2s-256:
+          type: string
+          description: ''
+          default: ''
+        blake2b-256:
+          type: string
+          description: ''
+          default: ''
+        blake2b-512:
+          type: string
+          description: ''
+          default: ''
+      description: ''
     SocketAlert:
       type: object
       additionalProperties: false
@@ -3348,88 +3600,6 @@ components:
       required:
       - key
       - type
-    OpenVEXHashesSchema:
-      type: object
-      additionalProperties: false
-      properties:
-        md5:
-          type: string
-          description: ''
-          default: ''
-        sha1:
-          type: string
-          description: ''
-          default: ''
-        sha-256:
-          type: string
-          description: ''
-          default: ''
-        sha-384:
-          type: string
-          description: ''
-          default: ''
-        sha-512:
-          type: string
-          description: ''
-          default: ''
-        sha3-224:
-          type: string
-          description: ''
-          default: ''
-        sha3-256:
-          type: string
-          description: ''
-          default: ''
-        sha3-384:
-          type: string
-          description: ''
-          default: ''
-        sha3-512:
-          type: string
-          description: ''
-          default: ''
-        blake2s-256:
-          type: string
-          description: ''
-          default: ''
-        blake2b-256:
-          type: string
-          description: ''
-          default: ''
-        blake2b-512:
-          type: string
-          description: ''
-          default: ''
-      description: ''
-    OpenVEXVulnerabilitySchema:
-      type: object
-      additionalProperties: false
-      properties:
-        name:
-          type: string
-          description: ''
-          default: ''
-        '@id':
-          type: string
-          description: ''
-          default: ''
-        description:
-          type: string
-          description: ''
-          default: ''
-        aliases:
-          type: array
-          items:
-            type: string
-            description: ''
-            default: ''
-          description: ''
-      required:
-      - name
-    SocketId:
-      type: string
-      description: ''
-      default: ''
     CallStackItem:
       type: object
       additionalProperties: false
@@ -3444,6 +3614,263 @@ components:
           type: number
           description: Confidence score from 0.0 to 1.0 indicating how certain the reachability analysis is about this result
           default: 0
+      description: ''
+    SocketPatch:
+      type: object
+      additionalProperties: false
+      properties:
+        uuid:
+          type: string
+          description: Unique identifier for this patch
+          default: ''
+        tier:
+          type: string
+          enum:
+          - free
+          - paid
+          description: Access tier required for this patch (free or paid)
+          default: free
+        deprecated:
+          type: boolean
+          default: false
+          description: Indicates if this patch is deprecated and should not be used
+      required:
+      - tier
+      - uuid
+    SocketIssueSeverity:
+      type: string
+      enum:
+      - low
+      - middle
+      - high
+      - critical
+      description: ''
+      default: low
+    ReachabilityResultItem:
+      type: object
+      additionalProperties: false
+      properties:
+        type:
+          $ref: '#/components/schemas/ReachabilityType'
+        truncated:
+          type: boolean
+          default: false
+          description: Indicates if the reachability analysis was stopped early due to depth or complexity limits
+        error:
+          type: string
+          description: Error message if reachability analysis failed
+          default: ''
+        matches:
+          anyOf:
+          - type: object
+            additionalProperties: false
+            properties:
+              type:
+                type: string
+                enum:
+                - function-level
+              value:
+                type: array
+                items:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/CallStackItem'
+                  description: ''
+                description: ''
+          - type: object
+            additionalProperties: false
+            properties:
+              type:
+                type: string
+                enum:
+                - class-level
+              value:
+                type: array
+                items:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/ClassStackItem'
+                  description: ''
+                description: ''
+        workspacePath:
+          type: string
+          description: Path to the workspace root for multi-workspace projects
+          default: ''
+        subprojectPath:
+          type: string
+          description: Path to the subproject within the workspace
+          default: ''
+      required:
+      - type
+    OpenVEXProductSchema:
+      type: object
+      additionalProperties: false
+      properties:
+        '@id':
+          type: string
+          description: ''
+          default: ''
+        identifiers:
+          $ref: '#/components/schemas/OpenVEXIdentifiersSchema'
+        hashes:
+          $ref: '#/components/schemas/OpenVEXHashesSchema'
+        subcomponents:
+          type: array
+          items:
+            $ref: '#/components/schemas/OpenVEXComponentSchema'
+          description: ''
+      required:
+      - '@id'
+    SocketArtifactLink:
+      type: object
+      additionalProperties: false
+      properties:
+        direct:
+          type: boolean
+          default: false
+          description: Indicates if this is a direct dependency (not transitive)
+        dev:
+          type: boolean
+          default: false
+          description: Indicates if this is a development-only dependency not used in production
+        dead:
+          type: boolean
+          default: false
+          description: Indicates if this package is deprecated, abandoned, or no longer maintained
+        manifestFiles:
+          type: array
+          items:
+            $ref: '#/components/schemas/SocketManifestReference'
+          description: ''
+        topLevelAncestors:
+          type: array
+          items:
+            $ref: '#/components/schemas/SocketId'
+          description: IDs of the root-level packages in the dependency tree that depend on this package
+        dependencies:
+          type: array
+          items:
+            $ref: '#/components/schemas/SocketId'
+          description: IDs of packages that this package directly depends on
+        alertPriorities:
+          type: object
+          additionalProperties:
+            type: object
+            additionalProperties: false
+            properties:
+              result:
+                type: integer
+                description: Computed priority score for this alert
+                default: 0
+              components:
+                type: object
+                additionalProperties: false
+                description: ''
+                properties:
+                  isFixable:
+                    type: object
+                    additionalProperties: false
+                    description: ''
+                    properties:
+                      result:
+                        type: number
+                        description: Contribution of fixability to the priority score
+                        default: 0
+                      value:
+                        type: boolean
+                        default: false
+                        description: Whether a fix is available for this alert
+                    required:
+                    - result
+                    - value
+                  isReachable:
+                    type: object
+                    additionalProperties: false
+                    description: ''
+                    properties:
+                      result:
+                        type: number
+                        description: Contribution of reachability to the priority score
+                        default: 0
+                      value:
+                        type: boolean
+                        default: false
+                        description: Whether the vulnerable code is reachable
+                      specificValue:
+                        type: string
+                        description: Specific reachability type value such as 'unreachable', 'maybe_reachable', or 'reachable'
+                        default: ''
+                    required:
+                    - result
+                    - specificValue
+                    - value
+                  severity:
+                    type: object
+                    additionalProperties: false
+                    description: ''
+                    properties:
+                      result:
+                        type: number
+                        description: Contribution of severity to the priority score
+                        default: 0
+                      value:
+                        type: integer
+                        description: Numeric severity level
+                        default: 0
+                    required:
+                    - result
+                    - value
+                required:
+                - isFixable
+                - isReachable
+                - severity
+              formula:
+                type: string
+                description: Formula used to calculate the priority score
+                default: ''
+            required:
+            - result
+          properties: {}
+          description: Computed priority scores for each alert type based on severity, reachability, and fixability factors
+        artifact:
+          allOf:
+          - $ref: '#/components/schemas/SocketPURL'
+          - type: object
+            additionalProperties: false
+            properties:
+              id:
+                $ref: '#/components/schemas/SocketId'
+            required:
+            - id
+        alertKeysToReachabilityTypes:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: string
+              description: ''
+              default: ''
+            description: ''
+          properties: {}
+          description: 'Deprecated: mapping of alert keys to arrays of reachability types found across different manifest files or code locations. This field is derived from alertKeysToReachabilitySummaries for backward compatibility; use that property instead.'
+        alertKeysToReachabilitySummaries:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: object
+              additionalProperties: false
+              description: ''
+              properties:
+                type:
+                  type: string
+                  description: ''
+                  default: ''
+              required:
+              - type
+            description: ''
+          properties: {}
+          description: Mapping of alert keys to arrays of reachability summaries. Each summary contains a reachability type indicating the result of reachability analysis for the corresponding vulnerability alert.
       description: ''
     SocketPURL:
       type: object
@@ -3473,179 +3900,45 @@ components:
           default: ''
       required:
       - type
-    SocketScore:
-      type: object
-      additionalProperties: false
-      description: ''
-      properties:
-        license:
-          type: number
-          description: Score from 0.0 to 1.0 evaluating license permissiveness and compatibility
-          default: 0
-        maintenance:
-          type: number
-          description: Score from 0.0 to 1.0 evaluating project maintenance health and activity
-          default: 0
-        overall:
-          type: number
-          description: Combined score from 0.0 to 1.0 representing overall package health and safety
-          default: 0
-        quality:
-          type: number
-          description: Score from 0.0 to 1.0 evaluating code quality, testing, and documentation
-          default: 0
-        supplyChain:
-          type: number
-          description: Score from 0.0 to 1.0 evaluating supply chain security and provenance
-          default: 0
-        vulnerability:
-          type: number
-          description: Score from 0.0 to 1.0 based on known vulnerabilities and their severity
-          default: 0
-      required:
-      - license
-      - maintenance
-      - overall
-      - quality
-      - supplyChain
-      - vulnerability
-    OpenVEXDocumentSchema:
-      type: object
-      additionalProperties: false
-      properties:
-        '@context':
-          type: string
-          description: ''
-          default: https://openvex.dev/ns/v0.2.0
-        '@id':
-          type: string
-          description: ''
-          default: ''
-        author:
-          type: string
-          description: ''
-          default: Socket Security
-        timestamp:
-          type: string
-          description: ''
-          default: ''
-        version:
-          type: number
-          description: ''
-          default: 1
-        statements:
-          type: array
-          items:
-            $ref: '#/components/schemas/OpenVEXStatementSchema'
-          description: ''
-        role:
-          type: string
-          description: ''
-          default: VEX Generator
-        last_updated:
-          type: string
-          description: ''
-          default: ''
-        tooling:
-          type: string
-          description: ''
-          default: Socket Security VEX Generator
-      required:
-      - '@context'
-      - '@id'
-      - author
-      - statements
-      - timestamp
-      - version
-    OpenVEXStatementSchema:
-      type: object
-      additionalProperties: false
-      properties:
-        vulnerability:
-          $ref: '#/components/schemas/OpenVEXVulnerabilitySchema'
-        products:
-          type: array
-          items:
-            $ref: '#/components/schemas/OpenVEXProductSchema'
-          description: ''
-        status:
-          type: string
-          description: ''
-          default: affected
-        '@id':
-          type: string
-          description: ''
-          default: ''
-        version:
-          type: number
-          description: ''
-          default: 0
-        timestamp:
-          type: string
-          description: ''
-          default: ''
-        last_updated:
-          type: string
-          description: ''
-          default: ''
-        supplier:
-          type: string
-          description: ''
-          default: ''
-        status_notes:
-          type: string
-          description: ''
-          default: ''
-        justification:
-          type: string
-          description: ''
-          default: ''
-        impact_statement:
-          type: string
-          description: ''
-          default: ''
-        action_statement:
-          type: string
-          description: ''
-          default: ''
-        action_statement_timestamp:
-          type: string
-          description: ''
-          default: ''
-      required:
-      - products
-      - status
-      - vulnerability
-    SocketCategory:
+    SocketPURL_Type:
       type: string
       enum:
-      - supplyChainRisk
-      - quality
-      - maintenance
-      - vulnerability
-      - license
-      - other
-      description: ''
-      default: other
-    OpenVEXProductSchema:
-      type: object
-      additionalProperties: false
-      properties:
-        '@id':
-          type: string
-          description: ''
-          default: ''
-        identifiers:
-          $ref: '#/components/schemas/OpenVEXIdentifiersSchema'
-        hashes:
-          $ref: '#/components/schemas/OpenVEXHashesSchema'
-        subcomponents:
-          type: array
-          items:
-            $ref: '#/components/schemas/OpenVEXComponentSchema'
-          description: ''
-      required:
-      - '@id'
+      - alpm
+      - apk
+      - bitbucket
+      - cocoapods
+      - cargo
+      - chrome
+      - clawhub
+      - composer
+      - conan
+      - conda
+      - cran
+      - deb
+      - docker
+      - gem
+      - generic
+      - github
+      - golang
+      - hackage
+      - hex
+      - huggingface
+      - maven
+      - mlflow
+      - npm
+      - nuget
+      - qpkg
+      - oci
+      - pub
+      - pypi
+      - rpm
+      - socket
+      - swid
+      - swift
+      - vscode
+      - unknown
+      description: Package ecosystem type identifier based on the PURL specification
+      default: unknown
     OpenVEXComponentSchema:
       type: object
       additionalProperties: false
@@ -3676,301 +3969,7 @@ components:
           default: 0
       required:
       - file
-    SPDXManifestSchema:
-      type: object
-      additionalProperties: false
-      description: ''
-      properties:
-        spdxVersion:
-          type: string
-          description: ''
-          default: SPDX-2.3
-        dataLicense:
-          type: string
-          description: ''
-          default: CC0-1.0
-        SPDXID:
-          type: string
-          description: ''
-          default: SPDXRef-DOCUMENT
-        name:
-          type: string
-          description: ''
-          default: ''
-        documentNamespace:
-          type: string
-          description: ''
-          default: ''
-        creationInfo:
-          type: object
-          additionalProperties: false
-          description: ''
-          properties:
-            created:
-              type: string
-              description: ''
-              default: ''
-            creators:
-              type: array
-              items:
-                type: string
-                description: ''
-                default: ''
-              description: ''
-          required:
-          - created
-          - creators
-        documentDescribes:
-          type: array
-          items:
-            type: string
-            description: ''
-            default: ''
-          description: ''
-        packages:
-          type: array
-          items:
-            type: object
-            additionalProperties: false
-            properties:
-              name:
-                type: string
-                description: ''
-                default: ''
-              SPDXID:
-                type: string
-                description: ''
-                default: ''
-              versionInfo:
-                type: string
-                description: ''
-                default: ''
-              packageFileName:
-                type: string
-                description: ''
-                default: ''
-              description:
-                type: string
-                description: ''
-                default: ''
-              primaryPackagePurpose:
-                type: string
-                description: ''
-                default: ''
-              downloadLocation:
-                type: string
-                description: ''
-                default: ''
-              filesAnalyzed:
-                type: boolean
-                default: false
-                description: ''
-              homepage:
-                type: string
-                description: ''
-                default: NOASSERTION
-              licenseDeclared:
-                type: string
-                description: ''
-                default: NOASSERTION
-              externalRefs:
-                type: array
-                items:
-                  type: object
-                  additionalProperties: false
-                  description: ''
-                  properties:
-                    referenceCategory:
-                      type: string
-                      description: ''
-                      default: PACKAGE-MANAGER
-                    referenceType:
-                      type: string
-                      description: ''
-                      default: purl
-                    referenceLocator:
-                      type: string
-                      description: ''
-                      default: ''
-                  required:
-                  - referenceCategory
-                  - referenceLocator
-                  - referenceType
-                description: ''
-              checksums:
-                type: array
-                items:
-                  type: object
-                  additionalProperties: false
-                  description: ''
-                  properties:
-                    algorithm:
-                      type: string
-                      description: ''
-                      default: ''
-                    checksumValue:
-                      type: string
-                      description: ''
-                      default: ''
-                  required:
-                  - algorithm
-                  - checksumValue
-                description: ''
-            required:
-            - SPDXID
-            - externalRefs
-            - filesAnalyzed
-            - homepage
-            - licenseDeclared
-            - name
-            - packageFileName
-            - versionInfo
-          description: ''
-        relationships:
-          type: array
-          items:
-            type: object
-            additionalProperties: false
-            description: ''
-            properties:
-              spdxElementId:
-                type: string
-                description: ''
-                default: SPDXRef-DOCUMENT
-              relatedSpdxElement:
-                type: string
-                description: ''
-                default: ''
-              relationshipType:
-                type: string
-                description: ''
-                default: DESCRIBES
-            required:
-            - relatedSpdxElement
-            - relationshipType
-            - spdxElementId
-          description: ''
-      required:
-      - SPDXID
-      - creationInfo
-      - dataLicense
-      - documentDescribes
-      - documentNamespace
-      - name
-      - packages
-      - relationships
-      - spdxVersion
-    LicenseDetails:
-      type: array
-      items:
-        type: object
-        additionalProperties: false
-        description: ''
-        properties:
-          spdxDisj:
-            type: string
-            description: SPDX license expression in disjunctive normal form (e.g., '(MIT OR Apache-2.0)')
-            default: ''
-          authors:
-            type: array
-            items:
-              type: string
-              description: ''
-              default: ''
-            description: List of authors found in the license text
-          errorData:
-            type: string
-            description: Error details if license parsing failed
-            default: ''
-          provenance:
-            type: string
-            description: Source where this license information was detected (e.g., 'package.json', 'LICENSE file', 'README')
-            default: ''
-          filepath:
-            type: string
-            description: Path to the file containing this license information
-            default: ''
-          match_strength:
-            type: number
-            description: Confidence score from 0.0 to 1.0 indicating how well the detected license matches the source text
-            default: 0
-        required:
-        - authors
-        - errorData
-        - filepath
-        - match_strength
-        - provenance
-        - spdxDisj
-      description: ''
-    SocketArtifactPatch:
-      type: object
-      additionalProperties: false
-      properties:
-        appliedPatch:
-          $ref: '#/components/schemas/SocketPatch'
-        availablePatches:
-          type: array
-          items:
-            $ref: '#/components/schemas/SocketPatch'
-          description: List of available patches that can be applied to fix vulnerabilities
-      description: ''
   responses:
-    SocketForbidden:
-      content:
-        application/json:
-          schema:
-            type: object
-            additionalProperties: false
-            description: ''
-            properties:
-              error:
-                type: object
-                additionalProperties: false
-                description: ''
-                properties:
-                  message:
-                    type: string
-                    description: ''
-                    default: ''
-                  details:
-                    type: object
-                    description: ''
-                    default: null
-                    nullable: true
-                required:
-                - details
-                - message
-            required:
-            - error
-      description: Insufficient max_quota for API method
-    SocketUnauthorized:
-      content:
-        application/json:
-          schema:
-            type: object
-            additionalProperties: false
-            description: ''
-            properties:
-              error:
-                type: object
-                additionalProperties: false
-                description: ''
-                properties:
-                  message:
-                    type: string
-                    description: ''
-                    default: ''
-                  details:
-                    type: object
-                    description: ''
-                    default: null
-                    nullable: true
-                required:
-                - details
-                - message
-            required:
-            - error
-      description: Unauthorized
     SocketTooManyRequestsResponse:
       description: Insufficient quota for API route
       headers:
@@ -3998,43 +3997,16 @@ components:
                     description: ''
                     default: ''
                   details:
-                    type: object
+                    type:
+                    - object
+                    - 'null'
                     description: ''
                     default: null
-                    nullable: true
                 required:
                 - details
                 - message
             required:
             - error
-    SocketBadRequest:
-      content:
-        application/json:
-          schema:
-            type: object
-            additionalProperties: false
-            description: ''
-            properties:
-              error:
-                type: object
-                additionalProperties: false
-                description: ''
-                properties:
-                  message:
-                    type: string
-                    description: ''
-                    default: ''
-                  details:
-                    type: object
-                    description: ''
-                    default: null
-                    nullable: true
-                required:
-                - details
-                - message
-            required:
-            - error
-      description: Bad request
     SocketNotFoundResponse:
       content:
         application/json:
@@ -4053,16 +4025,104 @@ components:
                     description: ''
                     default: ''
                   details:
-                    type: object
+                    type:
+                    - object
+                    - 'null'
                     description: ''
                     default: null
-                    nullable: true
                 required:
                 - details
                 - message
             required:
             - error
       description: Resource not found
+    SocketBadRequest:
+      content:
+        application/json:
+          schema:
+            type: object
+            additionalProperties: false
+            description: ''
+            properties:
+              error:
+                type: object
+                additionalProperties: false
+                description: ''
+                properties:
+                  message:
+                    type: string
+                    description: ''
+                    default: ''
+                  details:
+                    type:
+                    - object
+                    - 'null'
+                    description: ''
+                    default: null
+                required:
+                - details
+                - message
+            required:
+            - error
+      description: Bad request
+    SocketUnauthorized:
+      content:
+        application/json:
+          schema:
+            type: object
+            additionalProperties: false
+            description: ''
+            properties:
+              error:
+                type: object
+                additionalProperties: false
+                description: ''
+                properties:
+                  message:
+                    type: string
+                    description: ''
+                    default: ''
+                  details:
+                    type:
+                    - object
+                    - 'null'
+                    description: ''
+                    default: null
+                required:
+                - details
+                - message
+            required:
+            - error
+      description: Unauthorized
+    SocketForbidden:
+      content:
+        application/json:
+          schema:
+            type: object
+            additionalProperties: false
+            description: ''
+            properties:
+              error:
+                type: object
+                additionalProperties: false
+                description: ''
+                properties:
+                  message:
+                    type: string
+                    description: ''
+                    default: ''
+                  details:
+                    type:
+                    - object
+                    - 'null'
+                    description: ''
+                    default: null
+                required:
+                - details
+                - message
+            required:
+            - error
+      description: Insufficient max_quota for API method
   securitySchemes:
     bearerAuth:
       type: http

@@ -1,7 +1,7 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
   description: Specification of the Socket API endpoints
-  title: API Endpoints alerts org-snapshots API
+  title: Endpoints Org Snapshots API
   version: '0'
 servers:
 - url: https://api.socket.dev/v0
@@ -74,7 +74,7 @@ paths:
 
         Snapshots of organization data are taken periodically, and each historical snapshot record contains high-level overview metrics about the data that was collected.
 
-        Other [Historical Data Endpoints](/reference/historical-data-endpoints) can be used to fetch the raw data associated with each snapshot.
+        Other Historical Data Endpoints can be used to fetch the raw data associated with each snapshot.
 
 
         Historical snapshots contain details and raw data for the following resources:
@@ -93,7 +93,7 @@ paths:
         - Settings
 
 
-        Daily snapshot data is bucketed to the nearest day which is described in more detail at: [Historical Data Endpoints](/reference/historical-data-endpoints)
+        Daily snapshot data is bucketed to the nearest day which is described in more detail at: Historical Data Endpoints
 
 
         This endpoint consumes 10 units of your quota.
@@ -185,10 +185,11 @@ paths:
                           description: ''
                           default: ''
                         finishedAt:
-                          type: string
+                          type:
+                          - string
+                          - 'null'
                           description: ''
                           default: ''
-                          nullable: true
                         durationMs:
                           type: integer
                           description: ''
@@ -258,10 +259,11 @@ paths:
                       - status
                     description: ''
                   endCursor:
-                    type: string
+                    type:
+                    - string
+                    - 'null'
                     description: ''
                     default: ''
-                    nullable: true
                 required:
                 - endCursor
                 - items
@@ -316,7 +318,7 @@ paths:
         - Settings
 
 
-        Historical snapshot data is bucketed to the nearest day which is described in more detail at: [Historical Data Endpoints](/reference/historical-data-endpoints)
+        Historical snapshot data is bucketed to the nearest day which is described in more detail at: Historical Data Endpoints
 
 
         This endpoint consumes 10 units of your quota.
@@ -364,90 +366,6 @@ paths:
       x-readme: {}
 components:
   responses:
-    SocketForbidden:
-      content:
-        application/json:
-          schema:
-            type: object
-            additionalProperties: false
-            description: ''
-            properties:
-              error:
-                type: object
-                additionalProperties: false
-                description: ''
-                properties:
-                  message:
-                    type: string
-                    description: ''
-                    default: ''
-                  details:
-                    type: object
-                    description: ''
-                    default: null
-                    nullable: true
-                required:
-                - details
-                - message
-            required:
-            - error
-      description: Insufficient max_quota for API method
-    SocketBadRequest:
-      content:
-        application/json:
-          schema:
-            type: object
-            additionalProperties: false
-            description: ''
-            properties:
-              error:
-                type: object
-                additionalProperties: false
-                description: ''
-                properties:
-                  message:
-                    type: string
-                    description: ''
-                    default: ''
-                  details:
-                    type: object
-                    description: ''
-                    default: null
-                    nullable: true
-                required:
-                - details
-                - message
-            required:
-            - error
-      description: Bad request
-    SocketNotFoundResponse:
-      content:
-        application/json:
-          schema:
-            type: object
-            additionalProperties: false
-            description: ''
-            properties:
-              error:
-                type: object
-                additionalProperties: false
-                description: ''
-                properties:
-                  message:
-                    type: string
-                    description: ''
-                    default: ''
-                  details:
-                    type: object
-                    description: ''
-                    default: null
-                    nullable: true
-                required:
-                - details
-                - message
-            required:
-            - error
-      description: Resource not found
     SocketTooManyRequestsResponse:
       description: Insufficient quota for API route
       headers:
@@ -475,15 +393,74 @@ components:
                     description: ''
                     default: ''
                   details:
-                    type: object
+                    type:
+                    - object
+                    - 'null'
                     description: ''
                     default: null
-                    nullable: true
                 required:
                 - details
                 - message
             required:
             - error
+    SocketBadRequest:
+      content:
+        application/json:
+          schema:
+            type: object
+            additionalProperties: false
+            description: ''
+            properties:
+              error:
+                type: object
+                additionalProperties: false
+                description: ''
+                properties:
+                  message:
+                    type: string
+                    description: ''
+                    default: ''
+                  details:
+                    type:
+                    - object
+                    - 'null'
+                    description: ''
+                    default: null
+                required:
+                - details
+                - message
+            required:
+            - error
+      description: Bad request
+    SocketNotFoundResponse:
+      content:
+        application/json:
+          schema:
+            type: object
+            additionalProperties: false
+            description: ''
+            properties:
+              error:
+                type: object
+                additionalProperties: false
+                description: ''
+                properties:
+                  message:
+                    type: string
+                    description: ''
+                    default: ''
+                  details:
+                    type:
+                    - object
+                    - 'null'
+                    description: ''
+                    default: null
+                required:
+                - details
+                - message
+            required:
+            - error
+      description: Resource not found
     SocketUnauthorized:
       content:
         application/json:
@@ -502,16 +479,46 @@ components:
                     description: ''
                     default: ''
                   details:
-                    type: object
+                    type:
+                    - object
+                    - 'null'
                     description: ''
                     default: null
-                    nullable: true
                 required:
                 - details
                 - message
             required:
             - error
       description: Unauthorized
+    SocketForbidden:
+      content:
+        application/json:
+          schema:
+            type: object
+            additionalProperties: false
+            description: ''
+            properties:
+              error:
+                type: object
+                additionalProperties: false
+                description: ''
+                properties:
+                  message:
+                    type: string
+                    description: ''
+                    default: ''
+                  details:
+                    type:
+                    - object
+                    - 'null'
+                    description: ''
+                    default: null
+                required:
+                - details
+                - message
+            required:
+            - error
+      description: Insufficient max_quota for API method
   securitySchemes:
     bearerAuth:
       type: http

@@ -1,7 +1,7 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
   description: Specification of the Socket API endpoints
-  title: API Endpoints alerts repo-labels API
+  title: Endpoints Repo Labels API
   version: '0'
 servers:
 - url: https://api.socket.dev/v0
@@ -186,10 +186,11 @@ paths:
                         description: ''
                         default: ''
                       details:
-                        type: object
+                        type:
+                        - object
+                        - 'null'
                         description: ''
                         default: null
-                        nullable: true
                     required:
                     - details
                     - message
@@ -283,10 +284,11 @@ paths:
                       description: ''
                     description: ''
                   nextPage:
-                    type: integer
+                    type:
+                    - integer
+                    - 'null'
                     description: ''
                     default: 0
-                    nullable: true
                 required:
                 - nextPage
                 - results
@@ -547,10 +549,11 @@ paths:
                         description: ''
                         default: ''
                       details:
-                        type: object
+                        type:
+                        - object
+                        - 'null'
                         description: ''
                         default: null
-                        nullable: true
                     required:
                     - details
                     - message
@@ -591,7 +594,6 @@ paths:
       - basicAuth:
         - repo-label:update
       description: 'Delete the setting (e.g. security/license policy) for a repository label.
-
 
 
         Note that repository label settings currently only support `issueRules`,
@@ -674,7 +676,6 @@ paths:
       description: 'Retrieve the setting (e.g. security/license policy) for a repository label.
 
 
-
         Note that repository label settings currently only support `issueRules`,
 
         `issueRulesPolicyDefault`, `licensePolicy`, and
@@ -703,7 +704,9 @@ paths:
                 additionalProperties: false
                 properties:
                   issueRules:
-                    type: object
+                    type:
+                    - object
+                    - 'null'
                     additionalProperties: false
                     properties:
                       gptSecurity:
@@ -2915,9 +2918,10 @@ paths:
                         required:
                         - action
                     description: ''
-                    nullable: true
                   issueRulesPolicyDefault:
-                    type: string
+                    type:
+                    - string
+                    - 'null'
                     enum:
                     - default
                     - low
@@ -2925,18 +2929,19 @@ paths:
                     - high
                     description: The default security policy for the repository label
                     default: medium
-                    nullable: true
                   licensePolicy:
-                    type: object
+                    type:
+                    - object
+                    - 'null'
                     description: ''
                     default: null
-                    nullable: true
                   recentlyPublishedThresholdMs:
-                    type: integer
+                    type:
+                    - integer
+                    - 'null'
                     description: The recently published package alert threshold for the repository label, in milliseconds
                     default: 0
                     minimum: 0
-                    nullable: true
                 description: ''
           description: Returns the setting for the specified repository label. The authenticated user must be a member of the organization.
         '400':
@@ -5200,11 +5205,12 @@ paths:
                 licensePolicy:
                   $ref: '#/components/schemas/LicenseAllowListRequest'
                 recentlyPublishedThresholdMs:
-                  type: integer
+                  type:
+                  - integer
+                  - 'null'
                   description: The recently published package alert threshold for the repository label, in milliseconds
                   default: 0
                   minimum: 0
-                  nullable: true
               description: ''
         required: false
       security:
@@ -5213,7 +5219,6 @@ paths:
       - basicAuth:
         - repo-label:update
       description: 'Update the setting (e.g. security/license policy) for a repository label.
-
 
 
         Note that repository label settings currently only support `issueRules`,
@@ -5340,34 +5345,6 @@ paths:
       x-readme: {}
 components:
   responses:
-    SocketConflict:
-      content:
-        application/json:
-          schema:
-            type: object
-            additionalProperties: false
-            description: ''
-            properties:
-              error:
-                type: object
-                additionalProperties: false
-                description: ''
-                properties:
-                  message:
-                    type: string
-                    description: ''
-                    default: ''
-                  details:
-                    type: object
-                    description: ''
-                    default: null
-                    nullable: true
-                required:
-                - details
-                - message
-            required:
-            - error
-      description: Resource already exists
     SocketForbidden:
       content:
         application/json:
@@ -5386,17 +5363,18 @@ components:
                     description: ''
                     default: ''
                   details:
-                    type: object
+                    type:
+                    - object
+                    - 'null'
                     description: ''
                     default: null
-                    nullable: true
                 required:
                 - details
                 - message
             required:
             - error
       description: Insufficient max_quota for API method
-    SocketBadRequest:
+    SocketConflict:
       content:
         application/json:
           schema:
@@ -5414,44 +5392,17 @@ components:
                     description: ''
                     default: ''
                   details:
-                    type: object
+                    type:
+                    - object
+                    - 'null'
                     description: ''
                     default: null
-                    nullable: true
                 required:
                 - details
                 - message
             required:
             - error
-      description: Bad request
-    SocketNotFoundResponse:
-      content:
-        application/json:
-          schema:
-            type: object
-            additionalProperties: false
-            description: ''
-            properties:
-              error:
-                type: object
-                additionalProperties: false
-                description: ''
-                properties:
-                  message:
-                    type: string
-                    description: ''
-                    default: ''
-                  details:
-                    type: object
-                    description: ''
-                    default: null
-                    nullable: true
-                required:
-                - details
-                - message
-            required:
-            - error
-      description: Resource not found
+      description: Resource already exists
     SocketTooManyRequestsResponse:
       description: Insufficient quota for API route
       headers:
@@ -5479,15 +5430,74 @@ components:
                     description: ''
                     default: ''
                   details:
-                    type: object
+                    type:
+                    - object
+                    - 'null'
                     description: ''
                     default: null
-                    nullable: true
                 required:
                 - details
                 - message
             required:
             - error
+    SocketBadRequest:
+      content:
+        application/json:
+          schema:
+            type: object
+            additionalProperties: false
+            description: ''
+            properties:
+              error:
+                type: object
+                additionalProperties: false
+                description: ''
+                properties:
+                  message:
+                    type: string
+                    description: ''
+                    default: ''
+                  details:
+                    type:
+                    - object
+                    - 'null'
+                    description: ''
+                    default: null
+                required:
+                - details
+                - message
+            required:
+            - error
+      description: Bad request
+    SocketNotFoundResponse:
+      content:
+        application/json:
+          schema:
+            type: object
+            additionalProperties: false
+            description: ''
+            properties:
+              error:
+                type: object
+                additionalProperties: false
+                description: ''
+                properties:
+                  message:
+                    type: string
+                    description: ''
+                    default: ''
+                  details:
+                    type:
+                    - object
+                    - 'null'
+                    description: ''
+                    default: null
+                required:
+                - details
+                - message
+            required:
+            - error
+      description: Resource not found
     SocketUnauthorized:
       content:
         application/json:
@@ -5506,10 +5516,11 @@ components:
                     description: ''
                     default: ''
                   details:
-                    type: object
+                    type:
+                    - object
+                    - 'null'
                     description: ''
                     default: null
-                    nullable: true
                 required:
                 - details
                 - message

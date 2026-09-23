@@ -1,26 +1,7 @@
 {
   "provider": "socket",
   "sources": [
-    "socket-alerts-api-openapi.yml",
-    "socket-api-tokens-api-openapi.yml",
-    "socket-audit-log-api-openapi.yml",
-    "socket-dependencies-api-openapi.yml",
-    "socket-deprecated-api-openapi.yml",
-    "socket-diff-scans-api-openapi.yml",
-    "socket-fixes-api-openapi.yml",
-    "socket-full-scans-api-openapi.yml",
-    "socket-license-policy-api-openapi.yml",
-    "socket-metadata-api-openapi.yml",
-    "socket-org-settings-api-openapi.yml",
-    "socket-org-snapshots-api-openapi.yml",
-    "socket-packages-api-openapi.yml",
-    "socket-repo-labels-api-openapi.yml",
-    "socket-repos-api-openapi.yml",
-    "socket-security-policy-api-openapi.yml",
-    "socket-telemetry-api-openapi.yml",
-    "socket-threat-feed-api-openapi.yml",
-    "socket-triage-api-openapi.yml",
-    "socket-webhooks-api-openapi.yml"
+    "_original/socket-openapi-original.json"
   ],
   "outputs": [
     "socket-alerts-api-openapi.yml",
@@ -47,6 +28,31 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "socket-openapi-original.json: upgraded openapi 3.0.0 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "socket-alerts-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "socket-api-tokens-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "socket-audit-log-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "socket-dependencies-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "socket-deprecated-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "socket-diff-scans-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "socket-fixes-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "socket-full-scans-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "socket-license-policy-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "socket-metadata-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "socket-org-settings-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "socket-org-snapshots-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "socket-packages-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "socket-repo-labels-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "socket-repos-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "socket-security-policy-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "socket-telemetry-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "socket-threat-feed-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "socket-triage-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "socket-webhooks-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

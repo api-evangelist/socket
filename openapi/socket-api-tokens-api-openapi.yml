@@ -1,17 +1,17 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
   description: Specification of the Socket API endpoints
-  title: API Endpoints alerts api-tokens API
+  title: Endpoints API Tokens API
   version: '0'
 servers:
 - url: https://api.socket.dev/v0
 tags:
-- name: api-tokens
+- name: API Tokens
 paths:
   /orgs/{org_slug}/api-tokens:
     post:
       tags:
-      - api-tokens
+      - API Tokens
       summary: Create API Token
       operationId: postAPIToken
       parameters:
@@ -229,11 +229,12 @@ paths:
                 description: ''
                 properties:
                   created_by:
-                    type: string
+                    type:
+                    - string
+                    - 'null'
                     description: ID of the Socket user who created the API Token
                     default: ''
                     format: uuid
-                    nullable: true
                   group_uuid:
                     type: string
                     description: The stable group UUID that remains constant across token rotations
@@ -264,7 +265,7 @@ paths:
       x-readme: {}
     get:
       tags:
-      - api-tokens
+      - API Tokens
       summary: List API Tokens
       operationId: getAPITokens
       parameters:
@@ -381,11 +382,12 @@ paths:
                             description: Committer information associated with the API Token
                           description: List of committers associated with this API Token
                         created_by:
-                          type: string
+                          type:
+                          - string
+                          - 'null'
                           description: ID of the Socket user who created the API Token
                           default: ''
                           format: uuid
-                          nullable: true
                         created_at:
                           type: string
                           description: Timestamp when the API Token was created
@@ -397,10 +399,11 @@ paths:
                           default: ''
                           format: uuid
                         hash:
-                          type: string
+                          type:
+                          - string
+                          - 'null'
                           description: SRI-format hash of the token (e.g., sha512-base64hash). Null for tokens created before hash column was added.
                           default: ''
-                          nullable: true
                         id:
                           type: string
                           description: The ID of the API Token
@@ -415,10 +418,11 @@ paths:
                           description: Maximum number of API calls allowed per month
                           default: 1000
                         name:
-                          type: string
+                          type:
+                          - string
+                          - 'null'
                           description: Name for the API Token
                           default: api token
-                          nullable: true
                         scopes:
                           type: array
                           items:
@@ -526,10 +530,11 @@ paths:
                             default: repo:list
                           description: List of scopes granted to the API Token
                         token:
-                          type: string
+                          type:
+                          - string
+                          - 'null'
                           description: The token of the API Token (redacted or omitted)
                           default: ''
-                          nullable: true
                         visibility:
                           type: string
                           enum:
@@ -552,10 +557,11 @@ paths:
                       - visibility
                     description: ''
                   nextPage:
-                    type: integer
+                    type:
+                    - integer
+                    - 'null'
                     description: ''
                     default: 0
-                    nullable: true
                 required:
                 - nextPage
                 - tokens
@@ -572,7 +578,7 @@ paths:
   /orgs/{org_slug}/api-tokens/update:
     post:
       tags:
-      - api-tokens
+      - API Tokens
       summary: Update API Token
       operationId: postAPITokenUpdate
       parameters:
@@ -803,7 +809,7 @@ paths:
   /orgs/{org_slug}/api-tokens/rotate:
     post:
       tags:
-      - api-tokens
+      - API Tokens
       summary: Rotate API Token
       operationId: postAPITokensRotate
       parameters:
@@ -873,11 +879,12 @@ paths:
                     default: ''
                     format: uuid
                   created_by:
-                    type: string
+                    type:
+                    - string
+                    - 'null'
                     description: ID of the Socket user who created the API Token
                     default: ''
                     format: uuid
-                    nullable: true
                   token:
                     type: string
                     description: ''
@@ -905,7 +912,7 @@ paths:
   /orgs/{org_slug}/api-tokens/revoke:
     post:
       tags:
-      - api-tokens
+      - API Tokens
       summary: Revoke API Token
       operationId: postAPITokensRevoke
       parameters:
@@ -984,7 +991,7 @@ paths:
   /quota:
     get:
       tags:
-      - api-tokens
+      - API Tokens
       summary: Get quota
       operationId: getQuota
       security:
@@ -1019,10 +1026,11 @@ paths:
                     default: 0
                     minimum: 0
                   nextWindowRefresh:
-                    type: string
+                    type:
+                    - string
+                    - 'null'
                     description: ''
                     default: ''
-                    nullable: true
                 required:
                 - maxQuota
                 - nextWindowRefresh
@@ -1038,7 +1046,7 @@ paths:
   /organizations:
     get:
       tags:
-      - api-tokens
+      - API Tokens
       summary: List organizations
       operationId: getOrganizations
       security:
@@ -1074,15 +1082,17 @@ paths:
                           description: ''
                           default: ''
                         name:
-                          type: string
+                          type:
+                          - string
+                          - 'null'
                           description: ''
                           default: ''
-                          nullable: true
                         image:
-                          type: string
+                          type:
+                          - string
+                          - 'null'
                           description: ''
                           default: ''
-                          nullable: true
                         plan:
                           type: string
                           description: ''
@@ -1111,62 +1121,6 @@ paths:
       x-readme: {}
 components:
   responses:
-    SocketForbidden:
-      content:
-        application/json:
-          schema:
-            type: object
-            additionalProperties: false
-            description: ''
-            properties:
-              error:
-                type: object
-                additionalProperties: false
-                description: ''
-                properties:
-                  message:
-                    type: string
-                    description: ''
-                    default: ''
-                  details:
-                    type: object
-                    description: ''
-                    default: null
-                    nullable: true
-                required:
-                - details
-                - message
-            required:
-            - error
-      description: Insufficient max_quota for API method
-    SocketNotFoundResponse:
-      content:
-        application/json:
-          schema:
-            type: object
-            additionalProperties: false
-            description: ''
-            properties:
-              error:
-                type: object
-                additionalProperties: false
-                description: ''
-                properties:
-                  message:
-                    type: string
-                    description: ''
-                    default: ''
-                  details:
-                    type: object
-                    description: ''
-                    default: null
-                    nullable: true
-                required:
-                - details
-                - message
-            required:
-            - error
-      description: Resource not found
     SocketTooManyRequestsResponse:
       description: Insufficient quota for API route
       headers:
@@ -1194,15 +1148,45 @@ components:
                     description: ''
                     default: ''
                   details:
-                    type: object
+                    type:
+                    - object
+                    - 'null'
                     description: ''
                     default: null
-                    nullable: true
                 required:
                 - details
                 - message
             required:
             - error
+    SocketNotFoundResponse:
+      content:
+        application/json:
+          schema:
+            type: object
+            additionalProperties: false
+            description: ''
+            properties:
+              error:
+                type: object
+                additionalProperties: false
+                description: ''
+                properties:
+                  message:
+                    type: string
+                    description: ''
+                    default: ''
+                  details:
+                    type:
+                    - object
+                    - 'null'
+                    description: ''
+                    default: null
+                required:
+                - details
+                - message
+            required:
+            - error
+      description: Resource not found
     SocketUnauthorized:
       content:
         application/json:
@@ -1221,16 +1205,46 @@ components:
                     description: ''
                     default: ''
                   details:
-                    type: object
+                    type:
+                    - object
+                    - 'null'
                     description: ''
                     default: null
-                    nullable: true
                 required:
                 - details
                 - message
             required:
             - error
       description: Unauthorized
+    SocketForbidden:
+      content:
+        application/json:
+          schema:
+            type: object
+            additionalProperties: false
+            description: ''
+            properties:
+              error:
+                type: object
+                additionalProperties: false
+                description: ''
+                properties:
+                  message:
+                    type: string
+                    description: ''
+                    default: ''
+                  details:
+                    type:
+                    - object
+                    - 'null'
+                    description: ''
+                    default: null
+                required:
+                - details
+                - message
+            required:
+            - error
+      description: Insufficient max_quota for API method
   securitySchemes:
     bearerAuth:
       type: http

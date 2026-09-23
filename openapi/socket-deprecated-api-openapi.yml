@@ -1,17 +1,17 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
   description: Specification of the Socket API endpoints
-  title: API Endpoints alerts deprecated API
+  title: Endpoints Deprecated API
   version: '0'
 servers:
 - url: https://api.socket.dev/v0
 tags:
-- name: deprecated
+- name: Deprecated
 paths:
   /dependencies/upload:
     post:
       tags:
-      - deprecated
+      - Deprecated
       summary: Create a snapshot of all dependencies from manifest information
       deprecated: true
       operationId: createDependenciesSnapshot
@@ -104,7 +104,7 @@ paths:
   /orgs/{org_slug}/full-scans/diff:
     get:
       tags:
-      - deprecated
+      - Deprecated
       summary: Diff Full Scans
       deprecated: true
       operationId: GetOrgDiffScan
@@ -201,25 +201,29 @@ paths:
                         description: ''
                         default: ''
                       branch:
-                        type: string
+                        type:
+                        - string
+                        - 'null'
                         description: ''
                         default: ''
-                        nullable: true
                       commit_message:
-                        type: string
+                        type:
+                        - string
+                        - 'null'
                         description: ''
                         default: ''
-                        nullable: true
                       commit_hash:
-                        type: string
+                        type:
+                        - string
+                        - 'null'
                         description: ''
                         default: ''
-                        nullable: true
                       pull_request:
-                        type: integer
+                        type:
+                        - integer
+                        - 'null'
                         description: ''
                         default: 0
-                        nullable: true
                       committers:
                         type: array
                         items:
@@ -228,15 +232,17 @@ paths:
                           default: ''
                         description: ''
                       html_url:
-                        type: string
+                        type:
+                        - string
+                        - 'null'
                         description: ''
                         default: ''
-                        nullable: true
                       api_url:
-                        type: string
+                        type:
+                        - string
+                        - 'null'
                         description: ''
                         default: ''
-                        nullable: true
                     required:
                     - api_url
                     - branch
@@ -286,25 +292,29 @@ paths:
                         description: ''
                         default: ''
                       branch:
-                        type: string
+                        type:
+                        - string
+                        - 'null'
                         description: ''
                         default: ''
-                        nullable: true
                       commit_message:
-                        type: string
+                        type:
+                        - string
+                        - 'null'
                         description: ''
                         default: ''
-                        nullable: true
                       commit_hash:
-                        type: string
+                        type:
+                        - string
+                        - 'null'
                         description: ''
                         default: ''
-                        nullable: true
                       pull_request:
-                        type: integer
+                        type:
+                        - integer
+                        - 'null'
                         description: ''
                         default: 0
-                        nullable: true
                       committers:
                         type: array
                         items:
@@ -313,15 +323,17 @@ paths:
                           default: ''
                         description: ''
                       html_url:
-                        type: string
+                        type:
+                        - string
+                        - 'null'
                         description: ''
                         default: ''
-                        nullable: true
                       api_url:
-                        type: string
+                        type:
+                        - string
+                        - 'null'
                         description: ''
                         default: ''
-                        nullable: true
                     required:
                     - api_url
                     - branch
@@ -353,11 +365,12 @@ paths:
                           $ref: '#/components/schemas/SocketDiffArtifact'
                         description: Artifacts present in the before scan but not the after scan.
                       unchanged:
-                        type: array
+                        type:
+                        - array
+                        - 'null'
                         items:
                           $ref: '#/components/schemas/SocketDiffArtifact'
                         description: Artifacts present in both scans with no changes. Null when omitted via the omit_unchanged query parameter.
-                        nullable: true
                       replaced:
                         type: array
                         items:
@@ -379,10 +392,11 @@ paths:
                     default: false
                     description: ''
                   diff_report_url:
-                    type: string
+                    type:
+                    - string
+                    - 'null'
                     description: ''
                     default: ''
-                    nullable: true
                 required:
                 - after
                 - artifacts
@@ -404,7 +418,7 @@ paths:
   /orgs/{org_slug}/full-scans/diff/gfm:
     get:
       tags:
-      - deprecated
+      - Deprecated
       summary: SCM Comment for Scan Diff
       deprecated: true
       operationId: GetOrgFullScanDiffGfm
@@ -493,25 +507,29 @@ paths:
                         description: ''
                         default: ''
                       branch:
-                        type: string
+                        type:
+                        - string
+                        - 'null'
                         description: ''
                         default: ''
-                        nullable: true
                       commit_message:
-                        type: string
+                        type:
+                        - string
+                        - 'null'
                         description: ''
                         default: ''
-                        nullable: true
                       commit_hash:
-                        type: string
+                        type:
+                        - string
+                        - 'null'
                         description: ''
                         default: ''
-                        nullable: true
                       pull_request:
-                        type: integer
+                        type:
+                        - integer
+                        - 'null'
                         description: ''
                         default: 0
-                        nullable: true
                       committers:
                         type: array
                         items:
@@ -520,15 +538,17 @@ paths:
                           default: ''
                         description: ''
                       html_url:
-                        type: string
+                        type:
+                        - string
+                        - 'null'
                         description: ''
                         default: ''
-                        nullable: true
                       api_url:
-                        type: string
+                        type:
+                        - string
+                        - 'null'
                         description: ''
                         default: ''
-                        nullable: true
                     required:
                     - api_url
                     - branch
@@ -578,25 +598,29 @@ paths:
                         description: ''
                         default: ''
                       branch:
-                        type: string
+                        type:
+                        - string
+                        - 'null'
                         description: ''
                         default: ''
-                        nullable: true
                       commit_message:
-                        type: string
+                        type:
+                        - string
+                        - 'null'
                         description: ''
                         default: ''
-                        nullable: true
                       commit_hash:
-                        type: string
+                        type:
+                        - string
+                        - 'null'
                         description: ''
                         default: ''
-                        nullable: true
                       pull_request:
-                        type: integer
+                        type:
+                        - integer
+                        - 'null'
                         description: ''
                         default: 0
-                        nullable: true
                       committers:
                         type: array
                         items:
@@ -605,15 +629,17 @@ paths:
                           default: ''
                         description: ''
                       html_url:
-                        type: string
+                        type:
+                        - string
+                        - 'null'
                         description: ''
                         default: ''
-                        nullable: true
                       api_url:
-                        type: string
+                        type:
+                        - string
+                        - 'null'
                         description: ''
                         default: ''
-                        nullable: true
                     required:
                     - api_url
                     - branch
@@ -654,10 +680,11 @@ paths:
                     default: false
                     description: ''
                   diff_report_url:
-                    type: string
+                    type:
+                    - string
+                    - 'null'
                     description: ''
                     default: ''
-                    nullable: true
                 required:
                 - after
                 - before
@@ -680,7 +707,7 @@ paths:
   /orgs/{org_slug}/settings/license-policy:
     get:
       tags:
-      - deprecated
+      - Deprecated
       summary: Get Organization License Policy
       deprecated: true
       operationId: getOrgLicensePolicy
@@ -696,7 +723,7 @@ paths:
         - license-policy:read
       - basicAuth:
         - license-policy:read
-      description: '**This endpoint is deprecated.** Use the [successor version](https://docs.socket.dev/reference/viewlicensepolicy) instead.
+      description: '**This endpoint is deprecated.** Use the successor version instead.
 
 
         Retrieve the license policy of an organization.
@@ -731,7 +758,7 @@ paths:
   /threat-feed:
     get:
       tags:
-      - deprecated
+      - Deprecated
       summary: Get Threat Feed Items (Deprecated)
       deprecated: true
       operationId: getThreatFeedItems
@@ -853,13 +880,13 @@ paths:
         - threat-feed:list
       - basicAuth:
         - threat-feed:list
-      description: '**This endpoint is deprecated.** Use the [successor version](https://docs.socket.dev/reference/getorgthreatfeeditems) instead.
+      description: '**This endpoint is deprecated.** Use the successor version instead.
 
 
         Paginated list of threat feed items.
 
 
-        This endpoint requires an Enterprise Plan with Threat Feed add-on. [Contact](https://socket.dev/demo?utm_source=api-docs&utm_medium=referral&utm_campaign=tracking) our sales team for more details.
+        This endpoint requires an Enterprise Plan with Threat Feed add-on. Contact our sales team for more details.
 
 
         This endpoint consumes 1 unit of your quota.
@@ -894,20 +921,22 @@ paths:
                           default: ''
                           format: date-time
                         publishedAt:
-                          type: string
+                          type:
+                          - string
+                          - 'null'
                           description: ISO 8601 timestamp of when the package artifact was published to the respective registry
                           default: ''
                           format: date-time
-                          nullable: true
                         description:
                           type: string
                           description: Detailed description of the underlying threat
                           default: ''
                         fileSha256:
-                          type: string
+                          type:
+                          - string
+                          - 'null'
                           description: Hex-encoded SHA-256 hash of the malicious file content, usable as an indicator of compromise (IOC). Null when no file content hash is available for the threat.
                           default: ''
-                          nullable: true
                         id:
                           type: integer
                           description: Unique identifier of the threat feed entry
@@ -927,11 +956,12 @@ paths:
                           description: Package URL (PURL) of the affected package artifact
                           default: ''
                         removedAt:
-                          type: string
+                          type:
+                          - string
+                          - 'null'
                           description: ISO 8601 timestamp of when the package artifact was removed from the respective registry, or null if the package is still available on the registry
                           default: ''
                           format: date-time
-                          nullable: true
                         threatType:
                           type: string
                           description: 'Threat classification. Possible values: `malware` (known malware), `possible_malware` (AI-detected potential malware), `vulnerability` (potential vulnerability), `typosquat` (human-reviewed typosquat), `possible_typosquat` (AI-detected potential typosquat), `anomaly` (anomalous behavior), `telemetry` (telemetry), `obfuscated` (obfuscated code), `dual_use` (dual-use tool), `troll` (protestware or joke package), `unreviewed` (not yet reviewed), `false_positive` (confirmed false positive).'
@@ -947,10 +977,11 @@ paths:
                       description: ''
                     description: ''
                   nextPage:
-                    type: string
+                    type:
+                    - string
+                    - 'null'
                     description: ''
                     default: ''
-                    nullable: true
                 required:
                 - nextPage
                 - results
@@ -969,7 +1000,7 @@ paths:
   /saturate-license-policy:
     post:
       tags:
-      - deprecated
+      - Deprecated
       summary: Saturate License Policy (Legacy)
       deprecated: true
       operationId: saturateLicensePolicy
@@ -988,50 +1019,56 @@ paths:
                 monitor:
                   $ref: '#/components/schemas/LicenseAllowList'
                 allowedApprovalSources:
-                  type: array
+                  type:
+                  - array
+                  - 'null'
                   items:
                     type: string
                     description: ''
                     default: ''
                   description: ''
-                  nullable: true
                 allowedFamilies:
-                  type: array
+                  type:
+                  - array
+                  - 'null'
                   items:
                     type: string
                     description: ''
                     default: ''
                   description: ''
-                  nullable: true
                 allowedTiers:
-                  type: array
+                  type:
+                  - array
+                  - 'null'
                   items:
                     type: string
                     description: ''
                     default: ''
                   description: ''
-                  nullable: true
                 allowedStrings:
-                  type: array
+                  type:
+                  - array
+                  - 'null'
                   items:
                     type: string
                     description: ''
                     default: ''
                   description: ''
-                  nullable: true
                 allowedPURLs:
-                  type: array
+                  type:
+                  - array
+                  - 'null'
                   items:
                     type: string
                     description: ''
                     default: ''
                   description: ''
-                  nullable: true
                 focusAlertsHere:
-                  type: boolean
+                  type:
+                  - boolean
+                  - 'null'
                   default: false
                   description: ''
-                  nullable: true
               required:
               - allow
               - allowedApprovalSources
@@ -1048,7 +1085,143 @@ paths:
         - packages:list
       - basicAuth:
         - packages:list
-      description: "**This endpoint is deprecated.** Use the [successor version](https://docs.socket.dev/reference/updateorglicensepolicy) instead.\n\nGet the \"saturated\" version of a license policy's allow list, filling in the entire set of allowed\nlicense data. For example, the saturated form of a license allow list which only specifies that\nlicenses in the tier \"maximal copyleft\" are allowed is shown below (note the expanded `allowedStrings` property):\n\n```json\n{\n  \"allowedApprovalSources\": [],\n  \"allowedFamilies\": [],\n  \"allowedTiers\": [\n    \"maximal copyleft\"\n  ],\n  \"allowedStrings\": [\n    \"Parity-6.0.0\",\n    \"QPL-1.0-INRIA-2004\",\n    \"QPL-1.0\",\n    \"RPL-1.1\",\n    \"RPL-1.5\"\n  ],\n  \"allowedPURLs\": [],\n  \"focusAlertsHere\": false\n}\n```\n\nThis may be helpful for users who want to compose more complex sets of allowed license data via\nthe \"allowedStrings\" property, or for users who want to know more about the contents of a particular\nlicense group (family, tier, or approval source).\n\n## Allow List Schema\n\n```json\n```\n\nwhere\n\nPermissiveTier ::= \"model permissive\" | \"gold\" | \"silver\" | \"bronze\" | \"lead\"\nCopyleftTier ::= \"maximal copyleft\" | \"network copyleft\" | \"strong copyleft\" | \"weak copyleft\"\n\n## Return Value\n\nThe returned value has the same shape as a license allow list:\n\n```json\n{\n  allowedApprovalSources?: Array<\"fsf\" | \"osi\">,\n  allowedFamilies?: Array<\"copyleft\" | \"permissive\">,\n  allowedTiers?: Array<PermissiveTier | CopyleftTier>,\n  allowedStrings?: Array<string>\n  allowedPURLs?: Array<string>\n  focusAlertsHere?: boolean\n}\n```\n\nwhere\n\nPermissiveTier ::= \"model permissive\" | \"gold\" | \"silver\" | \"bronze\" | \"lead\"\nCopyleftTier ::= \"maximal copyleft\" | \"network copyleft\" | \"strong copyleft\" | \"weak copyleft\"\n\nreaders can learn more about [copyleft tiers](https://blueoakcouncil.org/copyleft) and [permissive tiers](https://blueoakcouncil.org/list) by reading the linked resources.\n\n### Example request bodies:\n```json\n{\n  \"allowedApprovalSources\": [\"fsf\"],\n  \"allowedPURLs\": [],\n  \"allowedFamilies\": [\"copyleft\"],\n  \"allowedTiers\": [\"model permissive\"],\n  \"allowedStrings\": [\"License :: OSI Approved :: BSD License\"],\n  \"focusAlertsHere\": false\n}\n```\n\nThis endpoint consumes 100 units of your quota.\n\nThis endpoint requires the following org token scopes:\n- packages:list"
+      description: '**This endpoint is deprecated.** Use the successor version instead.
+
+
+        Get the "saturated" version of a license policy''s allow list, filling in the entire set of allowed
+
+        license data. For example, the saturated form of a license allow list which only specifies that
+
+        licenses in the tier "maximal copyleft" are allowed is shown below (note the expanded `allowedStrings` property):
+
+
+        ```json
+
+        {
+
+        "allowedApprovalSources": [],
+
+        "allowedFamilies": [],
+
+        "allowedTiers": [
+
+        "maximal copyleft"
+
+        ],
+
+        "allowedStrings": [
+
+        "Parity-6.0.0",
+
+        "QPL-1.0-INRIA-2004",
+
+        "QPL-1.0",
+
+        "RPL-1.1",
+
+        "RPL-1.5"
+
+        ],
+
+        "allowedPURLs": [],
+
+        "focusAlertsHere": false
+
+        }
+
+        ```
+
+
+        This may be helpful for users who want to compose more complex sets of allowed license data via
+
+        the "allowedStrings" property, or for users who want to know more about the contents of a particular
+
+        license group (family, tier, or approval source).
+
+
+        ## Allow List Schema
+
+
+        ```json
+
+        ```
+
+
+        where
+
+
+        PermissiveTier ::= "model permissive" | "gold" | "silver" | "bronze" | "lead"
+
+        CopyleftTier ::= "maximal copyleft" | "network copyleft" | "strong copyleft" | "weak copyleft"
+
+
+        ## Return Value
+
+
+        The returned value has the same shape as a license allow list:
+
+
+        ```json
+
+        {
+
+        allowedApprovalSources?: Array,
+
+        allowedFamilies?: Array,
+
+        allowedTiers?: Array,
+
+        allowedStrings?: Array
+
+        allowedPURLs?: Array
+
+        focusAlertsHere?: boolean
+
+        }
+
+        ```
+
+
+        where
+
+
+        PermissiveTier ::= "model permissive" | "gold" | "silver" | "bronze" | "lead"
+
+        CopyleftTier ::= "maximal copyleft" | "network copyleft" | "strong copyleft" | "weak copyleft"
+
+
+        readers can learn more about copyleft tiers and permissive tiers by reading the linked resources.
+
+
+        ### Example request bodies:
+
+        ```json
+
+        {
+
+        "allowedApprovalSources": ["fsf"],
+
+        "allowedPURLs": [],
+
+        "allowedFamilies": ["copyleft"],
+
+        "allowedTiers": ["model permissive"],
+
+        "allowedStrings": ["License :: OSI Approved :: BSD License"],
+
+        "focusAlertsHere": false
+
+        }
+
+        ```
+
+
+        This endpoint consumes 100 units of your quota.
+
+
+        This endpoint requires the following org token scopes:
+
+        - packages:list'
       responses:
         '200':
           content:
@@ -1072,7 +1245,7 @@ paths:
   /settings:
     post:
       tags:
-      - deprecated
+      - Deprecated
       summary: Calculate settings
       deprecated: true
       operationId: postSettings
@@ -1096,7 +1269,7 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
-      description: '**This endpoint is deprecated.** Use the [successor version](https://docs.socket.dev/reference/updateorgsecuritypolicy) instead.
+      description: '**This endpoint is deprecated.** Use the successor version instead.
 
 
         Get current settings for the requested organizations and default settings to allow deferrals.
@@ -1143,24 +1316,24 @@ paths:
                       description: ''
                       properties:
                         start:
-                          type: string
+                          type:
+                          - string
+                          - 'null'
                           description: ''
                           default: ''
-                          nullable: true
                         settings:
                           type: object
                           additionalProperties:
                             type: object
                             properties:
                               deferTo:
-                                type: string
-                                nullable: true
+                                type:
+                                - string
+                                - 'null'
                               issueRules:
                                 type: object
-                                nullable: false
                                 additionalProperties:
                                   type: object
-                                  nullable: false
                                   properties:
                                     action:
                                       type: string
@@ -1195,12 +1368,12 @@ paths:
   /report/supported:
     get:
       tags:
-      - deprecated
+      - Deprecated
       summary: Get supported files for report
       deprecated: true
       operationId: getReportSupportedFiles
       security: []
-      description: '**This endpoint is deprecated.** Deprecated since 2023-01-15. Use the [successor version](https://docs.socket.dev/reference/getsupportedfiles) instead.
+      description: '**This endpoint is deprecated.** Deprecated since 2023-01-15. Use the successor version instead.
 
 
         This route has been moved to the `orgs/{org_slug}/supported-files` endpoint.
@@ -1252,7 +1425,7 @@ paths:
   /report/delete/{id}:
     delete:
       tags:
-      - deprecated
+      - Deprecated
       summary: Delete a report
       deprecated: true
       operationId: deleteReport
@@ -1268,7 +1441,7 @@ paths:
         - report:write
       - basicAuth:
         - report:write
-      description: '**This endpoint is deprecated.** Use the [successor version](https://docs.socket.dev/reference) instead.
+      description: '**This endpoint is deprecated.** Use the successor version instead.
 
 
         Deprecated: Use `/orgs/{org_slug}/full-scans` instead. Delete a specific project report generated with the GitHub app.
@@ -1310,7 +1483,7 @@ paths:
   /report/list:
     get:
       tags:
-      - deprecated
+      - Deprecated
       summary: Get list of reports
       deprecated: true
       operationId: getReportList
@@ -1332,7 +1505,7 @@ paths:
         - report:list
       - basicAuth:
         - report:list
-      description: '**This endpoint is deprecated.** Use the [successor version](https://docs.socket.dev/reference) instead.
+      description: '**This endpoint is deprecated.** Use the successor version instead.
 
 
         Deprecated: Use `/orgs/{org_slug}/full-scans` instead. Get all your project reports generated with the GitHub app.
@@ -1412,7 +1585,7 @@ paths:
   /report/upload:
     put:
       tags:
-      - deprecated
+      - Deprecated
       summary: Create a report
       deprecated: true
       operationId: createReport
@@ -1451,7 +1624,7 @@ paths:
         - report:write
       - basicAuth:
         - report:write
-      description: '**This endpoint is deprecated.** Use the [successor version](https://docs.socket.dev/reference/createorgfullscan) instead.
+      description: '**This endpoint is deprecated.** Use the successor version instead.
 
 
         Deprecated: Use `/orgs/{org_slug}/full-scans` instead.
@@ -1509,7 +1682,7 @@ paths:
   /report/view/{id}:
     get:
       tags:
-      - deprecated
+      - Deprecated
       summary: View a report
       deprecated: true
       operationId: getReport
@@ -1525,7 +1698,7 @@ paths:
         - report:read
       - basicAuth:
         - report:read
-      description: '**This endpoint is deprecated.** Use the [successor version](https://docs.socket.dev/reference/getorgfullscan) instead.
+      description: '**This endpoint is deprecated.** Use the successor version instead.
 
 
         Deprecated: Use `/orgs/{org_slug}/full-scans` instead. Get all the issues, packages, and scores related to an specific project report.
@@ -1560,7 +1733,7 @@ paths:
   /repo/list:
     get:
       tags:
-      - deprecated
+      - Deprecated
       summary: List GitHub repositories
       deprecated: true
       operationId: getRepoList
@@ -1577,7 +1750,7 @@ paths:
         - repo:list
       - basicAuth:
         - repo:list
-      description: '**This endpoint is deprecated.** Use the [successor version](https://docs.socket.dev/reference/getorgrepolist) instead.
+      description: '**This endpoint is deprecated.** Use the successor version instead.
 
 
         Deprecated: Use `/orgs/{org_slug}/repos` instead. Get all GitHub repositories associated with a Socket org.
@@ -1633,10 +1806,11 @@ paths:
                           description: ''
                           default: ''
                         organization_id:
-                          type: string
+                          type:
+                          - string
+                          - 'null'
                           description: ''
                           default: ''
-                          nullable: true
                         workspace:
                           type: string
                           description: ''
@@ -1685,7 +1859,7 @@ paths:
   /npm/{package}/{version}/issues:
     get:
       tags:
-      - deprecated
+      - Deprecated
       summary: Get issues by package
       deprecated: true
       operationId: getIssuesByNPMPackage
@@ -1704,7 +1878,7 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
-      description: '**This endpoint is deprecated.** Use the [successor version](https://docs.socket.dev/reference) instead.
+      description: '**This endpoint is deprecated.** Use the successor version instead.
 
 
         Get all the issues related with a particular npm package version.
@@ -1712,7 +1886,7 @@ paths:
         This endpoint returns the issue type, location, and additional details related to each issue in the `props` attribute.
 
 
-        You can [see here](https://socket.dev/alerts) the full list of issues.
+        You can see here the full list of issues.
 
 
         This endpoint consumes 1 unit of your quota.
@@ -1742,7 +1916,7 @@ paths:
   /npm/{package}/{version}/score:
     get:
       tags:
-      - deprecated
+      - Deprecated
       summary: Get score by package
       deprecated: true
       operationId: getScoreByNPMPackage
@@ -1761,7 +1935,7 @@ paths:
       security:
       - bearerAuth: []
       - basicAuth: []
-      description: '**This endpoint is deprecated.** Use the [successor version](https://docs.socket.dev/reference/batchpackagefetch) instead.
+      description: '**This endpoint is deprecated.** Use the successor version instead.
 
 
         Get all the scores and metrics by category that are used to evaluate the package version.
@@ -1853,7 +2027,7 @@ paths:
   /analytics/org/{filter}:
     get:
       tags:
-      - deprecated
+      - Deprecated
       summary: Get organization analytics (unstable)
       deprecated: true
       operationId: getOrgAnalytics
@@ -1869,10 +2043,10 @@ paths:
         - report:write
       - basicAuth:
         - report:write
-      description: '**This endpoint is deprecated.** Use the [successor version](https://docs.socket.dev/reference/historicalalertstrend) instead.
+      description: '**This endpoint is deprecated.** Use the successor version instead.
 
 
-        Please implement against the [Historical dependencies](/reference/historicaldependenciestrend) or [Historical alerts](/reference/historicalalertstrend) endpoints.
+        Please implement against the Historical dependencies or Historical alerts endpoints.
 
 
         Get analytics data regarding the number of alerts found across all active repositories.
@@ -2002,7 +2176,7 @@ paths:
   /analytics/repo/{name}/{filter}:
     get:
       tags:
-      - deprecated
+      - Deprecated
       summary: Get repository analytics
       deprecated: true
       operationId: getRepoAnalytics
@@ -2024,10 +2198,10 @@ paths:
         - report:write
       - basicAuth:
         - report:write
-      description: '**This endpoint is deprecated.** Use the [successor version](https://docs.socket.dev/reference/historicalalertstrend) instead.
+      description: '**This endpoint is deprecated.** Use the successor version instead.
 
 
-        Please implement against the [Historical dependencies](/reference/historicaldependenciestrend) or [Historical alerts](/reference/historicalalertstrend) endpoints.
+        Please implement against the Historical dependencies or Historical alerts endpoints.
 
 
         Get analytics data regarding the number of alerts found in a single repository.
@@ -2156,6 +2330,305 @@ paths:
       x-readme: {}
 components:
   schemas:
+    LicenseDetails:
+      type: array
+      items:
+        type: object
+        additionalProperties: false
+        description: ''
+        properties:
+          spdxDisj:
+            type: string
+            description: SPDX license expression in disjunctive normal form (e.g., '(MIT OR Apache-2.0)')
+            default: ''
+          authors:
+            type: array
+            items:
+              type: string
+              description: ''
+              default: ''
+            description: List of authors found in the license text
+          errorData:
+            type: string
+            description: Error details if license parsing failed
+            default: ''
+          provenance:
+            type: string
+            description: Source where this license information was detected (e.g., 'package.json', 'LICENSE file', 'README')
+            default: ''
+          filepath:
+            type: string
+            description: Path to the file containing this license information
+            default: ''
+          match_strength:
+            type: number
+            description: Confidence score from 0.0 to 1.0 indicating how well the detected license matches the source text
+            default: 0
+        required:
+        - authors
+        - errorData
+        - filepath
+        - match_strength
+        - provenance
+        - spdxDisj
+      description: ''
+    SocketUsageRef:
+      type: object
+      additionalProperties: false
+      description: ''
+      properties:
+        file:
+          $ref: '#/components/schemas/SocketRefFile'
+        dependencies:
+          $ref: '#/components/schemas/SocketRefList'
+      required:
+      - dependencies
+      - file
+    LicenseAllowListElabbed:
+      type: object
+      additionalProperties: false
+      description: ''
+      properties:
+        strings:
+          type: array
+          items:
+            type: string
+            description: ''
+            default: ''
+          description: ''
+        classes:
+          type: array
+          items:
+            type: string
+            description: ''
+            default: ''
+          description: ''
+        packageURLs:
+          type: array
+          items:
+            type: string
+            description: ''
+            default: ''
+          description: ''
+        disjs:
+          type: array
+          items:
+            type: string
+            description: ''
+            default: ''
+          description: ''
+      required:
+      - classes
+      - disjs
+      - packageURLs
+      - strings
+    SocketManifestReference:
+      type: object
+      additionalProperties: false
+      properties:
+        file:
+          type: string
+          description: Path to the manifest file (e.g., package.json, pom.xml)
+          default: ''
+        start:
+          type: integer
+          description: Starting line or position in the manifest file
+          default: 0
+        end:
+          type: integer
+          description: Ending line or position in the manifest file
+          default: 0
+      required:
+      - file
+    SocketRefGo:
+      type: object
+      additionalProperties: false
+      properties:
+        package:
+          type: string
+          description: ''
+          default: ''
+        version:
+          type: string
+          description: ''
+          default: ''
+        file:
+          $ref: '#/components/schemas/SocketRefFile'
+      required:
+      - package
+    SocketScore:
+      type: object
+      additionalProperties: false
+      description: ''
+      properties:
+        license:
+          type: number
+          description: Score from 0.0 to 1.0 evaluating license permissiveness and compatibility
+          default: 0
+        maintenance:
+          type: number
+          description: Score from 0.0 to 1.0 evaluating project maintenance health and activity
+          default: 0
+        overall:
+          type: number
+          description: Combined score from 0.0 to 1.0 representing overall package health and safety
+          default: 0
+        quality:
+          type: number
+          description: Score from 0.0 to 1.0 evaluating code quality, testing, and documentation
+          default: 0
+        supplyChain:
+          type: number
+          description: Score from 0.0 to 1.0 evaluating supply chain security and provenance
+          default: 0
+        vulnerability:
+          type: number
+          description: Score from 0.0 to 1.0 based on known vulnerabilities and their severity
+          default: 0
+      required:
+      - license
+      - maintenance
+      - overall
+      - quality
+      - supplyChain
+      - vulnerability
+    ClassStackItem:
+      type: object
+      additionalProperties: false
+      properties:
+        purl:
+          type: string
+          description: Package URL (PURL) of the dependency containing this class
+          default: ''
+        class:
+          type: string
+          description: Name of the class in the dependency
+          default: ''
+        confidence:
+          type: number
+          description: Confidence score from 0.0 to 1.0 indicating how certain the reachability analysis is about this result
+          default: 0
+      description: ''
+    LicenseAllowList:
+      type: object
+      additionalProperties: false
+      description: ''
+      properties:
+        strings:
+          type: array
+          items:
+            type: string
+            description: ''
+            default: ''
+          description: ''
+      required:
+      - strings
+    SocketMetricComponent:
+      type: object
+      additionalProperties: false
+      description: ''
+      properties:
+        score:
+          type: number
+          description: ''
+          default: 0
+        maxScore:
+          type: number
+          description: ''
+          default: 0
+        limit:
+          type: number
+          description: ''
+          default: 0
+        value:
+          type: object
+          description: ''
+          default: null
+      required:
+      - limit
+      - maxScore
+      - score
+      - value
+    LicensePolicy:
+      type: object
+      additionalProperties: false
+      description: ''
+      properties:
+        allow:
+          $ref: '#/components/schemas/LicenseAllowListElabbed'
+        warn:
+          $ref: '#/components/schemas/LicenseAllowListElabbed'
+        monitor:
+          $ref: '#/components/schemas/LicenseAllowListElabbed'
+      required:
+      - allow
+      - monitor
+      - warn
+    SocketRefTextRange:
+      type: object
+      additionalProperties: false
+      description: ''
+      properties:
+        startLine:
+          type: integer
+          description: ''
+          default: 0
+        startColumn:
+          type: integer
+          description: ''
+          default: 0
+        endLine:
+          type: integer
+          description: ''
+          default: 0
+        endColumn:
+          type: integer
+          description: ''
+          default: 0
+      required:
+      - endColumn
+      - endLine
+      - startColumn
+      - startLine
+    SocketRefList:
+      type: array
+      items:
+        $ref: '#/components/schemas/SocketRef'
+      description: ''
+    SocketRefWeb:
+      type: object
+      additionalProperties: false
+      properties:
+        url:
+          type: string
+          description: ''
+          default: ''
+        file:
+          $ref: '#/components/schemas/SocketRefFile'
+      required:
+      - url
+    Qualifiers: {}
+    SocketRefNPM:
+      type: object
+      additionalProperties: false
+      properties:
+        package:
+          type: string
+          description: ''
+          default: ''
+        version:
+          type: string
+          description: ''
+          default: ''
+        file:
+          $ref: '#/components/schemas/SocketRefFile'
+      required:
+      - package
+    SocketIssueList:
+      type: array
+      items:
+        $ref: '#/components/schemas/SocketIssue'
+      description: ''
     SAttrib1_N:
       type: array
       items:
@@ -2203,454 +2676,20 @@ components:
         - attribData
         - attribText
       description: ''
-    SocketArtifactLink:
+    SocketRefFile:
       type: object
       additionalProperties: false
       properties:
-        direct:
-          type: boolean
-          default: false
-          description: Indicates if this is a direct dependency (not transitive)
-        dev:
-          type: boolean
-          default: false
-          description: Indicates if this is a development-only dependency not used in production
-        dead:
-          type: boolean
-          default: false
-          description: Indicates if this package is deprecated, abandoned, or no longer maintained
-        manifestFiles:
-          type: array
-          items:
-            $ref: '#/components/schemas/SocketManifestReference'
-          description: ''
-        topLevelAncestors:
-          type: array
-          items:
-            $ref: '#/components/schemas/SocketId'
-          description: IDs of the root-level packages in the dependency tree that depend on this package
-        dependencies:
-          type: array
-          items:
-            $ref: '#/components/schemas/SocketId'
-          description: IDs of packages that this package directly depends on
-        alertPriorities:
-          type: object
-          additionalProperties:
-            type: object
-            additionalProperties: false
-            properties:
-              result:
-                type: integer
-                description: Computed priority score for this alert
-                default: 0
-              components:
-                type: object
-                additionalProperties: false
-                description: ''
-                properties:
-                  isFixable:
-                    type: object
-                    additionalProperties: false
-                    description: ''
-                    properties:
-                      result:
-                        type: number
-                        description: Contribution of fixability to the priority score
-                        default: 0
-                      value:
-                        type: boolean
-                        default: false
-                        description: Whether a fix is available for this alert
-                    required:
-                    - result
-                    - value
-                  isReachable:
-                    type: object
-                    additionalProperties: false
-                    description: ''
-                    properties:
-                      result:
-                        type: number
-                        description: Contribution of reachability to the priority score
-                        default: 0
-                      value:
-                        type: boolean
-                        default: false
-                        description: Whether the vulnerable code is reachable
-                      specificValue:
-                        type: string
-                        description: Specific reachability type value such as 'unreachable', 'maybe_reachable', or 'reachable'
-                        default: ''
-                    required:
-                    - result
-                    - specificValue
-                    - value
-                  severity:
-                    type: object
-                    additionalProperties: false
-                    description: ''
-                    properties:
-                      result:
-                        type: number
-                        description: Contribution of severity to the priority score
-                        default: 0
-                      value:
-                        type: integer
-                        description: Numeric severity level
-                        default: 0
-                    required:
-                    - result
-                    - value
-                required:
-                - isFixable
-                - isReachable
-                - severity
-              formula:
-                type: string
-                description: Formula used to calculate the priority score
-                default: ''
-            required:
-            - result
-          properties: {}
-          description: Computed priority scores for each alert type based on severity, reachability, and fixability factors
-        artifact:
-          allOf:
-          - $ref: '#/components/schemas/SocketPURL'
-          - type: object
-            additionalProperties: false
-            properties:
-              id:
-                $ref: '#/components/schemas/SocketId'
-            required:
-            - id
-        alertKeysToReachabilityTypes:
-          type: object
-          additionalProperties:
-            type: array
-            items:
-              type: string
-              description: ''
-              default: ''
-            description: ''
-          properties: {}
-          description: 'Deprecated: mapping of alert keys to arrays of reachability types found across different manifest files or code locations. This field is derived from alertKeysToReachabilitySummaries for backward compatibility; use that property instead.'
-        alertKeysToReachabilitySummaries:
-          type: object
-          additionalProperties:
-            type: array
-            items:
-              type: object
-              additionalProperties: false
-              description: ''
-              properties:
-                type:
-                  type: string
-                  description: ''
-                  default: ''
-              required:
-              - type
-            description: ''
-          properties: {}
-          description: Mapping of alert keys to arrays of reachability summaries. Each summary contains a reachability type indicating the result of reachability analysis for the corresponding vulnerability alert.
-      description: ''
-    SocketMetricSchema:
-      type: object
-      additionalProperties: false
-      properties:
-        score:
-          type: number
-          description: ''
-          default: 0
-        components:
-          type: object
-          additionalProperties:
-            $ref: '#/components/schemas/SocketMetricComponent'
-          properties: {}
-          description: ''
-        limit:
-          type: number
-          description: ''
-          default: 0
-        limitingMetric:
+        path:
           type: string
           description: ''
           default: ''
+        range:
+          $ref: '#/components/schemas/SocketRefTextRange'
+        bytes:
+          $ref: '#/components/schemas/SocketRefByteRange'
       required:
-      - components
-      - score
-    ClassStackItem:
-      type: object
-      additionalProperties: false
-      properties:
-        purl:
-          type: string
-          description: Package URL (PURL) of the dependency containing this class
-          default: ''
-        class:
-          type: string
-          description: Name of the class in the dependency
-          default: ''
-        confidence:
-          type: number
-          description: Confidence score from 0.0 to 1.0 indicating how certain the reachability analysis is about this result
-          default: 0
-      description: ''
-    SocketReport:
-      type: object
-      additionalProperties: false
-      description: ''
-      properties:
-        id:
-          type: string
-          description: ''
-          default: ''
-        healthy:
-          type: boolean
-          default: false
-          description: ''
-        issues:
-          $ref: '#/components/schemas/SocketIssueList'
-        score:
-          type: object
-          additionalProperties: false
-          description: ''
-          properties:
-            avgSupplyChainRisk:
-              type: number
-              description: ''
-              default: 0
-            avgQuality:
-              type: number
-              description: ''
-              default: 0
-            avgMaintenance:
-              type: number
-              description: ''
-              default: 0
-            avgVulnerability:
-              type: number
-              description: ''
-              default: 0
-            avgLicense:
-              type: number
-              description: ''
-              default: 0
-          required:
-          - avgLicense
-          - avgMaintenance
-          - avgQuality
-          - avgSupplyChainRisk
-          - avgVulnerability
-        url:
-          type: string
-          description: ''
-          default: ''
-      required:
-      - healthy
-      - id
-      - issues
-      - score
-      - url
-    SocketRef:
-      anyOf:
-      - type: object
-        additionalProperties: false
-        properties:
-          type:
-            type: string
-            enum:
-            - unknown
-          value:
-            type: object
-            additionalProperties: false
-            description: ''
-            properties: {}
-      - type: object
-        additionalProperties: false
-        properties:
-          type:
-            type: string
-            enum:
-            - npm
-          value:
-            $ref: '#/components/schemas/SocketRefNPM'
-      - type: object
-        additionalProperties: false
-        properties:
-          type:
-            type: string
-            enum:
-            - git
-          value:
-            $ref: '#/components/schemas/SocketRefGit'
-      - type: object
-        additionalProperties: false
-        properties:
-          type:
-            type: string
-            enum:
-            - web
-          value:
-            $ref: '#/components/schemas/SocketRefWeb'
-      - type: object
-        additionalProperties: false
-        properties:
-          type:
-            type: string
-            enum:
-            - pypi
-          value:
-            $ref: '#/components/schemas/SocketRefPyPI'
-      - type: object
-        additionalProperties: false
-        properties:
-          type:
-            type: string
-            enum:
-            - go
-          value:
-            $ref: '#/components/schemas/SocketRefGo'
-    LicenseAllowList:
-      type: object
-      additionalProperties: false
-      description: ''
-      properties:
-        strings:
-          type: array
-          items:
-            type: string
-            description: ''
-            default: ''
-          description: ''
-      required:
-      - strings
-    ReachabilityType:
-      type: string
-      enum:
-      - missing_support
-      - undeterminable_reachability
-      - pending
-      - unreachable
-      - unknown
-      - direct_dependency
-      - error
-      - maybe_reachable
-      - reachable
-      description: Status of reachability analysis for vulnerable code paths
-      default: unknown
-    SocketDiffArtifactType:
-      type: string
-      enum:
-      - added
-      - removed
-      - updated
-      - replaced
-      - unchanged
-      description: Type of change detected for this artifact in the diff
-      default: unchanged
-    SocketPURL_Type:
-      type: string
-      enum:
-      - alpm
-      - apk
-      - bitbucket
-      - cocoapods
-      - cargo
-      - chrome
-      - clawhub
-      - composer
-      - conan
-      - conda
-      - cran
-      - deb
-      - docker
-      - gem
-      - generic
-      - github
-      - golang
-      - hackage
-      - hex
-      - huggingface
-      - maven
-      - mlflow
-      - npm
-      - nuget
-      - qpkg
-      - oci
-      - pub
-      - pypi
-      - rpm
-      - socket
-      - swid
-      - swift
-      - vscode
-      - unknown
-      description: Package ecosystem type identifier based on the PURL specification
-      default: unknown
-    ReachabilityResult:
-      type: object
-      additionalProperties: false
-      description: ''
-      properties:
-        type:
-          type: string
-          enum:
-          - precomputed
-          - full-scan
-          description: Type of reachability analysis performed
-          default: precomputed
-        results:
-          type: array
-          items:
-            $ref: '#/components/schemas/ReachabilityResultItem'
-          description: Reachability analysis results for each vulnerability
-      required:
-      - results
-      - type
-    SocketRefGo:
-      type: object
-      additionalProperties: false
-      properties:
-        package:
-          type: string
-          description: ''
-          default: ''
-        version:
-          type: string
-          description: ''
-          default: ''
-        file:
-          $ref: '#/components/schemas/SocketRefFile'
-      required:
-      - package
-    Qualifiers: {}
-    SocketRefTextRange:
-      type: object
-      additionalProperties: false
-      description: ''
-      properties:
-        startLine:
-          type: integer
-          description: ''
-          default: 0
-        startColumn:
-          type: integer
-          description: ''
-          default: 0
-        endLine:
-          type: integer
-          description: ''
-          default: 0
-        endColumn:
-          type: integer
-          description: ''
-          default: 0
-      required:
-      - endColumn
-      - endLine
-      - startColumn
-      - startLine
+      - path
     SourceLocation:
       type: object
       additionalProperties: false
@@ -2707,136 +2746,20 @@ components:
       - fileHash
       - filename
       - start
-    SocketIssueSeverity:
+    ReachabilityType:
       type: string
       enum:
-      - low
-      - middle
-      - high
-      - critical
-      description: ''
-      default: low
-    SocketUsageRef:
-      type: object
-      additionalProperties: false
-      description: ''
-      properties:
-        file:
-          $ref: '#/components/schemas/SocketRefFile'
-        dependencies:
-          $ref: '#/components/schemas/SocketRefList'
-      required:
-      - dependencies
-      - file
-    SocketRefByteRange:
-      type: object
-      additionalProperties: false
-      description: ''
-      properties:
-        start:
-          type: integer
-          description: ''
-          default: 0
-        end:
-          type: integer
-          description: ''
-          default: 0
-      required:
-      - end
-      - start
-    SocketRefPyPI:
-      type: object
-      additionalProperties: false
-      properties:
-        package:
-          type: string
-          description: ''
-          default: ''
-        version:
-          type: string
-          description: ''
-          default: ''
-        artifact:
-          type: string
-          description: ''
-          default: ''
-        file:
-          $ref: '#/components/schemas/SocketRefFile'
-      required:
-      - package
-    ReachabilityResultItem:
-      type: object
-      additionalProperties: false
-      properties:
-        type:
-          $ref: '#/components/schemas/ReachabilityType'
-        truncated:
-          type: boolean
-          default: false
-          description: Indicates if the reachability analysis was stopped early due to depth or complexity limits
-        error:
-          type: string
-          description: Error message if reachability analysis failed
-          default: ''
-        matches:
-          anyOf:
-          - type: object
-            additionalProperties: false
-            properties:
-              type:
-                type: string
-                enum:
-                - function-level
-              value:
-                type: array
-                items:
-                  type: array
-                  items:
-                    $ref: '#/components/schemas/CallStackItem'
-                  description: ''
-                description: ''
-          - type: object
-            additionalProperties: false
-            properties:
-              type:
-                type: string
-                enum:
-                - class-level
-              value:
-                type: array
-                items:
-                  type: array
-                  items:
-                    $ref: '#/components/schemas/ClassStackItem'
-                  description: ''
-                description: ''
-        workspacePath:
-          type: string
-          description: Path to the workspace root for multi-workspace projects
-          default: ''
-        subprojectPath:
-          type: string
-          description: Path to the subproject within the workspace
-          default: ''
-      required:
-      - type
-    SocketRefWeb:
-      type: object
-      additionalProperties: false
-      properties:
-        url:
-          type: string
-          description: ''
-          default: ''
-        file:
-          $ref: '#/components/schemas/SocketRefFile'
-      required:
-      - url
-    SocketRefList:
-      type: array
-      items:
-        $ref: '#/components/schemas/SocketRef'
-      description: ''
+      - missing_support
+      - undeterminable_reachability
+      - pending
+      - unreachable
+      - unknown
+      - direct_dependency
+      - error
+      - maybe_reachable
+      - reachable
+      description: Status of reachability analysis for vulnerable code paths
+      default: unknown
     SocketIssueBasics:
       type: object
       additionalProperties: false
@@ -2857,28 +2780,93 @@ components:
       - label
       - locations
       - severity
-    SocketPatch:
+    SocketCategory:
+      type: string
+      enum:
+      - supplyChainRisk
+      - quality
+      - maintenance
+      - vulnerability
+      - license
+      - other
+      description: ''
+      default: other
+    SocketDiffArtifact:
+      allOf:
+      - $ref: '#/components/schemas/SocketPURL'
+      - type: object
+        additionalProperties: false
+        properties:
+          diffType:
+            $ref: '#/components/schemas/SocketDiffArtifactType'
+          id:
+            $ref: '#/components/schemas/SocketId'
+          author:
+            type: array
+            items:
+              type: string
+              description: ''
+              default: ''
+            description: List of package authors or maintainers
+          base:
+            type: array
+            items:
+              $ref: '#/components/schemas/SocketArtifactLink'
+            description: Artifact links from the base/before state
+          capabilities:
+            $ref: '#/components/schemas/Capabilities'
+          head:
+            type: array
+            items:
+              $ref: '#/components/schemas/SocketArtifactLink'
+            description: Artifact links from the head/after state
+          qualifiers:
+            $ref: '#/components/schemas/Qualifiers'
+          size:
+            type: number
+            description: Total size of the package artifact in bytes
+            default: 0
+          license:
+            type: string
+            description: ''
+            default: ''
+          licenseDetails:
+            $ref: '#/components/schemas/LicenseDetails'
+          licenseAttrib:
+            $ref: '#/components/schemas/SAttrib1_N'
+          score:
+            $ref: '#/components/schemas/SocketScore'
+          alerts:
+            type: array
+            items:
+              $ref: '#/components/schemas/SocketAlert'
+            description: ''
+        required:
+        - diffType
+    ReachabilityResult:
       type: object
       additionalProperties: false
+      description: ''
       properties:
-        uuid:
-          type: string
-          description: Unique identifier for this patch
-          default: ''
-        tier:
+        type:
           type: string
           enum:
-          - free
-          - paid
-          description: Access tier required for this patch (free or paid)
-          default: free
-        deprecated:
-          type: boolean
-          default: false
-          description: Indicates if this patch is deprecated and should not be used
+          - precomputed
+          - full-scan
+          description: Type of reachability analysis performed
+          default: precomputed
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/ReachabilityResultItem'
+          description: Reachability analysis results for each vulnerability
       required:
-      - tier
-      - uuid
+      - results
+      - type
+    SocketId:
+      type: string
+      description: ''
+      default: ''
     Capabilities:
       type: object
       additionalProperties: false
@@ -2919,6 +2907,67 @@ components:
       - net
       - shell
       - unsafe
+      - url
+    SocketRefByteRange:
+      type: object
+      additionalProperties: false
+      description: ''
+      properties:
+        start:
+          type: integer
+          description: ''
+          default: 0
+        end:
+          type: integer
+          description: ''
+          default: 0
+      required:
+      - end
+      - start
+    SocketMetricSchema:
+      type: object
+      additionalProperties: false
+      properties:
+        score:
+          type: number
+          description: ''
+          default: 0
+        components:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/SocketMetricComponent'
+          properties: {}
+          description: ''
+        limit:
+          type: number
+          description: ''
+          default: 0
+        limitingMetric:
+          type: string
+          description: ''
+          default: ''
+      required:
+      - components
+      - score
+    SocketRefGit:
+      type: object
+      additionalProperties: false
+      properties:
+        url:
+          type: string
+          description: ''
+          default: ''
+        commit:
+          type: string
+          description: ''
+          default: ''
+        tag:
+          type: string
+          description: ''
+          default: ''
+        file:
+          $ref: '#/components/schemas/SocketRefFile'
+      required:
       - url
     SocketAlert:
       type: object
@@ -3059,6 +3108,43 @@ components:
       required:
       - key
       - type
+    SocketPatch:
+      type: object
+      additionalProperties: false
+      properties:
+        uuid:
+          type: string
+          description: Unique identifier for this patch
+          default: ''
+        tier:
+          type: string
+          enum:
+          - free
+          - paid
+          description: Access tier required for this patch (free or paid)
+          default: free
+        deprecated:
+          type: boolean
+          default: false
+          description: Indicates if this patch is deprecated and should not be used
+      required:
+      - tier
+      - uuid
+    CallStackItem:
+      type: object
+      additionalProperties: false
+      properties:
+        purl:
+          type: string
+          description: Package URL (PURL) of the dependency containing this code
+          default: ''
+        sourceLocation:
+          $ref: '#/components/schemas/SourceLocation'
+        confidence:
+          type: number
+          description: Confidence score from 0.0 to 1.0 indicating how certain the reachability analysis is about this result
+          default: 0
+      description: ''
     SocketPackageScore:
       type: object
       additionalProperties: false
@@ -3088,304 +3174,6 @@ components:
       - quality
       - supplyChainRisk
       - vulnerability
-    SocketRefNPM:
-      type: object
-      additionalProperties: false
-      properties:
-        package:
-          type: string
-          description: ''
-          default: ''
-        version:
-          type: string
-          description: ''
-          default: ''
-        file:
-          $ref: '#/components/schemas/SocketRefFile'
-      required:
-      - package
-    LicensePolicy:
-      type: object
-      additionalProperties: false
-      description: ''
-      properties:
-        allow:
-          $ref: '#/components/schemas/LicenseAllowListElabbed'
-        warn:
-          $ref: '#/components/schemas/LicenseAllowListElabbed'
-        monitor:
-          $ref: '#/components/schemas/LicenseAllowListElabbed'
-      required:
-      - allow
-      - monitor
-      - warn
-    SocketId:
-      type: string
-      description: ''
-      default: ''
-    SocketIssueList:
-      type: array
-      items:
-        $ref: '#/components/schemas/SocketIssue'
-      description: ''
-    SocketRefGit:
-      type: object
-      additionalProperties: false
-      properties:
-        url:
-          type: string
-          description: ''
-          default: ''
-        commit:
-          type: string
-          description: ''
-          default: ''
-        tag:
-          type: string
-          description: ''
-          default: ''
-        file:
-          $ref: '#/components/schemas/SocketRefFile'
-      required:
-      - url
-    SocketRefFile:
-      type: object
-      additionalProperties: false
-      properties:
-        path:
-          type: string
-          description: ''
-          default: ''
-        range:
-          $ref: '#/components/schemas/SocketRefTextRange'
-        bytes:
-          $ref: '#/components/schemas/SocketRefByteRange'
-      required:
-      - path
-    SocketDiffArtifact:
-      allOf:
-      - $ref: '#/components/schemas/SocketPURL'
-      - type: object
-        additionalProperties: false
-        properties:
-          diffType:
-            $ref: '#/components/schemas/SocketDiffArtifactType'
-          id:
-            $ref: '#/components/schemas/SocketId'
-          author:
-            type: array
-            items:
-              type: string
-              description: ''
-              default: ''
-            description: List of package authors or maintainers
-          base:
-            type: array
-            items:
-              $ref: '#/components/schemas/SocketArtifactLink'
-            description: Artifact links from the base/before state
-          capabilities:
-            $ref: '#/components/schemas/Capabilities'
-          head:
-            type: array
-            items:
-              $ref: '#/components/schemas/SocketArtifactLink'
-            description: Artifact links from the head/after state
-          qualifiers:
-            $ref: '#/components/schemas/Qualifiers'
-          size:
-            type: number
-            description: Total size of the package artifact in bytes
-            default: 0
-          license:
-            type: string
-            description: ''
-            default: ''
-          licenseDetails:
-            $ref: '#/components/schemas/LicenseDetails'
-          licenseAttrib:
-            $ref: '#/components/schemas/SAttrib1_N'
-          score:
-            $ref: '#/components/schemas/SocketScore'
-          alerts:
-            type: array
-            items:
-              $ref: '#/components/schemas/SocketAlert'
-            description: ''
-        required:
-        - diffType
-    LicenseAllowListElabbed:
-      type: object
-      additionalProperties: false
-      description: ''
-      properties:
-        strings:
-          type: array
-          items:
-            type: string
-            description: ''
-            default: ''
-          description: ''
-        classes:
-          type: array
-          items:
-            type: string
-            description: ''
-            default: ''
-          description: ''
-        packageURLs:
-          type: array
-          items:
-            type: string
-            description: ''
-            default: ''
-          description: ''
-        disjs:
-          type: array
-          items:
-            type: string
-            description: ''
-            default: ''
-          description: ''
-      required:
-      - classes
-      - disjs
-      - packageURLs
-      - strings
-    CallStackItem:
-      type: object
-      additionalProperties: false
-      properties:
-        purl:
-          type: string
-          description: Package URL (PURL) of the dependency containing this code
-          default: ''
-        sourceLocation:
-          $ref: '#/components/schemas/SourceLocation'
-        confidence:
-          type: number
-          description: Confidence score from 0.0 to 1.0 indicating how certain the reachability analysis is about this result
-          default: 0
-      description: ''
-    SocketMetricComponent:
-      type: object
-      additionalProperties: false
-      description: ''
-      properties:
-        score:
-          type: number
-          description: ''
-          default: 0
-        maxScore:
-          type: number
-          description: ''
-          default: 0
-        limit:
-          type: number
-          description: ''
-          default: 0
-        value:
-          type: object
-          description: ''
-          default: null
-      required:
-      - limit
-      - maxScore
-      - score
-      - value
-    SocketPURL:
-      type: object
-      additionalProperties: false
-      properties:
-        type:
-          $ref: '#/components/schemas/SocketPURL_Type'
-        namespace:
-          type: string
-          description: Package namespace or scope, such as npm organizations (@angular), Maven groupIds, or Docker image owners
-          default: ''
-        name:
-          type: string
-          description: Package name within its ecosystem
-          default: ''
-        version:
-          type: string
-          description: Package version string
-          default: ''
-        subpath:
-          type: string
-          description: Path within the package to a specific file or directory, used to reference nested components
-          default: ''
-        release:
-          type: string
-          description: Package-specific release identifier, such as PyPI's artifact ID or the specific build/release version
-          default: ''
-      required:
-      - type
-    SocketScore:
-      type: object
-      additionalProperties: false
-      description: ''
-      properties:
-        license:
-          type: number
-          description: Score from 0.0 to 1.0 evaluating license permissiveness and compatibility
-          default: 0
-        maintenance:
-          type: number
-          description: Score from 0.0 to 1.0 evaluating project maintenance health and activity
-          default: 0
-        overall:
-          type: number
-          description: Combined score from 0.0 to 1.0 representing overall package health and safety
-          default: 0
-        quality:
-          type: number
-          description: Score from 0.0 to 1.0 evaluating code quality, testing, and documentation
-          default: 0
-        supplyChain:
-          type: number
-          description: Score from 0.0 to 1.0 evaluating supply chain security and provenance
-          default: 0
-        vulnerability:
-          type: number
-          description: Score from 0.0 to 1.0 based on known vulnerabilities and their severity
-          default: 0
-      required:
-      - license
-      - maintenance
-      - overall
-      - quality
-      - supplyChain
-      - vulnerability
-    SocketCategory:
-      type: string
-      enum:
-      - supplyChainRisk
-      - quality
-      - maintenance
-      - vulnerability
-      - license
-      - other
-      description: ''
-      default: other
-    SocketManifestReference:
-      type: object
-      additionalProperties: false
-      properties:
-        file:
-          type: string
-          description: Path to the manifest file (e.g., package.json, pom.xml)
-          default: ''
-        start:
-          type: integer
-          description: Starting line or position in the manifest file
-          default: 0
-        end:
-          type: integer
-          description: Ending line or position in the manifest file
-          default: 0
-      required:
-      - file
     SocketIssue:
       anyOf:
       - type: object
@@ -3423,10 +3211,11 @@ components:
                       description: ''
                       default: 0
                     detectedAt:
-                      type: string
+                      type:
+                      - string
+                      - 'null'
                       description: ''
                       default: ''
-                      nullable: true
                   required:
                   - confidence
                   - detectedAt
@@ -3480,10 +3269,11 @@ components:
                       description: ''
                       default: medium
                     detectedAt:
-                      type: string
+                      type:
+                      - string
+                      - 'null'
                       description: ''
                       default: ''
-                      nullable: true
                   required:
                   - confidence
                   - detectedAt
@@ -3530,10 +3320,11 @@ components:
                       description: ''
                       default: 0
                     detectedAt:
-                      type: string
+                      type:
+                      - string
+                      - 'null'
                       description: ''
                       default: ''
-                      nullable: true
                   required:
                   - confidence
                   - detectedAt
@@ -3928,7 +3719,9 @@ components:
                       description: Version range affected by this vulnerability (e.g., >= 2.0.0, < 2.17.1)
                       default: ''
                     kevs:
-                      type: array
+                      type:
+                      - array
+                      - 'null'
                       items:
                         type: object
                         additionalProperties: false
@@ -3939,34 +3732,39 @@ components:
                             description: ''
                             default: ''
                           shortDescription:
-                            type: string
+                            type:
+                            - string
+                            - 'null'
                             description: ''
                             default: ''
-                            nullable: true
                           requiredAction:
-                            type: string
+                            type:
+                            - string
+                            - 'null'
                             description: ''
                             default: ''
-                            nullable: true
                           dateAdded:
                             type: string
                             description: Date when added to CISA KEV catalog (ISO 8601 format)
                             default: ''
                           dueDate:
-                            type: string
+                            type:
+                            - string
+                            - 'null'
                             description: Remediation deadline for federal agencies (ISO 8601 format)
                             default: ''
-                            nullable: true
                           knownRansomwareCampaignUse:
-                            type: string
+                            type:
+                            - string
+                            - 'null'
                             description: Known, Unknown, or specific ransomware campaign names
                             default: ''
-                            nullable: true
                           notes:
-                            type: string
+                            type:
+                            - string
+                            - 'null'
                             description: ''
                             default: ''
-                            nullable: true
                           vendorProject:
                             type: string
                             description: ''
@@ -3986,9 +3784,10 @@ components:
                         - vendorProject
                         - vulnerabilityName
                       description: ''
-                      nullable: true
                     epss:
-                      type: object
+                      type:
+                      - object
+                      - 'null'
                       additionalProperties: false
                       description: Exploit Prediction Scoring System https://www.first.org/epss/
                       properties:
@@ -4003,7 +3802,6 @@ components:
                       required:
                       - percentile
                       - score
-                      nullable: true
                   required:
                   - cveId
                   - cvss
@@ -4117,7 +3915,9 @@ components:
                       description: Version range affected by this vulnerability (e.g., >= 2.0.0, < 2.17.1)
                       default: ''
                     kevs:
-                      type: array
+                      type:
+                      - array
+                      - 'null'
                       items:
                         type: object
                         additionalProperties: false
@@ -4128,34 +3928,39 @@ components:
                             description: ''
                             default: ''
                           shortDescription:
-                            type: string
+                            type:
+                            - string
+                            - 'null'
                             description: ''
                             default: ''
-                            nullable: true
                           requiredAction:
-                            type: string
+                            type:
+                            - string
+                            - 'null'
                             description: ''
                             default: ''
-                            nullable: true
                           dateAdded:
                             type: string
                             description: Date when added to CISA KEV catalog (ISO 8601 format)
                             default: ''
                           dueDate:
-                            type: string
+                            type:
+                            - string
+                            - 'null'
                             description: Remediation deadline for federal agencies (ISO 8601 format)
                             default: ''
-                            nullable: true
                           knownRansomwareCampaignUse:
-                            type: string
+                            type:
+                            - string
+                            - 'null'
                             description: Known, Unknown, or specific ransomware campaign names
                             default: ''
-                            nullable: true
                           notes:
-                            type: string
+                            type:
+                            - string
+                            - 'null'
                             description: ''
                             default: ''
-                            nullable: true
                           vendorProject:
                             type: string
                             description: ''
@@ -4175,9 +3980,10 @@ components:
                         - vendorProject
                         - vulnerabilityName
                       description: ''
-                      nullable: true
                     epss:
-                      type: object
+                      type:
+                      - object
+                      - 'null'
                       additionalProperties: false
                       description: Exploit Prediction Scoring System https://www.first.org/epss/
                       properties:
@@ -4192,7 +3998,6 @@ components:
                       required:
                       - percentile
                       - score
-                      nullable: true
                   required:
                   - cveId
                   - cvss
@@ -4306,7 +4111,9 @@ components:
                       description: Version range affected by this vulnerability (e.g., >= 2.0.0, < 2.17.1)
                       default: ''
                     kevs:
-                      type: array
+                      type:
+                      - array
+                      - 'null'
                       items:
                         type: object
                         additionalProperties: false
@@ -4317,34 +4124,39 @@ components:
                             description: ''
                             default: ''
                           shortDescription:
-                            type: string
+                            type:
+                            - string
+                            - 'null'
                             description: ''
                             default: ''
-                            nullable: true
                           requiredAction:
-                            type: string
+                            type:
+                            - string
+                            - 'null'
                             description: ''
                             default: ''
-                            nullable: true
                           dateAdded:
                             type: string
                             description: Date when added to CISA KEV catalog (ISO 8601 format)
                             default: ''
                           dueDate:
-                            type: string
+                            type:
+                            - string
+                            - 'null'
                             description: Remediation deadline for federal agencies (ISO 8601 format)
                             default: ''
-                            nullable: true
                           knownRansomwareCampaignUse:
-                            type: string
+                            type:
+                            - string
+                            - 'null'
                             description: Known, Unknown, or specific ransomware campaign names
                             default: ''
-                            nullable: true
                           notes:
-                            type: string
+                            type:
+                            - string
+                            - 'null'
                             description: ''
                             default: ''
-                            nullable: true
                           vendorProject:
                             type: string
                             description: ''
@@ -4364,9 +4176,10 @@ components:
                         - vendorProject
                         - vulnerabilityName
                       description: ''
-                      nullable: true
                     epss:
-                      type: object
+                      type:
+                      - object
+                      - 'null'
                       additionalProperties: false
                       description: Exploit Prediction Scoring System https://www.first.org/epss/
                       properties:
@@ -4381,7 +4194,6 @@ components:
                       required:
                       - percentile
                       - score
-                      nullable: true
                   required:
                   - cveId
                   - cvss
@@ -4495,7 +4307,9 @@ components:
                       description: Version range affected by this vulnerability (e.g., >= 2.0.0, < 2.17.1)
                       default: ''
                     kevs:
-                      type: array
+                      type:
+                      - array
+                      - 'null'
                       items:
                         type: object
                         additionalProperties: false
@@ -4506,34 +4320,39 @@ components:
                             description: ''
                             default: ''
                           shortDescription:
-                            type: string
+                            type:
+                            - string
+                            - 'null'
                             description: ''
                             default: ''
-                            nullable: true
                           requiredAction:
-                            type: string
+                            type:
+                            - string
+                            - 'null'
                             description: ''
                             default: ''
-                            nullable: true
                           dateAdded:
                             type: string
                             description: Date when added to CISA KEV catalog (ISO 8601 format)
                             default: ''
                           dueDate:
-                            type: string
+                            type:
+                            - string
+                            - 'null'
                             description: Remediation deadline for federal agencies (ISO 8601 format)
                             default: ''
-                            nullable: true
                           knownRansomwareCampaignUse:
-                            type: string
+                            type:
+                            - string
+                            - 'null'
                             description: Known, Unknown, or specific ransomware campaign names
                             default: ''
-                            nullable: true
                           notes:
-                            type: string
+                            type:
+                            - string
+                            - 'null'
                             description: ''
                             default: ''
-                            nullable: true
                           vendorProject:
                             type: string
                             description: ''
@@ -4553,9 +4372,10 @@ components:
                         - vendorProject
                         - vulnerabilityName
                       description: ''
-                      nullable: true
                     epss:
-                      type: object
+                      type:
+                      - object
+                      - 'null'
                       additionalProperties: false
                       description: Exploit Prediction Scoring System https://www.first.org/epss/
                       properties:
@@ -4570,7 +4390,6 @@ components:
                       required:
                       - percentile
                       - score
-                      nullable: true
                   required:
                   - cveId
                   - cvss
@@ -6532,10 +6351,11 @@ components:
                       description: ''
                       default: ''
                     detectedAt:
-                      type: string
+                      type:
+                      - string
+                      - 'null'
                       description: ''
                       default: ''
-                      nullable: true
                   required:
                   - detectedAt
                   - id
@@ -6576,10 +6396,11 @@ components:
                       description: ''
                       default: ''
                     detectedAt:
-                      type: string
+                      type:
+                      - string
+                      - 'null'
                       description: ''
                       default: ''
-                      nullable: true
                   required:
                   - detectedAt
                   - id
@@ -6620,10 +6441,11 @@ components:
                       description: ''
                       default: ''
                     detectedAt:
-                      type: string
+                      type:
+                      - string
+                      - 'null'
                       description: ''
                       default: ''
-                      nullable: true
                   required:
                   - detectedAt
                   - id
@@ -7215,10 +7037,11 @@ components:
                       description: ''
                       default: 0
                     detectedAt:
-                      type: string
+                      type:
+                      - string
+                      - 'null'
                       description: ''
                       default: ''
-                      nullable: true
                   required:
                   - confidence
                   - detectedAt
@@ -7264,10 +7087,11 @@ components:
                       description: ''
                       default: 0
                     detectedAt:
-                      type: string
+                      type:
+                      - string
+                      - 'null'
                       description: ''
                       default: ''
-                      nullable: true
                   required:
                   - confidence
                   - detectedAt
@@ -7313,10 +7137,11 @@ components:
                       description: ''
                       default: 0
                     detectedAt:
-                      type: string
+                      type:
+                      - string
+                      - 'null'
                       description: ''
                       default: ''
-                      nullable: true
                   required:
                   - confidence
                   - detectedAt
@@ -7362,10 +7187,11 @@ components:
                       description: ''
                       default: 0
                     detectedAt:
-                      type: string
+                      type:
+                      - string
+                      - 'null'
                       description: ''
                       default: ''
-                      nullable: true
                   required:
                   - confidence
                   - detectedAt
@@ -7411,10 +7237,11 @@ components:
                       description: ''
                       default: 0
                     detectedAt:
-                      type: string
+                      type:
+                      - string
+                      - 'null'
                       description: ''
                       default: ''
-                      nullable: true
                   required:
                   - confidence
                   - detectedAt
@@ -7460,10 +7287,11 @@ components:
                       description: ''
                       default: 0
                     detectedAt:
-                      type: string
+                      type:
+                      - string
+                      - 'null'
                       description: ''
                       default: ''
-                      nullable: true
                   required:
                   - confidence
                   - detectedAt
@@ -7509,10 +7337,11 @@ components:
                       description: ''
                       default: 0
                     detectedAt:
-                      type: string
+                      type:
+                      - string
+                      - 'null'
                       description: ''
                       default: ''
-                      nullable: true
                   required:
                   - confidence
                   - detectedAt
@@ -7558,10 +7387,11 @@ components:
                       description: ''
                       default: 0
                     detectedAt:
-                      type: string
+                      type:
+                      - string
+                      - 'null'
                       description: ''
                       default: ''
-                      nullable: true
                   required:
                   - confidence
                   - detectedAt
@@ -7607,10 +7437,11 @@ components:
                       description: ''
                       default: 0
                     detectedAt:
-                      type: string
+                      type:
+                      - string
+                      - 'null'
                       description: ''
                       default: ''
-                      nullable: true
                   required:
                   - confidence
                   - detectedAt
@@ -7656,10 +7487,11 @@ components:
                       description: ''
                       default: 0
                     detectedAt:
-                      type: string
+                      type:
+                      - string
+                      - 'null'
                       description: ''
                       default: ''
-                      nullable: true
                   required:
                   - confidence
                   - detectedAt
@@ -7705,10 +7537,11 @@ components:
                       description: ''
                       default: 0
                     detectedAt:
-                      type: string
+                      type:
+                      - string
+                      - 'null'
                       description: ''
                       default: ''
-                      nullable: true
                   required:
                   - confidence
                   - detectedAt
@@ -7754,10 +7587,11 @@ components:
                       description: ''
                       default: 0
                     detectedAt:
-                      type: string
+                      type:
+                      - string
+                      - 'null'
                       description: ''
                       default: ''
-                      nullable: true
                   required:
                   - confidence
                   - detectedAt
@@ -7803,10 +7637,11 @@ components:
                       description: ''
                       default: 0
                     detectedAt:
-                      type: string
+                      type:
+                      - string
+                      - 'null'
                       description: ''
                       default: ''
-                      nullable: true
                   required:
                   - confidence
                   - detectedAt
@@ -8308,10 +8143,11 @@ components:
                       description: ''
                       default: ''
                     detectedAt:
-                      type: string
+                      type:
+                      - string
+                      - 'null'
                       description: ''
                       default: ''
-                      nullable: true
                   required:
                   - confidence
                   - detectedAt
@@ -8512,10 +8348,11 @@ components:
                       description: ''
                       default: ''
                     detectedAt:
-                      type: string
+                      type:
+                      - string
+                      - 'null'
                       description: ''
                       default: ''
-                      nullable: true
                   required:
                   - alternatePackage
                   - detectedAt
@@ -8551,10 +8388,11 @@ components:
                       description: ''
                       default: ''
                     detectedAt:
-                      type: string
+                      type:
+                      - string
+                      - 'null'
                       description: ''
                       default: ''
-                      nullable: true
                   required:
                   - alternatePackage
                   - detectedAt
@@ -8777,10 +8615,11 @@ components:
                       description: ''
                       default: medium
                     detectedAt:
-                      type: string
+                      type:
+                      - string
+                      - 'null'
                       description: ''
                       default: ''
-                      nullable: true
                   required:
                   - detectedAt
                   - note
@@ -9075,105 +8914,435 @@ components:
               required:
               - description
               - props
-    LicenseDetails:
-      type: array
-      items:
-        type: object
+    SocketIssueSeverity:
+      type: string
+      enum:
+      - low
+      - middle
+      - high
+      - critical
+      description: ''
+      default: low
+    SocketRefPyPI:
+      type: object
+      additionalProperties: false
+      properties:
+        package:
+          type: string
+          description: ''
+          default: ''
+        version:
+          type: string
+          description: ''
+          default: ''
+        artifact:
+          type: string
+          description: ''
+          default: ''
+        file:
+          $ref: '#/components/schemas/SocketRefFile'
+      required:
+      - package
+    ReachabilityResultItem:
+      type: object
+      additionalProperties: false
+      properties:
+        type:
+          $ref: '#/components/schemas/ReachabilityType'
+        truncated:
+          type: boolean
+          default: false
+          description: Indicates if the reachability analysis was stopped early due to depth or complexity limits
+        error:
+          type: string
+          description: Error message if reachability analysis failed
+          default: ''
+        matches:
+          anyOf:
+          - type: object
+            additionalProperties: false
+            properties:
+              type:
+                type: string
+                enum:
+                - function-level
+              value:
+                type: array
+                items:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/CallStackItem'
+                  description: ''
+                description: ''
+          - type: object
+            additionalProperties: false
+            properties:
+              type:
+                type: string
+                enum:
+                - class-level
+              value:
+                type: array
+                items:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/ClassStackItem'
+                  description: ''
+                description: ''
+        workspacePath:
+          type: string
+          description: Path to the workspace root for multi-workspace projects
+          default: ''
+        subprojectPath:
+          type: string
+          description: Path to the subproject within the workspace
+          default: ''
+      required:
+      - type
+    SocketDiffArtifactType:
+      type: string
+      enum:
+      - added
+      - removed
+      - updated
+      - replaced
+      - unchanged
+      description: Type of change detected for this artifact in the diff
+      default: unchanged
+    SocketRef:
+      anyOf:
+      - type: object
         additionalProperties: false
-        description: ''
         properties:
-          spdxDisj:
+          type:
             type: string
-            description: SPDX license expression in disjunctive normal form (e.g., '(MIT OR Apache-2.0)')
-            default: ''
-          authors:
+            enum:
+            - unknown
+          value:
+            type: object
+            additionalProperties: false
+            description: ''
+            properties: {}
+      - type: object
+        additionalProperties: false
+        properties:
+          type:
+            type: string
+            enum:
+            - npm
+          value:
+            $ref: '#/components/schemas/SocketRefNPM'
+      - type: object
+        additionalProperties: false
+        properties:
+          type:
+            type: string
+            enum:
+            - git
+          value:
+            $ref: '#/components/schemas/SocketRefGit'
+      - type: object
+        additionalProperties: false
+        properties:
+          type:
+            type: string
+            enum:
+            - web
+          value:
+            $ref: '#/components/schemas/SocketRefWeb'
+      - type: object
+        additionalProperties: false
+        properties:
+          type:
+            type: string
+            enum:
+            - pypi
+          value:
+            $ref: '#/components/schemas/SocketRefPyPI'
+      - type: object
+        additionalProperties: false
+        properties:
+          type:
+            type: string
+            enum:
+            - go
+          value:
+            $ref: '#/components/schemas/SocketRefGo'
+    SocketReport:
+      type: object
+      additionalProperties: false
+      description: ''
+      properties:
+        id:
+          type: string
+          description: ''
+          default: ''
+        healthy:
+          type: boolean
+          default: false
+          description: ''
+        issues:
+          $ref: '#/components/schemas/SocketIssueList'
+        score:
+          type: object
+          additionalProperties: false
+          description: ''
+          properties:
+            avgSupplyChainRisk:
+              type: number
+              description: ''
+              default: 0
+            avgQuality:
+              type: number
+              description: ''
+              default: 0
+            avgMaintenance:
+              type: number
+              description: ''
+              default: 0
+            avgVulnerability:
+              type: number
+              description: ''
+              default: 0
+            avgLicense:
+              type: number
+              description: ''
+              default: 0
+          required:
+          - avgLicense
+          - avgMaintenance
+          - avgQuality
+          - avgSupplyChainRisk
+          - avgVulnerability
+        url:
+          type: string
+          description: ''
+          default: ''
+      required:
+      - healthy
+      - id
+      - issues
+      - score
+      - url
+    SocketArtifactLink:
+      type: object
+      additionalProperties: false
+      properties:
+        direct:
+          type: boolean
+          default: false
+          description: Indicates if this is a direct dependency (not transitive)
+        dev:
+          type: boolean
+          default: false
+          description: Indicates if this is a development-only dependency not used in production
+        dead:
+          type: boolean
+          default: false
+          description: Indicates if this package is deprecated, abandoned, or no longer maintained
+        manifestFiles:
+          type: array
+          items:
+            $ref: '#/components/schemas/SocketManifestReference'
+          description: ''
+        topLevelAncestors:
+          type: array
+          items:
+            $ref: '#/components/schemas/SocketId'
+          description: IDs of the root-level packages in the dependency tree that depend on this package
+        dependencies:
+          type: array
+          items:
+            $ref: '#/components/schemas/SocketId'
+          description: IDs of packages that this package directly depends on
+        alertPriorities:
+          type: object
+          additionalProperties:
+            type: object
+            additionalProperties: false
+            properties:
+              result:
+                type: integer
+                description: Computed priority score for this alert
+                default: 0
+              components:
+                type: object
+                additionalProperties: false
+                description: ''
+                properties:
+                  isFixable:
+                    type: object
+                    additionalProperties: false
+                    description: ''
+                    properties:
+                      result:
+                        type: number
+                        description: Contribution of fixability to the priority score
+                        default: 0
+                      value:
+                        type: boolean
+                        default: false
+                        description: Whether a fix is available for this alert
+                    required:
+                    - result
+                    - value
+                  isReachable:
+                    type: object
+                    additionalProperties: false
+                    description: ''
+                    properties:
+                      result:
+                        type: number
+                        description: Contribution of reachability to the priority score
+                        default: 0
+                      value:
+                        type: boolean
+                        default: false
+                        description: Whether the vulnerable code is reachable
+                      specificValue:
+                        type: string
+                        description: Specific reachability type value such as 'unreachable', 'maybe_reachable', or 'reachable'
+                        default: ''
+                    required:
+                    - result
+                    - specificValue
+                    - value
+                  severity:
+                    type: object
+                    additionalProperties: false
+                    description: ''
+                    properties:
+                      result:
+                        type: number
+                        description: Contribution of severity to the priority score
+                        default: 0
+                      value:
+                        type: integer
+                        description: Numeric severity level
+                        default: 0
+                    required:
+                    - result
+                    - value
+                required:
+                - isFixable
+                - isReachable
+                - severity
+              formula:
+                type: string
+                description: Formula used to calculate the priority score
+                default: ''
+            required:
+            - result
+          properties: {}
+          description: Computed priority scores for each alert type based on severity, reachability, and fixability factors
+        artifact:
+          allOf:
+          - $ref: '#/components/schemas/SocketPURL'
+          - type: object
+            additionalProperties: false
+            properties:
+              id:
+                $ref: '#/components/schemas/SocketId'
+            required:
+            - id
+        alertKeysToReachabilityTypes:
+          type: object
+          additionalProperties:
             type: array
             items:
               type: string
               description: ''
               default: ''
-            description: List of authors found in the license text
-          errorData:
-            type: string
-            description: Error details if license parsing failed
-            default: ''
-          provenance:
-            type: string
-            description: Source where this license information was detected (e.g., 'package.json', 'LICENSE file', 'README')
-            default: ''
-          filepath:
-            type: string
-            description: Path to the file containing this license information
-            default: ''
-          match_strength:
-            type: number
-            description: Confidence score from 0.0 to 1.0 indicating how well the detected license matches the source text
-            default: 0
-        required:
-        - authors
-        - errorData
-        - filepath
-        - match_strength
-        - provenance
-        - spdxDisj
+            description: ''
+          properties: {}
+          description: 'Deprecated: mapping of alert keys to arrays of reachability types found across different manifest files or code locations. This field is derived from alertKeysToReachabilitySummaries for backward compatibility; use that property instead.'
+        alertKeysToReachabilitySummaries:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: object
+              additionalProperties: false
+              description: ''
+              properties:
+                type:
+                  type: string
+                  description: ''
+                  default: ''
+              required:
+              - type
+            description: ''
+          properties: {}
+          description: Mapping of alert keys to arrays of reachability summaries. Each summary contains a reachability type indicating the result of reachability analysis for the corresponding vulnerability alert.
       description: ''
+    SocketPURL:
+      type: object
+      additionalProperties: false
+      properties:
+        type:
+          $ref: '#/components/schemas/SocketPURL_Type'
+        namespace:
+          type: string
+          description: Package namespace or scope, such as npm organizations (@angular), Maven groupIds, or Docker image owners
+          default: ''
+        name:
+          type: string
+          description: Package name within its ecosystem
+          default: ''
+        version:
+          type: string
+          description: Package version string
+          default: ''
+        subpath:
+          type: string
+          description: Path within the package to a specific file or directory, used to reference nested components
+          default: ''
+        release:
+          type: string
+          description: Package-specific release identifier, such as PyPI's artifact ID or the specific build/release version
+          default: ''
+      required:
+      - type
+    SocketPURL_Type:
+      type: string
+      enum:
+      - alpm
+      - apk
+      - bitbucket
+      - cocoapods
+      - cargo
+      - chrome
+      - clawhub
+      - composer
+      - conan
+      - conda
+      - cran
+      - deb
+      - docker
+      - gem
+      - generic
+      - github
+      - golang
+      - hackage
+      - hex
+      - huggingface
+      - maven
+      - mlflow
+      - npm
+      - nuget
+      - qpkg
+      - oci
+      - pub
+      - pypi
+      - rpm
+      - socket
+      - swid
+      - swift
+      - vscode
+      - unknown
+      description: Package ecosystem type identifier based on the PURL specification
+      default: unknown
   responses:
-    SocketForbidden:
-      content:
-        application/json:
-          schema:
-            type: object
-            additionalProperties: false
-            description: ''
-            properties:
-              error:
-                type: object
-                additionalProperties: false
-                description: ''
-                properties:
-                  message:
-                    type: string
-                    description: ''
-                    default: ''
-                  details:
-                    type: object
-                    description: ''
-                    default: null
-                    nullable: true
-                required:
-                - details
-                - message
-            required:
-            - error
-      description: Insufficient max_quota for API method
-    SocketUnauthorized:
-      content:
-        application/json:
-          schema:
-            type: object
-            additionalProperties: false
-            description: ''
-            properties:
-              error:
-                type: object
-                additionalProperties: false
-                description: ''
-                properties:
-                  message:
-                    type: string
-                    description: ''
-                    default: ''
-                  details:
-                    type: object
-                    description: ''
-                    default: null
-                    nullable: true
-                required:
-                - details
-                - message
-            required:
-            - error
-      description: Unauthorized
     SocketInternalServerError:
       content:
         application/json:
@@ -9192,10 +9361,11 @@ components:
                     description: ''
                     default: ''
                   details:
-                    type: object
+                    type:
+                    - object
+                    - 'null'
                     description: ''
                     default: null
-                    nullable: true
                 required:
                 - details
                 - message
@@ -9229,43 +9399,16 @@ components:
                     description: ''
                     default: ''
                   details:
-                    type: object
+                    type:
+                    - object
+                    - 'null'
                     description: ''
                     default: null
-                    nullable: true
                 required:
                 - details
                 - message
             required:
             - error
-    SocketBadRequest:
-      content:
-        application/json:
-          schema:
-            type: object
-            additionalProperties: false
-            description: ''
-            properties:
-              error:
-                type: object
-                additionalProperties: false
-                description: ''
-                properties:
-                  message:
-                    type: string
-                    description: ''
-                    default: ''
-                  details:
-                    type: object
-                    description: ''
-                    default: null
-                    nullable: true
-                required:
-                - details
-                - message
-            required:
-            - error
-      description: Bad request
     SocketNotFoundResponse:
       content:
         application/json:
@@ -9284,16 +9427,104 @@ components:
                     description: ''
                     default: ''
                   details:
-                    type: object
+                    type:
+                    - object
+                    - 'null'
                     description: ''
                     default: null
-                    nullable: true
                 required:
                 - details
                 - message
             required:
             - error
       description: Resource not found
+    SocketBadRequest:
+      content:
+        application/json:
+          schema:
+            type: object
+            additionalProperties: false
+            description: ''
+            properties:
+              error:
+                type: object
+                additionalProperties: false
+                description: ''
+                properties:
+                  message:
+                    type: string
+                    description: ''
+                    default: ''
+                  details:
+                    type:
+                    - object
+                    - 'null'
+                    description: ''
+                    default: null
+                required:
+                - details
+                - message
+            required:
+            - error
+      description: Bad request
+    SocketUnauthorized:
+      content:
+        application/json:
+          schema:
+            type: object
+            additionalProperties: false
+            description: ''
+            properties:
+              error:
+                type: object
+                additionalProperties: false
+                description: ''
+                properties:
+                  message:
+                    type: string
+                    description: ''
+                    default: ''
+                  details:
+                    type:
+                    - object
+                    - 'null'
+                    description: ''
+                    default: null
+                required:
+                - details
+                - message
+            required:
+            - error
+      description: Unauthorized
+    SocketForbidden:
+      content:
+        application/json:
+          schema:
+            type: object
+            additionalProperties: false
+            description: ''
+            properties:
+              error:
+                type: object
+                additionalProperties: false
+                description: ''
+                properties:
+                  message:
+                    type: string
+                    description: ''
+                    default: ''
+                  details:
+                    type:
+                    - object
+                    - 'null'
+                    description: ''
+                    default: null
+                required:
+                - details
+                - message
+            required:
+            - error
+      description: Insufficient max_quota for API method
     SocketGone:
       content:
         application/json:
@@ -9312,10 +9543,11 @@ components:
                     description: ''
                     default: ''
                   details:
-                    type: object
+                    type:
+                    - object
+                    - 'null'
                     description: ''
                     default: null
-                    nullable: true
                 required:
                 - details
                 - message

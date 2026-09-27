@@ -631,48 +631,59 @@ paths:
       x-readme: {}
 components:
   schemas:
-    LicenseDetails:
-      type: array
-      items:
-        type: object
-        additionalProperties: false
-        description: ''
-        properties:
-          spdxDisj:
-            type: string
-            description: SPDX license expression in disjunctive normal form (e.g., '(MIT OR Apache-2.0)')
-            default: ''
-          authors:
-            type: array
-            items:
-              type: string
-              description: ''
-              default: ''
-            description: List of authors found in the license text
-          errorData:
-            type: string
-            description: Error details if license parsing failed
-            default: ''
-          provenance:
-            type: string
-            description: Source where this license information was detected (e.g., 'package.json', 'LICENSE file', 'README')
-            default: ''
-          filepath:
-            type: string
-            description: Path to the file containing this license information
-            default: ''
-          match_strength:
-            type: number
-            description: Confidence score from 0.0 to 1.0 indicating how well the detected license matches the source text
-            default: 0
-        required:
-        - authors
-        - errorData
-        - filepath
-        - match_strength
-        - provenance
-        - spdxDisj
+    PurlSummarySchema:
+      type: object
+      additionalProperties: false
       description: ''
+      properties:
+        purl_input:
+          type: integer
+          description: ''
+          default: 0
+        resolved:
+          type: integer
+          description: ''
+          default: 0
+        errors:
+          type: object
+          additionalProperties: false
+          description: ''
+          properties:
+            purl_malformed:
+              type: integer
+              description: ''
+              default: 0
+            purl_ecosystem_not_enabled:
+              type: integer
+              description: ''
+              default: 0
+            package_not_found:
+              type: integer
+              description: ''
+              default: 0
+          required:
+          - package_not_found
+          - purl_ecosystem_not_enabled
+          - purl_malformed
+      required:
+      - errors
+      - purl_input
+      - resolved
+    SocketId:
+      type: string
+      description: ''
+      default: ''
+    SocketOrgBatchPURLFetch:
+      type: object
+      additionalProperties: false
+      properties:
+        components:
+          type: array
+          items:
+            $ref: '#/components/schemas/SocketBatchPURLRequest'
+          description: ''
+      required:
+      - components
     SocketArtifactPatch:
       type: object
       additionalProperties: false
@@ -685,33 +696,6 @@ components:
             $ref: '#/components/schemas/SocketPatch'
           description: List of available patches that can be applied to fix vulnerabilities
       description: ''
-    SocketOrgBatchPURLFetch:
-      type: object
-      additionalProperties: false
-      properties:
-        components:
-          type: array
-          items:
-            $ref: '#/components/schemas/SocketBatchPURLRequest'
-          description: ''
-      required:
-      - components
-    PurlErrorSchema:
-      type: object
-      additionalProperties: false
-      description: ''
-      properties:
-        error:
-          type: string
-          description: ''
-          default: ''
-        inputPurl:
-          type: string
-          description: ''
-          default: ''
-      required:
-      - error
-      - inputPurl
     SocketScore:
       type: object
       additionalProperties: false
@@ -748,70 +732,86 @@ components:
       - quality
       - supplyChain
       - vulnerability
-    ClassStackItem:
-      type: object
-      additionalProperties: false
-      properties:
-        purl:
-          type: string
-          description: Package URL (PURL) of the dependency containing this class
-          default: ''
-        class:
-          type: string
-          description: Name of the class in the dependency
-          default: ''
-        confidence:
-          type: number
-          description: Confidence score from 0.0 to 1.0 indicating how certain the reachability analysis is about this result
-          default: 0
-      description: ''
-    SAttrib1_N:
-      type: array
-      items:
-        type: object
+    BatchPurlStreamSchema:
+      anyOf:
+      - $ref: '#/components/schemas/SocketArtifact'
+      - type: object
         additionalProperties: false
-        description: ''
         properties:
-          attribText:
+          _type:
             type: string
-            description: Full text of the license attribution or copyright notice found in the package
-            default: ''
-          attribData:
+            enum:
+            - purlError
+          value:
+            $ref: '#/components/schemas/PurlErrorSchema'
+        required:
+        - _type
+        - value
+      - type: object
+        additionalProperties: false
+        properties:
+          _type:
+            type: string
+            enum:
+            - summary
+          value:
+            $ref: '#/components/schemas/PurlSummarySchema'
+        required:
+        - _type
+        - value
+    SocketArtifact:
+      allOf:
+      - $ref: '#/components/schemas/SocketPURL'
+      - $ref: '#/components/schemas/SocketArtifactLink'
+      - type: object
+        additionalProperties: false
+        properties:
+          id:
+            $ref: '#/components/schemas/SocketId'
+          author:
             type: array
             items:
-              type: object
-              additionalProperties: false
+              type: string
               description: ''
-              properties:
-                purl:
-                  type: string
-                  description: Package URL this attribution applies to
-                  default: ''
-                foundInFilepath:
-                  type: string
-                  description: File path where this attribution was found
-                  default: ''
-                spdxExpr:
-                  type: string
-                  description: SPDX license expression parsed from the attribution text
-                  default: ''
-                foundAuthors:
-                  type: array
-                  items:
-                    type: string
-                    description: ''
-                    default: ''
-                  description: Authors mentioned in this attribution
-              required:
-              - foundAuthors
-              - foundInFilepath
-              - purl
-              - spdxExpr
+              default: ''
+            description: List of package authors or maintainers
+          size:
+            type: number
+            description: Total size of the package artifact in bytes
+            default: 0
+          repositoryType:
+            type: string
+            description: Hugging Face model, dataset, or space type
+            default: ''
+          publishedAt:
+            type: string
+            description: ISO-8601 timestamp of when this package version was published, when known
+            default: ''
+          alerts:
+            type: array
+            items:
+              $ref: '#/components/schemas/SocketAlert'
             description: ''
-        required:
-        - attribData
-        - attribText
-      description: ''
+          score:
+            $ref: '#/components/schemas/SocketScore'
+          patch:
+            $ref: '#/components/schemas/SocketArtifactPatch'
+          inputPurl:
+            type: string
+            description: Original unmodified PURL input string before normalization
+            default: ''
+          batchIndex:
+            type: integer
+            description: 'Deprecated: Always 0. Previously used for batch ordering but replaced by inputPurl for better tracking.'
+            default: 0
+          license:
+            type: string
+            description: ''
+            default: ''
+          licenseDetails:
+            $ref: '#/components/schemas/LicenseDetails'
+          licenseAttrib:
+            $ref: '#/components/schemas/SAttrib1_N'
     SourceLocation:
       type: object
       additionalProperties: false
@@ -868,84 +868,172 @@ components:
       - fileHash
       - filename
       - start
-    ReachabilityType:
+    SocketPURL_Type:
       type: string
       enum:
-      - missing_support
-      - undeterminable_reachability
-      - pending
-      - unreachable
+      - alpm
+      - apk
+      - bitbucket
+      - cocoapods
+      - cargo
+      - chrome
+      - clawhub
+      - composer
+      - conan
+      - conda
+      - cran
+      - deb
+      - docker
+      - gem
+      - generic
+      - github
+      - golang
+      - hackage
+      - hex
+      - huggingface
+      - maven
+      - mlflow
+      - npm
+      - nuget
+      - qpkg
+      - oci
+      - pub
+      - pypi
+      - rpm
+      - socket
+      - swid
+      - swift
+      - vscode
       - unknown
-      - direct_dependency
-      - error
-      - maybe_reachable
-      - reachable
-      description: Status of reachability analysis for vulnerable code paths
+      description: Package ecosystem type identifier based on the PURL specification
       default: unknown
-    SocketCategory:
-      type: string
-      enum:
-      - supplyChainRisk
-      - quality
-      - maintenance
-      - vulnerability
-      - license
-      - other
+    PurlErrorSchema:
+      type: object
+      additionalProperties: false
       description: ''
-      default: other
-    SocketArtifact:
-      allOf:
-      - $ref: '#/components/schemas/SocketPURL'
-      - $ref: '#/components/schemas/SocketArtifactLink'
-      - type: object
-        additionalProperties: false
-        properties:
-          id:
-            $ref: '#/components/schemas/SocketId'
-          author:
-            type: array
-            items:
-              type: string
-              description: ''
-              default: ''
-            description: List of package authors or maintainers
-          size:
-            type: number
-            description: Total size of the package artifact in bytes
-            default: 0
-          repositoryType:
-            type: string
-            description: Hugging Face model, dataset, or space type
-            default: ''
-          publishedAt:
-            type: string
-            description: ISO-8601 timestamp of when this package version was published, when known
-            default: ''
-          alerts:
-            type: array
-            items:
-              $ref: '#/components/schemas/SocketAlert'
-            description: ''
-          score:
-            $ref: '#/components/schemas/SocketScore'
-          patch:
-            $ref: '#/components/schemas/SocketArtifactPatch'
-          inputPurl:
-            type: string
-            description: Original unmodified PURL input string before normalization
-            default: ''
-          batchIndex:
-            type: integer
-            description: 'Deprecated: Always 0. Previously used for batch ordering but replaced by inputPurl for better tracking.'
-            default: 0
-          license:
-            type: string
-            description: ''
-            default: ''
-          licenseDetails:
-            $ref: '#/components/schemas/LicenseDetails'
-          licenseAttrib:
-            $ref: '#/components/schemas/SAttrib1_N'
+      properties:
+        error:
+          type: string
+          description: ''
+          default: ''
+        inputPurl:
+          type: string
+          description: ''
+          default: ''
+      required:
+      - error
+      - inputPurl
+    SocketPatch:
+      type: object
+      additionalProperties: false
+      properties:
+        uuid:
+          type: string
+          description: Unique identifier for this patch
+          default: ''
+        tier:
+          type: string
+          enum:
+          - free
+          - paid
+          description: Access tier required for this patch (free or paid)
+          default: free
+        deprecated:
+          type: boolean
+          default: false
+          description: Indicates if this patch is deprecated and should not be used
+      required:
+      - tier
+      - uuid
+    SocketManifestReference:
+      type: object
+      additionalProperties: false
+      properties:
+        file:
+          type: string
+          description: Path to the manifest file (e.g., package.json, pom.xml)
+          default: ''
+        start:
+          type: integer
+          description: Starting line or position in the manifest file
+          default: 0
+        end:
+          type: integer
+          description: Ending line or position in the manifest file
+          default: 0
+      required:
+      - file
+    ReachabilityResultItem:
+      type: object
+      additionalProperties: false
+      properties:
+        type:
+          $ref: '#/components/schemas/ReachabilityType'
+        truncated:
+          type: boolean
+          default: false
+          description: Indicates if the reachability analysis was stopped early due to depth or complexity limits
+        error:
+          type: string
+          description: Error message if reachability analysis failed
+          default: ''
+        matches:
+          anyOf:
+          - type: object
+            additionalProperties: false
+            properties:
+              type:
+                type: string
+                enum:
+                - function-level
+              value:
+                type: array
+                items:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/CallStackItem'
+                  description: ''
+                description: ''
+          - type: object
+            additionalProperties: false
+            properties:
+              type:
+                type: string
+                enum:
+                - class-level
+              value:
+                type: array
+                items:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/ClassStackItem'
+                  description: ''
+                description: ''
+        workspacePath:
+          type: string
+          description: Path to the workspace root for multi-workspace projects
+          default: ''
+        subprojectPath:
+          type: string
+          description: Path to the subproject within the workspace
+          default: ''
+      required:
+      - type
+    CallStackItem:
+      type: object
+      additionalProperties: false
+      properties:
+        purl:
+          type: string
+          description: Package URL (PURL) of the dependency containing this code
+          default: ''
+        sourceLocation:
+          $ref: '#/components/schemas/SourceLocation'
+        confidence:
+          type: number
+          description: Confidence score from 0.0 to 1.0 indicating how certain the reachability analysis is about this result
+          default: 0
+      description: ''
     ReachabilityResult:
       type: object
       additionalProperties: false
@@ -966,48 +1054,23 @@ components:
       required:
       - results
       - type
-    SocketId:
-      type: string
-      description: ''
-      default: ''
-    PurlSummarySchema:
+    ClassStackItem:
       type: object
       additionalProperties: false
-      description: ''
       properties:
-        purl_input:
-          type: integer
-          description: ''
+        purl:
+          type: string
+          description: Package URL (PURL) of the dependency containing this class
+          default: ''
+        class:
+          type: string
+          description: Name of the class in the dependency
+          default: ''
+        confidence:
+          type: number
+          description: Confidence score from 0.0 to 1.0 indicating how certain the reachability analysis is about this result
           default: 0
-        resolved:
-          type: integer
-          description: ''
-          default: 0
-        errors:
-          type: object
-          additionalProperties: false
-          description: ''
-          properties:
-            purl_malformed:
-              type: integer
-              description: ''
-              default: 0
-            purl_ecosystem_not_enabled:
-              type: integer
-              description: ''
-              default: 0
-            package_not_found:
-              type: integer
-              description: ''
-              default: 0
-          required:
-          - package_not_found
-          - purl_ecosystem_not_enabled
-          - purl_malformed
-      required:
-      - errors
-      - purl_input
-      - resolved
+      description: ''
     SocketAlert:
       type: object
       additionalProperties: false
@@ -1147,43 +1210,6 @@ components:
       required:
       - key
       - type
-    SocketPatch:
-      type: object
-      additionalProperties: false
-      properties:
-        uuid:
-          type: string
-          description: Unique identifier for this patch
-          default: ''
-        tier:
-          type: string
-          enum:
-          - free
-          - paid
-          description: Access tier required for this patch (free or paid)
-          default: free
-        deprecated:
-          type: boolean
-          default: false
-          description: Indicates if this patch is deprecated and should not be used
-      required:
-      - tier
-      - uuid
-    CallStackItem:
-      type: object
-      additionalProperties: false
-      properties:
-        purl:
-          type: string
-          description: Package URL (PURL) of the dependency containing this code
-          default: ''
-        sourceLocation:
-          $ref: '#/components/schemas/SourceLocation'
-        confidence:
-          type: number
-          description: Confidence score from 0.0 to 1.0 indicating how certain the reachability analysis is about this result
-          default: 0
-      description: ''
     SocketIssueSeverity:
       type: string
       enum:
@@ -1193,73 +1219,6 @@ components:
       - critical
       description: ''
       default: low
-    SocketBatchPURLRequest:
-      type: object
-      additionalProperties: false
-      description: ''
-      properties:
-        purl:
-          type: string
-          description: ''
-          default: ''
-      required:
-      - purl
-    ReachabilityResultItem:
-      type: object
-      additionalProperties: false
-      properties:
-        type:
-          $ref: '#/components/schemas/ReachabilityType'
-        truncated:
-          type: boolean
-          default: false
-          description: Indicates if the reachability analysis was stopped early due to depth or complexity limits
-        error:
-          type: string
-          description: Error message if reachability analysis failed
-          default: ''
-        matches:
-          anyOf:
-          - type: object
-            additionalProperties: false
-            properties:
-              type:
-                type: string
-                enum:
-                - function-level
-              value:
-                type: array
-                items:
-                  type: array
-                  items:
-                    $ref: '#/components/schemas/CallStackItem'
-                  description: ''
-                description: ''
-          - type: object
-            additionalProperties: false
-            properties:
-              type:
-                type: string
-                enum:
-                - class-level
-              value:
-                type: array
-                items:
-                  type: array
-                  items:
-                    $ref: '#/components/schemas/ClassStackItem'
-                  description: ''
-                description: ''
-        workspacePath:
-          type: string
-          description: Path to the workspace root for multi-workspace projects
-          default: ''
-        subprojectPath:
-          type: string
-          description: Path to the subproject within the workspace
-          default: ''
-      required:
-      - type
     SocketArtifactLink:
       type: object
       additionalProperties: false
@@ -1411,6 +1370,120 @@ components:
           properties: {}
           description: Mapping of alert keys to arrays of reachability summaries. Each summary contains a reachability type indicating the result of reachability analysis for the corresponding vulnerability alert.
       description: ''
+    ReachabilityType:
+      type: string
+      enum:
+      - missing_support
+      - undeterminable_reachability
+      - pending
+      - unreachable
+      - unknown
+      - direct_dependency
+      - error
+      - maybe_reachable
+      - reachable
+      description: Status of reachability analysis for vulnerable code paths
+      default: unknown
+    SAttrib1_N:
+      type: array
+      items:
+        type: object
+        additionalProperties: false
+        description: ''
+        properties:
+          attribText:
+            type: string
+            description: Full text of the license attribution or copyright notice found in the package
+            default: ''
+          attribData:
+            type: array
+            items:
+              type: object
+              additionalProperties: false
+              description: ''
+              properties:
+                purl:
+                  type: string
+                  description: Package URL this attribution applies to
+                  default: ''
+                foundInFilepath:
+                  type: string
+                  description: File path where this attribution was found
+                  default: ''
+                spdxExpr:
+                  type: string
+                  description: SPDX license expression parsed from the attribution text
+                  default: ''
+                foundAuthors:
+                  type: array
+                  items:
+                    type: string
+                    description: ''
+                    default: ''
+                  description: Authors mentioned in this attribution
+              required:
+              - foundAuthors
+              - foundInFilepath
+              - purl
+              - spdxExpr
+            description: ''
+        required:
+        - attribData
+        - attribText
+      description: ''
+    LicenseDetails:
+      type: array
+      items:
+        type: object
+        additionalProperties: false
+        description: ''
+        properties:
+          spdxDisj:
+            type: string
+            description: SPDX license expression in disjunctive normal form (e.g., '(MIT OR Apache-2.0)')
+            default: ''
+          authors:
+            type: array
+            items:
+              type: string
+              description: ''
+              default: ''
+            description: List of authors found in the license text
+          errorData:
+            type: string
+            description: Error details if license parsing failed
+            default: ''
+          provenance:
+            type: string
+            description: Source where this license information was detected (e.g., 'package.json', 'LICENSE file', 'README')
+            default: ''
+          filepath:
+            type: string
+            description: Path to the file containing this license information
+            default: ''
+          match_strength:
+            type: number
+            description: Confidence score from 0.0 to 1.0 indicating how well the detected license matches the source text
+            default: 0
+        required:
+        - authors
+        - errorData
+        - filepath
+        - match_strength
+        - provenance
+        - spdxDisj
+      description: ''
+    SocketCategory:
+      type: string
+      enum:
+      - supplyChainRisk
+      - quality
+      - maintenance
+      - vulnerability
+      - license
+      - other
+      description: ''
+      default: other
     SocketPURL:
       type: object
       additionalProperties: false
@@ -1439,157 +1512,18 @@ components:
           default: ''
       required:
       - type
-    SocketPURL_Type:
-      type: string
-      enum:
-      - alpm
-      - apk
-      - bitbucket
-      - cocoapods
-      - cargo
-      - chrome
-      - clawhub
-      - composer
-      - conan
-      - conda
-      - cran
-      - deb
-      - docker
-      - gem
-      - generic
-      - github
-      - golang
-      - hackage
-      - hex
-      - huggingface
-      - maven
-      - mlflow
-      - npm
-      - nuget
-      - qpkg
-      - oci
-      - pub
-      - pypi
-      - rpm
-      - socket
-      - swid
-      - swift
-      - vscode
-      - unknown
-      description: Package ecosystem type identifier based on the PURL specification
-      default: unknown
-    BatchPurlStreamSchema:
-      anyOf:
-      - $ref: '#/components/schemas/SocketArtifact'
-      - type: object
-        additionalProperties: false
-        properties:
-          _type:
-            type: string
-            enum:
-            - purlError
-          value:
-            $ref: '#/components/schemas/PurlErrorSchema'
-        required:
-        - _type
-        - value
-      - type: object
-        additionalProperties: false
-        properties:
-          _type:
-            type: string
-            enum:
-            - summary
-          value:
-            $ref: '#/components/schemas/PurlSummarySchema'
-        required:
-        - _type
-        - value
-    SocketManifestReference:
+    SocketBatchPURLRequest:
       type: object
       additionalProperties: false
+      description: ''
       properties:
-        file:
+        purl:
           type: string
-          description: Path to the manifest file (e.g., package.json, pom.xml)
+          description: ''
           default: ''
-        start:
-          type: integer
-          description: Starting line or position in the manifest file
-          default: 0
-        end:
-          type: integer
-          description: Ending line or position in the manifest file
-          default: 0
       required:
-      - file
+      - purl
   responses:
-    SocketTooManyRequestsResponse:
-      description: Insufficient quota for API route
-      headers:
-        Retry-After:
-          description: 'Retry contacting the endpoint *at least* after seconds.
-
-            See https://tools.ietf.org/html/rfc7231#section-7.1.3'
-          schema:
-            format: int32
-            type: integer
-      content:
-        application/json:
-          schema:
-            type: object
-            additionalProperties: false
-            description: ''
-            properties:
-              error:
-                type: object
-                additionalProperties: false
-                description: ''
-                properties:
-                  message:
-                    type: string
-                    description: ''
-                    default: ''
-                  details:
-                    type:
-                    - object
-                    - 'null'
-                    description: ''
-                    default: null
-                required:
-                - details
-                - message
-            required:
-            - error
-    SocketNotFoundResponse:
-      content:
-        application/json:
-          schema:
-            type: object
-            additionalProperties: false
-            description: ''
-            properties:
-              error:
-                type: object
-                additionalProperties: false
-                description: ''
-                properties:
-                  message:
-                    type: string
-                    description: ''
-                    default: ''
-                  details:
-                    type:
-                    - object
-                    - 'null'
-                    description: ''
-                    default: null
-                required:
-                - details
-                - message
-            required:
-            - error
-      description: Resource not found
     SocketBadRequest:
       content:
         application/json:
@@ -1648,6 +1582,43 @@ components:
             required:
             - error
       description: Unauthorized
+    SocketTooManyRequestsResponse:
+      description: Insufficient quota for API route
+      headers:
+        Retry-After:
+          description: 'Retry contacting the endpoint *at least* after seconds.
+
+            See https://tools.ietf.org/html/rfc7231#section-7.1.3'
+          schema:
+            format: int32
+            type: integer
+      content:
+        application/json:
+          schema:
+            type: object
+            additionalProperties: false
+            description: ''
+            properties:
+              error:
+                type: object
+                additionalProperties: false
+                description: ''
+                properties:
+                  message:
+                    type: string
+                    description: ''
+                    default: ''
+                  details:
+                    type:
+                    - object
+                    - 'null'
+                    description: ''
+                    default: null
+                required:
+                - details
+                - message
+            required:
+            - error
     SocketForbidden:
       content:
         application/json:
@@ -1677,6 +1648,35 @@ components:
             required:
             - error
       description: Insufficient max_quota for API method
+    SocketNotFoundResponse:
+      content:
+        application/json:
+          schema:
+            type: object
+            additionalProperties: false
+            description: ''
+            properties:
+              error:
+                type: object
+                additionalProperties: false
+                description: ''
+                properties:
+                  message:
+                    type: string
+                    description: ''
+                    default: ''
+                  details:
+                    type:
+                    - object
+                    - 'null'
+                    description: ''
+                    default: null
+                required:
+                - details
+                - message
+            required:
+            - error
+      description: Resource not found
   securitySchemes:
     bearerAuth:
       type: http

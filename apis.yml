@@ -64,7 +64,7 @@ tags:
 - Package Analysis
 apis:
 - aid: socket:socket-alerts-api
-  name: Socket alerts API
+  name: Socket Alerts API
   description: The alerts API from Socket — 6 operation(s) for alerts.
   humanURL: https://docs.socket.dev
   baseURL: https://api.socket.dev/v0
@@ -80,7 +80,7 @@ apis:
   - type: APIReference
     url: https://docs.socket.dev/reference/authentication
 - aid: socket:socket-api-tokens-api
-  name: Socket api-tokens API
+  name: Socket API Tokens API
   description: The api-tokens API from Socket — 6 operation(s) for api-tokens.
   humanURL: https://docs.socket.dev
   baseURL: https://api.socket.dev/v0
@@ -96,7 +96,7 @@ apis:
   - type: APIReference
     url: https://docs.socket.dev/reference/authentication
 - aid: socket:socket-audit-log-api
-  name: Socket audit-log API
+  name: Socket Audit Log API
   description: The audit-log API from Socket — 1 operation(s) for audit-log.
   humanURL: https://docs.socket.dev
   baseURL: https://api.socket.dev/v0
@@ -112,7 +112,7 @@ apis:
   - type: APIReference
     url: https://docs.socket.dev/reference/authentication
 - aid: socket:socket-dependencies-api
-  name: Socket dependencies API
+  name: Socket Dependencies API
   description: The dependencies API from Socket — 2 operation(s) for dependencies.
   humanURL: https://docs.socket.dev
   baseURL: https://api.socket.dev/v0
@@ -128,7 +128,7 @@ apis:
   - type: APIReference
     url: https://docs.socket.dev/reference/authentication
 - aid: socket:socket-deprecated-api
-  name: Socket deprecated API
+  name: Socket Deprecated API
   description: The deprecated API from Socket — 17 operation(s) for deprecated.
   humanURL: https://docs.socket.dev
   baseURL: https://api.socket.dev/v0
@@ -144,7 +144,7 @@ apis:
   - type: APIReference
     url: https://docs.socket.dev/reference/authentication
 - aid: socket:socket-diff-scans-api
-  name: Socket diff-scans API
+  name: Socket Diff Scans API
   description: The diff-scans API from Socket — 7 operation(s) for diff-scans.
   humanURL: https://docs.socket.dev
   baseURL: https://api.socket.dev/v0
@@ -158,7 +158,7 @@ apis:
   - type: APIReference
     url: https://docs.socket.dev/reference/authentication
 - aid: socket:socket-fixes-api
-  name: Socket fixes API
+  name: Socket Fixes API
   description: The fixes API from Socket — 1 operation(s) for fixes.
   humanURL: https://docs.socket.dev
   baseURL: https://api.socket.dev/v0
@@ -174,7 +174,7 @@ apis:
   - type: APIReference
     url: https://docs.socket.dev/reference/authentication
 - aid: socket:socket-full-scans-api
-  name: Socket full-scans API
+  name: Socket Full Scans API
   description: The full-scans API from Socket — 13 operation(s) for full-scans.
   humanURL: https://docs.socket.dev
   baseURL: https://api.socket.dev/v0
@@ -188,7 +188,7 @@ apis:
   - type: APIReference
     url: https://docs.socket.dev/reference/authentication
 - aid: socket:socket-license-policy-api
-  name: Socket license-policy API
+  name: Socket License Policy API
   description: The license-policy API from Socket — 4 operation(s) for license-policy.
   humanURL: https://docs.socket.dev
   baseURL: https://api.socket.dev/v0
@@ -202,7 +202,7 @@ apis:
   - type: APIReference
     url: https://docs.socket.dev/reference/authentication
 - aid: socket:socket-metadata-api
-  name: Socket metadata API
+  name: Socket Metadata API
   description: The metadata API from Socket — 5 operation(s) for metadata.
   humanURL: https://docs.socket.dev
   baseURL: https://api.socket.dev/v0
@@ -218,7 +218,7 @@ apis:
   - type: APIReference
     url: https://docs.socket.dev/reference/authentication
 - aid: socket:socket-org-settings-api
-  name: Socket org-settings API
+  name: Socket Org Settings API
   description: The org-settings API from Socket — 2 operation(s) for org-settings.
   humanURL: https://docs.socket.dev
   baseURL: https://api.socket.dev/v0
@@ -232,7 +232,7 @@ apis:
   - type: APIReference
     url: https://docs.socket.dev/reference/authentication
 - aid: socket:socket-org-snapshots-api
-  name: Socket org-snapshots API
+  name: Socket Org Snapshots API
   description: The org-snapshots API from Socket — 1 operation(s) for org-snapshots.
   humanURL: https://docs.socket.dev
   baseURL: https://api.socket.dev/v0
@@ -246,7 +246,7 @@ apis:
   - type: APIReference
     url: https://docs.socket.dev/reference/authentication
 - aid: socket:socket-packages-api
-  name: Socket packages API
+  name: Socket Packages API
   description: The packages API from Socket — 2 operation(s) for packages.
   humanURL: https://docs.socket.dev
   baseURL: https://api.socket.dev/v0
@@ -262,7 +262,7 @@ apis:
   - type: APIReference
     url: https://docs.socket.dev/reference/authentication
 - aid: socket:socket-repo-labels-api
-  name: Socket repo-labels API
+  name: Socket Repo Labels API
   description: The repo-labels API from Socket — 5 operation(s) for repo-labels.
   humanURL: https://docs.socket.dev
   baseURL: https://api.socket.dev/v0
@@ -276,7 +276,7 @@ apis:
   - type: APIReference
     url: https://docs.socket.dev/reference/authentication
 - aid: socket:socket-repos-api
-  name: Socket repos API
+  name: Socket Repos API
   description: The repos API from Socket — 2 operation(s) for repos.
   humanURL: https://docs.socket.dev
   baseURL: https://api.socket.dev/v0
@@ -292,7 +292,7 @@ apis:
   - type: APIReference
     url: https://docs.socket.dev/reference/authentication
 - aid: socket:socket-security-policy-api
-  name: Socket security-policy API
+  name: Socket Security Policy API
   description: The security-policy API from Socket — 1 operation(s) for security-policy.
   humanURL: https://docs.socket.dev
   baseURL: https://api.socket.dev/v0
@@ -306,7 +306,7 @@ apis:
   - type: APIReference
     url: https://docs.socket.dev/reference/authentication
 - aid: socket:socket-telemetry-api
-  name: Socket telemetry API
+  name: Socket Telemetry API
   description: The telemetry API from Socket — 1 operation(s) for telemetry.
   humanURL: https://docs.socket.dev
   baseURL: https://api.socket.dev/v0
@@ -322,7 +322,7 @@ apis:
   - type: APIReference
     url: https://docs.socket.dev/reference/authentication
 - aid: socket:socket-threat-feed-api
-  name: Socket threat-feed API
+  name: Socket Threat Feed API
   description: The threat-feed API from Socket — 1 operation(s) for threat-feed.
   humanURL: https://docs.socket.dev
   baseURL: https://api.socket.dev/v0
@@ -336,7 +336,7 @@ apis:
   - type: APIReference
     url: https://docs.socket.dev/reference/authentication
 - aid: socket:socket-triage-api
-  name: Socket triage API
+  name: Socket Triage API
   description: The triage API from Socket — 2 operation(s) for triage.
   humanURL: https://docs.socket.dev
   baseURL: https://api.socket.dev/v0
@@ -350,7 +350,7 @@ apis:
   - type: APIReference
     url: https://docs.socket.dev/reference/authentication
 - aid: socket:socket-webhooks-api
-  name: Socket webhooks API
+  name: Socket Webhooks API
   description: The webhooks API from Socket — 2 operation(s) for webhooks.
   humanURL: https://docs.socket.dev
   baseURL: https://api.socket.dev/v0

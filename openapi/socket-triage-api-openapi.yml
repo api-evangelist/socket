@@ -466,6 +466,72 @@ paths:
       x-readme: {}
 components:
   responses:
+    SocketTooManyRequestsResponse:
+      description: Insufficient quota for API route
+      headers:
+        Retry-After:
+          description: 'Retry contacting the endpoint *at least* after seconds.
+
+            See https://tools.ietf.org/html/rfc7231#section-7.1.3'
+          schema:
+            format: int32
+            type: integer
+      content:
+        application/json:
+          schema:
+            type: object
+            additionalProperties: false
+            description: ''
+            properties:
+              error:
+                type: object
+                additionalProperties: false
+                description: ''
+                properties:
+                  message:
+                    type: string
+                    description: ''
+                    default: ''
+                  details:
+                    type:
+                    - object
+                    - 'null'
+                    description: ''
+                    default: null
+                required:
+                - details
+                - message
+            required:
+            - error
+    SocketNotFoundResponse:
+      content:
+        application/json:
+          schema:
+            type: object
+            additionalProperties: false
+            description: ''
+            properties:
+              error:
+                type: object
+                additionalProperties: false
+                description: ''
+                properties:
+                  message:
+                    type: string
+                    description: ''
+                    default: ''
+                  details:
+                    type:
+                    - object
+                    - 'null'
+                    description: ''
+                    default: null
+                required:
+                - details
+                - message
+            required:
+            - error
+      description: Resource not found
     SocketForbidden:
       content:
         application/json:
@@ -582,72 +648,6 @@ components:
             required:
             - error
       description: Resource already exists
-    SocketTooManyRequestsResponse:
-      description: Insufficient quota for API route
-      headers:
-        Retry-After:
-          description: 'Retry contacting the endpoint *at least* after seconds.
-
-            See https://tools.ietf.org/html/rfc7231#section-7.1.3'
-          schema:
-            format: int32
-            type: integer
-      content:
-        application/json:
-          schema:
-            type: object
-            additionalProperties: false
-            description: ''
-            properties:
-              error:
-                type: object
-                additionalProperties: false
-                description: ''
-                properties:
-                  message:
-                    type: string
-                    description: ''
-                    default: ''
-                  details:
-                    type:
-                    - object
-                    - 'null'
-                    description: ''
-                    default: null
-                required:
-                - details
-                - message
-            required:
-            - error
-    SocketNotFoundResponse:
-      content:
-        application/json:
-          schema:
-            type: object
-            additionalProperties: false
-            description: ''
-            properties:
-              error:
-                type: object
-                additionalProperties: false
-                description: ''
-                properties:
-                  message:
-                    type: string
-                    description: ''
-                    default: ''
-                  details:
-                    type:
-                    - object
-                    - 'null'
-                    description: ''
-                    default: null
-                required:
-                - details
-                - message
-            required:
-            - error
-      description: Resource not found
   securitySchemes:
     bearerAuth:
       type: http

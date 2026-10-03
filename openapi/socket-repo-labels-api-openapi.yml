@@ -5345,122 +5345,6 @@ paths:
       x-readme: {}
 components:
   responses:
-    SocketForbidden:
-      content:
-        application/json:
-          schema:
-            type: object
-            additionalProperties: false
-            description: ''
-            properties:
-              error:
-                type: object
-                additionalProperties: false
-                description: ''
-                properties:
-                  message:
-                    type: string
-                    description: ''
-                    default: ''
-                  details:
-                    type:
-                    - object
-                    - 'null'
-                    description: ''
-                    default: null
-                required:
-                - details
-                - message
-            required:
-            - error
-      description: Insufficient max_quota for API method
-    SocketBadRequest:
-      content:
-        application/json:
-          schema:
-            type: object
-            additionalProperties: false
-            description: ''
-            properties:
-              error:
-                type: object
-                additionalProperties: false
-                description: ''
-                properties:
-                  message:
-                    type: string
-                    description: ''
-                    default: ''
-                  details:
-                    type:
-                    - object
-                    - 'null'
-                    description: ''
-                    default: null
-                required:
-                - details
-                - message
-            required:
-            - error
-      description: Bad request
-    SocketUnauthorized:
-      content:
-        application/json:
-          schema:
-            type: object
-            additionalProperties: false
-            description: ''
-            properties:
-              error:
-                type: object
-                additionalProperties: false
-                description: ''
-                properties:
-                  message:
-                    type: string
-                    description: ''
-                    default: ''
-                  details:
-                    type:
-                    - object
-                    - 'null'
-                    description: ''
-                    default: null
-                required:
-                - details
-                - message
-            required:
-            - error
-      description: Unauthorized
-    SocketConflict:
-      content:
-        application/json:
-          schema:
-            type: object
-            additionalProperties: false
-            description: ''
-            properties:
-              error:
-                type: object
-                additionalProperties: false
-                description: ''
-                properties:
-                  message:
-                    type: string
-                    description: ''
-                    default: ''
-                  details:
-                    type:
-                    - object
-                    - 'null'
-                    description: ''
-                    default: null
-                required:
-                - details
-                - message
-            required:
-            - error
-      description: Resource already exists
     SocketTooManyRequestsResponse:
       description: Insufficient quota for API route
       headers:
@@ -5527,6 +5411,122 @@ components:
             required:
             - error
       description: Resource not found
+    SocketForbidden:
+      content:
+        application/json:
+          schema:
+            type: object
+            additionalProperties: false
+            description: ''
+            properties:
+              error:
+                type: object
+                additionalProperties: false
+                description: ''
+                properties:
+                  message:
+                    type: string
+                    description: ''
+                    default: ''
+                  details:
+                    type:
+                    - object
+                    - 'null'
+                    description: ''
+                    default: null
+                required:
+                - details
+                - message
+            required:
+            - error
+      description: Insufficient max_quota for API method
+    SocketUnauthorized:
+      content:
+        application/json:
+          schema:
+            type: object
+            additionalProperties: false
+            description: ''
+            properties:
+              error:
+                type: object
+                additionalProperties: false
+                description: ''
+                properties:
+                  message:
+                    type: string
+                    description: ''
+                    default: ''
+                  details:
+                    type:
+                    - object
+                    - 'null'
+                    description: ''
+                    default: null
+                required:
+                - details
+                - message
+            required:
+            - error
+      description: Unauthorized
+    SocketBadRequest:
+      content:
+        application/json:
+          schema:
+            type: object
+            additionalProperties: false
+            description: ''
+            properties:
+              error:
+                type: object
+                additionalProperties: false
+                description: ''
+                properties:
+                  message:
+                    type: string
+                    description: ''
+                    default: ''
+                  details:
+                    type:
+                    - object
+                    - 'null'
+                    description: ''
+                    default: null
+                required:
+                - details
+                - message
+            required:
+            - error
+      description: Bad request
+    SocketConflict:
+      content:
+        application/json:
+          schema:
+            type: object
+            additionalProperties: false
+            description: ''
+            properties:
+              error:
+                type: object
+                additionalProperties: false
+                description: ''
+                properties:
+                  message:
+                    type: string
+                    description: ''
+                    default: ''
+                  details:
+                    type:
+                    - object
+                    - 'null'
+                    description: ''
+                    default: null
+                required:
+                - details
+                - message
+            required:
+            - error
+      description: Resource already exists
   schemas:
     LicenseAllowListRequest:
       type: object

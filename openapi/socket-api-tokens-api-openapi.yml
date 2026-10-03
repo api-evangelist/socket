@@ -1121,7 +1121,7 @@ paths:
       x-readme: {}
 components:
   responses:
-    SocketNotFoundResponse:
+    SocketForbidden:
       content:
         application/json:
           schema:
@@ -1149,7 +1149,7 @@ components:
                 - message
             required:
             - error
-      description: Resource not found
+      description: Insufficient max_quota for API method
     SocketTooManyRequestsResponse:
       description: Insufficient quota for API route
       headers:
@@ -1187,35 +1187,6 @@ components:
                 - message
             required:
             - error
-    SocketForbidden:
-      content:
-        application/json:
-          schema:
-            type: object
-            additionalProperties: false
-            description: ''
-            properties:
-              error:
-                type: object
-                additionalProperties: false
-                description: ''
-                properties:
-                  message:
-                    type: string
-                    description: ''
-                    default: ''
-                  details:
-                    type:
-                    - object
-                    - 'null'
-                    description: ''
-                    default: null
-                required:
-                - details
-                - message
-            required:
-            - error
-      description: Insufficient max_quota for API method
     SocketUnauthorized:
       content:
         application/json:
@@ -1245,6 +1216,35 @@ components:
             required:
             - error
       description: Unauthorized
+    SocketNotFoundResponse:
+      content:
+        application/json:
+          schema:
+            type: object
+            additionalProperties: false
+            description: ''
+            properties:
+              error:
+                type: object
+                additionalProperties: false
+                description: ''
+                properties:
+                  message:
+                    type: string
+                    description: ''
+                    default: ''
+                  details:
+                    type:
+                    - object
+                    - 'null'
+                    description: ''
+                    default: null
+                required:
+                - details
+                - message
+            required:
+            - error
+      description: Resource not found
   securitySchemes:
     bearerAuth:
       type: http

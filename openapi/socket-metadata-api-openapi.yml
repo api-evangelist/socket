@@ -432,36 +432,16 @@ paths:
           $ref: '#/components/responses/SocketTooManyRequestsResponse'
       x-readme: {}
 components:
+  schemas:
+    SLicenseMetaReq:
+      type: object
+      description: ''
+      default: null
+    SLicenseMetaRes:
+      type: object
+      description: ''
+      default: null
   responses:
-    SocketBadRequest:
-      content:
-        application/json:
-          schema:
-            type: object
-            additionalProperties: false
-            description: ''
-            properties:
-              error:
-                type: object
-                additionalProperties: false
-                description: ''
-                properties:
-                  message:
-                    type: string
-                    description: ''
-                    default: ''
-                  details:
-                    type:
-                    - object
-                    - 'null'
-                    description: ''
-                    default: null
-                required:
-                - details
-                - message
-            required:
-            - error
-      description: Bad request
     SocketTooManyRequestsResponse:
       description: Insufficient quota for API route
       headers:
@@ -528,15 +508,35 @@ components:
             required:
             - error
       description: Resource not found
-  schemas:
-    SLicenseMetaReq:
-      type: object
-      description: ''
-      default: null
-    SLicenseMetaRes:
-      type: object
-      description: ''
-      default: null
+    SocketBadRequest:
+      content:
+        application/json:
+          schema:
+            type: object
+            additionalProperties: false
+            description: ''
+            properties:
+              error:
+                type: object
+                additionalProperties: false
+                description: ''
+                properties:
+                  message:
+                    type: string
+                    description: ''
+                    default: ''
+                  details:
+                    type:
+                    - object
+                    - 'null'
+                    description: ''
+                    default: null
+                required:
+                - details
+                - message
+            required:
+            - error
+      description: Bad request
   securitySchemes:
     bearerAuth:
       type: http

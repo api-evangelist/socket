@@ -1,0 +1,69 @@
+slug: socket
+provider: Socket
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Software & Technology
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 5
+edges:
+- tag: Fixes
+  spec_file: socket-fixes-api-openapi.yml
+  capability_id: BC-620.40
+  capability_id_l1: BC-620
+  capability_name: Vulnerability Management
+  confidence: 0.78
+  evidence: GET /orgs/{org_slug}/fixes  fetch-fixes  Fetch fixes for vulnerabilities in a repository,
+    scan, or uploaded manifest
+  reason: The single operation explicitly fetches fixes for vulnerabilities found in a repository or manifest
+    — remediation guidance for known vulnerabilities, squarely Vulnerability Management.
+- tag: security policy
+  spec_file: socket-security-policy-api-openapi.yml
+  capability_id: BC-620.10
+  capability_id_l1: BC-620
+  capability_name: Security Strategy & Governance Management
+  confidence: 0.75
+  evidence: POST /orgs/{org_slug}/settings/security-policy  updateOrgSecurityPolicy  Update Security Policy
+  reason: Reads and writes the organisation's security policy, which in Socket governs which alert types
+    are blocked/warned — i.e. security policy definition and governance. Thin schema detail keeps confidence
+    moderate; could also be read as mere tenant configuration.
+- tag: diff-scans
+  spec_file: socket-diff-scans-api-openapi.yml
+  capability_id: BC-620.40
+  capability_id_l1: BC-620
+  capability_name: Vulnerability Management
+  confidence: 0.7
+  evidence: POST /orgs/{org_slug}/diff-scans/from-repo/{repo_slug}  createOrgRepoDiff  Create diff scan
+    from repository HEAD full-scan; schemas SocketAlert, SocketIssueSeverity, ReachabilityResult
+  reason: Operations create and retrieve scans that diff dependency sets and surface security alerts with
+    severity and reachability — i.e. detection of risky/vulnerable open-source components for remediation.
+    That is vulnerability scanning and remediation, not a devtool-neutral plumbing surface. Some ambiguity
+    with Open Source Stewardship, hence 0.7.
+- tag: license-policy
+  spec_file: socket-license-policy-api-openapi.yml
+  capability_id: BC-4200.60
+  capability_id_l1: BC-4200
+  capability_name: Open Source Stewardship
+  confidence: 0.7
+  evidence: POST /orgs/{org_slug}/settings/license-policy  updateOrgLicensePolicy  Update License Policy;
+    schema LicenseAllowListRequest, SLicenseMetaRes
+  reason: Operations define and evaluate an open-source license allow-list and return license metadata
+    — governance of inbound open-source use embedded in the product, which is Open Source Stewardship.
+    Could alternatively be read as IP licensing, but the subject is OSS dependency licences, so the software-engineering
+    capability fits better.
+- tag: triage
+  spec_file: socket-triage-api-openapi.yml
+  capability_id: BC-620
+  capability_id_l1: BC-620
+  capability_name: Cybersecurity Management
+  confidence: 0.7
+  evidence: POST /orgs/{org_slug}/triage/alerts  updateOrgAlertTriage  Create/Update Org Alert Triage
+  reason: Triage state management over security alerts raised by the platform — dispositioning of security
+    findings. Clearly cybersecurity, but the evidence does not distinguish threat response (BC-620.30)
+    from vulnerability remediation (BC-620.40), so only the L1 is asserted.

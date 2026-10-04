@@ -631,76 +631,71 @@ paths:
       x-readme: {}
 components:
   schemas:
-    SocketPURL_Type:
-      type: string
-      enum:
-      - alpm
-      - apk
-      - bitbucket
-      - cocoapods
-      - cargo
-      - chrome
-      - clawhub
-      - composer
-      - conan
-      - conda
-      - cran
-      - deb
-      - docker
-      - gem
-      - generic
-      - github
-      - golang
-      - hackage
-      - hex
-      - huggingface
-      - maven
-      - mlflow
-      - npm
-      - nuget
-      - qpkg
-      - oci
-      - pub
-      - pypi
-      - rpm
-      - socket
-      - swid
-      - swift
-      - vscode
-      - unknown
-      description: Package ecosystem type identifier based on the PURL specification
-      default: unknown
-    SocketCategory:
-      type: string
-      enum:
-      - supplyChainRisk
-      - quality
-      - maintenance
-      - vulnerability
-      - license
-      - other
+    SocketPURL:
+      type: object
+      additionalProperties: false
+      properties:
+        type:
+          $ref: '#/components/schemas/SocketPURL_Type'
+        namespace:
+          type: string
+          description: Package namespace or scope, such as npm organizations (@angular), Maven groupIds, or Docker image owners
+          default: ''
+        name:
+          type: string
+          description: Package name within its ecosystem
+          default: ''
+        version:
+          type: string
+          description: Package version string
+          default: ''
+        subpath:
+          type: string
+          description: Path within the package to a specific file or directory, used to reference nested components
+          default: ''
+        release:
+          type: string
+          description: Package-specific release identifier, such as PyPI's artifact ID or the specific build/release version
+          default: ''
+      required:
+      - type
+    SocketArtifactPatch:
+      type: object
+      additionalProperties: false
+      properties:
+        appliedPatch:
+          $ref: '#/components/schemas/SocketPatch'
+        availablePatches:
+          type: array
+          items:
+            $ref: '#/components/schemas/SocketPatch'
+          description: List of available patches that can be applied to fix vulnerabilities
       description: ''
-      default: other
-    ReachabilityResult:
+    SocketBatchPURLRequest:
       type: object
       additionalProperties: false
       description: ''
       properties:
-        type:
+        purl:
           type: string
-          enum:
-          - precomputed
-          - full-scan
-          description: Type of reachability analysis performed
-          default: precomputed
-        results:
-          type: array
-          items:
-            $ref: '#/components/schemas/ReachabilityResultItem'
-          description: Reachability analysis results for each vulnerability
+          description: ''
+          default: ''
       required:
-      - results
-      - type
+      - purl
+    ReachabilityType:
+      type: string
+      enum:
+      - missing_support
+      - undeterminable_reachability
+      - pending
+      - unreachable
+      - unknown
+      - direct_dependency
+      - error
+      - maybe_reachable
+      - reachable
+      description: Status of reachability analysis for vulnerable code paths
+      default: unknown
     ClassStackItem:
       type: object
       additionalProperties: false
@@ -718,17 +713,176 @@ components:
           description: Confidence score from 0.0 to 1.0 indicating how certain the reachability analysis is about this result
           default: 0
       description: ''
-    SocketBatchPURLRequest:
+    SocketAlert:
       type: object
       additionalProperties: false
-      description: ''
       properties:
-        purl:
+        key:
           type: string
+          description: Unique identifier for this alert instance, used for deduplication and tracking across scans
+          default: ''
+        type:
+          type: string
+          description: Alert type identifier referencing the alert type definition
+          default: ''
+        severity:
+          $ref: '#/components/schemas/SocketIssueSeverity'
+        category:
+          $ref: '#/components/schemas/SocketCategory'
+        file:
+          type: string
+          description: File path where this alert was detected
+          default: ''
+        start:
+          type: integer
+          description: Starting position of the alert in the file
+          default: 0
+        end:
+          type: integer
+          description: Ending position of the alert in the file
+          default: 0
+        props:
+          type: object
+          description: Additional alert-specific properties and metadata that vary by alert type. For vulnerability alerts this includes the `cveId` and `ghsaId` identifiers, either of which may be an empty string when GitHub has not assigned that identifier to the advisory.
+          default: null
+        action:
+          type: string
+          description: Action to take for this alert (e.g., error, warn, ignore)
+          default: ''
+        actionSource:
+          type: object
+          additionalProperties: false
           description: ''
+          properties:
+            type:
+              type: string
+              description: Type of action source (e.g., policy, override)
+              default: ''
+            candidates:
+              type: array
+              items:
+                type: object
+                additionalProperties: false
+                description: ''
+                properties:
+                  type:
+                    type: string
+                    description: Type of action candidate
+                    default: ''
+                  action:
+                    type: string
+                    description: Proposed action for this candidate
+                    default: ''
+                  actionPolicyIndex:
+                    type: integer
+                    description: Index of the policy rule for this candidate
+                    default: 0
+                  repoLabelId:
+                    type: string
+                    description: Repository label ID associated with this candidate
+                    default: ''
+                required:
+                - action
+                - actionPolicyIndex
+                - repoLabelId
+                - type
+              description: ''
+          required:
+          - candidates
+          - type
+        actionPolicyIndex:
+          type: integer
+          description: Index of the policy rule that triggered this action, for traceability to security policies
+          default: 0
+        fix:
+          type: object
+          additionalProperties: false
+          properties:
+            type:
+              type: string
+              description: Type of fix available (e.g., upgrade, remove, cve)
+              default: ''
+            description:
+              type: string
+              description: Human-readable description of how to fix this issue
+              default: ''
+            patch:
+              type: array
+              items:
+                type: object
+                additionalProperties: false
+                properties:
+                  uuid:
+                    type: string
+                    description: Unique identifier for this patch
+                    default: ''
+                  tier:
+                    type: string
+                    enum:
+                    - free
+                    - paid
+                    description: Access tier required for this patch (free or paid)
+                    default: free
+                  deprecated:
+                    type: boolean
+                    default: false
+                    description: Indicates if this patch is deprecated and should not be used
+                required:
+                - tier
+                - uuid
+              description: Patches available to fix this specific alert
+          required:
+          - description
+          - type
+        patch:
+          $ref: '#/components/schemas/SocketPatch'
+        reachability:
+          type: object
+          additionalProperties: false
+          properties:
+            head:
+              $ref: '#/components/schemas/ReachabilityResult'
+            base:
+              $ref: '#/components/schemas/ReachabilityResult'
+          description: ''
+        subType:
+          type: string
+          description: Generic alert sub-type
           default: ''
       required:
-      - purl
+      - key
+      - type
+    SocketId:
+      type: string
+      description: ''
+      default: ''
+    BatchPurlStreamSchema:
+      anyOf:
+      - $ref: '#/components/schemas/SocketArtifact'
+      - type: object
+        additionalProperties: false
+        properties:
+          _type:
+            type: string
+            enum:
+            - purlError
+          value:
+            $ref: '#/components/schemas/PurlErrorSchema'
+        required:
+        - _type
+        - value
+      - type: object
+        additionalProperties: false
+        properties:
+          _type:
+            type: string
+            enum:
+            - summary
+          value:
+            $ref: '#/components/schemas/PurlSummarySchema'
+        required:
+        - _type
+        - value
     SAttrib1_N:
       type: array
       items:
@@ -776,115 +930,6 @@ components:
         - attribData
         - attribText
       description: ''
-    SocketManifestReference:
-      type: object
-      additionalProperties: false
-      properties:
-        file:
-          type: string
-          description: Path to the manifest file (e.g., package.json, pom.xml)
-          default: ''
-        start:
-          type: integer
-          description: Starting line or position in the manifest file
-          default: 0
-        end:
-          type: integer
-          description: Ending line or position in the manifest file
-          default: 0
-      required:
-      - file
-    SocketPatch:
-      type: object
-      additionalProperties: false
-      properties:
-        uuid:
-          type: string
-          description: Unique identifier for this patch
-          default: ''
-        tier:
-          type: string
-          enum:
-          - free
-          - paid
-          description: Access tier required for this patch (free or paid)
-          default: free
-        deprecated:
-          type: boolean
-          default: false
-          description: Indicates if this patch is deprecated and should not be used
-      required:
-      - tier
-      - uuid
-    SocketIssueSeverity:
-      type: string
-      enum:
-      - low
-      - middle
-      - high
-      - critical
-      description: ''
-      default: low
-    LicenseDetails:
-      type: array
-      items:
-        type: object
-        additionalProperties: false
-        description: ''
-        properties:
-          spdxDisj:
-            type: string
-            description: SPDX license expression in disjunctive normal form (e.g., '(MIT OR Apache-2.0)')
-            default: ''
-          authors:
-            type: array
-            items:
-              type: string
-              description: ''
-              default: ''
-            description: List of authors found in the license text
-          errorData:
-            type: string
-            description: Error details if license parsing failed
-            default: ''
-          provenance:
-            type: string
-            description: Source where this license information was detected (e.g., 'package.json', 'LICENSE file', 'README')
-            default: ''
-          filepath:
-            type: string
-            description: Path to the file containing this license information
-            default: ''
-          match_strength:
-            type: number
-            description: Confidence score from 0.0 to 1.0 indicating how well the detected license matches the source text
-            default: 0
-        required:
-        - authors
-        - errorData
-        - filepath
-        - match_strength
-        - provenance
-        - spdxDisj
-      description: ''
-    ReachabilityType:
-      type: string
-      enum:
-      - missing_support
-      - undeterminable_reachability
-      - pending
-      - unreachable
-      - unknown
-      - direct_dependency
-      - error
-      - maybe_reachable
-      - reachable
-      description: Status of reachability analysis for vulnerable code paths
-      default: unknown
-    SocketId:
-      type: string
-      description: ''
-      default: ''
     SocketScore:
       type: object
       additionalProperties: false
@@ -921,88 +966,6 @@ components:
       - quality
       - supplyChain
       - vulnerability
-    SocketOrgBatchPURLFetch:
-      type: object
-      additionalProperties: false
-      properties:
-        components:
-          type: array
-          items:
-            $ref: '#/components/schemas/SocketBatchPURLRequest'
-          description: ''
-      required:
-      - components
-    CallStackItem:
-      type: object
-      additionalProperties: false
-      properties:
-        purl:
-          type: string
-          description: Package URL (PURL) of the dependency containing this code
-          default: ''
-        sourceLocation:
-          $ref: '#/components/schemas/SourceLocation'
-        confidence:
-          type: number
-          description: Confidence score from 0.0 to 1.0 indicating how certain the reachability analysis is about this result
-          default: 0
-      description: ''
-    ReachabilityResultItem:
-      type: object
-      additionalProperties: false
-      properties:
-        type:
-          $ref: '#/components/schemas/ReachabilityType'
-        truncated:
-          type: boolean
-          default: false
-          description: Indicates if the reachability analysis was stopped early due to depth or complexity limits
-        error:
-          type: string
-          description: Error message if reachability analysis failed
-          default: ''
-        matches:
-          anyOf:
-          - type: object
-            additionalProperties: false
-            properties:
-              type:
-                type: string
-                enum:
-                - function-level
-              value:
-                type: array
-                items:
-                  type: array
-                  items:
-                    $ref: '#/components/schemas/CallStackItem'
-                  description: ''
-                description: ''
-          - type: object
-            additionalProperties: false
-            properties:
-              type:
-                type: string
-                enum:
-                - class-level
-              value:
-                type: array
-                items:
-                  type: array
-                  items:
-                    $ref: '#/components/schemas/ClassStackItem'
-                  description: ''
-                description: ''
-        workspacePath:
-          type: string
-          description: Path to the workspace root for multi-workspace projects
-          default: ''
-        subprojectPath:
-          type: string
-          description: Path to the subproject within the workspace
-          default: ''
-      required:
-      - type
     SocketArtifact:
       allOf:
       - $ref: '#/components/schemas/SocketPURL'
@@ -1056,6 +1019,86 @@ components:
             $ref: '#/components/schemas/LicenseDetails'
           licenseAttrib:
             $ref: '#/components/schemas/SAttrib1_N'
+    ReachabilityResult:
+      type: object
+      additionalProperties: false
+      description: ''
+      properties:
+        type:
+          type: string
+          enum:
+          - precomputed
+          - full-scan
+          description: Type of reachability analysis performed
+          default: precomputed
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/ReachabilityResultItem'
+          description: Reachability analysis results for each vulnerability
+      required:
+      - results
+      - type
+    LicenseDetails:
+      type: array
+      items:
+        type: object
+        additionalProperties: false
+        description: ''
+        properties:
+          spdxDisj:
+            type: string
+            description: SPDX license expression in disjunctive normal form (e.g., '(MIT OR Apache-2.0)')
+            default: ''
+          authors:
+            type: array
+            items:
+              type: string
+              description: ''
+              default: ''
+            description: List of authors found in the license text
+          errorData:
+            type: string
+            description: Error details if license parsing failed
+            default: ''
+          provenance:
+            type: string
+            description: Source where this license information was detected (e.g., 'package.json', 'LICENSE file', 'README')
+            default: ''
+          filepath:
+            type: string
+            description: Path to the file containing this license information
+            default: ''
+          match_strength:
+            type: number
+            description: Confidence score from 0.0 to 1.0 indicating how well the detected license matches the source text
+            default: 0
+        required:
+        - authors
+        - errorData
+        - filepath
+        - match_strength
+        - provenance
+        - spdxDisj
+      description: ''
+    SocketManifestReference:
+      type: object
+      additionalProperties: false
+      properties:
+        file:
+          type: string
+          description: Path to the manifest file (e.g., package.json, pom.xml)
+          default: ''
+        start:
+          type: integer
+          description: Starting line or position in the manifest file
+          default: 0
+        end:
+          type: integer
+          description: Ending line or position in the manifest file
+          default: 0
+      required:
+      - file
     PurlSummarySchema:
       type: object
       additionalProperties: false
@@ -1094,22 +1137,6 @@ components:
       - errors
       - purl_input
       - resolved
-    PurlErrorSchema:
-      type: object
-      additionalProperties: false
-      description: ''
-      properties:
-        error:
-          type: string
-          description: ''
-          default: ''
-        inputPurl:
-          type: string
-          description: ''
-          default: ''
-      required:
-      - error
-      - inputPurl
     SocketArtifactLink:
       type: object
       additionalProperties: false
@@ -1261,184 +1288,84 @@ components:
           properties: {}
           description: Mapping of alert keys to arrays of reachability summaries. Each summary contains a reachability type indicating the result of reachability analysis for the corresponding vulnerability alert.
       description: ''
-    BatchPurlStreamSchema:
-      anyOf:
-      - $ref: '#/components/schemas/SocketArtifact'
-      - type: object
-        additionalProperties: false
-        properties:
-          _type:
-            type: string
-            enum:
-            - purlError
-          value:
-            $ref: '#/components/schemas/PurlErrorSchema'
-        required:
-        - _type
-        - value
-      - type: object
-        additionalProperties: false
-        properties:
-          _type:
-            type: string
-            enum:
-            - summary
-          value:
-            $ref: '#/components/schemas/PurlSummarySchema'
-        required:
-        - _type
-        - value
-    SocketArtifactPatch:
+    ReachabilityResultItem:
       type: object
       additionalProperties: false
       properties:
-        appliedPatch:
-          $ref: '#/components/schemas/SocketPatch'
-        availablePatches:
-          type: array
-          items:
-            $ref: '#/components/schemas/SocketPatch'
-          description: List of available patches that can be applied to fix vulnerabilities
-      description: ''
-    SocketAlert:
-      type: object
-      additionalProperties: false
-      properties:
-        key:
-          type: string
-          description: Unique identifier for this alert instance, used for deduplication and tracking across scans
-          default: ''
         type:
+          $ref: '#/components/schemas/ReachabilityType'
+        truncated:
+          type: boolean
+          default: false
+          description: Indicates if the reachability analysis was stopped early due to depth or complexity limits
+        error:
           type: string
-          description: Alert type identifier referencing the alert type definition
+          description: Error message if reachability analysis failed
           default: ''
-        severity:
-          $ref: '#/components/schemas/SocketIssueSeverity'
-        category:
-          $ref: '#/components/schemas/SocketCategory'
-        file:
-          type: string
-          description: File path where this alert was detected
-          default: ''
-        start:
-          type: integer
-          description: Starting position of the alert in the file
-          default: 0
-        end:
-          type: integer
-          description: Ending position of the alert in the file
-          default: 0
-        props:
-          type: object
-          description: Additional alert-specific properties and metadata that vary by alert type. For vulnerability alerts this includes the `cveId` and `ghsaId` identifiers, either of which may be an empty string when GitHub has not assigned that identifier to the advisory.
-          default: null
-        action:
-          type: string
-          description: Action to take for this alert (e.g., error, warn, ignore)
-          default: ''
-        actionSource:
-          type: object
-          additionalProperties: false
-          description: ''
-          properties:
-            type:
-              type: string
-              description: Type of action source (e.g., policy, override)
-              default: ''
-            candidates:
-              type: array
-              items:
-                type: object
-                additionalProperties: false
+        matches:
+          anyOf:
+          - type: object
+            additionalProperties: false
+            properties:
+              type:
+                type: string
+                enum:
+                - function-level
+              value:
+                type: array
+                items:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/CallStackItem'
+                  description: ''
                 description: ''
-                properties:
-                  type:
-                    type: string
-                    description: Type of action candidate
-                    default: ''
-                  action:
-                    type: string
-                    description: Proposed action for this candidate
-                    default: ''
-                  actionPolicyIndex:
-                    type: integer
-                    description: Index of the policy rule for this candidate
-                    default: 0
-                  repoLabelId:
-                    type: string
-                    description: Repository label ID associated with this candidate
-                    default: ''
-                required:
-                - action
-                - actionPolicyIndex
-                - repoLabelId
-                - type
-              description: ''
-          required:
-          - candidates
-          - type
-        actionPolicyIndex:
-          type: integer
-          description: Index of the policy rule that triggered this action, for traceability to security policies
-          default: 0
-        fix:
-          type: object
-          additionalProperties: false
-          properties:
-            type:
-              type: string
-              description: Type of fix available (e.g., upgrade, remove, cve)
-              default: ''
-            description:
-              type: string
-              description: Human-readable description of how to fix this issue
-              default: ''
-            patch:
-              type: array
-              items:
-                type: object
-                additionalProperties: false
-                properties:
-                  uuid:
-                    type: string
-                    description: Unique identifier for this patch
-                    default: ''
-                  tier:
-                    type: string
-                    enum:
-                    - free
-                    - paid
-                    description: Access tier required for this patch (free or paid)
-                    default: free
-                  deprecated:
-                    type: boolean
-                    default: false
-                    description: Indicates if this patch is deprecated and should not be used
-                required:
-                - tier
-                - uuid
-              description: Patches available to fix this specific alert
-          required:
-          - description
-          - type
-        patch:
-          $ref: '#/components/schemas/SocketPatch'
-        reachability:
-          type: object
-          additionalProperties: false
-          properties:
-            head:
-              $ref: '#/components/schemas/ReachabilityResult'
-            base:
-              $ref: '#/components/schemas/ReachabilityResult'
-          description: ''
-        subType:
+          - type: object
+            additionalProperties: false
+            properties:
+              type:
+                type: string
+                enum:
+                - class-level
+              value:
+                type: array
+                items:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/ClassStackItem'
+                  description: ''
+                description: ''
+        workspacePath:
           type: string
-          description: Generic alert sub-type
+          description: Path to the workspace root for multi-workspace projects
+          default: ''
+        subprojectPath:
+          type: string
+          description: Path to the subproject within the workspace
           default: ''
       required:
-      - key
       - type
+    SocketPatch:
+      type: object
+      additionalProperties: false
+      properties:
+        uuid:
+          type: string
+          description: Unique identifier for this patch
+          default: ''
+        tier:
+          type: string
+          enum:
+          - free
+          - paid
+          description: Access tier required for this patch (free or paid)
+          default: free
+        deprecated:
+          type: boolean
+          default: false
+          description: Indicates if this patch is deprecated and should not be used
+      required:
+      - tier
+      - uuid
     SourceLocation:
       type: object
       additionalProperties: false
@@ -1495,36 +1422,109 @@ components:
       - fileHash
       - filename
       - start
-    SocketPURL:
+    SocketOrgBatchPURLFetch:
       type: object
       additionalProperties: false
       properties:
-        type:
-          $ref: '#/components/schemas/SocketPURL_Type'
-        namespace:
+        components:
+          type: array
+          items:
+            $ref: '#/components/schemas/SocketBatchPURLRequest'
+          description: ''
+      required:
+      - components
+    PurlErrorSchema:
+      type: object
+      additionalProperties: false
+      description: ''
+      properties:
+        error:
           type: string
-          description: Package namespace or scope, such as npm organizations (@angular), Maven groupIds, or Docker image owners
+          description: ''
           default: ''
-        name:
+        inputPurl:
           type: string
-          description: Package name within its ecosystem
-          default: ''
-        version:
-          type: string
-          description: Package version string
-          default: ''
-        subpath:
-          type: string
-          description: Path within the package to a specific file or directory, used to reference nested components
-          default: ''
-        release:
-          type: string
-          description: Package-specific release identifier, such as PyPI's artifact ID or the specific build/release version
+          description: ''
           default: ''
       required:
-      - type
+      - error
+      - inputPurl
+    SocketCategory:
+      type: string
+      enum:
+      - supplyChainRisk
+      - quality
+      - maintenance
+      - vulnerability
+      - license
+      - other
+      description: ''
+      default: other
+    SocketIssueSeverity:
+      type: string
+      enum:
+      - low
+      - middle
+      - high
+      - critical
+      description: ''
+      default: low
+    SocketPURL_Type:
+      type: string
+      enum:
+      - alpm
+      - apk
+      - bitbucket
+      - cocoapods
+      - cargo
+      - chrome
+      - clawhub
+      - composer
+      - conan
+      - conda
+      - cran
+      - deb
+      - docker
+      - gem
+      - generic
+      - github
+      - golang
+      - hackage
+      - hex
+      - huggingface
+      - maven
+      - mlflow
+      - npm
+      - nuget
+      - qpkg
+      - oci
+      - pub
+      - pypi
+      - rpm
+      - socket
+      - swid
+      - swift
+      - vscode
+      - unknown
+      description: Package ecosystem type identifier based on the PURL specification
+      default: unknown
+    CallStackItem:
+      type: object
+      additionalProperties: false
+      properties:
+        purl:
+          type: string
+          description: Package URL (PURL) of the dependency containing this code
+          default: ''
+        sourceLocation:
+          $ref: '#/components/schemas/SourceLocation'
+        confidence:
+          type: number
+          description: Confidence score from 0.0 to 1.0 indicating how certain the reachability analysis is about this result
+          default: 0
+      description: ''
   responses:
-    SocketForbidden:
+    SocketUnauthorized:
       content:
         application/json:
           schema:
@@ -1552,7 +1552,7 @@ components:
                 - message
             required:
             - error
-      description: Insufficient max_quota for API method
+      description: Unauthorized
     SocketBadRequest:
       content:
         application/json:
@@ -1582,6 +1582,64 @@ components:
             required:
             - error
       description: Bad request
+    SocketNotFoundResponse:
+      content:
+        application/json:
+          schema:
+            type: object
+            additionalProperties: false
+            description: ''
+            properties:
+              error:
+                type: object
+                additionalProperties: false
+                description: ''
+                properties:
+                  message:
+                    type: string
+                    description: ''
+                    default: ''
+                  details:
+                    type:
+                    - object
+                    - 'null'
+                    description: ''
+                    default: null
+                required:
+                - details
+                - message
+            required:
+            - error
+      description: Resource not found
+    SocketForbidden:
+      content:
+        application/json:
+          schema:
+            type: object
+            additionalProperties: false
+            description: ''
+            properties:
+              error:
+                type: object
+                additionalProperties: false
+                description: ''
+                properties:
+                  message:
+                    type: string
+                    description: ''
+                    default: ''
+                  details:
+                    type:
+                    - object
+                    - 'null'
+                    description: ''
+                    default: null
+                required:
+                - details
+                - message
+            required:
+            - error
+      description: Insufficient max_quota for API method
     SocketTooManyRequestsResponse:
       description: Insufficient quota for API route
       headers:
@@ -1619,64 +1677,6 @@ components:
                 - message
             required:
             - error
-    SocketUnauthorized:
-      content:
-        application/json:
-          schema:
-            type: object
-            additionalProperties: false
-            description: ''
-            properties:
-              error:
-                type: object
-                additionalProperties: false
-                description: ''
-                properties:
-                  message:
-                    type: string
-                    description: ''
-                    default: ''
-                  details:
-                    type:
-                    - object
-                    - 'null'
-                    description: ''
-                    default: null
-                required:
-                - details
-                - message
-            required:
-            - error
-      description: Unauthorized
-    SocketNotFoundResponse:
-      content:
-        application/json:
-          schema:
-            type: object
-            additionalProperties: false
-            description: ''
-            properties:
-              error:
-                type: object
-                additionalProperties: false
-                description: ''
-                properties:
-                  message:
-                    type: string
-                    description: ''
-                    default: ''
-                  details:
-                    type:
-                    - object
-                    - 'null'
-                    description: ''
-                    default: null
-                required:
-                - details
-                - message
-            required:
-            - error
-      description: Resource not found
   securitySchemes:
     bearerAuth:
       type: http

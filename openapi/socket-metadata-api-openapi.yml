@@ -433,15 +433,44 @@ paths:
       x-readme: {}
 components:
   schemas:
-    SLicenseMetaReq:
-      type: object
-      description: ''
-      default: null
     SLicenseMetaRes:
       type: object
       description: ''
       default: null
+    SLicenseMetaReq:
+      type: object
+      description: ''
+      default: null
   responses:
+    SocketNotFoundResponse:
+      content:
+        application/json:
+          schema:
+            type: object
+            additionalProperties: false
+            description: ''
+            properties:
+              error:
+                type: object
+                additionalProperties: false
+                description: ''
+                properties:
+                  message:
+                    type: string
+                    description: ''
+                    default: ''
+                  details:
+                    type:
+                    - object
+                    - 'null'
+                    description: ''
+                    default: null
+                required:
+                - details
+                - message
+            required:
+            - error
+      description: Resource not found
     SocketTooManyRequestsResponse:
       description: Insufficient quota for API route
       headers:
@@ -479,35 +508,6 @@ components:
                 - message
             required:
             - error
-    SocketNotFoundResponse:
-      content:
-        application/json:
-          schema:
-            type: object
-            additionalProperties: false
-            description: ''
-            properties:
-              error:
-                type: object
-                additionalProperties: false
-                description: ''
-                properties:
-                  message:
-                    type: string
-                    description: ''
-                    default: ''
-                  details:
-                    type:
-                    - object
-                    - 'null'
-                    description: ''
-                    default: null
-                required:
-                - details
-                - message
-            required:
-            - error
-      description: Resource not found
     SocketBadRequest:
       content:
         application/json:

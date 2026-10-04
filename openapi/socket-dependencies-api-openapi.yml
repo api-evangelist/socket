@@ -611,16 +611,7 @@ paths:
       x-readme: {}
 components:
   responses:
-    SocketTooManyRequestsResponse:
-      description: Insufficient quota for API route
-      headers:
-        Retry-After:
-          description: 'Retry contacting the endpoint *at least* after seconds.
-
-            See https://tools.ietf.org/html/rfc7231#section-7.1.3'
-          schema:
-            format: int32
-            type: integer
+    SocketUnauthorized:
       content:
         application/json:
           schema:
@@ -648,6 +639,7 @@ components:
                 - message
             required:
             - error
+      description: Unauthorized
     SocketNotFoundResponse:
       content:
         application/json:
@@ -706,7 +698,16 @@ components:
             required:
             - error
       description: Insufficient max_quota for API method
-    SocketUnauthorized:
+    SocketTooManyRequestsResponse:
+      description: Insufficient quota for API route
+      headers:
+        Retry-After:
+          description: 'Retry contacting the endpoint *at least* after seconds.
+
+            See https://tools.ietf.org/html/rfc7231#section-7.1.3'
+          schema:
+            format: int32
+            type: integer
       content:
         application/json:
           schema:
@@ -734,7 +735,6 @@ components:
                 - message
             required:
             - error
-      description: Unauthorized
     SocketBadRequest:
       content:
         application/json:

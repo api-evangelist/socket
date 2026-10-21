@@ -2,13 +2,8 @@ generated: '2026-10-14'
 method: searched
 checked:
 - https://api.nuget.org/v3
-- https://cdn.winget.microsoft.com/cache
 - https://crates.io/api/v1
 - https://cyclonedx.org/tool-center/
-- https://formulae.brew.sh/api/cask.json
-- https://formulae.brew.sh/api/formula.json
-- https://github.com/ScoopInstaller/Extras
-- https://github.com/ScoopInstaller/Main
 - https://github.com/marketplace?type=actions
 - https://github.com/marketplace?type=apps
 - https://proxy.golang.org
@@ -19,6 +14,17 @@ checked:
 - https://rubygems.org/api/v1
 - https://spdx.dev/use/spdx-tools/
 - https://www.openchainproject.org/community-of-conformance
+- https://cdn.winget.microsoft.com/cache
+- https://formulae.brew.sh/api/cask.json
+- https://formulae.brew.sh/api/formula.json
+- https://github.com/ScoopInstaller/Extras
+- https://github.com/ScoopInstaller/Main
+- https://a16z.com/portfolio/
+- https://www.battery.com/company/
+- https://www.battery.com/wp-admin/admin-ajax.php
+- https://www.indexventures.com/companies/
+- https://www.sequoiacap.com/our-companies/
+- https://www.sequoiacap.com/sitemap.xml
 marketplace_apps: []
 edges:
 - partner_name: GitHub Marketplace (apps)
@@ -218,6 +224,35 @@ edges:
     detected: '2026-10-20'
   detected_by: sweep-official-clis.py
   first_seen: '2026-10-20'
+- partner_name: Andreessen Horowitz (a16z)
+  partner: a16z
+  partner_match: register
+  type: register
+  channel: standard-directory
+  relationship: standard-participant
+  direction: partner-built
+  evidence: https://a16z.com/companies/socket-dev/
+  category: vc portfolio participation
+  contract_reference:
+    register: a16z portfolio (a16z.com/portfolio/, the page's own data-companies JSON)
+    standard: null
+    spec_file: null
+    role: vc-portfolio-company
+    registered_name: Socket
+    register_id: https://a16z.com/companies/socket-dev/
+    register_country: null
+    register_website: https://socket.dev
+    matched_domain: socket.dev
+    matched_by: domain
+    signal_note: 'participation only: the venture firm''s own published portfolio lists the company (investment);
+      an ownership and participation record, not conformance or certification'
+    detected_by: sweep-vc-portfolios.py
+    detected: '2026-10-21'
+    year: '2021'
+    status: Active
+    sector: Enterprise;Infra
+  detected_by: sweep-vc-portfolios.py
+  first_seen: '2026-10-21'
 source:
 - https://github.com/marketplace?type=actions
 - https://github.com/marketplace?type=apps
